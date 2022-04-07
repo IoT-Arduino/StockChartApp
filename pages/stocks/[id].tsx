@@ -1,9 +1,6 @@
 import React from 'react'
-import dynamic from "next/dynamic";
 
-const StockChartView = dynamic(() => import("../components/ChartComponent.jsx"), {
-  ssr: false,
-});
+import CandleChart from "../../components/CandleChart";
 
 export async function getServerSideProps({ query }) {
 
@@ -24,17 +21,15 @@ export async function getServerSideProps({ query }) {
   };
 }
 
-
 const StockChart = ({ priceData,edinetData,id }) => {
   // console.log(priceData)
   // console.log(edinetData)
 
   return (
-    <>
+    <div>
       <div>StockChartPage {id}</div>
-
-      {/*  <StockChartView priceData={priceData} /> */}
-    </>
+      <CandleChart priceData={priceData} edinetData={edinetData} />
+    </div>
   );
 };
 
