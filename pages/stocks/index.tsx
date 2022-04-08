@@ -26,7 +26,7 @@ export default function index({codeList}) {
             return (
               <li key={i}>
                 <Link href={`/stocks/${code.securitiesCode}`}>
-                  <a>{code.submitterName}</a>
+                  <a>{code.submitterName}/{ code.securitiesCode}</a>
                 </Link>
               </li>
             );
