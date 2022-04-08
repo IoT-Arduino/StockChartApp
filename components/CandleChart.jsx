@@ -1,9 +1,21 @@
 import ReactEcharts from "echarts-for-react";
 
 function CandleChart({ priceData, edinetData }) {
-  
-  console.log(edinetData)
+  //   Edinetのデータは日付を省略して月のデータにする。
 
+  const newEdinetData = edinetData.map((item) => {
+    return {
+      stockCode: item.stockCode,
+      per: item.per,
+      cashFlowFromOperatingActivities: item.cashFlowFromOperatingActivities,
+      date:
+        item.endDate.toString().split("/")[0] +
+        "/" +
+        item.endDate.toString().split("/")[1],
+    };
+  });
+
+  // 株価データの処理
   let result = priceData.sort(function (a, b) {
     return a.date < b.date ? -1 : 1; //オブジェクト 日付での昇順ソート
   });
@@ -22,6 +34,37 @@ function CandleChart({ priceData, edinetData }) {
   });
 
   const volumes = [86160000, 79330000, 102600000];
+
+  // 　日付をキーとして、edinetと株価データをまとめて一つのオブジェクトにして、連想配列にする。
+  // edinetの月　と　priceDataの月　2桁になるように注意。
+  // priceDataが整備されたのち改めて確認する！！　
+  //　1376のデータ加工で暫定テスト中
+  
+  // console.log(newEdinetData[4].date);
+  // console.log(priceData[0].date);
+  
+  console.log(priceData)
+
+  const companyData = priceData.map((price) => {
+    return {
+      date: price.date,
+      open: parseInt(price.open.replace(/,/g, "")),
+      close: parseInt(price.close.replace(/,/g, "")),
+      high:  parseInt(price.high.replace(/,/g, "")),
+      low:  parseInt(price.low.replace(/,/g, "")),
+      per: newEdinetData.find((value) => value.date === price.date)?.per,
+      cashFlowFromOperatingActivities: newEdinetData.find(
+        (value) => value.date === price.date
+      )?.cashFlowFromOperatingActivities,
+    };
+  });
+
+  const perData = companyData.map((item) => {
+    return item.per * 100;
+  });
+
+  console.log(perData);
+
   const option = {
     xAxis: {
       data: newDateData,
@@ -55,7 +98,7 @@ function CandleChart({ priceData, edinetData }) {
       {
         name: "DummyData",
         type: "line",
-        data: [3400, 4142, 3300],
+        data: perData,
         smooth: false,
         showSymbol: true,
         lineStyle: {
@@ -64,6 +107,11 @@ function CandleChart({ priceData, edinetData }) {
       },
     ],
   };
-  return <ReactEcharts option={option} />;
+  return (
+    <div>
+      <ReactEcharts option={option} />
+      <p>PER:</p>
+    </div>
+  );
 }
 export default CandleChart;

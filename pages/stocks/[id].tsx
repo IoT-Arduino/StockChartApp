@@ -10,7 +10,7 @@ export async function getServerSideProps({ query }) {
   const priceData = await reqList.json();
   const edinetData = await reqList2.json();
 
-  console.log(query.id)
+  // console.log(edinetData);
 
   return {
     props: {
