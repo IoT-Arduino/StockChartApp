@@ -2,7 +2,7 @@ import React from 'react'
 import Link from "next/link";
 import styles from "../../styles/Home.module.css";
 
-import dynamic from "next/dynamic";
+// import dynamic from "next/dynamic";
 
 export async function getServerSideProps() {
   const reqList = await fetch(
