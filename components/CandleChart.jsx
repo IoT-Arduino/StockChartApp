@@ -2,7 +2,6 @@ import ReactEcharts from "echarts-for-react";
 
 function CandleChart({ priceData, edinetData }) {
   //   Edinetのデータは日付を省略して月のデータにする。
-
   const newEdinetData = edinetData.map((item) => {
     // 年月データの加工処理。
     const year = item.endDate.toString().split("/")[0];
@@ -19,6 +18,10 @@ function CandleChart({ priceData, edinetData }) {
       per: item.per,
       bps: item.bps,
       eps: item.eps,
+      outstandingShares: item.outstandingShares,
+      treasuryStock: item.treasuryStock,
+      equityRatio: item.equityRatio,
+      ordinaryProfit: item.ordinaryProfit,
       cashFlowFromOperatingActivities: item.cashFlowFromOperatingActivities,
       date: year + "/" + month,
     };
@@ -45,6 +48,10 @@ function CandleChart({ priceData, edinetData }) {
   // 　日付をキーとして、edinetと株価データをまとめて一つのオブジェクトにして、連想配列にする
 
   const companyData = priceData.map((price) => {
+    const close = parseInt(price.close.replace(/,/g, ""));
+    const bps = newEdinetData.find((value) => value.date === price.date)?.bps;
+    const pbr = Math.round((close / bps) * 100) / 100;
+
     return {
       date: price.date,
       open: parseInt(price.open.replace(/,/g, "")),
@@ -56,12 +63,26 @@ function CandleChart({ priceData, edinetData }) {
       attributeMemo: price.attributeMemo,
       per: newEdinetData.find((value) => value.date === price.date)?.per,
       eps: newEdinetData.find((value) => value.date === price.date)?.eps,
+      pbr: pbr ? pbr : null,
       bps: newEdinetData.find((value) => value.date === price.date)?.bps,
+
+      outstandingShares: newEdinetData.find(
+        (value) => value.date === price.date
+      )?.outstandingShares,
+      treasuryStock: newEdinetData.find((value) => value.date === price.date)
+        ?.treasuryStock,
+      equityRatio: newEdinetData.find((value) => value.date === price.date)
+        ?.equityRatio,
+      ordinaryProfit: newEdinetData.find((value) => value.date === price.date)
+        ?.ordinaryProfit,
+
       cashFlowFromOperatingActivities: newEdinetData.find(
         (value) => value.date === price.date
       )?.cashFlowFromOperatingActivities,
     };
   });
+
+  console.log(companyData);
 
   // グラフ,テーブル表示の為の配列データを作成
   const valueStockPriceData = companyData.map((item) => {
@@ -73,7 +94,47 @@ function CandleChart({ priceData, edinetData }) {
   });
 
   // attribute　（株式発行情報メモ：新株落ち等）値のあるデータだけ。
-  const attributeData = companyData.filter(item => item.attribute !== null )
+  const attributeData = companyData.filter((item) => item.attribute !== null);
+
+  // 理論株価の計算 : 書籍P242から。財務レバレッジ補正とリーマンショックルール未対応。
+  const theoryStockPrice = companyData.map((item) => {
+    //資産価値
+    let assetValue;
+
+    if (item.equityRatio >= 0.8) {
+      assetValue = item.bps * 0.8;
+    } else if (item.equityRatio >= 0.67) {
+      assetValue = item.bps * 0.75;
+    } else if (item.equityRatio >= 0.5) {
+      assetValue = item.bps * 0.7;
+    } else if (item.equityRatio >= 0.33) {
+      assetValue = item.bps * 0.65;
+    } else if (item.equityRatio >= 0.1) {
+      assetValue = item.bps * 0.6;
+    } else {
+      assetValue = item.bps * 0.5;
+    }
+
+    // 事業価値
+    let operationValue;
+
+    operationValue =
+      (item.ordinaryProfit * 0.7) /
+      (item.outstandingShares - item.treasuryStock); 
+    
+    if (operationValue > item.bps * 0.6) {
+      operationValue = item.bps * 0.6;
+    }     
+
+    // 理論株価
+    const theoryPrice = assetValue + operationValue;
+
+    return theoryPrice;
+  });
+
+
+  console.log(theoryStockPrice);
+
 
   const option = {
     xAxis: [
@@ -142,7 +203,7 @@ function CandleChart({ priceData, edinetData }) {
       {
         name: "DummyData",
         type: "line",
-        data: valueStockPriceData,
+        data: theoryStockPrice,
         smooth: true,
         showSymbol: true,
         xAxisIndex: 0,
@@ -179,7 +240,9 @@ function CandleChart({ priceData, edinetData }) {
             return (
               <li key={i}>
                 {item.date} / Close株価: {item.close} /
-                {item.eps && `事業価値株価:${parseInt(item.eps + item.bps)}`}
+                {item.per && `PER:${item.per}`}/
+                {item.eps && `EPS:${item.eps}円`}/
+                {item.pbr && `PBR:${item.pbr}`}/{item.bps && `BPS:${item.bps}`}
               </li>
             );
           })}

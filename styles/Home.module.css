@@ -12,6 +12,10 @@
   align-items: center;
 }
 
+.chartBlock {
+  margin-top: 1rem;
+}
+
 .footer {
   display: flex;
   flex: 1;
