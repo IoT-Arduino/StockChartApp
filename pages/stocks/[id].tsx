@@ -1,6 +1,6 @@
 import React from 'react'
-
 import CandleChart from "../../components/CandleChart";
+import styles from "../../styles/Home.module.css";
 
 export async function getServerSideProps({ query }) {
 
@@ -26,9 +26,11 @@ const StockChart = ({ priceData,edinetData,id }) => {
   // console.log(edinetData)
 
   return (
-    <div>
-      <div>StockChartPage {id}</div>
-      <CandleChart priceData={priceData} edinetData={edinetData} />
+    <div className={styles.container}>
+      <main className={styles.chartBlock}>
+        <div>StockChartPage {id}</div>
+        <CandleChart priceData={priceData} edinetData={edinetData} />
+      </main>
     </div>
   );
 };
