@@ -1,6 +1,8 @@
 import ReactEcharts from "echarts-for-react";
 
 function CandleChart({ priceData, edinetData }) {
+  console.log(edinetData)
+
   //   Edinetのデータは日付を省略して月のデータにする。
   const newEdinetData = edinetData.map((item) => {
     // 年月データの加工処理。
@@ -82,7 +84,7 @@ function CandleChart({ priceData, edinetData }) {
     };
   });
 
-  console.log(companyData);
+  // console.log(companyData);
 
   // グラフ,テーブル表示の為の配列データを作成
   const valueStockPriceData = companyData.map((item) => {
@@ -133,7 +135,7 @@ function CandleChart({ priceData, edinetData }) {
   });
 
 
-  console.log(theoryStockPrice);
+  // console.log(theoryStockPrice);
 
 
   const option = {
