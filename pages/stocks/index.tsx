@@ -1,22 +1,27 @@
-import React from 'react'
+import React from "react";
 import Link from "next/link";
 import styles from "../../styles/Home.module.css";
 
 // import dynamic from "next/dynamic";
 
 export async function getServerSideProps() {
-  const reqList = await fetch(
-    `http://localhost:3000/stockCode/edinet-codeList-export.json`
-  );
-  const codeList = await reqList.json();
-  return {
-    props: {
-      codeList,
-    }, 
-  };
+  try {
+    const reqList = await fetch(
+      `http://localhost:3000/stockCode/edinet-codeList-export.json`
+    );
+    const codeList = await reqList.json();
+    return {
+      props: {
+        codeList,
+      },
+    };
+  } catch (err) {
+    console.log(err);
+  }
 }
 
-export default function index({codeList}) {
+export default function index({ codeList }) {
+  console.log(codeList)
   return (
     <div className={styles.container}>
       <main className={styles.main}>
@@ -26,7 +31,10 @@ export default function index({codeList}) {
             return (
               <li key={i}>
                 <Link href={`/stocks/${code.securitiesCode}`}>
-                  <a>{code.submitterName}/{ code.securitiesCode}</a>
+                  <a>
+                    {code.submitterName}/{code.securitiesCode}/{code.industory}/
+                    {code.会計基準}/連結:{code.consolidated}
+                  </a>
                 </Link>
               </li>
             );
