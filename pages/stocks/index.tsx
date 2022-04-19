@@ -7,7 +7,7 @@ import styles from "../../styles/Home.module.css";
 export async function getServerSideProps() {
   try {
     const reqList = await fetch(
-      `http://localhost:3000/stockCode/edinet-codeList-export.json`
+      `http://localhost:3000/stockCode/sp-ciklist.json`
     );
     const codeList = await reqList.json();
     return {
@@ -30,10 +30,9 @@ export default function index({ codeList }) {
           {codeList.map((code, i) => {
             return (
               <li key={i}>
-                <Link href={`/stocks/${code.securitiesCode}`}>
+                <Link href={`/stocks/${code.CIK}`}>
                   <a>
-                    {code.submitterName}/{code.securitiesCode}/{code.industory}/
-                    {code.会計基準}/連結:{code.consolidated}
+                    {code.Security}/{code.Symbol}
                   </a>
                 </Link>
               </li>
