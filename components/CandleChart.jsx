@@ -1,7 +1,7 @@
 import ReactEcharts from "echarts-for-react";
 
-function CandleChart({ priceData, edinetData }) {
-  console.log(edinetData)
+function CandleChart({ priceData, edgarData }) {
+  console.log(edgarData);
 
   //   Edinetのデータは日付を省略して月のデータにする。
   const newEdinetData = edinetData.map((item) => {
@@ -122,11 +122,11 @@ function CandleChart({ priceData, edinetData }) {
 
     operationValue =
       (item.ordinaryProfit * 0.7) /
-      (item.outstandingShares - item.treasuryStock); 
-    
+      (item.outstandingShares - item.treasuryStock);
+
     if (operationValue > item.bps * 0.6) {
       operationValue = item.bps * 0.6;
-    }     
+    }
 
     // 理論株価
     const theoryPrice = assetValue + operationValue;
@@ -134,9 +134,7 @@ function CandleChart({ priceData, edinetData }) {
     return theoryPrice;
   });
 
-
   // console.log(theoryStockPrice);
-
 
   const option = {
     xAxis: [

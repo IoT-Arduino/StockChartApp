@@ -21,7 +21,7 @@ export async function getServerSideProps() {
 }
 
 export default function index({ codeList }) {
-  console.log(codeList)
+  // console.log(codeList)
   return (
     <div className={styles.container}>
       <main className={styles.main}>
