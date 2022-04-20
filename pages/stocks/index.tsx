@@ -7,12 +7,20 @@ import styles from "../../styles/Home.module.css";
 export async function getServerSideProps() {
   try {
     const reqList = await fetch(
-      `http://localhost:3000/stockCode/sp-ciklist.json`
+      `http://localhost:3000/stockCode/US-StockListSample100.json`
     );
     const codeList = await reqList.json();
+    const codeListSorted = codeList.sort(function (a, b) {
+      if (a.CIK > b.CIK) {
+        return 1;
+      } else {
+        return -1;
+      }
+    });
+ 
     return {
       props: {
-        codeList,
+        codeList: codeListSorted,
       },
     };
   } catch (err) {
@@ -21,7 +29,6 @@ export async function getServerSideProps() {
 }
 
 export default function index({ codeList }) {
-  // console.log(codeList)
   return (
     <div className={styles.container}>
       <main className={styles.main}>
@@ -32,7 +39,7 @@ export default function index({ codeList }) {
               <li key={i}>
                 <Link href={`/stocks/${code.CIK}`}>
                   <a>
-                    {code.Security}/{code.Symbol}
+                    {code.Name}/{code.Ticker}/{code.CIK}
                   </a>
                 </Link>
               </li>
