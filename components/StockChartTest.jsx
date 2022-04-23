@@ -2,7 +2,7 @@ import ReactEcharts from "echarts-for-react";
 
 const StockCandleChart = ({ priceData }) => {
 
-  console.log(priceData)
+  // console.log(priceData)
 
   // 　EdgarDataの加工処理
   // const newEdgarData = edgarData.map((item) => {
