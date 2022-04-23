@@ -11,7 +11,7 @@ export async function getServerSideProps() {
     );
     const codeList = await reqList.json();
     const codeListSorted = codeList.sort(function (a, b) {
-      if (a.CIK > b.CIK) {
+      if (a.Ticker > b.Ticker) {
         return 1;
       } else {
         return -1;
@@ -37,7 +37,7 @@ export default function index({ codeList }) {
           {codeList.map((code, i) => {
             return (
               <li key={i}>
-                <Link href={`/stocks/${code.CIK}`}>
+                <Link href={`/stocks/${code.Ticker}`}>
                   <a>
                     {code.Name}/{code.Ticker}/{code.CIK}
                   </a>
