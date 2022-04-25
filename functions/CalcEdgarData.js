@@ -6,16 +6,25 @@ export const calcEdgarData = (edgarData) => {
     return a.period < b.period ? -1 : 1;
   });
 
-  const edgarRes = resultRes.map((res) => {
-    const netIncomeData = () => {
-      if (res.NetIncomeLoss_1_Q1_USD) {
+  // console.log(edgarData)
+
+  const edgarRes = resultRes.map((res, i) => {
+    // 単四半期のPL当期利益データ
+    const netIncomeDataDeducted = () => {
+      if (i===0) {
+        return 0
+      } else if (res.NetIncomeLoss_1_Q1_USD) {
         return res.NetIncomeLoss_1_Q1_USD;
       } else if (res.NetIncomeLoss_1_Q2_USD) {
         return res.NetIncomeLoss_1_Q2_USD;
       } else if (res.NetIncomeLoss_1_Q3_USD) {
         return res.NetIncomeLoss_1_Q3_USD;
       } else if (res.NetIncomeLoss_4_FY_USD) {
-        return res.NetIncomeLoss_4_FY_USD;
+        // FY年間累計から、ひとつ前のレコードの第三四半期累計をマイナスする。
+        return (
+          resultRes[i].NetIncomeLoss_4_FY_USD -
+          resultRes[i-1].NetIncomeLoss_3_Q3_USD
+        );
       } else {
         return;
       }
@@ -34,7 +43,34 @@ export const calcEdgarData = (edgarData) => {
       }
     };
 
-    // operatingCashFlow (CFデータは単四半期のデータはない模様)
+    // operatingCashFlow (CFデータは単四半期のデータはない)
+
+    const operatingCashFlowDeducted = () => {
+      if (i === 0) {
+        return 0;
+      } else if (res.NetCashProvidedByUsedInOperatingActivities_1_Q1_USD) {
+        return res.NetCashProvidedByUsedInOperatingActivities_1_Q1_USD;
+      } else if (res.NetCashProvidedByUsedInOperatingActivities_2_Q2_USD) {
+        return (
+          resultRes[i].NetCashProvidedByUsedInOperatingActivities_2_Q2_USD -
+          resultRes[i - 1].NetCashProvidedByUsedInOperatingActivities_1_Q1_USD
+        );
+      } else if (res.NetCashProvidedByUsedInOperatingActivities_3_Q3_USD) {
+        return (
+          resultRes[i].NetCashProvidedByUsedInOperatingActivities_3_Q3_USD -
+          resultRes[i - 1].NetCashProvidedByUsedInOperatingActivities_2_Q2_USD
+        );
+      } else if (res.NetCashProvidedByUsedInOperatingActivities_4_FY_USD) {
+        return (
+          resultRes[i].NetCashProvidedByUsedInOperatingActivities_4_FY_USD -
+          resultRes[i - 1].NetCashProvidedByUsedInOperatingActivities_3_Q3_USD
+        );
+      } else {
+        return;
+      }
+    };
+
+
     // operatingCashFlow Accum
     const operatingCashFlowAccum = () => {
       if (res.NetCashProvidedByUsedInOperatingActivities_1_Q1_USD) {
@@ -125,7 +161,8 @@ export const calcEdgarData = (edgarData) => {
     const FinancialData = {
       date: res.period.slice(0, 4) + "/" + res.period.slice(4, 6),
       NetIncomeLossAccum: netIncomeDataAccum(),
-      NetIncomeLoss: netIncomeData(),
+      NetIncomeLoss: netIncomeDataDeducted(),
+      operatingCashFlow: operatingCashFlowDeducted(),
       operatingCashFlowAccum: operatingCashFlowAccum(),
       assets: assets(),
       stockHoldersEquity: stockholdersEquity(),
