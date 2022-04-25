@@ -21,7 +21,8 @@ const StockCandleChart = ({ priceData, edgarData }) => {
         item.stockHoldersEquity / item.commonStockSharesOutstanding
       ).toFixed(2),
       eps: item.eps,
-      operatingCashFlow: item.operatingCashFlowAccum,
+      operatingCashFlow: item.operatingCashFlow,
+      operatingCashFlowAccum: item.operatingCashFlowAccum,
     };
   });
 
@@ -46,6 +47,10 @@ const StockCandleChart = ({ priceData, edgarData }) => {
         ?.operatingCashFlow,
       bps: newEdgarData.find((value) => value.date === price.date)?.bps,
       eps: newEdgarData.find((value) => value.date === price.date)?.eps,
+
+      pbr:
+        parseFloat(price.Close).toFixed(2) /
+        newEdgarData.find((value) => value.date === price.date)?.bps,
       commonStockSharesOutstanding: newEdgarData.find(
         (value) => value.date === price.date
       )?.commonStockSharesOutstanding,
@@ -72,23 +77,21 @@ const StockCandleChart = ({ priceData, edgarData }) => {
     return [item.open, item.close, item.low, item.high];
   });
   // 　理論株価計算用
-  const theoryStockPrice = companyData.map((item) => {
-
-
+  const theoryStockPrice = companyData.map((item, i) => {
     //資産価値 はっしゃんさん
-    let assetValue;
+    let assetValueWithRatio;
     if (item.stockHoldersEquityRatio >= 0.8) {
-      assetValue = item.bps * 0.8;
+      assetValueWithRatio = item.bps * 0.8;
     } else if (item.stockHoldersEquityRatio >= 0.67) {
-      assetValue = item.bps * 0.75;
+      assetValueWithRatio = item.bps * 0.75;
     } else if (item.stockHoldersEquityRatio >= 0.5) {
-      assetValue = item.bps * 0.7;
+      assetValueWithRatio = item.bps * 0.7;
     } else if (item.stockHoldersEquityRatio >= 0.33) {
-      assetValue = item.bps * 0.65;
+      assetValueWithRatio = item.bps * 0.65;
     } else if (item.stockHoldersEquityRatio >= 0.1) {
-      assetValue = item.bps * 0.6;
+      assetValueWithRatio = item.bps * 0.6;
     } else {
-      assetValue = item.bps * 0.5;
+      assetValueWithRatio = item.bps * 0.5;
     }
 
     // 事業価値　暫定PERの15倍
@@ -105,11 +108,23 @@ const StockCandleChart = ({ priceData, edgarData }) => {
     // }
 
     // 理論株価
-    const theoryPrice = assetValue + operationValue;
+    const theoryPrice = assetValueWithRatio + operationValue;
     return theoryPrice;
   });
 
-  // console.log(theoryStockPrice);
+  // 理論株価　空白期間穴埋め処理（直近四半期のデータをコピー）
+  const newTheoryStockPrice = theoryStockPrice;
+  const result = [];
+  for (let i = 0; i < newTheoryStockPrice.length; i++) {
+    if (i === 0) {
+      newTheoryStockPrice[i] = 0;
+    } else if (isNaN(newTheoryStockPrice[i])) {
+      newTheoryStockPrice[i] = newTheoryStockPrice[i-1];
+    } else {
+      newTheoryStockPrice[i] = newTheoryStockPrice[i]
+    }
+    result.push(newTheoryStockPrice[i])
+  }
 
   // ダミー利益　計算用 グラフ表示
   const netIncomeAccumData = companyData.map((item) => {
@@ -135,6 +150,13 @@ const StockCandleChart = ({ priceData, edgarData }) => {
     return opeCashIndx;
   });
 
+  // テーブル表示用　ソート（最新データが上に）
+  const companyDataForTable = companyData.sort(function (a, b) {
+    return a.date > b.date ? -1 : 1;
+  });
+
+
+  // Chart Option
   const option = {
     xAxis: [
       {
@@ -202,7 +224,7 @@ const StockCandleChart = ({ priceData, edgarData }) => {
       {
         name: "DummyData",
         type: "line",
-        data: theoryStockPrice,
+        data: newTheoryStockPrice,
         smooth: false,
         showSymbol: true,
         xAxisIndex: 0,
@@ -236,13 +258,15 @@ const StockCandleChart = ({ priceData, edgarData }) => {
       <h3>業績データ</h3>
       <ul>
         {companyData &&
-          companyData.map((item, i) => {
+          companyDataForTable.map((item, i) => {
             return (
               <li key={i}>
                 {item.date} / Close株価: {item.close} / NetIncomeLoss:
                 {item.NetIncomeLoss / 1000000} / OperatingCashFlow:
-                {item.operatingCashFlow / 1000000}/ BPS:{item.bps} / EPS:
-                {item.eps} / CShare:
+                {item.operatingCashFlow / 1000000}/ BPS:{item.bps} /PBR:
+                {item.pbr} / EPS:
+                {item.eps}
+                CShare:
                 {item.commonStockSharesOutstanding / 1000000} / Assets:
                 {item.assets / 1000000} / Equity:
                 {item.stockHoldersEquity / 1000000}
