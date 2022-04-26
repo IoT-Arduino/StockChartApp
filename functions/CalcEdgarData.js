@@ -6,7 +6,7 @@ export const calcEdgarData = (edgarData) => {
     return a.period < b.period ? -1 : 1;
   });
 
-  // console.log(edgarData)
+  console.log(edgarData)
 
   const edgarRes = resultRes.map((res, i) => {
     // 単四半期のPL当期利益データ
@@ -44,7 +44,6 @@ export const calcEdgarData = (edgarData) => {
     };
 
     // operatingCashFlow (CFデータは単四半期のデータはない)
-
     const operatingCashFlowDeducted = () => {
       if (i === 0) {
         return 0;
@@ -142,24 +141,61 @@ export const calcEdgarData = (edgarData) => {
         return;
       }
     };
-    // EPS
+    // EPS 単四半期
     const earningsPerShareBasic = () => {
-      if (res.EarningsPerShareBasic_1_Q1_USD) {
+      if (i <= 3) {
+        return ;
+      } else if (res.EarningsPerShareBasic_1_Q1_USD) {
         return res.EarningsPerShareBasic_1_Q1_USD;
       } else if (res.EarningsPerShareBasic_1_Q2_USD) {
         return res.EarningsPerShareBasic_1_Q2_USD;
       } else if (res.EarningsPerShareBasic_1_Q3_USD) {
         return res.EarningsPerShareBasic_1_Q3_USD;
+      // 第四単四半期データ  
+      } else if (res.EarningsPerShareBasic_4_FY_USD) {
+        return (
+          resultRes[i].EarningsPerShareBasic_4_FY_USD - (
+            resultRes[i - 1].EarningsPerShareBasic_1_Q3_USD + 
+            resultRes[i - 2].EarningsPerShareBasic_1_Q2_USD +  
+            resultRes[i - 3].EarningsPerShareBasic_1_Q1_USD 
+          )
+        )
+      } else {
+        return;
+      }
+    };
+    // EPS Accum
+    const earningsPerShareBasicAccum = () => {
+      if (i <= 3) {
+        return ;
+      } else if (res.EarningsPerShareBasic_1_Q1_USD) {
+        return res.EarningsPerShareBasic_1_Q1_USD;
+       //第二四半期累計 
+      } else if (res.EarningsPerShareBasic_1_Q2_USD) {
+        return (
+          resultRes[i].EarningsPerShareBasic_1_Q2_USD +
+          resultRes[i - 1].EarningsPerShareBasic_1_Q1_USD
+        )
+       //第三四半期累計 
+      } else if (res.EarningsPerShareBasic_1_Q3_USD) {
+        return (
+          resultRes[i].EarningsPerShareBasic_1_Q3_USD + 
+          resultRes[i-1].EarningsPerShareBasic_1_Q2_USD + 
+          resultRes[i-2].EarningsPerShareBasic_1_Q1_USD
+        )
       } else if (res.EarningsPerShareBasic_4_FY_USD) {
         return res.EarningsPerShareBasic_4_FY_USD;
       } else {
         return;
       }
     };
-    // EPS Accum
+
+
+
 
     const FinancialData = {
       date: res.period.slice(0, 4) + "/" + res.period.slice(4, 6),
+      fp:res.fp,
       NetIncomeLossAccum: netIncomeDataAccum(),
       NetIncomeLoss: netIncomeDataDeducted(),
       operatingCashFlow: operatingCashFlowDeducted(),
@@ -168,6 +204,7 @@ export const calcEdgarData = (edgarData) => {
       stockHoldersEquity: stockholdersEquity(),
       commonStockSharesOutstanding: commonStockSharesOutstanding(),
       eps: earningsPerShareBasic(),
+      epsAccum: earningsPerShareBasicAccum(),
     };
     return FinancialData;
   });
