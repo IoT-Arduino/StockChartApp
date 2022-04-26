@@ -2,6 +2,7 @@ import ReactEcharts from "echarts-for-react";
 import { calcEdgarData } from "../functions/CalcEdgarData";
 
 const StockCandleChart = ({ priceData, edgarData }) => {
+  // console.log(edgarData)
   const edgarFsData = calcEdgarData(edgarData);
   // console.log(edgarFsData);
 
@@ -9,6 +10,7 @@ const StockCandleChart = ({ priceData, edgarData }) => {
   const newEdgarData = edgarFsData.map((item) => {
     return {
       date: item.date,
+      fp:item.fp,
       NetIncomeLossAccum: item.NetIncomeLossAccum,
       NetIncomeLoss: item.NetIncomeLoss,
       stockHoldersEquityRatio: parseFloat(
@@ -21,17 +23,19 @@ const StockCandleChart = ({ priceData, edgarData }) => {
         item.stockHoldersEquity / item.commonStockSharesOutstanding
       ).toFixed(2),
       eps: item.eps,
+      epsAccum: item.epsAccum,
       operatingCashFlow: item.operatingCashFlow,
       operatingCashFlowAccum: item.operatingCashFlowAccum,
     };
   });
 
-  // console.log(newEdgarData);
+  console.log(newEdgarData);
 
   // 　日付をキーとして、edinetと株価データをまとめて一つのオブジェクトにして、連想配列にする
   const companyData = priceData.map((price) => {
     return {
       date: price.date,
+      fp:newEdgarData.find((value) => value.date === price.date)?.fp,
       // Price Data
       open: parseFloat(price.Open).toFixed(2),
       close: parseFloat(price.Close).toFixed(2),
@@ -46,11 +50,25 @@ const StockCandleChart = ({ priceData, edgarData }) => {
       operatingCashFlow: newEdgarData.find((value) => value.date === price.date)
         ?.operatingCashFlow,
       bps: newEdgarData.find((value) => value.date === price.date)?.bps,
-      eps: newEdgarData.find((value) => value.date === price.date)?.eps,
+      pbr: parseFloat(
+        price.Close /
+          newEdgarData.find((value) => value.date === price.date)?.bps
+      ).toFixed(2),
 
-      pbr:
-        parseFloat(price.Close).toFixed(2) /
-        newEdgarData.find((value) => value.date === price.date)?.bps,
+      // PER 単四半期
+      eps: newEdgarData.find((value) => value.date === price.date)?.eps,
+      per:  parseFloat(
+        price.Close /
+          newEdgarData.find((value) => value.date === price.date)?.eps
+      ).toFixed(2),
+
+      // PER 累計
+      epsAccum: newEdgarData.find((value) => value.date === price.date)?.epsAccum,
+      perAccum:  parseFloat(
+        price.Close /
+          newEdgarData.find((value) => value.date === price.date)?.epsAccum
+      ).toFixed(2),
+
       commonStockSharesOutstanding: newEdgarData.find(
         (value) => value.date === price.date
       )?.commonStockSharesOutstanding,
@@ -155,6 +173,14 @@ const StockCandleChart = ({ priceData, edgarData }) => {
     return a.date > b.date ? -1 : 1;
   });
 
+  //  通期業績データ
+  const fyCompanyDataForTable = companyDataForTable.filter(item=>{
+    return item.fp == "FY"
+  })
+
+　// 単四半期業績データ
+
+
 
   // Chart Option
   const option = {
@@ -255,21 +281,43 @@ const StockCandleChart = ({ priceData, edgarData }) => {
   return (
     <div>
       <ReactEcharts option={option} />
-      <h3>業績データ</h3>
+      <h3>通期業績データ</h3>
+      <ul>
+        {fyCompanyDataForTable &&
+          fyCompanyDataForTable.map((item, i) => {
+            return (
+              <li key={i}>
+                {item.date} /
+                Close株価:{item.close} /
+                NetIncomeLoss:{item.NetIncomeLoss / 1000000} /
+                OperatingCashFlow: {item.operatingCashFlow / 1000000}/
+                BPS:{item.bps} /
+                PBR:{item.pbr} /
+                EPS-Accum:{item.epsAccum} /
+                PER-Accum:{item.perAccum} /
+                Assets:{item.assets / 1000000} /
+                Equity:{item.stockHoldersEquity / 1000000}
+              </li>
+            );
+          })}
+        <p>単位は(million)</p>
+      </ul>
+      <h3>単四半期業績データ</h3>
       <ul>
         {companyData &&
           companyDataForTable.map((item, i) => {
             return (
               <li key={i}>
-                {item.date} / Close株価: {item.close} / NetIncomeLoss:
-                {item.NetIncomeLoss / 1000000} / OperatingCashFlow:
-                {item.operatingCashFlow / 1000000}/ BPS:{item.bps} /PBR:
-                {item.pbr} / EPS:
-                {item.eps}
-                CShare:
-                {item.commonStockSharesOutstanding / 1000000} / Assets:
-                {item.assets / 1000000} / Equity:
-                {item.stockHoldersEquity / 1000000}
+                {item.date} /
+                Close株価: {item.close} /
+                NetIncomeLoss:{item.NetIncomeLoss / 1000000} /
+                OperatingCashFlow:
+                {item.operatingCashFlow / 1000000}/
+                BPS:{item.bps} /
+                PBR:{item.pbr} /
+                EPS:{item.eps} /
+                Assets:{item.assets / 1000000} /
+                Equity:{item.stockHoldersEquity / 1000000}
               </li>
             );
           })}
