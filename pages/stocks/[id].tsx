@@ -10,6 +10,10 @@ export async function getServerSideProps({ query }) {
 
   // Edgar データを追加したら、ここにも追加すること。
   const QTR = [
+    "2019q1",
+    "2019q2",
+    "2019q3",
+    "2019q4",
     "2020q1",
     "2020q2",
     "2020q3",
@@ -25,6 +29,9 @@ export async function getServerSideProps({ query }) {
     const priceList = await fetch(`http://localhost:3000/stock/${id}.json`);
     const priceData = await priceList.json();
 
+    const markerList = await fetch(`http://localhost:3000/marker/marker.json`);
+    const markerData = await markerList.json();
+
     const edgarDataResponse = QTR.map(async (item) => {
       let reqList = await fetch(
         `http://localhost:3000/edgar/${item}/${id}.json`
@@ -39,6 +46,7 @@ export async function getServerSideProps({ query }) {
       props: {
         id,
         priceData,
+        markerData,
         edgarData: edgarRes,
       },
     };
@@ -48,7 +56,7 @@ export async function getServerSideProps({ query }) {
 
 }
 
-const StockChart = ({ priceData, edgarData, id }) => {
+const StockChart = ({ priceData,markerData, edgarData, id }) => {
   // const IncomeData = calcEdgarData(edgarData);
   // console.log(IncomeData)
 
@@ -64,7 +72,7 @@ const StockChart = ({ priceData, edgarData, id }) => {
         )} */}
 
         {priceData ? (
-          <StockCandleChartTest priceData={priceData} edgarData={edgarData} />
+          <StockCandleChartTest priceData={priceData} edgarData={edgarData} markerData={markerData}/>
         ) : (
           <p>株価データがありません</p>
         )}

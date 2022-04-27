@@ -6,8 +6,6 @@ export const calcEdgarData = (edgarData) => {
     return a.period < b.period ? -1 : 1;
   });
 
-  console.log(edgarData)
-
   const edgarRes = resultRes.map((res, i) => {
     // 単四半期のPL当期利益データ
     const netIncomeDataDeducted = () => {

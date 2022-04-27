@@ -1,10 +1,35 @@
 import ReactEcharts from "echarts-for-react";
 import { calcEdgarData } from "../functions/CalcEdgarData";
+import {createMarkerData} from "../functions/CreateMarkerData"
 
-const StockCandleChart = ({ priceData, edgarData }) => {
+const StockCandleChart = ({ priceData, edgarData , markerData}) => {
   // console.log(edgarData)
   const edgarFsData = calcEdgarData(edgarData);
   // console.log(edgarFsData);
+  const markerTempData = createMarkerData(markerData)
+
+  console.log (markerTempData)
+
+  const markerChartData = markerTempData.map((item,i)=>{
+
+    const closePrice = (priceData.find((value) => value.date === item.date)?.Close)*1.2
+
+    return ({
+      value: item.value,
+      coord:[item.date,closePrice],
+      name:item.name,
+      date: item.date,
+      itemStyle: {
+        color: 'rgb(41,60,85)'
+      }
+    })
+  })
+  
+
+  console.log (markerChartData)
+
+
+
 
   //　EdgarDataの加工処理
   const newEdgarData = edgarFsData.map((item) => {
@@ -22,14 +47,12 @@ const StockCandleChart = ({ priceData, edgarData }) => {
       bps: parseFloat(
         item.stockHoldersEquity / item.commonStockSharesOutstanding
       ).toFixed(2),
-      eps: item.eps,
+      eps: parseFloat(item.eps).toFixed(2),
       epsAccum: item.epsAccum,
       operatingCashFlow: item.operatingCashFlow,
       operatingCashFlowAccum: item.operatingCashFlowAccum,
     };
   });
-
-  console.log(newEdgarData);
 
   // 　日付をキーとして、edinetと株価データをまとめて一つのオブジェクトにして、連想配列にする
   const companyData = priceData.map((price) => {
@@ -49,6 +72,8 @@ const StockCandleChart = ({ priceData, edgarData }) => {
         ?.NetIncomeLoss,
       operatingCashFlow: newEdgarData.find((value) => value.date === price.date)
         ?.operatingCashFlow,
+      operatingCashFlowAccum: newEdgarData.find((value) => value.date === price.date)
+        ?.operatingCashFlowAccum,
       bps: newEdgarData.find((value) => value.date === price.date)?.bps,
       pbr: parseFloat(
         price.Close /
@@ -57,13 +82,13 @@ const StockCandleChart = ({ priceData, edgarData }) => {
 
       // PER 単四半期
       eps: newEdgarData.find((value) => value.date === price.date)?.eps,
+      epsAccum: newEdgarData.find((value) => value.date === price.date)?.epsAccum,
+      
+      // PER 累計
       per:  parseFloat(
         price.Close /
           newEdgarData.find((value) => value.date === price.date)?.eps
       ).toFixed(2),
-
-      // PER 累計
-      epsAccum: newEdgarData.find((value) => value.date === price.date)?.epsAccum,
       perAccum:  parseFloat(
         price.Close /
           newEdgarData.find((value) => value.date === price.date)?.epsAccum
@@ -80,6 +105,7 @@ const StockCandleChart = ({ priceData, edgarData }) => {
         (value) => value.date === price.date
       )?.stockHoldersEquity,
       assets: newEdgarData.find((value) => value.date === price.date)?.assets,
+
     };
   });
 
@@ -94,8 +120,9 @@ const StockCandleChart = ({ priceData, edgarData }) => {
   const newPriceData = companyData.map((item) => {
     return [item.open, item.close, item.low, item.high];
   });
-  // 　理論株価計算用
-  const theoryStockPrice = companyData.map((item, i) => {
+
+  // 　理論株価　資産価値計算用
+  const theoryStockPriceAsset = companyData.map((item, i) => {
     //資産価値 はっしゃんさん
     let assetValueWithRatio;
     if (item.stockHoldersEquityRatio >= 0.8) {
@@ -112,8 +139,13 @@ const StockCandleChart = ({ priceData, edgarData }) => {
       assetValueWithRatio = item.bps * 0.5;
     }
 
-    // 事業価値　暫定PERの15倍
-    const operationValue = parseFloat(item.eps) * 15;
+    return assetValueWithRatio;
+  });
+
+  // 　理論株価　事業価値計算用
+  const theoryStockPriceOperation = companyData.map((item, i) => {
+    // 事業価値　暫定PERの15倍 単四半期EPSベースなので4倍している。
+    const operationValue = parseFloat(item.eps) * 15 * 4;
 
     // 事業価値 はっしゃんさん
     // let operationValue;
@@ -126,23 +158,55 @@ const StockCandleChart = ({ priceData, edgarData }) => {
     // }
 
     // 理論株価
-    const theoryPrice = assetValueWithRatio + operationValue;
-    return theoryPrice;
+    return operationValue;
   });
 
+
+
   // 理論株価　空白期間穴埋め処理（直近四半期のデータをコピー）
-  const newTheoryStockPrice = theoryStockPrice;
-  const result = [];
-  for (let i = 0; i < newTheoryStockPrice.length; i++) {
+  const newTheoryStockPriceAsset = theoryStockPriceAsset;
+  const resultTheoryStockPriceAsset = [];
+  for (let i = 0; i < newTheoryStockPriceAsset.length; i++) {
     if (i === 0) {
-      newTheoryStockPrice[i] = 0;
-    } else if (isNaN(newTheoryStockPrice[i])) {
-      newTheoryStockPrice[i] = newTheoryStockPrice[i-1];
+      newTheoryStockPriceAsset[i] = 0;
+    } else if (isNaN(newTheoryStockPriceAsset[i])) {
+      newTheoryStockPriceAsset[i] = newTheoryStockPriceAsset[i-1];
     } else {
-      newTheoryStockPrice[i] = newTheoryStockPrice[i]
+      newTheoryStockPriceAsset[i] = newTheoryStockPriceAsset[i]
     }
-    result.push(newTheoryStockPrice[i])
+    // 理論株価　マイナスの値は０にする。
+    if (newTheoryStockPriceAsset[i] < 0) {
+      newTheoryStockPriceAsset[i] = 0
+    }
+
+    resultTheoryStockPriceAsset.push(newTheoryStockPriceAsset[i])
   }
+
+  const newTheoryStockPriceOperation = theoryStockPriceOperation;
+  const resultTheoryStockPriceOperation = [];
+  for (let i = 0; i < newTheoryStockPriceOperation.length; i++) {
+    if (i === 0) {
+      newTheoryStockPriceOperation[i] = 0;
+    } else if (isNaN(newTheoryStockPriceOperation[i])) {
+      newTheoryStockPriceOperation[i] = newTheoryStockPriceOperation[i-1];
+    } else {
+      newTheoryStockPriceOperation[i] = newTheoryStockPriceOperation[i]
+    }
+    // 理論株価　マイナスの値は０にする。
+    if (newTheoryStockPriceOperation[i] < 0) {
+      newTheoryStockPriceOperation[i] = 0
+    }
+
+    resultTheoryStockPriceOperation.push(newTheoryStockPriceOperation[i])
+  }
+
+
+
+
+
+
+
+
 
   // ダミー利益　計算用 グラフ表示
   const netIncomeAccumData = companyData.map((item) => {
@@ -179,7 +243,10 @@ const StockCandleChart = ({ priceData, edgarData }) => {
   })
 
 　// 単四半期業績データ
-
+  const QtrCompanyDataForTable = companyDataForTable.filter(item => {
+    const QTR = ["Q1","Q2","Q3","FY"]
+    return  QTR.includes(item.fp)
+  })
 
 
   // Chart Option
@@ -188,6 +255,7 @@ const StockCandleChart = ({ priceData, edgarData }) => {
       {
         data: newDateData,
         gridIndex: 0,
+
       },
       {
         data: newDateData,
@@ -196,25 +264,23 @@ const StockCandleChart = ({ priceData, edgarData }) => {
     ],
     grid: [
       {
-        left: "10%",
+        left: "15%",
         right: "10%",
-        top: 60,
-        height: 120,
+        top: 50,
+        height: '50%',
       },
       {
-        left: "10%",
+        left: "15%",
         right: "10%",
-        height: 40,
-        top: 240,
-      },
+        height: '20%',
+        top: '72%',
+        },
     ],
     yAxis: [
       {
         name: "株価",
         scale: true,
-        // min: 'dataMin' - 1500,
-        // max: 'dataMax' + 1500,
-        interval: 50,
+        // interval: 100,
         axisLabel: {
           formatter: "{value} USD",
         },
@@ -246,19 +312,68 @@ const StockCandleChart = ({ priceData, edgarData }) => {
         grid: 0,
         xAxisIndex: 0,
         yAxisIndex: 0,
+        markPoint: {
+          label: {},
+          // data: [
+          //   {
+          //     name: 'AllStocks',
+          //     coord: ['2018/05', 130],
+          //     value: "リーマン",
+          //     itemStyle: {
+          //       color: 'rgb(41,60,85)'
+          //     }
+          //   },
+          //   {
+          //     name: 'AAPL',
+          //     coord: ['2020/03', 230],
+          //     value: "コロナ",
+          //     itemStyle: {
+          //       color: 'rgb(41,60,85)'
+          //     }
+          //   },
+          // ],
+          data:markerChartData
+        }
       },
-      {
-        name: "DummyData",
-        type: "line",
-        data: newTheoryStockPrice,
-        smooth: false,
-        showSymbol: true,
-        xAxisIndex: 0,
+      // {
+      //   name: "理論株価",
+      //   type: "line",
+      //   data: resultTheoryStockPrice,
+      //   smooth: true,
+      //   showSymbol: true,
+      //   xAxisIndex: 0,
+      //   yAxisIndex: 0,
+      //   lineStyle: {
+      //     width: 2,
+      //   },
+      // },
+    {
+      name: '理論株価-資産',
+      type: 'line',
+      stack: 'Total',
+              xAxisIndex: 0,
         yAxisIndex: 0,
-        lineStyle: {
-          width: 2,
-        },
+      areaStyle: {},
+      emphasis: {
+        focus: 'series'
       },
+        data: resultTheoryStockPriceAsset,
+        smooth: true,
+      },
+        {
+      name: '理論株価-事業',
+      type: 'line',
+      stack: 'Total',
+              xAxisIndex: 0,
+        yAxisIndex: 0,
+      areaStyle: {},
+      emphasis: {
+        focus: 'series'
+      },
+          data: resultTheoryStockPriceOperation,
+      smooth: true,
+    },
+
       {
         name: "Volume",
         type: "bar",
@@ -280,7 +395,7 @@ const StockCandleChart = ({ priceData, edgarData }) => {
 
   return (
     <div>
-      <ReactEcharts option={option} />
+      <ReactEcharts option={option} style={{ height: '600px', width: '100%' }} />
       <h3>通期業績データ</h3>
       <ul>
         {fyCompanyDataForTable &&
@@ -289,8 +404,8 @@ const StockCandleChart = ({ priceData, edgarData }) => {
               <li key={i}>
                 {item.date} /
                 Close株価:{item.close} /
-                NetIncomeLoss:{item.NetIncomeLoss / 1000000} /
-                OperatingCashFlow: {item.operatingCashFlow / 1000000}/
+                NetIncomeLossAccum:{item.NetIncomeLossAccum / 1000000} /
+                OperatingCashFlowAccum: {item.operatingCashFlowAccum / 1000000}/
                 BPS:{item.bps} /
                 PBR:{item.pbr} /
                 EPS-Accum:{item.epsAccum} /
@@ -304,8 +419,8 @@ const StockCandleChart = ({ priceData, edgarData }) => {
       </ul>
       <h3>単四半期業績データ</h3>
       <ul>
-        {companyData &&
-          companyDataForTable.map((item, i) => {
+        {QtrCompanyDataForTable &&
+          QtrCompanyDataForTable.map((item, i) => {
             return (
               <li key={i}>
                 {item.date} /
@@ -317,7 +432,8 @@ const StockCandleChart = ({ priceData, edgarData }) => {
                 PBR:{item.pbr} /
                 EPS:{item.eps} /
                 Assets:{item.assets / 1000000} /
-                Equity:{item.stockHoldersEquity / 1000000}
+                Equity:{item.stockHoldersEquity / 1000000} / 
+                StockNum:{item.commonStockSharesOutstanding}
               </li>
             );
           })}
