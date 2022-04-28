@@ -6,7 +6,45 @@ export const calcEdgarData = (edgarData) => {
     return a.period < b.period ? -1 : 1;
   });
 
+  // 各勘定科目データの加工
   const edgarRes = resultRes.map((res, i) => {
+
+    // -------------　PL関連　-------------
+    // 単四半期のPL売上データ
+    const revenueDataDeducted = () => {
+      if (i===0) {
+        return 0
+      } else if (res.RevenueFromContractWithCustomerExcludingAssessedTax_1_Q1_USD) {
+        return res.RevenueFromContractWithCustomerExcludingAssessedTax_1_Q1_USD;
+      } else if (res.RevenueFromContractWithCustomerExcludingAssessedTax_1_Q2_USD) {
+        return res.RevenueFromContractWithCustomerExcludingAssessedTax_1_Q2_USD;
+      } else if (res.RevenueFromContractWithCustomerExcludingAssessedTax_1_Q3_USD) {
+        return res.RevenueFromContractWithCustomerExcludingAssessedTax_1_Q3_USD;
+      } else if (res.RevenueFromContractWithCustomerExcludingAssessedTax_4_FY_USD) {
+        // FY年間累計から、ひとつ前のレコードの第三四半期累計をマイナスする。
+        return (
+          resultRes[i].RevenueFromContractWithCustomerExcludingAssessedTax_4_FY_USD -
+          resultRes[i-1].RevenueFromContractWithCustomerExcludingAssessedTax_3_Q3_USD
+        );
+      } else {
+        return;
+      }
+    };
+    // 累計四半期のPL売上データ
+    const revenueDataAccum = () => {
+      if (res.RevenueFromContractWithCustomerExcludingAssessedTax_1_Q1_USD) {
+        return res.RevenueFromContractWithCustomerExcludingAssessedTax_1_Q1_USD;
+      } else if (res.RevenueFromContractWithCustomerExcludingAssessedTax_2_Q2_USD) {
+        return res.RevenueFromContractWithCustomerExcludingAssessedTax_2_Q2_USD;
+      } else if (res.RevenueFromContractWithCustomerExcludingAssessedTax_3_Q3_USD) {
+        return res.RevenueFromContractWithCustomerExcludingAssessedTax_3_Q3_USD;
+      } else if (res.RevenueFromContractWithCustomerExcludingAssessedTax_4_FY_USD) {
+        return res.RevenueFromContractWithCustomerExcludingAssessedTax_4_FY_USD;
+      } else {
+        return;
+      }
+    };
+
     // 単四半期のPL当期利益データ
     const netIncomeDataDeducted = () => {
       if (i===0) {
@@ -27,6 +65,7 @@ export const calcEdgarData = (edgarData) => {
         return;
       }
     };
+    // 累計四半期のPL当期利益データ
     const netIncomeDataAccum = () => {
       if (res.NetIncomeLoss_1_Q1_USD) {
         return res.NetIncomeLoss_1_Q1_USD;
@@ -41,6 +80,7 @@ export const calcEdgarData = (edgarData) => {
       }
     };
 
+    // -------------　CFS関連　-------------
     // operatingCashFlow (CFデータは単四半期のデータはない)
     const operatingCashFlowDeducted = () => {
       if (i === 0) {
@@ -83,6 +123,7 @@ export const calcEdgarData = (edgarData) => {
       }
     };
 
+    // -------------　BS関連　-------------
     // 総資産
     const assets = () => {
       if (res.Assets_0_Q1_USD) {
@@ -111,7 +152,7 @@ export const calcEdgarData = (edgarData) => {
         return;
       }
     };
-
+    // -------------　株価指標関連　-------------
     // 流通株式
     const commonStockSharesOutstanding = () => {
       if (res.CommonStockSharesOutstanding_0_Q1_shares) {
@@ -190,12 +231,14 @@ export const calcEdgarData = (edgarData) => {
 
 
 
-
+　　// ------------- Return Statement --------------------
     const FinancialData = {
       date: res.period.slice(0, 4) + "/" + res.period.slice(4, 6),
-      fp:res.fp,
-      NetIncomeLossAccum: netIncomeDataAccum(),
+      fp: res.fp,
+      revenue: revenueDataDeducted(),
+      revenueAccum: revenueDataAccum(),
       NetIncomeLoss: netIncomeDataDeducted(),
+      NetIncomeLossAccum: netIncomeDataAccum(),
       operatingCashFlow: operatingCashFlowDeducted(),
       operatingCashFlowAccum: operatingCashFlowAccum(),
       assets: assets(),

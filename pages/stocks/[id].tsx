@@ -10,6 +10,10 @@ export async function getServerSideProps({ query }) {
 
   // Edgar データを追加したら、ここにも追加すること。
   const QTR = [
+    "2018q1",
+    "2018q2",
+    "2018q3",
+    "2018q4",
     "2019q1",
     "2019q2",
     "2019q3",
@@ -58,7 +62,7 @@ export async function getServerSideProps({ query }) {
 
 const StockChart = ({ priceData,markerData, edgarData, id }) => {
   // const IncomeData = calcEdgarData(edgarData);
-  // console.log(IncomeData)
+  console.log(edgarData)
 
   return (
     <div className={styles.container}>
