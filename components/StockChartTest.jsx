@@ -8,12 +8,8 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
   // console.log(edgarFsData);
   const markerTempData = createMarkerData(markerData)
 
-  console.log (markerTempData)
-
   const markerChartData = markerTempData.map((item,i)=>{
-
     const closePrice = (priceData.find((value) => value.date === item.date)?.Close)*1.2
-
     return ({
       value: item.value,
       coord:[item.date,closePrice],
@@ -25,19 +21,15 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
     })
   })
   
-
-  console.log (markerChartData)
-
-
-
-
   //　EdgarDataの加工処理
   const newEdgarData = edgarFsData.map((item) => {
     return {
       date: item.date,
       fp:item.fp,
-      NetIncomeLossAccum: item.NetIncomeLossAccum,
+      revenue:item.revenue,
+      revenueAccum:item.revenueAccum,
       NetIncomeLoss: item.NetIncomeLoss,
+      NetIncomeLossAccum: item.NetIncomeLossAccum,
       stockHoldersEquityRatio: parseFloat(
         item.stockHoldersEquity / item.assets
       ).toFixed(2),
@@ -65,11 +57,15 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
       low: parseFloat(price.Low).toFixed(2),
       high: parseFloat(price.High).toFixed(2),
       // EdgarData
+      revenue: newEdgarData.find((value) => value.date === price.date)
+        ?.revenue,
+      revenueAccum: newEdgarData.find((value) => value.date === price.date)
+        ?.revenueAccum,
+      NetIncomeLoss: newEdgarData.find((value) => value.date === price.date)
+        ?.NetIncomeLoss,
       NetIncomeLossAccum: newEdgarData.find(
         (value) => value.date === price.date
       )?.NetIncomeLossAccum,
-      NetIncomeLoss: newEdgarData.find((value) => value.date === price.date)
-        ?.NetIncomeLoss,
       operatingCashFlow: newEdgarData.find((value) => value.date === price.date)
         ?.operatingCashFlow,
       operatingCashFlowAccum: newEdgarData.find((value) => value.date === price.date)
@@ -201,13 +197,6 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
   }
 
 
-
-
-
-
-
-
-
   // ダミー利益　計算用 グラフ表示
   const netIncomeAccumData = companyData.map((item) => {
     const netIncomeAccumArr = parseInt(item.NetIncomeLossAccum) / 10000000;
@@ -314,39 +303,9 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
         yAxisIndex: 0,
         markPoint: {
           label: {},
-          // data: [
-          //   {
-          //     name: 'AllStocks',
-          //     coord: ['2018/05', 130],
-          //     value: "リーマン",
-          //     itemStyle: {
-          //       color: 'rgb(41,60,85)'
-          //     }
-          //   },
-          //   {
-          //     name: 'AAPL',
-          //     coord: ['2020/03', 230],
-          //     value: "コロナ",
-          //     itemStyle: {
-          //       color: 'rgb(41,60,85)'
-          //     }
-          //   },
-          // ],
           data:markerChartData
         }
       },
-      // {
-      //   name: "理論株価",
-      //   type: "line",
-      //   data: resultTheoryStockPrice,
-      //   smooth: true,
-      //   showSymbol: true,
-      //   xAxisIndex: 0,
-      //   yAxisIndex: 0,
-      //   lineStyle: {
-      //     width: 2,
-      //   },
-      // },
     {
       name: '理論株価-資産',
       type: 'line',
@@ -404,6 +363,7 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
               <li key={i}>
                 {item.date} /
                 Close株価:{item.close} /
+                RevenueAccum:{item.revenueAccum / 1000000} /
                 NetIncomeLossAccum:{item.NetIncomeLossAccum / 1000000} /
                 OperatingCashFlowAccum: {item.operatingCashFlowAccum / 1000000}/
                 BPS:{item.bps} /
@@ -425,6 +385,7 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
               <li key={i}>
                 {item.date} /
                 Close株価: {item.close} /
+                Revenue:{item.revenue / 1000000} /
                 NetIncomeLoss:{item.NetIncomeLoss / 1000000} /
                 OperatingCashFlow:
                 {item.operatingCashFlow / 1000000}/
