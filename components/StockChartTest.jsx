@@ -5,7 +5,7 @@ import {createMarkerData} from "../functions/CreateMarkerData"
 const StockCandleChart = ({ priceData, edgarData , markerData}) => {
   // console.log(edgarData)
   const edgarFsData = calcEdgarData(edgarData);
-  // console.log(edgarFsData);
+  console.log(edgarFsData);
   const markerTempData = createMarkerData(markerData)
 
   const markerChartData = markerTempData.map((item,i)=>{
@@ -25,24 +25,33 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
   const newEdgarData = edgarFsData.map((item) => {
     return {
       date: item.date,
-      fp:item.fp,
+      fp: item.fp,
+      // PL
       revenue:item.revenue,
       revenueAccum:item.revenueAccum,
       NetIncomeLoss: item.NetIncomeLoss,
       NetIncomeLossAccum: item.NetIncomeLossAccum,
-      stockHoldersEquityRatio: parseFloat(
-        item.stockHoldersEquity / item.assets
-      ).toFixed(2),
+      // CFS
+      operatingCashFlow: item.operatingCashFlow,
+      operatingCashFlowAccum: item.operatingCashFlowAccum,
+      // BS
       assets: item.assets,
       stockHoldersEquity: item.stockHoldersEquity,
+      // 株式指標・経営指標
       commonStockSharesOutstanding: item.commonStockSharesOutstanding,
+      weightedAverageNumberOfDilutedSharesOutstanding: item.weightedAverageNumberOfDilutedSharesOutstanding,
+      // Yahoo Finance と一致する。commonStockSharesOutstanding　を使用。
       bps: parseFloat(
         item.stockHoldersEquity / item.commonStockSharesOutstanding
       ).toFixed(2),
+      // EPSはBasicを使用（データがそろっている、YahooFinanceと同じ、株探USはDiluted）
       eps: parseFloat(item.eps).toFixed(2),
-      epsAccum: item.epsAccum,
-      operatingCashFlow: item.operatingCashFlow,
-      operatingCashFlowAccum: item.operatingCashFlowAccum,
+      epsAccum: parseFloat(item.epsAccum).toFixed(2),
+      epsDiluted: parseFloat(item.epsDiluted).toFixed(2),
+      epsAccumDiluted: parseFloat(item.epsAccumDiluted).toFixed(2),
+      stockHoldersEquityRatio: parseFloat(
+        item.stockHoldersEquity / item.assets
+      ).toFixed(2),
     };
   });
 
@@ -51,12 +60,13 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
     return {
       date: price.date,
       fp:newEdgarData.find((value) => value.date === price.date)?.fp,
-      // Price Data
+      // Price Data ---------------
       open: parseFloat(price.Open).toFixed(2),
       close: parseFloat(price.Close).toFixed(2),
       low: parseFloat(price.Low).toFixed(2),
       high: parseFloat(price.High).toFixed(2),
-      // EdgarData
+      // EdgarData ----------------
+      // PL
       revenue: newEdgarData.find((value) => value.date === price.date)
         ?.revenue,
       revenueAccum: newEdgarData.find((value) => value.date === price.date)
@@ -66,21 +76,34 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
       NetIncomeLossAccum: newEdgarData.find(
         (value) => value.date === price.date
       )?.NetIncomeLossAccum,
+      // CFS
       operatingCashFlow: newEdgarData.find((value) => value.date === price.date)
         ?.operatingCashFlow,
       operatingCashFlowAccum: newEdgarData.find((value) => value.date === price.date)
         ?.operatingCashFlowAccum,
+      // BS
+      stockHoldersEquity: newEdgarData.find(
+        (value) => value.date === price.date
+      )?.stockHoldersEquity,
+      assets: newEdgarData.find((value) => value.date === price.date)?.assets,      
+      
+      // 株式指標、経営指標
+      commonStockSharesOutstanding: newEdgarData.find(
+        (value) => value.date === price.date
+      )?.commonStockSharesOutstanding,
+      weightedAverageNumberOfDilutedSharesOutstanding: newEdgarData.find(
+        (value) => value.date === price.date
+      )?.weightedAverageNumberOfDilutedSharesOutstanding,
+
       bps: newEdgarData.find((value) => value.date === price.date)?.bps,
       pbr: parseFloat(
         price.Close /
           newEdgarData.find((value) => value.date === price.date)?.bps
       ).toFixed(2),
-
-      // PER 単四半期
       eps: newEdgarData.find((value) => value.date === price.date)?.eps,
       epsAccum: newEdgarData.find((value) => value.date === price.date)?.epsAccum,
-      
-      // PER 累計
+      epsDiluted: newEdgarData.find((value) => value.date === price.date)?.epsDiluted,
+      epsAccumDiluted: newEdgarData.find((value) => value.date === price.date)?.epsAccumDiluted,
       per:  parseFloat(
         price.Close /
           newEdgarData.find((value) => value.date === price.date)?.eps
@@ -90,17 +113,9 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
           newEdgarData.find((value) => value.date === price.date)?.epsAccum
       ).toFixed(2),
 
-      commonStockSharesOutstanding: newEdgarData.find(
-        (value) => value.date === price.date
-      )?.commonStockSharesOutstanding,
       stockHoldersEquityRatio: newEdgarData.find(
         (value) => value.date === price.date
       )?.stockHoldersEquityRatio,
-      // BSデータ検証用
-      stockHoldersEquity: newEdgarData.find(
-        (value) => value.date === price.date
-      )?.stockHoldersEquity,
-      assets: newEdgarData.find((value) => value.date === price.date)?.assets,
 
     };
   });
@@ -141,7 +156,7 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
   // 　理論株価　事業価値計算用
   const theoryStockPriceOperation = companyData.map((item, i) => {
     // 事業価値　暫定PERの15倍 単四半期EPSベースなので4倍している。
-    const operationValue = parseFloat(item.eps) * 15 * 4;
+    const operationValue = parseFloat(item.epsDiluted) * 15 * 4;
 
     // 事業価値 はっしゃんさん
     // let operationValue;
