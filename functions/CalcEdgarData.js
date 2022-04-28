@@ -153,7 +153,7 @@ export const calcEdgarData = (edgarData) => {
       }
     };
     // -------------　株価指標関連　-------------
-    // 流通株式
+    // 流通株式 Basic
     const commonStockSharesOutstanding = () => {
       if (res.CommonStockSharesOutstanding_0_Q1_shares) {
         return res.CommonStockSharesOutstanding_0_Q1_shares;
@@ -180,7 +180,24 @@ export const calcEdgarData = (edgarData) => {
         return;
       }
     };
-    // EPS 単四半期
+
+    // 流通株式 Diluted
+    const weightedAverageNumberOfDilutedSharesOutstanding = () => {
+      if (res.WeightedAverageNumberOfDilutedSharesOutstanding_1_Q1_shares) {
+        return res.WeightedAverageNumberOfDilutedSharesOutstanding_1_Q1_shares;
+      } else if (res.WeightedAverageNumberOfDilutedSharesOutstanding_2_Q2_shares) {
+        return res.WeightedAverageNumberOfDilutedSharesOutstanding_2_Q2_shares;
+      } else if (res.WeightedAverageNumberOfDilutedSharesOutstanding_3_Q3_shares) {
+        return res.WeightedAverageNumberOfDilutedSharesOutstanding_3_Q3_shares;
+      } else if (res.WeightedAverageNumberOfDilutedSharesOutstanding_4_FY_shares) {
+        return res.WeightedAverageNumberOfDilutedSharesOutstanding_4_FY_shares;
+       } else {
+        return;
+      }
+    };
+
+
+    // EPS-Basic 単四半期
     const earningsPerShareBasic = () => {
       if (i <= 3) {
         return ;
@@ -203,7 +220,7 @@ export const calcEdgarData = (edgarData) => {
         return;
       }
     };
-    // EPS Accum
+    // EPS-Basic Accum
     const earningsPerShareBasicAccum = () => {
       if (i <= 3) {
         return ;
@@ -229,6 +246,56 @@ export const calcEdgarData = (edgarData) => {
       }
     };
 
+    // EPS-Diluted 単四半期
+    const earningsPerShareDiluted = () => {
+      if (i <= 3) {
+        return ;
+      } else if (res.EarningsPerShareDiluted_1_Q1_USD) {
+        return res.EarningsPerShareDiluted_1_Q1_USD;
+      } else if (res.EarningsPerShareDiluted_1_Q2_USD) {
+        return res.EarningsPerShareDiluted_1_Q2_USD;
+      } else if (res.EarningsPerShareDiluted_1_Q3_USD) {
+        return res.EarningsPerShareDiluted_1_Q3_USD;
+      // 第四単四半期データ  
+      } else if (res.EarningsPerShareDiluted_4_FY_USD) {
+        return (
+          resultRes[i].EarningsPerShareDiluted_4_FY_USD - (
+            resultRes[i - 1].EarningsPerShareDiluted_1_Q3_USD + 
+            resultRes[i - 2].EarningsPerShareDilutedc_1_Q2_USD +  
+            resultRes[i - 3].EarningsPerShareDiluted_1_Q1_USD 
+          )
+        )
+      } else {
+        return;
+      }
+    };
+
+
+    // EPS-Diluted Accum
+    const earningsPerShareAccumDiluted = () => {
+      if (i <= 3) {
+        return;
+      } else if (res.EarningsPerShareDiluted_1_Q1_USD) {
+        return res.EarningsPerShareDiluted_1_Q1_USD;
+        //第二四半期累計 
+      } else if (res.EarningsPerShareDiluted_1_Q2_USD) {
+        return (
+          resultRes[i].EarningsPerShareDiluted_1_Q2_USD +
+          resultRes[i - 1].EarningsPerShareDiluted_1_Q1_USD
+        )
+        //第三四半期累計 
+      } else if (res.EarningsPerShareDiluted_1_Q3_USD) {
+        return (
+          resultRes[i].EarningsPerShareDiluted_1_Q3_USD +
+          resultRes[i - 1].EarningsPerShareDiluted_1_Q2_USD +
+          resultRes[i - 2].EarningsPerShareDiluted_1_Q1_USD
+        )
+      } else if (res.EarningsPerShareDiluted_4_FY_USD) {
+        return res.EarningsPerShareDiluted_4_FY_USD;
+      } else {
+        return;
+      }
+    }
 
 
 　　// ------------- Return Statement --------------------
@@ -244,8 +311,11 @@ export const calcEdgarData = (edgarData) => {
       assets: assets(),
       stockHoldersEquity: stockholdersEquity(),
       commonStockSharesOutstanding: commonStockSharesOutstanding(),
+      weightedAverageNumberOfDilutedSharesOutstanding: weightedAverageNumberOfDilutedSharesOutstanding(),
       eps: earningsPerShareBasic(),
       epsAccum: earningsPerShareBasicAccum(),
+      epsDiluted: earningsPerShareDiluted(),
+      epsAccumDiluted: earningsPerShareAccumDiluted(),
     };
     return FinancialData;
   });
