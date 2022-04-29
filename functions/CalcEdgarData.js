@@ -6,6 +6,8 @@ export const calcEdgarData = (edgarData) => {
     return a.period < b.period ? -1 : 1;
   });
 
+  console.log(resultRes)
+
   // 各勘定科目データの加工
   const edgarRes = resultRes.map((res, i) => {
 
@@ -260,6 +262,7 @@ export const calcEdgarData = (edgarData) => {
       } else if (res.EarningsPerShareDiluted_4_FY_USD) {
         return (
           resultRes[i].EarningsPerShareDiluted_4_FY_USD - (
+            // EarningsPerShareDiluted_3_Q3_USD で代用可能か
             resultRes[i - 1].EarningsPerShareDiluted_1_Q3_USD + 
             resultRes[i - 2].EarningsPerShareDilutedc_1_Q2_USD +  
             resultRes[i - 3].EarningsPerShareDiluted_1_Q1_USD 
@@ -297,6 +300,34 @@ export const calcEdgarData = (edgarData) => {
       }
     }
 
+    // -------------　配当関係　-------------
+    // 単四半期配当
+    // CommonStockDividendsPerShareDeclared (四半期配当)
+
+    const commonStockDividendsPerShareDeclaredDeducted = () => {
+      if (res.CommonStockDividendsPerShareDeclared_1_Q1_USD) {
+        return res.CommonStockDividendsPerShareDeclared_1_Q1_USD;
+      } else if (res.CommonStockDividendsPerShareDeclared_1_Q2_USD) {
+        return res.CommonStockDividendsPerShareDeclared_1_Q2_USD;
+      } else if (res.CommonStockDividendsPerShareDeclared_1_Q3_USD) {
+        return res.CommonStockDividendsPerShareDeclared_1_Q3_USD;
+      } else if (res.CommonStockDividendsPerShareDeclared_1_FY_USD) {
+        return res.CommonStockDividendsPerShareDeclared_1_FY_USD
+      } else {
+        return;
+      }
+    };
+
+    // 年間累計配当
+    const commonStockDividendsPerShareDeclaredYear = () => {
+      if (res.CommonStockDividendsPerShareDeclared_4_FY_USD) {
+        return res.CommonStockDividendsPerShareDeclared_4_FY_USD;
+      } else {
+        return;
+      }
+    };
+
+
 
 　　// ------------- Return Statement --------------------
     const FinancialData = {
@@ -316,6 +347,8 @@ export const calcEdgarData = (edgarData) => {
       epsAccum: earningsPerShareBasicAccum(),
       epsDiluted: earningsPerShareDiluted(),
       epsAccumDiluted: earningsPerShareAccumDiluted(),
+      commonStockDividendsPerShareDeclaredDeducted: commonStockDividendsPerShareDeclaredDeducted(),
+      commonStockDividendsPerShareDeclaredYear:commonStockDividendsPerShareDeclaredYear()
     };
     return FinancialData;
   });

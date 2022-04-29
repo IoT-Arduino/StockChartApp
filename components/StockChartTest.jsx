@@ -5,7 +5,6 @@ import {createMarkerData} from "../functions/CreateMarkerData"
 const StockCandleChart = ({ priceData, edgarData , markerData}) => {
   // console.log(edgarData)
   const edgarFsData = calcEdgarData(edgarData);
-  console.log(edgarFsData);
   const markerTempData = createMarkerData(markerData)
 
   const markerChartData = markerTempData.map((item,i)=>{
@@ -52,6 +51,12 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
       stockHoldersEquityRatio: parseFloat(
         item.stockHoldersEquity / item.assets
       ).toFixed(2),
+      // 配当関係
+      commonStockDividendsPerShareDeclaredDeducted: item.commonStockDividendsPerShareDeclaredDeducted,
+      commonStockDividendsPerShareDeclaredYear:item.commonStockDividendsPerShareDeclaredYear,
+      // 配当性向　    四半期の場合、直近四半期の1株配当×4　 ÷ 直近4四半期の調整後希薄化EPS
+      dividendPayoutRatio: parseFloat(item.commonStockDividendsPerShareDeclaredDeducted / item.eps).toFixed(2),
+      dividendPayoutRatioYear: parseFloat(item.commonStockDividendsPerShareDeclaredYea / item.Accum).toFixed(2),
     };
   });
 
@@ -117,10 +122,23 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
         (value) => value.date === price.date
       )?.stockHoldersEquityRatio,
 
+      // 配当関係　
+      commonStockDividendsPerShareDeclaredDeducted: newEdgarData.find(
+        (value) => value.date === price.date
+      )?.commonStockDividendsPerShareDeclaredDeducted,
+
+      commonStockDividendsPerShareDeclaredYear: newEdgarData.find(
+        (value) => value.date === price.date
+      )?.commonStockDividendsPerShareDeclaredYear,
+
+      dividendPayoutRatio: newEdgarData.find(
+        (value) => value.date === price.date
+      )?.dividendPayoutRatio,
+
     };
   });
 
-  // console.log(companyData);
+  console.log(edgarFsData);
 
   // 　チャート表示用配列データ作成　＝＝＝＝＝＝＝＝＝＝＝＝＝
 
@@ -370,29 +388,62 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
   return (
     <div>
       <ReactEcharts option={option} style={{ height: '600px', width: '100%' }} />
-      <h3>通期業績データ</h3>
+      <h3>通期業績データ FS</h3>
       <ul>
         {fyCompanyDataForTable &&
           fyCompanyDataForTable.map((item, i) => {
             return (
               <li key={i}>
                 {item.date} /
-                Close株価:{item.close} /
                 RevenueAccum:{item.revenueAccum / 1000000} /
                 NetIncomeLossAccum:{item.NetIncomeLossAccum / 1000000} /
                 OperatingCashFlowAccum: {item.operatingCashFlowAccum / 1000000}/
-                BPS:{item.bps} /
-                PBR:{item.pbr} /
-                EPS-Accum:{item.epsAccum} /
-                PER-Accum:{item.perAccum} /
                 Assets:{item.assets / 1000000} /
-                Equity:{item.stockHoldersEquity / 1000000}
+                Equity:{item.stockHoldersEquity / 1000000}/
               </li>
             );
           })}
         <p>単位は(million)</p>
       </ul>
-      <h3>単四半期業績データ</h3>
+
+      <h3>通期業績データ 指標</h3>
+      <ul>
+        {fyCompanyDataForTable &&
+          fyCompanyDataForTable.map((item, i) => {
+            return (
+              <li key={i}>
+                {item.date} / 
+                Close株価:{item.close} /
+                BPS:{item.bps} /
+                PBR:{item.pbr} /
+                EPS-Accum:{item.epsAccum} /
+                PER-Accum:{item.perAccum} /
+                DividendYear:{item.commonStockDividendsPerShareDeclaredYear} /
+                DividendPayoutRatioYear:{item.dividendPayoutRatioYear}
+              </li>
+            );
+          })}
+        <p>単位は(million)</p>
+      </ul>
+
+      <h3>単四半期業績データ PL/CFS/BS</h3>
+      <ul>
+        {QtrCompanyDataForTable &&
+          QtrCompanyDataForTable.map((item, i) => {
+            return (
+              <li key={i}>
+                {item.date} /
+                Revenue:{item.revenue / 1000000} /
+                NetIncomeLoss:{item.NetIncomeLoss / 1000000} /
+                OperatingCashFlow: {item.operatingCashFlow / 1000000}/
+                Assets:{item.assets / 1000000} /
+                Equity:{item.stockHoldersEquity / 1000000} / 
+              </li>
+            );
+          })}
+        <p>単位は(million)</p>
+      </ul>
+      <h3>単四半期業績データ 株式指標等</h3>
       <ul>
         {QtrCompanyDataForTable &&
           QtrCompanyDataForTable.map((item, i) => {
@@ -400,16 +451,12 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
               <li key={i}>
                 {item.date} /
                 Close株価: {item.close} /
-                Revenue:{item.revenue / 1000000} /
-                NetIncomeLoss:{item.NetIncomeLoss / 1000000} /
-                OperatingCashFlow:
-                {item.operatingCashFlow / 1000000}/
                 BPS:{item.bps} /
                 PBR:{item.pbr} /
                 EPS:{item.eps} /
-                Assets:{item.assets / 1000000} /
-                Equity:{item.stockHoldersEquity / 1000000} / 
-                StockNum:{item.commonStockSharesOutstanding}
+                StockNum:{item.commonStockSharesOutstanding / 1000000} /
+                Dividend:{item.commonStockDividendsPerShareDeclaredDeducted} /
+                DividendPayoutRatio:{item.dividendPayoutRatio}
               </li>
             );
           })}

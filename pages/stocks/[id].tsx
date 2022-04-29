@@ -1,15 +1,17 @@
 import React from "react";
-import CandleChart from "../../components/CandleChart";
 // import StockCandleChart from "../../components/StockChart";
 import StockCandleChartTest from "../../components/StockChartTest";
 import styles from "../../styles/Home.module.css";
-import { calcEdgarData } from "../../functions/CalcEdgarData";
 
 export async function getServerSideProps({ query }) {
   const id = await query.id;
 
   // Edgar データを追加したら、ここにも追加すること。
   const QTR = [
+    "2017q1",
+    "2017q2",
+    "2017q3",
+    "2017q4",
     "2018q1",
     "2018q2",
     "2018q3",
@@ -61,8 +63,6 @@ export async function getServerSideProps({ query }) {
 }
 
 const StockChart = ({ priceData,markerData, edgarData, id }) => {
-  // const IncomeData = calcEdgarData(edgarData);
-  console.log(edgarData)
 
   return (
     <div className={styles.container}>
