@@ -6,8 +6,6 @@ export const calcEdgarData = (edgarData) => {
     return a.period < b.period ? -1 : 1;
   });
 
-  console.log(resultRes)
-
   // 各勘定科目データの加工
   const edgarRes = resultRes.map((res, i) => {
 
@@ -201,7 +199,7 @@ export const calcEdgarData = (edgarData) => {
 
     // EPS-Basic 単四半期
     const earningsPerShareBasic = () => {
-      if (i <= 3) {
+      if (i == 0) {
         return ;
       } else if (res.EarningsPerShareBasic_1_Q1_USD) {
         return res.EarningsPerShareBasic_1_Q1_USD;
@@ -212,11 +210,13 @@ export const calcEdgarData = (edgarData) => {
       // 第四単四半期データ  
       } else if (res.EarningsPerShareBasic_4_FY_USD) {
         return (
-          resultRes[i].EarningsPerShareBasic_4_FY_USD - (
-            resultRes[i - 1].EarningsPerShareBasic_1_Q3_USD + 
-            resultRes[i - 2].EarningsPerShareBasic_1_Q2_USD +  
-            resultRes[i - 3].EarningsPerShareBasic_1_Q1_USD 
-          )
+          resultRes[i].EarningsPerShareBasic_4_FY_USD -
+          resultRes[i - 1].EarningsPerShareBasic_3_Q3_USD
+          // (
+          //   resultRes[i - 1].EarningsPerShareBasic_1_Q3_USD + 
+          //   resultRes[i - 2].EarningsPerShareBasic_1_Q2_USD +  
+          //   resultRes[i - 3].EarningsPerShareBasic_1_Q1_USD 
+          // )
         )
       } else {
         return;
@@ -224,23 +224,12 @@ export const calcEdgarData = (edgarData) => {
     };
     // EPS-Basic Accum
     const earningsPerShareBasicAccum = () => {
-      if (i <= 3) {
-        return ;
-      } else if (res.EarningsPerShareBasic_1_Q1_USD) {
+      if (res.EarningsPerShareBasic_1_Q1_USD) {
         return res.EarningsPerShareBasic_1_Q1_USD;
-       //第二四半期累計 
-      } else if (res.EarningsPerShareBasic_1_Q2_USD) {
-        return (
-          resultRes[i].EarningsPerShareBasic_1_Q2_USD +
-          resultRes[i - 1].EarningsPerShareBasic_1_Q1_USD
-        )
-       //第三四半期累計 
-      } else if (res.EarningsPerShareBasic_1_Q3_USD) {
-        return (
-          resultRes[i].EarningsPerShareBasic_1_Q3_USD + 
-          resultRes[i-1].EarningsPerShareBasic_1_Q2_USD + 
-          resultRes[i-2].EarningsPerShareBasic_1_Q1_USD
-        )
+      } else if (res.EarningsPerShareBasic_2_Q2_USD) {
+        return res.EarningsPerShareBasic_2_Q2_USD
+      } else if (res.EarningsPerShareBasic_3_Q3_USD) {
+        return res.EarningsPerShareBasic_3_Q3_USD
       } else if (res.EarningsPerShareBasic_4_FY_USD) {
         return res.EarningsPerShareBasic_4_FY_USD;
       } else {
@@ -250,7 +239,7 @@ export const calcEdgarData = (edgarData) => {
 
     // EPS-Diluted 単四半期
     const earningsPerShareDiluted = () => {
-      if (i <= 3) {
+      if (i == 0) {
         return ;
       } else if (res.EarningsPerShareDiluted_1_Q1_USD) {
         return res.EarningsPerShareDiluted_1_Q1_USD;
@@ -261,38 +250,22 @@ export const calcEdgarData = (edgarData) => {
       // 第四単四半期データ  
       } else if (res.EarningsPerShareDiluted_4_FY_USD) {
         return (
-          resultRes[i].EarningsPerShareDiluted_4_FY_USD - (
-            // EarningsPerShareDiluted_3_Q3_USD で代用可能か
-            resultRes[i - 1].EarningsPerShareDiluted_1_Q3_USD + 
-            resultRes[i - 2].EarningsPerShareDilutedc_1_Q2_USD +  
-            resultRes[i - 3].EarningsPerShareDiluted_1_Q1_USD 
-          )
+          resultRes[i].EarningsPerShareDiluted_4_FY_USD -
+          resultRes[i - 1].EarningsPerShareDiluted_3_Q3_USD
         )
       } else {
         return;
       }
     };
 
-
     // EPS-Diluted Accum
     const earningsPerShareAccumDiluted = () => {
-      if (i <= 3) {
-        return;
-      } else if (res.EarningsPerShareDiluted_1_Q1_USD) {
+      if (res.EarningsPerShareDiluted_1_Q1_USD) {
         return res.EarningsPerShareDiluted_1_Q1_USD;
-        //第二四半期累計 
-      } else if (res.EarningsPerShareDiluted_1_Q2_USD) {
-        return (
-          resultRes[i].EarningsPerShareDiluted_1_Q2_USD +
-          resultRes[i - 1].EarningsPerShareDiluted_1_Q1_USD
-        )
-        //第三四半期累計 
-      } else if (res.EarningsPerShareDiluted_1_Q3_USD) {
-        return (
-          resultRes[i].EarningsPerShareDiluted_1_Q3_USD +
-          resultRes[i - 1].EarningsPerShareDiluted_1_Q2_USD +
-          resultRes[i - 2].EarningsPerShareDiluted_1_Q1_USD
-        )
+      } else if (res.EarningsPerShareDiluted_2_Q2_USD) {
+        return res.EarningsPerShareDiluted_2_Q2_USD
+      } else if (res.EarningsPerShareDiluted_3_Q3_USD) {
+        return res.EarningsPerShareDiluted_3_Q3_USD      
       } else if (res.EarningsPerShareDiluted_4_FY_USD) {
         return res.EarningsPerShareDiluted_4_FY_USD;
       } else {

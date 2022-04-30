@@ -1,5 +1,4 @@
 import React from "react";
-// import StockCandleChart from "../../components/StockChart";
 import StockCandleChartTest from "../../components/StockChartTest";
 import styles from "../../styles/Home.module.css";
 
@@ -38,6 +37,10 @@ export async function getServerSideProps({ query }) {
     const markerList = await fetch(`http://localhost:3000/marker/marker.json`);
     const markerData = await markerList.json();
 
+    // splitDataがない場合の会社の対応が必要
+    // const splitList = await fetch(`http://localhost:3000/splitData/${id}.json`)
+    // const splitData = await splitList.json();
+
     const edgarDataResponse = QTR.map(async (item) => {
       let reqList = await fetch(
         `http://localhost:3000/edgar/${item}/${id}.json`
@@ -45,7 +48,6 @@ export async function getServerSideProps({ query }) {
       const resData = await reqList.json();
       return resData[0];
     });
-
     const edgarRes = await Promise.all(edgarDataResponse);
 
     return {
@@ -53,6 +55,7 @@ export async function getServerSideProps({ query }) {
         id,
         priceData,
         markerData,
+        // splitData,
         edgarData: edgarRes,
       },
     };
@@ -69,14 +72,8 @@ const StockChart = ({ priceData,markerData, edgarData, id }) => {
       <main className={styles.chartBlock}>
         <h2>{id} StockChartPage </h2>
 
-        {/* {priceData ? (
-          <StockCandleChart priceData={priceData} edgarData={edgarData} />
-        ) : (
-          <p>データがありません</p>
-        )} */}
-
         {priceData ? (
-          <StockCandleChartTest priceData={priceData} edgarData={edgarData} markerData={markerData}/>
+          <StockCandleChartTest priceData={priceData} edgarData={edgarData} markerData={markerData} />
         ) : (
           <p>株価データがありません</p>
         )}
