@@ -7,6 +7,8 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
   const edgarFsData = calcEdgarData(edgarData);
   const markerTempData = createMarkerData(markerData)
 
+    // console.log(splitData);
+
   const markerChartData = markerTempData.map((item,i)=>{
     const closePrice = (priceData.find((value) => value.date === item.date)?.Close)*1.2
     return ({
@@ -56,11 +58,11 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
       commonStockDividendsPerShareDeclaredYear:item.commonStockDividendsPerShareDeclaredYear,
       // 配当性向　    四半期の場合、直近四半期の1株配当×4　 ÷ 直近4四半期の調整後希薄化EPS
       dividendPayoutRatio: parseFloat(item.commonStockDividendsPerShareDeclaredDeducted / item.eps).toFixed(2),
-      dividendPayoutRatioYear: parseFloat(item.commonStockDividendsPerShareDeclaredYea / item.Accum).toFixed(2),
+      dividendPayoutRatioYear: parseFloat(item.commonStockDividendsPerShareDeclaredYear / item.epsAccum).toFixed(2),
     };
   });
 
-  // 　日付をキーとして、edinetと株価データをまとめて一つのオブジェクトにして、連想配列にする
+  // 　日付をキーとして、edinet、markerData,splitDataと株価データをまとめて一つのオブジェクトにして、連想配列にする
   const companyData = priceData.map((price) => {
     return {
       date: price.date,
@@ -90,7 +92,12 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
       stockHoldersEquity: newEdgarData.find(
         (value) => value.date === price.date
       )?.stockHoldersEquity,
-      assets: newEdgarData.find((value) => value.date === price.date)?.assets,      
+      assets: newEdgarData.find((value) => value.date === price.date)?.assets,    
+      
+      // 株式分割・併合情報
+      // calcRatio: splitData.find(
+      //   (value) => value.date === price.date
+      // )?.calcRatio,
       
       // 株式指標、経営指標
       commonStockSharesOutstanding: newEdgarData.find(
@@ -135,10 +142,15 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
         (value) => value.date === price.date
       )?.dividendPayoutRatio,
 
+      dividendPayoutRatioYear: newEdgarData.find(
+        (value) => value.date === price.date
+      )?.dividendPayoutRatioYear,
+
+
+
     };
   });
 
-  console.log(edgarFsData);
 
   // 　チャート表示用配列データ作成　＝＝＝＝＝＝＝＝＝＝＝＝＝
 
@@ -152,21 +164,25 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
 
   // 　理論株価　資産価値計算用
   const theoryStockPriceAsset = companyData.map((item, i) => {
+
+    // const assetValueWithRatio = item.bps / parseFloat(item.calcRatio)
+    const assetValueWithRatio = item.bps 
+
     //資産価値 はっしゃんさん
-    let assetValueWithRatio;
-    if (item.stockHoldersEquityRatio >= 0.8) {
-      assetValueWithRatio = item.bps * 0.8;
-    } else if (item.stockHoldersEquityRatio >= 0.67) {
-      assetValueWithRatio = item.bps * 0.75;
-    } else if (item.stockHoldersEquityRatio >= 0.5) {
-      assetValueWithRatio = item.bps * 0.7;
-    } else if (item.stockHoldersEquityRatio >= 0.33) {
-      assetValueWithRatio = item.bps * 0.65;
-    } else if (item.stockHoldersEquityRatio >= 0.1) {
-      assetValueWithRatio = item.bps * 0.6;
-    } else {
-      assetValueWithRatio = item.bps * 0.5;
-    }
+    // let assetValueWithRatio;
+    // if (item.stockHoldersEquityRatio >= 0.8) {
+    //   assetValueWithRatio = item.bps * 0.8;
+    // } else if (item.stockHoldersEquityRatio >= 0.67) {
+    //   assetValueWithRatio = item.bps * 0.75;
+    // } else if (item.stockHoldersEquityRatio >= 0.5) {
+    //   assetValueWithRatio = item.bps * 0.7;
+    // } else if (item.stockHoldersEquityRatio >= 0.33) {
+    //   assetValueWithRatio = item.bps * 0.65;
+    // } else if (item.stockHoldersEquityRatio >= 0.1) {
+    //   assetValueWithRatio = item.bps * 0.6;
+    // } else {
+    //   assetValueWithRatio = item.bps * 0.5;
+    // }
 
     return assetValueWithRatio;
   });
@@ -174,22 +190,12 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
   // 　理論株価　事業価値計算用
   const theoryStockPriceOperation = companyData.map((item, i) => {
     // 事業価値　暫定PERの15倍 単四半期EPSベースなので4倍している。
-    const operationValue = parseFloat(item.epsDiluted) * 15 * 4;
-
-    // 事業価値 はっしゃんさん
-    // let operationValue;
-    // operationValue =
-    //   (item.ordinaryProfit * 0.7) /
-    //   (item.outstandingShares - item.treasuryStock);
-
-    // if (operationValue > item.bps * 0.6) {
-    //   operationValue = item.bps * 0.6;
-    // }
+    // const operationValue = parseFloat(item.epsDiluted) * 15 * 4 / parseFloat(item.calcRatio);
+    const operationValue = parseFloat(item.epsDiluted) * 15 * 4 ;
 
     // 理論株価
     return operationValue;
   });
-
 
 
   // 理論株価　空白期間穴埋め処理（直近四半期のデータをコピー）
@@ -231,20 +237,20 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
 
 
   // ダミー利益　計算用 グラフ表示
-  const netIncomeAccumData = companyData.map((item) => {
-    const netIncomeAccumArr = parseInt(item.NetIncomeLossAccum) / 10000000;
-    return netIncomeAccumArr;
-  });
+  // const netIncomeAccumData = companyData.map((item) => {
+  //   const netIncomeAccumArr = parseInt(item.NetIncomeLossAccum) / 10000000;
+  //   return netIncomeAccumArr;
+  // });
 
-  const netIncomeData = companyData.map((item) => {
-    const netIncomeArr = parseInt(item.NetIncomeLoss) / 10000000;
-    return netIncomeArr;
-  });
+  // const netIncomeData = companyData.map((item) => {
+  //   const netIncomeArr = parseInt(item.NetIncomeLoss) / 10000000;
+  //   return netIncomeArr;
+  // });
 
-  const bps = companyData.map((item) => {
-    const bpsArr = parseInt(item.bps);
-    return bpsArr;
-  });
+  // const bps = companyData.map((item) => {
+  //   const bpsArr = parseInt(item.bps);
+  //   return bpsArr;
+  // });
 
   // 営業CF係数　計算用
   const operatingCashFlowIndicator = companyData.map((item) => {
@@ -254,13 +260,17 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
     return opeCashIndx;
   });
 
-  // テーブル表示用　ソート（最新データが上に）
+  // テーブル表示用　ソート（最新データが上に）------------------------------
+
+
+  // eps,bps,per,pbr, EPS-Accum, PER-Accum,配当利回り,stockNum　を　splitデータで補正する。
+
   const companyDataForTable = companyData.sort(function (a, b) {
     return a.date > b.date ? -1 : 1;
   });
 
   //  通期業績データ
-  const fyCompanyDataForTable = companyDataForTable.filter(item=>{
+  const fyCompanyDataForTable = companyDataForTable.filter(item => {
     return item.fp == "FY"
   })
 
