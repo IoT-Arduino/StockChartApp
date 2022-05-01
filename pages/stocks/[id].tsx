@@ -1,5 +1,5 @@
 import React from "react";
-import StockCandleChartTest from "../../components/StockChartTest";
+import StockCandleChart from "../../components/StockCandleChart";
 import styles from "../../styles/Home.module.css";
 
 export async function getServerSideProps({ query }) {
@@ -37,10 +37,6 @@ export async function getServerSideProps({ query }) {
     const markerList = await fetch(`http://localhost:3000/marker/marker.json`);
     const markerData = await markerList.json();
 
-    // splitDataがない場合の会社の対応が必要
-    // const splitList = await fetch(`http://localhost:3000/splitData/${id}.json`)
-    // const splitData = await splitList.json();
-
     const edgarDataResponse = QTR.map(async (item) => {
       let reqList = await fetch(
         `http://localhost:3000/edgar/${item}/${id}.json`
@@ -73,7 +69,7 @@ const StockChart = ({ priceData,markerData, edgarData, id }) => {
         <h2>{id} StockChartPage </h2>
 
         {priceData ? (
-          <StockCandleChartTest priceData={priceData} edgarData={edgarData} markerData={markerData} />
+          <StockCandleChart priceData={priceData} edgarData={edgarData} markerData={markerData} />
         ) : (
           <p>株価データがありません</p>
         )}

@@ -3,11 +3,9 @@ import { calcEdgarData } from "../functions/CalcEdgarData";
 import {createMarkerData} from "../functions/CreateMarkerData"
 
 const StockCandleChart = ({ priceData, edgarData , markerData}) => {
-  // console.log(edgarData)
+  console.log(edgarData)
   const edgarFsData = calcEdgarData(edgarData);
   const markerTempData = createMarkerData(markerData)
-
-    // console.log(splitData);
 
   const markerChartData = markerTempData.map((item,i)=>{
     const closePrice = (priceData.find((value) => value.date === item.date)?.Close)*1.2
@@ -53,16 +51,17 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
       stockHoldersEquityRatio: parseFloat(
         item.stockHoldersEquity / item.assets
       ).toFixed(2),
-      // 配当関係
+      // 配当関係　ｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰ
+      // 一株当たり配当　DPS
       commonStockDividendsPerShareDeclaredDeducted: item.commonStockDividendsPerShareDeclaredDeducted,
-      commonStockDividendsPerShareDeclaredYear:item.commonStockDividendsPerShareDeclaredYear,
+      commonStockDividendsPerShareDeclaredYear: item.commonStockDividendsPerShareDeclaredYear,
       // 配当性向　    四半期の場合、直近四半期の1株配当×4　 ÷ 直近4四半期の調整後希薄化EPS
       dividendPayoutRatio: parseFloat(item.commonStockDividendsPerShareDeclaredDeducted / item.eps).toFixed(2),
       dividendPayoutRatioYear: parseFloat(item.commonStockDividendsPerShareDeclaredYear / item.epsAccum).toFixed(2),
     };
   });
 
-  console.log(priceData)
+
 
   // 　日付をキーとして、edinet、markerData,splitDataと株価データをまとめて一つのオブジェクトにして、連想配列にする
   const companyData = priceData.map((price) => {
@@ -96,17 +95,13 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
       )?.stockHoldersEquity,
       assets: newEdgarData.find((value) => value.date === price.date)?.assets,    
       
-      // 株式分割・併合情報
-      // calcRatio: splitData.find(
-      //   (value) => value.date === price.date
-      // )?.calcRatio,
-
       // 経営指標
       stockHoldersEquityRatio: newEdgarData.find(
         (value) => value.date === price.date
       )?.stockHoldersEquityRatio,
       
-      // 株式指標   price.calcRatio で調整する。分割の場合、PER等は過去を割る、株数は掛ける。
+      // 株式指標   price.calcRatio で調整する。ｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰ
+      // 株式数　分割の場合、株数は過去の株数に掛け算する。。
       commonStockSharesOutstanding: newEdgarData.find(
         (value) => value.date === price.date
       )?.commonStockSharesOutstanding * price.calcRatio,
@@ -114,12 +109,14 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
         (value) => value.date === price.date
       )?.weightedAverageNumberOfDilutedSharesOutstanding * price.calcRatio,
 
+      // 一株あたり経営指標　分割の場合、EPS等は過去を割る
       bps: newEdgarData.find((value) => value.date === price.date)?.bps/price.calcRatio,
       eps: newEdgarData.find((value) => value.date === price.date)?.eps/price.calcRatio,
       epsAccum: newEdgarData.find((value) => value.date === price.date)?.epsAccum/price.calcRatio,
       epsDiluted: newEdgarData.find((value) => value.date === price.date)?.epsDiluted/price.calcRatio,
       epsAccumDiluted: newEdgarData.find((value) => value.date === price.date)?.epsAccumDiluted/price.calcRatio,
 
+      // 株価指標　株式分割調整しない。（要確認）
       pbr: parseFloat(
         price.Close /
           newEdgarData.find((value) => value.date === price.date)?.bps
@@ -134,7 +131,8 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
       ).toFixed(2),
 
 
-      // 配当関係　
+      // 配当関係　ｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰ
+      // 一株当たり配当　DPS
       commonStockDividendsPerShareDeclaredDeducted: newEdgarData.find(
         (value) => value.date === price.date
       )?.commonStockDividendsPerShareDeclaredDeducted,
@@ -143,6 +141,15 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
         (value) => value.date === price.date
       )?.commonStockDividendsPerShareDeclaredYear,
 
+      // 配当利回り(FYのみ表示対象とする)
+      dividendYieldDeducted:parseFloat(newEdgarData.find(
+        (value) => value.date === price.date
+      )?.commonStockDividendsPerShareDeclaredDeducted / price.Close).toFixed(2),
+      dividendYieldYear:parseFloat(newEdgarData.find(
+        (value) => value.date === price.date
+      )?.commonStockDividendsPerShareDeclaredYear/price.Close).toFixed(2),
+
+      // 配当性向
       dividendPayoutRatio: newEdgarData.find(
         (value) => value.date === price.date
       )?.dividendPayoutRatio,
@@ -239,22 +246,6 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
   }
 
 
-  // ダミー利益　計算用 グラフ表示
-  // const netIncomeAccumData = companyData.map((item) => {
-  //   const netIncomeAccumArr = parseInt(item.NetIncomeLossAccum) / 10000000;
-  //   return netIncomeAccumArr;
-  // });
-
-  // const netIncomeData = companyData.map((item) => {
-  //   const netIncomeArr = parseInt(item.NetIncomeLoss) / 10000000;
-  //   return netIncomeArr;
-  // });
-
-  // const bps = companyData.map((item) => {
-  //   const bpsArr = parseInt(item.bps);
-  //   return bpsArr;
-  // });
-
   // 営業CF係数　計算用
   const operatingCashFlowIndicator = companyData.map((item) => {
     // 営業CF係数
@@ -265,8 +256,6 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
 
   // テーブル表示用　ソート（最新データが上に）------------------------------
 
-
-  // eps,bps,per,pbr, EPS-Accum, PER-Accum,配当利回り,stockNum　を　splitデータで補正する。
 
   const companyDataForTable = companyData.sort(function (a, b) {
     return a.date > b.date ? -1 : 1;
@@ -475,8 +464,35 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
           })}
         <p>単位は(million)</p>
       </ul>
-      <h3>配当関係データ</h3>
-
+      <h3>配当関係 通期</h3>
+      <ul>
+        {fyCompanyDataForTable &&
+          fyCompanyDataForTable.map((item, i) => {
+            return (
+              <li key={i}>
+                {item.date}:{item.fp} /
+                DPS-Year:{item.commonStockDividendsPerShareDeclaredYear} /
+                DividentYield-Year:{item.dividendYieldYear} /
+                DividendPayoutRatio-Year:{item.dividendPayoutRatioYear} 
+              </li>
+            );
+          })}
+        <p>単位は(million)</p>
+      </ul>
+      <h3>配当関係 四半期</h3>
+      <ul>
+        {QtrCompanyDataForTable &&
+          QtrCompanyDataForTable.map((item, i) => {
+            return (
+              <li key={i}>
+                {item.date}:{item.fp} /
+                DPS-Deducted:{item.commonStockDividendsPerShareDeclaredDeducted} /
+                DividendPayoutRatio:{item.dividendPayoutRatio} 
+              </li>
+            );
+          })}
+        <p>単位は(million)</p>
+      </ul>
       <h3>株式分割データ</h3>
       <ul>
         {priceData &&

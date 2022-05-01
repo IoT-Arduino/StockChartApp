@@ -5,23 +5,16 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "../styles/Home.module.css";
 
-// export async function getServerSideProps(context:any) {
-//   const reqList = await fetch(`http://localhost:3000/stock/8001.json`);
-//   const priceData = await reqList.json();
-//   return {
-//     props: {
-//       priceData,
-//     },
-//   };
-// }
-
 const Home: NextPage = ({ priceData }:any) => {
 
   return (
     <div className={styles.container}>
-      <Link href="/stocks">
-        <a>株価一覧ページへ</a>
-      </Link>
+      <main className={styles.main}>
+        <h2 className={styles.title}>StockChartApp Top</h2>
+        <Link href="/stocks">
+          <a>株価一覧ページへ</a>
+        </Link>
+      </main>
     </div>
   );
 };
