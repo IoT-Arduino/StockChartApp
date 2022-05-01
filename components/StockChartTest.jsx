@@ -62,6 +62,8 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
     };
   });
 
+  console.log(priceData)
+
   // 　日付をキーとして、edinet、markerData,splitDataと株価データをまとめて一つのオブジェクトにして、連想配列にする
   const companyData = priceData.map((price) => {
     return {
@@ -98,24 +100,30 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
       // calcRatio: splitData.find(
       //   (value) => value.date === price.date
       // )?.calcRatio,
+
+      // 経営指標
+      stockHoldersEquityRatio: newEdgarData.find(
+        (value) => value.date === price.date
+      )?.stockHoldersEquityRatio,
       
-      // 株式指標、経営指標
+      // 株式指標   price.calcRatio で調整する。分割の場合、PER等は過去を割る、株数は掛ける。
       commonStockSharesOutstanding: newEdgarData.find(
         (value) => value.date === price.date
-      )?.commonStockSharesOutstanding,
+      )?.commonStockSharesOutstanding * price.calcRatio,
       weightedAverageNumberOfDilutedSharesOutstanding: newEdgarData.find(
         (value) => value.date === price.date
-      )?.weightedAverageNumberOfDilutedSharesOutstanding,
+      )?.weightedAverageNumberOfDilutedSharesOutstanding * price.calcRatio,
 
-      bps: newEdgarData.find((value) => value.date === price.date)?.bps,
+      bps: newEdgarData.find((value) => value.date === price.date)?.bps/price.calcRatio,
+      eps: newEdgarData.find((value) => value.date === price.date)?.eps/price.calcRatio,
+      epsAccum: newEdgarData.find((value) => value.date === price.date)?.epsAccum/price.calcRatio,
+      epsDiluted: newEdgarData.find((value) => value.date === price.date)?.epsDiluted/price.calcRatio,
+      epsAccumDiluted: newEdgarData.find((value) => value.date === price.date)?.epsAccumDiluted/price.calcRatio,
+
       pbr: parseFloat(
         price.Close /
           newEdgarData.find((value) => value.date === price.date)?.bps
       ).toFixed(2),
-      eps: newEdgarData.find((value) => value.date === price.date)?.eps,
-      epsAccum: newEdgarData.find((value) => value.date === price.date)?.epsAccum,
-      epsDiluted: newEdgarData.find((value) => value.date === price.date)?.epsDiluted,
-      epsAccumDiluted: newEdgarData.find((value) => value.date === price.date)?.epsAccumDiluted,
       per:  parseFloat(
         price.Close /
           newEdgarData.find((value) => value.date === price.date)?.eps
@@ -125,9 +133,6 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
           newEdgarData.find((value) => value.date === price.date)?.epsAccum
       ).toFixed(2),
 
-      stockHoldersEquityRatio: newEdgarData.find(
-        (value) => value.date === price.date
-      )?.stockHoldersEquityRatio,
 
       // 配当関係　
       commonStockDividendsPerShareDeclaredDeducted: newEdgarData.find(
@@ -145,8 +150,6 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
       dividendPayoutRatioYear: newEdgarData.find(
         (value) => value.date === price.date
       )?.dividendPayoutRatioYear,
-
-
 
     };
   });
@@ -471,6 +474,23 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
             );
           })}
         <p>単位は(million)</p>
+      </ul>
+      <h3>配当関係データ</h3>
+
+      <h3>株式分割データ</h3>
+      <ul>
+        {priceData &&
+          priceData.map((item, i) => {
+            if (item.splitCategory) {
+              return (
+              <li key={i}>
+                {item.date} /
+                分割種別: {item.splitCategory} /
+                分割比率:{item.splitRatio} /
+              </li>
+              )
+            }
+          })}
       </ul>
     </div>
   );
