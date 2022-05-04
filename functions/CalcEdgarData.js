@@ -26,6 +26,19 @@ export const calcEdgarData = (edgarData) => {
           resultRes[i].RevenueFromContractWithCustomerExcludingAssessedTax_4_FY_USD -
           resultRes[i-1].RevenueFromContractWithCustomerExcludingAssessedTax_3_Q3_USD
         );
+      // 名称違い対応
+      } else if (res.RevenueFromContractWithCustomerIncludingAssessedTax_1_Q1_USD) {
+        return res.RevenueFromContractWithCustomerIncludingAssessedTax_1_Q1_USD;
+      } else if (res.RevenueFromContractWithCustomerIncludingAssessedTax_1_Q2_USD) {
+        return res.RevenueFromContractWithCustomerIncludingAssessedTax_1_Q2_USD;
+      } else if (res.RevenueFromContractWithCustomerIncludingAssessedTax_1_Q3_USD) {
+        return res.RevenueFromContractWithCustomerIncludingAssessedTax_1_Q3_USD;
+      } else if (res.RevenueFromContractWithCustomerIncludingAssessedTax_4_FY_USD) {
+        // FY年間累計から、ひとつ前のレコードの第三四半期累計をマイナスする。
+        return (
+          resultRes[i].RevenueFromContractWithCustomerIncludingAssessedTax_4_FY_USD -
+          resultRes[i-1].RevenueFromContractWithCustomerIncludingAssessedTax_3_Q3_USD
+        );
       } else {
         return;
       }
@@ -40,6 +53,15 @@ export const calcEdgarData = (edgarData) => {
         return res.RevenueFromContractWithCustomerExcludingAssessedTax_3_Q3_USD;
       } else if (res.RevenueFromContractWithCustomerExcludingAssessedTax_4_FY_USD) {
         return res.RevenueFromContractWithCustomerExcludingAssessedTax_4_FY_USD;
+      // 名称違い対応
+      } else if (res.RevenueFromContractWithCustomerIncludingAssessedTax_1_Q1_USD) {
+        return res.RevenueFromContractWithCustomerIncludingAssessedTax_1_Q1_USD
+      } else if (res.RevenueFromContractWithCustomerIncludingAssessedTax_2_Q2_USD) {
+        return res.RevenueFromContractWithCustomerIncludingAssessedTax_2_Q2_USD
+      } else if (res.RevenueFromContractWithCustomerIncludingAssessedTax_3_Q3_USD) {
+        return res.RevenueFromContractWithCustomerIncludingAssessedTax_3_Q3_USD
+      } else if (res.RevenueFromContractWithCustomerIncludingAssessedTax_4_FY_USD) {
+        return res.RevenueFromContractWithCustomerIncludingAssessedTax_4_FY_USD
       } else {
         return;
       }
@@ -212,11 +234,6 @@ export const calcEdgarData = (edgarData) => {
         return (
           resultRes[i].EarningsPerShareBasic_4_FY_USD -
           resultRes[i - 1].EarningsPerShareBasic_3_Q3_USD
-          // (
-          //   resultRes[i - 1].EarningsPerShareBasic_1_Q3_USD + 
-          //   resultRes[i - 2].EarningsPerShareBasic_1_Q2_USD +  
-          //   resultRes[i - 3].EarningsPerShareBasic_1_Q1_USD 
-          // )
         )
       } else {
         return;
@@ -274,31 +291,49 @@ export const calcEdgarData = (edgarData) => {
     }
 
     // -------------　配当関係　-------------
-    // 単四半期配当
-    // CommonStockDividendsPerShareDeclared (四半期配当)
+    // 単四半期配当 Pershare
+    // CommonStockDividendsPerShareDeclared
+    // CommonStockDividendsPerShareCashPaid
 
-    const commonStockDividendsPerShareDeclaredDeducted = () => {
-      if (res.CommonStockDividendsPerShareDeclared_1_Q1_USD) {
-        return res.CommonStockDividendsPerShareDeclared_1_Q1_USD;
-      } else if (res.CommonStockDividendsPerShareDeclared_1_Q2_USD) {
-        return res.CommonStockDividendsPerShareDeclared_1_Q2_USD;
-      } else if (res.CommonStockDividendsPerShareDeclared_1_Q3_USD) {
-        return res.CommonStockDividendsPerShareDeclared_1_Q3_USD;
-      } else if (res.CommonStockDividendsPerShareDeclared_1_FY_USD) {
-        return res.CommonStockDividendsPerShareDeclared_1_FY_USD
-      } else {
-        return;
-      }
-    };
+    // const commonStockDividendsPerShareDeclaredDeducted = () => {
+    //   if (res.CommonStockDividendsPerShareDeclared_1_Q1_USD) {
+    //     return res.CommonStockDividendsPerShareDeclared_1_Q1_USD;
+    //   } else if (res.CommonStockDividendsPerShareDeclared_1_Q2_USD) {
+    //     return res.CommonStockDividendsPerShareDeclared_1_Q2_USD;
+    //   } else if (res.CommonStockDividendsPerShareDeclared_1_Q3_USD) {
+    //     return res.CommonStockDividendsPerShareDeclared_1_Q3_USD;
+    //   } else if (res.CommonStockDividendsPerShareDeclared_4_FY_USD) {
+    //     return (
+    //       resultRes[i].CommonStockDividendsPerShareDeclared_4_FY_USD -
+    //       resultRes[i - 1].CommonStockDividendsPerShareDeclared_3_Q3_USD
+    //     )
+    //   // 名称が違う場合
+    //   } else if (res.CommonStockDividendsPerShareCashPaid_1_Q1_USD) {
+    //     return res.CommonStockDividendsPerShareCashPaid_1_Q1_USD
+    //   } else if (res.CommonStockDividendsPerShareCashPaid_1_Q2_USD) {
+    //     return res.CommonStockDividendsPerShareCashPaid_1_Q2_USD
+    //   } else if (res.CommonStockDividendsPerShareCashPaid_1_Q3_USD) {
+    //     return res.CommonStockDividendsPerShareCashPaid_1_Q3_USD
+    //   } else if (res.CommonStockDividendsPerShareCashPaid_4_FY_USD) {
+    //     return (
+    //       resultRes[i].CommonStockDividendsPerShareCashPaid_4_FY_USD -
+    //       resultRes[i - 1].CommonStockDividendsPerShareCashPaid_3_Q3_USD
+    //     )
+    //   } else {
+    //     return;
+    //   }
+    // };
 
     // 年間累計配当
-    const commonStockDividendsPerShareDeclaredYear = () => {
-      if (res.CommonStockDividendsPerShareDeclared_4_FY_USD) {
-        return res.CommonStockDividendsPerShareDeclared_4_FY_USD;
-      } else {
-        return;
-      }
-    };
+    // const commonStockDividendsPerShareDeclaredYear = () => {
+    //   if (res.CommonStockDividendsPerShareDeclared_4_FY_USD) {
+    //     return res.CommonStockDividendsPerShareDeclared_4_FY_USD;
+    //   } else if (res.CommonStockDividendsPerShareCashPaid_4_FY_USD) {
+    //     return res.CommonStockDividendsPerShareCashPaid_4_FY_USD
+    //   } else {
+    //     return;
+    //   }
+    // };
 
 
 
@@ -320,8 +355,8 @@ export const calcEdgarData = (edgarData) => {
       epsAccum: earningsPerShareBasicAccum(),
       epsDiluted: earningsPerShareDiluted(),
       epsAccumDiluted: earningsPerShareAccumDiluted(),
-      commonStockDividendsPerShareDeclaredDeducted: commonStockDividendsPerShareDeclaredDeducted(),
-      commonStockDividendsPerShareDeclaredYear:commonStockDividendsPerShareDeclaredYear()
+      // commonStockDividendsPerShareDeclaredDeducted: commonStockDividendsPerShareDeclaredDeducted(),
+      // commonStockDividendsPerShareDeclaredYear:commonStockDividendsPerShareDeclaredYear()
     };
     return FinancialData;
   });
