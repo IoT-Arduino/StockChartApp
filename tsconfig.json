@@ -15,6 +15,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/ChartComponent.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/ChartComponent.js", "pages/stocks/[id].jsx"],
   "exclude": ["node_modules"]
 }
