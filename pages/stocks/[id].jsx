@@ -46,10 +46,21 @@ export async function getServerSideProps({ query }) {
       let reqList = await fetch(
         `http://localhost:3000/edgar/${item}/${id}.json`
       );
-      const resData = await reqList.json();
-      return resData[0];
+
+      if (reqList.status == "404") {
+        return null
+      } else if (reqList.status == "200") {
+        const resData = await reqList.json();
+        return resData[0];
+      } else {
+        return null
+      }
     });
-    const edgarRes = await Promise.all(edgarDataResponse);
+
+    
+    const edgarResData = await Promise.all(edgarDataResponse);
+    const edgarRes = await edgarResData.filter(item =>item)
+    console.log(edgarRes)
 
     // GoogleSheet Data  Ticker == id の値をフィルタする。
     const response = await sheets.spreadsheets.values.get({
@@ -91,8 +102,11 @@ const StockChart = ({ priceData,markerData, edgarData, id,filteredSheetData }) =
           <p>株価データがありません</p>
         )}
         <h3>株式ニュース</h3>
-        <p>News:{filteredSheetData[0][1]}</p>
-        <p>Info:{filteredSheetData[0][2]}</p>
+        {filteredSheetData[0] ? <>
+        <p>News:{filteredSheetData[0][1] ? filteredSheetData[0][1] : ""}</p>
+        <p>Info:{filteredSheetData[0][2] ? filteredSheetData[0][2] : ""}</p></>
+           : "" }
+
       </main>
     </div>
   );
