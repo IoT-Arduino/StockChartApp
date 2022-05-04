@@ -53,11 +53,11 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
       ).toFixed(2),
       // 配当関係　ｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰ
       // 一株当たり配当　DPS
-      commonStockDividendsPerShareDeclaredDeducted: item.commonStockDividendsPerShareDeclaredDeducted,
-      commonStockDividendsPerShareDeclaredYear: item.commonStockDividendsPerShareDeclaredYear,
+      // commonStockDividendsPerShareDeclaredDeducted: item.commonStockDividendsPerShareDeclaredDeducted,
+      // commonStockDividendsPerShareDeclaredYear: item.commonStockDividendsPerShareDeclaredYear,
       // 配当性向　    四半期の場合、直近四半期の1株配当×4　 ÷ 直近4四半期の調整後希薄化EPS
-      dividendPayoutRatio: parseFloat(item.commonStockDividendsPerShareDeclaredDeducted / item.eps).toFixed(2),
-      dividendPayoutRatioYear: parseFloat(item.commonStockDividendsPerShareDeclaredYear / item.epsAccum).toFixed(2),
+      // dividendPayoutRatio: parseFloat(item.commonStockDividendsPerShareDeclaredDeducted / item.eps).toFixed(2),
+      // dividendPayoutRatioYear: parseFloat(item.commonStockDividendsPerShareDeclaredYear / item.epsAccum).toFixed(2),
     };
   });
 
@@ -133,30 +133,30 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
 
       // 配当関係　ｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰ
       // 一株当たり配当　DPS
-      commonStockDividendsPerShareDeclaredDeducted: newEdgarData.find(
-        (value) => value.date === price.date
-      )?.commonStockDividendsPerShareDeclaredDeducted,
+      // commonStockDividendsPerShareDeclaredDeducted: newEdgarData.find(
+      //   (value) => value.date === price.date
+      // )?.commonStockDividendsPerShareDeclaredDeducted,
 
-      commonStockDividendsPerShareDeclaredYear: newEdgarData.find(
-        (value) => value.date === price.date
-      )?.commonStockDividendsPerShareDeclaredYear,
+      // commonStockDividendsPerShareDeclaredYear: newEdgarData.find(
+      //   (value) => value.date === price.date
+      // )?.commonStockDividendsPerShareDeclaredYear,
 
       // 配当利回り(FYのみ表示対象とする)
-      dividendYieldDeducted:parseFloat(newEdgarData.find(
-        (value) => value.date === price.date
-      )?.commonStockDividendsPerShareDeclaredDeducted / price.Close).toFixed(2),
-      dividendYieldYear:parseFloat(newEdgarData.find(
-        (value) => value.date === price.date
-      )?.commonStockDividendsPerShareDeclaredYear/price.Close).toFixed(2),
+      // dividendYieldDeducted:parseFloat(newEdgarData.find(
+      //   (value) => value.date === price.date
+      // )?.commonStockDividendsPerShareDeclaredDeducted / price.Close).toFixed(2),
+      // dividendYieldYear:parseFloat(newEdgarData.find(
+      //   (value) => value.date === price.date
+      // )?.commonStockDividendsPerShareDeclaredYear/price.Close).toFixed(2),
 
       // 配当性向
-      dividendPayoutRatio: newEdgarData.find(
-        (value) => value.date === price.date
-      )?.dividendPayoutRatio,
+      // dividendPayoutRatio: newEdgarData.find(
+      //   (value) => value.date === price.date
+      // )?.dividendPayoutRatio,
 
-      dividendPayoutRatioYear: newEdgarData.find(
-        (value) => value.date === price.date
-      )?.dividendPayoutRatioYear,
+      // dividendPayoutRatioYear: newEdgarData.find(
+      //   (value) => value.date === price.date
+      // )?.dividendPayoutRatioYear,
 
     };
   });
@@ -422,8 +422,6 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
                 PBR:{item.pbr} /
                 EPS-Accum:{item.epsAccum} /
                 PER-Accum:{item.perAccum} /
-                DividendYear:{item.commonStockDividendsPerShareDeclaredYear} /
-                DividendPayoutRatioYear:{item.dividendPayoutRatioYear}
               </li>
             );
           })}
@@ -459,42 +457,12 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
                 PBR:{item.pbr} /
                 EPS:{item.eps} /
                 StockNum:{item.commonStockSharesOutstanding / 1000000} /
-                Dividend:{item.commonStockDividendsPerShareDeclaredDeducted} /
-                DividendPayoutRatio:{item.dividendPayoutRatio}
               </li>
             );
           })}
         <p>単位は(million)</p>
       </ul>
-      <h3>配当関係 通期</h3>
-      <ul>
-        {fyCompanyDataForTable &&
-          fyCompanyDataForTable.map((item, i) => {
-            return (
-              <li key={i}>
-                {item.date}:{item.fp} /
-                DPS-Year:{item.commonStockDividendsPerShareDeclaredYear} /
-                DividentYield-Year:{item.dividendYieldYear} /
-                DividendPayoutRatio-Year:{item.dividendPayoutRatioYear} 
-              </li>
-            );
-          })}
-        <p>単位は(million)</p>
-      </ul>
-      <h3>配当関係 四半期</h3>
-      <ul>
-        {QtrCompanyDataForTable &&
-          QtrCompanyDataForTable.map((item, i) => {
-            return (
-              <li key={i}>
-                {item.date}:{item.fp} /
-                DPS-Deducted:{item.commonStockDividendsPerShareDeclaredDeducted} /
-                DividendPayoutRatio:{item.dividendPayoutRatio} 
-              </li>
-            );
-          })}
-        <p>単位は(million)</p>
-      </ul>
+
       <h3>株式分割データ</h3>
       <ul>
         {priceData &&
