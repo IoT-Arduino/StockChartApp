@@ -55,7 +55,7 @@ export async function getServerSideProps() {
 
 const Home: NextPage = ({ fundsData }: any) => {
   
-  console.log(fundsData.vigData)
+  // console.log(fundsData.vigData)
 
   return (
     <div className={styles.container}>

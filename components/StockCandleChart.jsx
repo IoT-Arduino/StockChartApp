@@ -3,7 +3,7 @@ import { calcEdgarData } from "../functions/CalcEdgarData";
 import {createMarkerData} from "../functions/CreateMarkerData"
 
 const StockCandleChart = ({ priceData, edgarData , markerData}) => {
-  console.log(edgarData)
+  // console.log(edgarData)
   const edgarFsData = calcEdgarData(edgarData);
   const markerTempData = createMarkerData(markerData)
 
@@ -160,6 +160,8 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
 
     };
   });
+
+  // console.log(edgarFsData)
 
 
   // 　チャート表示用配列データ作成　＝＝＝＝＝＝＝＝＝＝＝＝＝
