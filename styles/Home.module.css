@@ -32,6 +32,12 @@
   max-width: 800px;
 }
 
+.table {
+  width:80%;
+  margin:0 auto;
+  text-align: right;
+}
+
 
 
 @media (max-width: 600px) {
