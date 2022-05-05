@@ -18,6 +18,8 @@ export async function getServerSideProps() {
         return -1;
       }
     });
+
+    // console.log(codeListSorted)
  
     return {
       props: {
@@ -30,12 +32,35 @@ export async function getServerSideProps() {
 }
 
 export default function index({ codeList }) {
+
+  const codeListSP = codeList.filter(item =>{
+    return item.SP500 == "SP500"
+  })
+
+  const codeListNSP = codeList.filter(item =>{
+    return item.SP500 != "SP500"
+  })
+
   return (
     <div className={styles.container}>
       <main className={styles.main}>
-        <h2 className={styles.title}>株式一覧</h2>
+        <h2 className={styles.title}>500株式一覧</h2>
         <ul>
-          {codeList.map((code, i) => {
+          {codeListSP.map((code, i) => {
+            return (
+              <li key={i}>
+                <Link href={`/stocks/${code.Ticker}`}>
+                  <a>
+                    {code.Name}/{code.Ticker}/{code.CIK}
+                  </a>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+        <h2 className={styles.title}>Not500株式一覧</h2>
+        <ul>
+          {codeListNSP.map((code, i) => {
             return (
               <li key={i}>
                 <Link href={`/stocks/${code.Ticker}`}>

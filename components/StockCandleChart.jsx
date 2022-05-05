@@ -1,6 +1,7 @@
 import ReactEcharts from "echarts-for-react";
 import { calcEdgarData } from "../functions/CalcEdgarData";
-import {createMarkerData} from "../functions/CreateMarkerData"
+import { createMarkerData } from "../functions/CreateMarkerData"
+import styles from "../styles/Home.module.css";
 
 const StockCandleChart = ({ priceData, edgarData , markerData}) => {
   // console.log(edgarData)
@@ -37,7 +38,7 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
       assets: item.assets,
       stockHoldersEquity: item.stockHoldersEquity,
       // 株式指標・経営指標
-      commonStockSharesOutstanding: item.commonStockSharesOutstanding,
+      commonStockSharesOutstanding:item.commonStockSharesOutstanding,
       weightedAverageNumberOfDilutedSharesOutstanding: item.weightedAverageNumberOfDilutedSharesOutstanding,
       // Yahoo Finance と一致する。commonStockSharesOutstanding　を使用。
       bps: parseFloat(
@@ -110,24 +111,24 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
       )?.weightedAverageNumberOfDilutedSharesOutstanding * price.calcRatio,
 
       // 一株あたり経営指標　分割の場合、EPS等は過去を割る
-      bps: newEdgarData.find((value) => value.date === price.date)?.bps/price.calcRatio,
-      eps: newEdgarData.find((value) => value.date === price.date)?.eps/price.calcRatio,
-      epsAccum: newEdgarData.find((value) => value.date === price.date)?.epsAccum/price.calcRatio,
+      bps: parseFloat(newEdgarData.find((value) => value.date === price.date)?.bps/price.calcRatio).toFixed(2),
+      eps: parseFloat(newEdgarData.find((value) => value.date === price.date)?.eps/price.calcRatio).toFixed(2),
+      epsAccum: parseFloat(newEdgarData.find((value) => value.date === price.date)?.epsAccum/price.calcRatio).toFixed(2),
       epsDiluted: newEdgarData.find((value) => value.date === price.date)?.epsDiluted/price.calcRatio,
       epsAccumDiluted: newEdgarData.find((value) => value.date === price.date)?.epsAccumDiluted/price.calcRatio,
 
       // 株価指標　株式分割調整しない。（要確認）
       pbr: parseFloat(
-        price.Close /
-          newEdgarData.find((value) => value.date === price.date)?.bps
+        (price.Close /
+          newEdgarData.find((value) => value.date === price.date)?.bps)* price.calcRatio
       ).toFixed(2),
       per:  parseFloat(
-        price.Close /
-          newEdgarData.find((value) => value.date === price.date)?.eps
+        (price.Close /
+          newEdgarData.find((value) => value.date === price.date)?.eps)* price.calcRatio
       ).toFixed(2),
       perAccum:  parseFloat(
-        price.Close /
-          newEdgarData.find((value) => value.date === price.date)?.epsAccum
+        (price.Close /
+          newEdgarData.find((value) => value.date === price.date)?.epsAccum ) * price.calcRatio
       ).toFixed(2),
 
 
@@ -161,8 +162,19 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
     };
   });
 
-  // console.log(edgarFsData)
+  // console.log(companyData)
 
+  // テーブル表示用、データクリーニング処理（古いデータの最後の2件を削除する、ソート）
+  // 要再確認（グラフの最初の方がおかしい）
+  let companyDataForTable = companyData.slice()
+  companyData.splice(0,2)
+
+  companyDataForTable =  companyDataForTable.sort(function (a, b) {
+    return a.date > b.date ? -1 : 1;
+  });
+  companyDataForTable.splice(-2)
+
+  // console.log(companyDataForTable)
 
   // 　チャート表示用配列データ作成　＝＝＝＝＝＝＝＝＝＝＝＝＝
 
@@ -248,20 +260,36 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
   }
 
 
-  // 営業CF係数　計算用
-  const operatingCashFlowIndicator = companyData.map((item) => {
-    // 営業CF係数
-    const opeCashIndx = parseInt(item.operatingCashFlow) / 10000000;
+  //　キャッシュフロー棒グラフエリア用
+  //  一旦四半期データのみにフィルタする処理
 
+  const filteredDataForBarChart = companyData.filter((item)=>{
+    return item.operatingCashFlow != null
+  })
+
+  const filteredDateForBarChart = filteredDataForBarChart.map((item) => {
+    const dateData = item.date;
+    return dateData;
+  });
+  const operatingCashFlowIndicator = filteredDataForBarChart.map((item) => {
+    const opeCashIndx = (parseFloat(item.operatingCashFlow/item.revenue)*100).toFixed(2);
     return opeCashIndx;
   });
 
-  // テーブル表示用　ソート（最新データが上に）------------------------------
-
-
-  const companyDataForTable = companyData.sort(function (a, b) {
-    return a.date > b.date ? -1 : 1;
+  const operatingCashFlowData = filteredDataForBarChart.map((item) => {
+    const opeCashData = parseInt(item.operatingCashFlow) / 10000000;
+    return opeCashData;
   });
+
+  const netIncomeArr = filteredDataForBarChart.map((item) => {
+    const netIncomeData = parseInt(item.NetIncomeLoss) / 10000000;
+    return netIncomeData;
+  });
+
+
+
+
+  // テーブル表示用　データ処理　------------------------------
 
   //  通期業績データ
   const fyCompanyDataForTable = companyDataForTable.filter(item => {
@@ -284,7 +312,7 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
 
       },
       {
-        data: newDateData,
+        data: filteredDateForBarChart,
         gridIndex: 1,
       },
     ],
@@ -318,7 +346,7 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
         },
       },
       {
-        name: "営業CF（百万ドル）",
+        name: "営業CF(緑) : 純利益（黄）　（百万ドル）",
         scale: true,
         splitNumber: 1,
         gridIndex: 1,
@@ -329,6 +357,20 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
         axisLine: { show: true },
         axisTick: { show: true },
         splitLine: { show: true },
+      },
+      {
+        name: "営業CFマージン",
+        scale: true,
+        splitNumber: 1,
+        gridIndex: 1,
+        axisLabel: { show: true },
+        axisLabel: {
+          formatter: "{value} %",
+        },
+        axisLine: { show: true },
+        axisTick: { show: true },
+        splitLine: { show: true },
+        min:0,
       },
     ],
     series: [
@@ -347,32 +389,46 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
       name: '理論株価-資産',
       type: 'line',
       stack: 'Total',
-              xAxisIndex: 0,
-        yAxisIndex: 0,
-      areaStyle: {},
+      xAxisIndex: 0,
+      yAxisIndex: 0,
+      showSymbol: false,
+      lineStyle: {
+        color: '#5470C6',
+        width: 1
+      },
+      areaStyle: {
+        opacity: 0.2
+      },
       emphasis: {
         focus: 'series'
       },
         data: resultTheoryStockPriceAsset,
         smooth: true,
       },
-        {
-      name: '理論株価-事業',
-      type: 'line',
-      stack: 'Total',
-              xAxisIndex: 0,
-        yAxisIndex: 0,
-      areaStyle: {},
-      emphasis: {
-        focus: 'series'
-      },
-          data: resultTheoryStockPriceOperation,
-      smooth: true,
-    },
-
       {
-        name: "Volume",
+        name: '理論株価-事業',
+        type: 'line',
+        stack: 'Total',
+        xAxisIndex: 0,
+        yAxisIndex: 0,
+        showSymbol: false,
+        lineStyle: {
+          color: '#7fbe9e',
+          width: 1
+        },
+        areaStyle: {
+          opacity:0.2
+        },
+        emphasis: {
+          focus: 'series'
+        },
+        data: resultTheoryStockPriceOperation,
+        smooth: true,
+      },
+      {
+        name: "Cashflow",
         type: "bar",
+        barGap: 0,
         grid: 1,
         xAxisIndex: 1,
         yAxisIndex: 1,
@@ -384,84 +440,168 @@ const StockCandleChart = ({ priceData, edgarData , markerData}) => {
             color: "#140",
           },
         },
-        data: operatingCashFlowIndicator,
+        data: operatingCashFlowData,
       },
+    {
+      name: "NetIncome",
+      type: "bar",
+      grid: 1,
+      xAxisIndex: 1,
+      yAxisIndex: 1,
+      itemStyle: {
+        color: "#ffec50",
+      },
+      emphasis: {
+        itemStyle: {
+          color: "#140",
+        },
+      },
+      data: netIncomeArr,
+      },
+      {
+      name: "CFMargin",
+      type: "line",
+      grid: 1,
+      xAxisIndex: 1,
+      yAxisIndex: 2,
+      itemStyle: {
+        color: "#636363",
+      },
+      data: operatingCashFlowIndicator,
+    },
     ],
   };
+
+
 
   return (
     <div>
       <ReactEcharts option={option} style={{ height: '600px', width: '100%' }} />
+      <p style={{ textAlign: 'right' }}>勘定科目金額単位は(million$)</p>
       <h3>通期業績データ FS</h3>
-      <ul>
+
+      <table className={styles.table}>
+        <thead>
+        <tr>
+          <th>年月</th>
+          <th>売上高</th>
+          <th>純利益</th>
+          <th>営業CF</th>
+          <th>総資産</th>
+          <th>株主資本</th>
+        </tr>
+          </thead>
+          <tbody>
         {fyCompanyDataForTable &&
           fyCompanyDataForTable.map((item, i) => {
             return (
-              <li key={i}>
-                {item.date} /
-                RevenueAccum:{item.revenueAccum / 1000000} /
-                NetIncomeLossAccum:{item.NetIncomeLossAccum / 1000000} /
-                OperatingCashFlowAccum: {item.operatingCashFlowAccum / 1000000}/
-                Assets:{item.assets / 1000000} /
-                Equity:{item.stockHoldersEquity / 1000000}/
-              </li>
+              <tr key={i}>
+                 <td>{item.date}</td>         
+                 <td>{item.revenueAccum ? (item.revenueAccum / 1000000).toLocaleString() : "-"}</td>
+                 <td>{item.NetIncomeLossAccum ? (item.NetIncomeLossAccum / 1000000).toLocaleString() : "-"}</td>         
+                 <td>{item.operatingCashFlowAccum ? (item.operatingCashFlowAccum / 1000000).toLocaleString(): "-"}</td>                
+                 <td>{item.assets ? (item.assets / 1000000).toLocaleString(): "-"}</td>         
+                 <td>{item.stockHoldersEquity ? (item.stockHoldersEquity / 1000000).toLocaleString(): "-"}</td>                
+              </tr>
             );
           })}
-        <p>単位は(million)</p>
-      </ul>
+          </tbody>
+      </table>
+
+
+
 
       <h3>通期業績データ 指標</h3>
-      <ul>
+
+      <table className={styles.table}>
+         <thead>
+        <tr>
+          <th>年月</th>
+          <th>株価</th>
+          <th>BPS</th>
+          <th>PBR</th>
+          <th>EPS（累計）</th>
+          <th>PER（累計）</th>
+        </tr>
+        </thead>
+        <tbody>
         {fyCompanyDataForTable &&
           fyCompanyDataForTable.map((item, i) => {
             return (
-              <li key={i}>
-                {item.date} / 
-                Close株価:{item.close} /
-                BPS:{item.bps} /
-                PBR:{item.pbr} /
-                EPS-Accum:{item.epsAccum} /
-                PER-Accum:{item.perAccum} /
-              </li>
+              <tr key={i}>
+                 <td>{item.date}</td>         
+                 <td>{item.close} </td>
+                 <td>{item.bps!="NaN" ? item.bps : "-"} </td>         
+                 <td>{item.pbr!="NaN" ? item.pbr : "-"}</td>                
+                 <td>{item.epsAccum!="NaN" ? item.epsAccum : "-"}</td>         
+                 <td>{item.perAccum!="NaN" ? item.perAccum : "-"} </td>                
+              </tr>
             );
           })}
-        <p>単位は(million)</p>
-      </ul>
+          </tbody>
+      </table>
+
 
       <h3>単四半期業績データ PL/CFS/BS</h3>
-      <ul>
+
+      <table  className={styles.table}>
+               <thead>
+        <tr>
+          <th>年月</th>
+          <th>売上高</th>
+          <th>純利益</th>
+          <th>営業CF</th>
+          <th>総資産</th>
+          <th>株主資本</th>
+        </tr>
+        </thead>
+         <tbody>
         {QtrCompanyDataForTable &&
           QtrCompanyDataForTable.map((item, i) => {
             return (
-              <li key={i}>
-                {item.date} /
-                Revenue:{item.revenue / 1000000} /
-                NetIncomeLoss:{item.NetIncomeLoss / 1000000} /
-                OperatingCashFlow: {item.operatingCashFlow / 1000000}/
-                Assets:{item.assets / 1000000} /
-                Equity:{item.stockHoldersEquity / 1000000} / 
-              </li>
+              <tr key={i}>
+                 <td>{item.date}</td>         
+                 <td>{item.revenue ? (item.revenue / 1000000).toLocaleString():"-" }</td>
+                 <td>{item.NetIncomeLoss ? (item.NetIncomeLoss / 1000000).toLocaleString() : "-"} </td>         
+                 <td> {item.operatingCashFlow?(item.operatingCashFlow / 1000000).toLocaleString() : "-"}</td>                
+                 <td>{item.assets ? (item.assets / 1000000).toLocaleString() : "-"}</td>         
+                 <td>{item.stockHoldersEquity ? (item.stockHoldersEquity / 1000000).toLocaleString() : "-"}</td>                
+              </tr>
             );
           })}
-        <p>単位は(million)</p>
-      </ul>
+          </tbody>
+      </table>
+
       <h3>単四半期業績データ 株式指標等</h3>
-      <ul>
+
+      <table className={styles.table}>
+      <thead>
+        <tr>
+          <th>年月</th>
+          <th>株価</th>
+          <th>BPS</th>
+          <th>PBR</th>
+          <th>EPS</th>
+          <th>流通株式数</th>
+        </tr>
+        </thead>
+         <tbody>
         {QtrCompanyDataForTable &&
           QtrCompanyDataForTable.map((item, i) => {
             return (
-              <li key={i}>
-                {item.date} /
-                Close株価: {item.close} /
-                BPS:{item.bps} /
-                PBR:{item.pbr} /
-                EPS:{item.eps} /
-                StockNum:{item.commonStockSharesOutstanding / 1000000} /
-              </li>
+              <tr key={i}>
+                 <td>{item.date}</td>         
+                 <td>{item.close}</td>
+                 <td>{item.bps!="NaN" ? item.bps :"-"} </td>         
+                 <td>{item.pbr!="NaN" ? item.pbr :"-"} </td>                
+                 <td>{item.eps!="NaN" ? item.eps :"-"}</td>         
+                 <td>{item.commonStockSharesOutstanding  ? (item.commonStockSharesOutstanding / 1000000).toFixed() : "-"} </td>                
+              </tr>
             );
           })}
-        <p>単位は(million)</p>
-      </ul>
+          </tbody>
+      </table>
+      <p style={{ textAlign:'right' }}>データ空欄部分は科目変換定義等調整中</p>
 
       <h3>株式分割データ</h3>
       <ul>

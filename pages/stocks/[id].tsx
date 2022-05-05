@@ -47,9 +47,9 @@ export async function getServerSideProps({ query }) {
         `http://localhost:3000/edgar/${item}/${id}.json`
       );
 
-      if (reqList.status == "404") {
+      if (reqList.status == 404) {
         return null
-      } else if (reqList.status == "200") {
+      } else if (reqList.status == 200) {
         const resData = await reqList.json();
         return resData[0];
       } else {
@@ -60,7 +60,7 @@ export async function getServerSideProps({ query }) {
     
     const edgarResData = await Promise.all(edgarDataResponse);
     const edgarRes = await edgarResData.filter(item =>item)
-    console.log(edgarRes)
+    // console.log(edgarRes[0].CIK)
 
     // GoogleSheet Data  Ticker == id の値をフィルタする。
     const response = await sheets.spreadsheets.values.get({
@@ -90,7 +90,6 @@ export async function getServerSideProps({ query }) {
 
 const StockChart = ({ priceData,markerData, edgarData, id,filteredSheetData }) => {
 
-  // console.log(filteredSheetData)
   return (
     <div className={styles.container}>
       <main className={styles.chartBlock}>
@@ -107,6 +106,11 @@ const StockChart = ({ priceData,markerData, edgarData, id,filteredSheetData }) =
         <p>Info:{filteredSheetData[0][2] ? filteredSheetData[0][2] : ""}</p></>
            : "" }
 
+        <h3>財務情報確認</h3>
+        <p><a href={`https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${priceData[0].CIK}&type=&dateb=&owner=exclude&count=40&search_text=`}>EDGARサイト</a></p>
+        <p><a href={`https://stocks.finance.yahoo.co.jp/us/annual/${priceData[0].Ticker}`}>Yahooファイナンス</a></p>
+        <p><a href={`https://finance.yahoo.com/quote/${priceData[0].Ticker}/financials?p=${priceData[0].Ticker}`}>YahooファイナンスUS</a></p>
+        <p><a href={`https://us.kabutan.jp/stocks/${priceData[0].Ticker}/finance`}>株探US</a></p>
       </main>
     </div>
   );
