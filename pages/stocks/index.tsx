@@ -19,8 +19,6 @@ export async function getServerSideProps() {
       }
     });
 
-    // console.log(codeListSorted)
- 
     return {
       props: {
         codeList: codeListSorted,
