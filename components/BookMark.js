@@ -26,6 +26,7 @@ export default function BookMark({ user, ticker }) {
     else {
       setStar(items.bookmark)
       setBookMarkId(items.id)
+      // console.log(items)
     }
   }
 
