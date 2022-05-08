@@ -1,4 +1,6 @@
 import React from "react";
+import { useState, useEffect } from 'react'
+
 import StockCandleChart from "../../components/StockCandleChart";
 import styles from "../../styles/Home.module.css";
 import { google } from 'googleapis';
@@ -15,6 +17,7 @@ export async function getServerSideProps({ query }) {
   const auth = await google.auth.getClient({ scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'] });
   const sheets = google.sheets({ version: 'v4', auth });
   const googleSheetRange = `ContentsList!A2:Q1000`;
+
 
   // Edgar データを追加したら、ここにも追加すること。
   const QTR = [
@@ -79,13 +82,15 @@ export async function getServerSideProps({ query }) {
       return item[0] == id
     })
 
+
+
     return {
       props: {
         id,
         priceData,
         markerData,
         edgarData: edgarRes,
-        filteredSheetData
+        filteredSheetData,
       },
     };
   } catch (err) {
@@ -97,12 +102,15 @@ export async function getServerSideProps({ query }) {
 const StockChart = ({ priceData,markerData, edgarData, id,filteredSheetData }) => {
   const { user } = useUser()
 
-  console.log(id)
 
   return (
     <div className={styles.container}>
       <main className={styles.chartBlock}>
-        <h2>{id} StockChartPage </h2>
+        <h2>{id} StockChartPage </h2> {!user ? <Auth /> : (
+          <div>
+            <BookMark user={supabase.auth.user()} ticker={id} />
+          </div>
+        )}
 
         {priceData ? (
           <StockCandleChart priceData={priceData} edgarData={edgarData} markerData={markerData} />
@@ -117,9 +125,6 @@ const StockChart = ({ priceData,markerData, edgarData, id,filteredSheetData }) =
 
         {!user ? <Auth /> : (
           <div>
-            <h3>会員限定情報</h3>
-            <BookMark user={supabase.auth.user()} ticker={id} />
-            <p>---------</p>
             <Comments user={supabase.auth.user()} ticker={id} />
           </div>
         )}
