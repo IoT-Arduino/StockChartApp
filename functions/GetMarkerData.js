@@ -1,18 +1,23 @@
-import { supabase } from '../utils/supabase'
 
-export const getMarkerData = async (id) => {
-  // <!-- supabaseに接続 -->
-  const fetchComments = await supabase
-      .from('comments')
-      .select('*')
+export const getMarkerData = (marker) => {
 
-
-  console.log(fetchComments)
+  // データを古い順にソート
+  let resultRes = marker.sort(function (a, b) {
+    return a.date < b.date ? -1 : 1;
+  });
   
-    // var result = await new Promise(async function(resolve, reject){
-    //     var a ="aaaa";
-    //   resolve(a);
-    //   console.log(a)
-    // });
+  const markerRes = resultRes.map((res, i) => {
+    const ymDate = new Date(res.date)
+    const dateStr = ymDate.getFullYear() + "/" + ('0' + (ymDate.getMonth() + 1)).slice(-2)
+    // console.log(dateStr)
+    return ({
+      name: res.ticker,
+      date: dateStr,
+      coord: [dateStr],
+      value: res.memo,
+    })
+  })
+
+  return markerRes
 
 }

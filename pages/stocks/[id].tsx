@@ -1,5 +1,4 @@
-import React from "react";
-import { useState, useEffect } from 'react'
+import React,{useEffect,useState} from 'react'
 
 import StockCandleChart from "../../components/StockCandleChart";
 import styles from "../../styles/Home.module.css";
@@ -10,6 +9,7 @@ import Auth from '../../components/auth'
 import { supabase } from '../../utils/supabase'
 import Comments from '../../components/Comments'
 import BookMark from '../../components/BookMark'
+import InputMarker from '../../components/InputMarker'
 
 export async function getServerSideProps({ query }) {
   const id = await query.id;
@@ -82,8 +82,6 @@ export async function getServerSideProps({ query }) {
       return item[0] == id
     })
 
-
-
     return {
       props: {
         id,
@@ -91,6 +89,7 @@ export async function getServerSideProps({ query }) {
         markerData,
         edgarData: edgarRes,
         filteredSheetData,
+        // markerRows
       },
     };
   } catch (err) {
@@ -101,7 +100,23 @@ export async function getServerSideProps({ query }) {
 
 const StockChart = ({ priceData,markerData, edgarData, id,filteredSheetData }) => {
   const { user } = useUser()
+  // console.log(markerRows)
+  const [marker, setMarker] = useState([])
 
+  useEffect(() => {
+      fetchMarker()
+  }, [])
+
+  const fetchMarker = async () => {
+    let { data: items, error } = await supabase
+      .from('marker')
+      .select('*')
+
+    if (error) console.log('error', error)
+    else {
+      setMarker(items)
+    }
+  }
 
   return (
     <div className={styles.container}>
@@ -113,11 +128,12 @@ const StockChart = ({ priceData,markerData, edgarData, id,filteredSheetData }) =
         )}
 
         {priceData ? (
-          <StockCandleChart priceData={priceData} edgarData={edgarData} markerData={markerData} />
+          <StockCandleChart priceData={priceData} edgarData={edgarData} markerData={markerData} marker={marker}/>
         ) : (
           <p>株価データがありません</p>
         )}
         <h3>株式ニュース</h3>
+        {}
         {filteredSheetData[0] ? <>
         <p>News:{filteredSheetData[0][1] ? filteredSheetData[0][1] : ""}</p>
         <p>Info:{filteredSheetData[0][2] ? filteredSheetData[0][2] : ""}</p></>
@@ -126,6 +142,7 @@ const StockChart = ({ priceData,markerData, edgarData, id,filteredSheetData }) =
         {!user ? <Auth /> : (
           <div>
             <Comments user={supabase.auth.user()} ticker={id} />
+            <InputMarker user={supabase.auth.user()} ticker={id} />
           </div>
         )}
 
