@@ -2,6 +2,12 @@ import React from "react";
 import StockCandleChart from "../../components/StockCandleChart";
 import styles from "../../styles/Home.module.css";
 import { google } from 'googleapis';
+// Supabase
+import { useUser } from '../../contexts/user'
+import Auth from '../../components/auth'
+import { supabase } from '../../utils/supabase'
+import Comments from '../../components/Comments'
+import BookMark from '../../components/BookMark'
 
 export async function getServerSideProps({ query }) {
   const id = await query.id;
@@ -89,6 +95,9 @@ export async function getServerSideProps({ query }) {
 }
 
 const StockChart = ({ priceData,markerData, edgarData, id,filteredSheetData }) => {
+  const { user } = useUser()
+
+  console.log(id)
 
   return (
     <div className={styles.container}>
@@ -105,6 +114,15 @@ const StockChart = ({ priceData,markerData, edgarData, id,filteredSheetData }) =
         <p>News:{filteredSheetData[0][1] ? filteredSheetData[0][1] : ""}</p>
         <p>Info:{filteredSheetData[0][2] ? filteredSheetData[0][2] : ""}</p></>
            : "" }
+
+        {!user ? <Auth /> : (
+          <div>
+            <h3>会員限定情報</h3>
+            <BookMark user={supabase.auth.user()} ticker={id} />
+            <p>---------</p>
+            <Comments user={supabase.auth.user()} ticker={id} />
+          </div>
+        )}
 
         <h3>財務情報確認</h3>
         <p><a href={`https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${priceData[0].CIK}&type=&dateb=&owner=exclude&count=40&search_text=`}>EDGARサイト</a></p>
