@@ -6,13 +6,17 @@ import styles from "../styles/Home.module.css";
 
 import { getMarkerData } from "../functions/GetMarkerData"
 
-const StockCandleChart =({ priceData, edgarData, markerData }) => {
+const StockCandleChart =({ priceData, edgarData, markerData,marker }) => {
   
   // console.log(edgarData)
   const edgarFsData = calcEdgarData(edgarData);
   const markerTempData = createMarkerData(markerData)
+  const markerFetchedTemp = getMarkerData(marker)
 
-  const markerChartData = markerTempData.map((item,i)=>{
+  console.log(markerTempData)
+  console.log(markerFetchedTemp)
+
+  const markerChartData = markerFetchedTemp.map((item,i)=>{
     const closePrice = (priceData.find((value) => value.date === item.date)?.Close)*1.2
     return ({
       value: item.value,
