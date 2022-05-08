@@ -4,19 +4,18 @@ import { supabase } from '../utils/supabase'
 
 export default function BookMark({ user, ticker }) {
 
-  //  <!-- todo -->
-  const [items, setItems] = useState()
-  const [bookMark, setBookMark] = useState(false)
+  //  <!-- BookMark -->
+  const [star, setStar] = useState(false)
+  const [bookMarkId, setBookMarkId] = useState('')
   //  <!-- 入力したtodo -->
   const [errorText, setError] = useState('')
 
   useEffect(() => {
-      fetchItem()
-      console.log(items)
+      fetchBookMark()
   }, [])
 
   // <!-- supabaseに接続 -->
-  const fetchItem = async () => {
+  const fetchBookMark = async () => {
     let { data: items, error } = await supabase
       .from('bookmark')
       .select('*')
@@ -25,41 +24,42 @@ export default function BookMark({ user, ticker }) {
 
     if (error) console.log('error', error)
     else {
-      setItems(items)
-      setBookMark(items.bookmark)
+      setStar(items.bookmark)
+      setBookMarkId(items.id)
     }
   }
 
-   const toggleBookMark = async (id) => {   
-    const toggledBookMark = !bookMark
-        try {
-            const { data } = await supabase
-            .from('bookmark')
-            .update({ 'bookmark': toggledBookMark })
-            .eq('id', id)
-            .single()
-            setBookMark(toggledBookMark)
-        console.log(data)
-        } catch (error) {
-        console.log('error', error)
+   const toggleStar = async () => {   
+     if (!star) {
+       let { data, error } = await supabase
+          .from('bookmark')
+          .insert({ bookmark: true, user_id: user.id, ticker})
+          .single()
+        if (error) setError(error.message)
+        else {
+          setStar(true)
         }
+     } else {
+       let { data, error } = await supabase.from('bookmark').delete().eq('id', bookMarkId)
+        if (error) setError(error.message)
+        else {
+          setStar(false)
+        }
+     }
     }
-
 
   return (
     <div className="w-full">
-      <h1 className="mb-12">BookMark</h1> <p>{bookMark ? '★' : '×'}</p>
       {!!errorText && <Alert text={errorText} />}
-
         <button
           onClick={(e) => {
             e.preventDefault()
             e.stopPropagation()
-            toggleBookMark(items.id)
+            toggleStar()
           }}
           className="w-4 h-4 ml-2 border-2 hover:border-black rounded"
         >
-          U
+          <p>{star ? 'BookMark ★' : 'BookMark ×'}</p>
         </button>
     </div>
   )

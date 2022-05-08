@@ -3,13 +3,6 @@ import { useState, useEffect } from 'react'
 import { supabase } from '../utils/supabase'
 
 export default function Comments({ user, ticker }) {
-  // 受け取ったTickerだけを表示する処理
-  // データ登録時、自動的にTickerを付与する処理。
-
-  // supabase の RLSを設定する。
-
-  // test 環境に反映する。
-
   //  <!-- comment -->
   const [comments, setComments] = useState([])
   //  <!-- 入力したcomment -->
@@ -103,7 +96,7 @@ export default function Comments({ user, ticker }) {
 
   return (
     <div className="w-full">
-      <h1 className="mb-12">Comments</h1>
+      <h4 className="mb-12">株式メモ情報</h4>
       <div className="flex gap-2 my-2">
         <input
           className="rounded w-full p-2"

@@ -8,10 +8,12 @@ import { supabase } from '../../utils/supabase'
 export default function Home() {
   const { user } = useUser()
   const [bookmark,setBookmark]= useState([])
+  const [comments,setComments]= useState([])
 
 
   useEffect(() => {
     fetchBookmark()
+    fetchComments()
   },[])
 
 
@@ -41,6 +43,23 @@ export default function Home() {
     } 
   }
 
+    async function fetchComments() {
+    try {
+      const { data, error } = await supabase
+        .from('comments')
+        .select()
+
+      if (error) {
+        throw error
+      } else {
+        console.log(data)
+        setComments(data)
+      }
+    } catch (error) {
+      alert(error.message)
+    } 
+  }
+
  // <!-- ☑の処理 -->
   // const Todo = ({ todo, onDelete }) => {
   //   const [isBookmarked, setBookmarked] = useState(todo.is_complete)
@@ -62,6 +81,7 @@ export default function Home() {
   //   }
   // }
 
+  console.log(comments)
 
   return (
     <div className="max-w-7xl p-10 m-auto">
@@ -86,6 +106,14 @@ export default function Home() {
                 */}
               </li>
             </div>
+        )
+      })}
+      <p>Comments</p>
+      {comments && comments.map((comments,i) => {
+        return (
+            <li key={i}>
+                {comments.date}/{comments.ticker}/{comments.memo}
+            </li>
         )
       })}
 
