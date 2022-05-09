@@ -1,7 +1,19 @@
-import React from "react";
+import React,{useEffect,useState} from 'react'
+
 import StockCandleChart from "../../components/StockCandleChart";
 import styles from "../../styles/Home.module.css";
 import { google } from 'googleapis';
+// Supabase
+import { supabase } from '../../utils/supabase'
+import Comments from '../../components/Comments'
+import BookMark from '../../components/BookMark'
+import InputMarker from '../../components/InputMarker'
+
+import {useContext}from 'react'
+import { UserContext } from "../../utils/UserContext";
+
+import { createMarkerData } from "../../functions/CreateMarkerData"
+import { getMarkerData } from "../../functions/GetMarkerData"
 
 export async function getServerSideProps({ query }) {
   const id = await query.id;
@@ -79,7 +91,8 @@ export async function getServerSideProps({ query }) {
         priceData,
         markerData,
         edgarData: edgarRes,
-        filteredSheetData
+        filteredSheetData,
+        // markerRows
       },
     };
   } catch (err) {
@@ -90,28 +103,70 @@ export async function getServerSideProps({ query }) {
 
 const StockChart = ({ priceData,markerData, edgarData, id,filteredSheetData }) => {
 
+  const [marker, setMarker] = useState([])
+  const { user, session } = useContext(UserContext);
+  
+   useEffect(() => {
+    if (user) {
+      fetchMarker()
+    } else {
+      setMarker(markerData)
+    }
+  }, [])
+
+  const fetchMarker = async () => {
+    let { data: items, error } = await supabase
+      .from('marker')
+      .select('*')
+      .match({ticker: id, user_id: user.id})
+    if (error) console.log('error', error)
+    else {
+      const markerFetchedTemp = getMarkerData(items)
+      setMarker(markerFetchedTemp)
+    }
+  }
+
+
   return (
     <div className={styles.container}>
-      <main className={styles.chartBlock}>
-        <h2>{id} StockChartPage </h2>
+      <div className={styles.chartBlock}>
+        <div className="flex justify-between"><h2>{id} StockChartPage </h2>
+        {!user ? <p>ログインしてください</p> : (
+          <div>
+            <BookMark user={supabase.auth.user()} ticker={id} />
+          </div>
+        )}</div>
 
         {priceData ? (
-          <StockCandleChart priceData={priceData} edgarData={edgarData} markerData={markerData} />
+          <StockCandleChart priceData={priceData} edgarData={edgarData} marker={marker} id={id}/>
         ) : (
           <p>株価データがありません</p>
         )}
+
+
+
         <h3>株式ニュース</h3>
+        {}
         {filteredSheetData[0] ? <>
         <p>News:{filteredSheetData[0][1] ? filteredSheetData[0][1] : ""}</p>
         <p>Info:{filteredSheetData[0][2] ? filteredSheetData[0][2] : ""}</p></>
            : "" }
+
+        {!user ? <p>ログインしてください</p>: (
+          <div>
+            <Comments user={supabase.auth.user()} ticker={id} />
+            <InputMarker user={supabase.auth.user()} ticker={id} />
+          </div>
+        )}
 
         <h3>財務情報確認</h3>
         <p><a href={`https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${priceData[0].CIK}&type=&dateb=&owner=exclude&count=40&search_text=`}>EDGARサイト</a></p>
         <p><a href={`https://stocks.finance.yahoo.co.jp/us/annual/${priceData[0].Ticker}`}>Yahooファイナンス</a></p>
         <p><a href={`https://finance.yahoo.com/quote/${priceData[0].Ticker}/financials?p=${priceData[0].Ticker}`}>YahooファイナンスUS</a></p>
         <p><a href={`https://us.kabutan.jp/stocks/${priceData[0].Ticker}/finance`}>株探US</a></p>
-      </main>
+
+
+      </div>
     </div>
   );
 };
