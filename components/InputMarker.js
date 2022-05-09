@@ -3,60 +3,60 @@ import { useState, useEffect } from 'react'
 import { supabase } from '../utils/supabase'
 
 export default function InputMarker({ user, ticker }) {
-  //  <!-- comment -->
-  const [comments, setComments] = useState([])
-  //  <!-- 入力したcomment -->
-  const [newCommentText, setNewCommentText] = useState('')
+  //  <!-- marker -->
+  const [markers, setMarkers] = useState([])
+  //  <!-- 入力したmarker -->
+  const [newMarkerText, setNewMarkerText] = useState('')
   const [newDate, setNewDate] = useState('')
   const [editItem,setEditItem] = useState('')
   const [errorText, setError] = useState('')
 
   useEffect(() => {
-    fetchComments()
+    fetchMarkers()
   }, [])
 
   // <!-- supabaseに接続 -->
-  const fetchComments = async () => {
+  const fetchMarkers = async () => {
     //   <!-- .from(table名).select('カラム名').order(ソートの条件) -->
-    let { data: comments, error } = await supabase
+    let { data: markers, error } = await supabase
       .from('marker')
       .select('*')
       .eq('ticker', ticker)
       .order('id', true)
     if (error) console.log('error', error)
-    else setComments(comments)
+    else setMarkers(markers)
   }
 
-  //  <!-- commentの追加 -->
-  const submitComment = async (commentText, date) => {
+  //  <!-- markerの追加 -->
+  const submitMarker = async (markerText, date) => {
 
     if (editItem!='') {
-      let comment = commentText.trim()
+      let marker = markerText.trim()
       try {
         let { data, error } = await supabase
           .from('marker')
-          .update({ memo: comment, date })
+          .update({ memo: marker, date })
           .eq('id', editItem)
           .single()
         
-          setComments([...comments, data])
-          setNewCommentText('')
+          setMarkers([...markers, data])
+          setNewMarkerText('')
           setNewDate('')
           setEditItem('')
       } catch (error) {
         console.log('error', error)
       }
     } else {
-      let comment = commentText.trim()
-      if (comment.length) {
+      let marker = markerText.trim()
+      if (marker.length) {
         let { data, error } = await supabase
           .from('marker')
-          .insert({ memo: comment, user_id: user.id, ticker, date })
+          .insert({ memo: marker, user_id: user.id, ticker, date })
           .single()
         if (error) setError(error.message)
         else {
-          setComments([...comments, data])
-          setNewCommentText('')
+          setMarkers([...markers, data])
+          setNewMarkerText('')
           setNewDate('')
         }
       }
@@ -64,31 +64,31 @@ export default function InputMarker({ user, ticker }) {
 
   }
 
-  //  <!-- Update comment-->
-  const updateComment = async (id) => {
+  //  <!-- Update marker-->
+  const updateMarker = async (id) => {
 
     setEditItem(id)
 
-    const filteredComments = comments.filter(item => {
+    const filteredMarkers = markers.filter(item => {
       return item.id != id
     })
 
-    const editComment = comments.find(item =>{
+    const editMarker = markers.find(item =>{
       return item.id == id
     })
 
-    setComments(filteredComments)
-    setNewCommentText(editComment.memo)
-    setNewDate(editComment.date)
+    setMarkers(filteredMarkers)
+    setNewMarkerText(editMarker.memo)
+    setNewDate(editMarker.date)
 
   }
 
 
-  // <!-- commentの削除 -->
-  const deleteComment = async (id) => {
+  // <!-- markerの削除 -->
+  const deleteMarker = async (id) => {
     try {
       await supabase.from('marker').delete().eq('id', id)
-      setComments(comments.filter((x) => x.id != id))
+      setMarkers(markers.filter((x) => x.id != id))
     } catch (error) {
       console.log('error', error)
     }
@@ -111,24 +111,24 @@ export default function InputMarker({ user, ticker }) {
           className="rounded w-full p-2"
           type="text"
           placeholder="メモを入力してください"
-          value={newCommentText}
+          value={newMarkerText}
           onChange={(e) => {
             setError('')
-            setNewCommentText(e.target.value)
+            setNewMarkerText(e.target.value)
           }}
         />
 
         {editItem!='' ? (
           <button
             className="btn-black"
-            onClick={() => submitComment(newCommentText, newDate)}
+            onClick={() => submitMarker(newMarkerText, newDate)}
           >
             Edit
           </button>
         ) : (
           <button
             className="btn-black"
-            onClick={() => submitComment(newCommentText, newDate)}
+            onClick={() => submitMarker(newMarkerText, newDate)}
           >
             Add
           </button>
@@ -137,12 +137,12 @@ export default function InputMarker({ user, ticker }) {
       {!!errorText && <Alert text={errorText} />}
       <div className="bg-white shadow overflow-hidden rounded-md">
         <ul>
-          {comments.map((comment) => (
-            <Comment
-              key={comment.id}
-              comment={comment}
-              onDelete={() => deleteComment(comment.id)}
-              onUpdate={() => updateComment(comment.id)}
+          {markers.map((marker) => (
+            <Marker
+              key={marker.id}
+              marker={marker}
+              onDelete={() => deleteMarker(marker.id)}
+              onUpdate={() => updateMarker(marker.id)}
             />
           ))}
         </ul>
@@ -152,14 +152,14 @@ export default function InputMarker({ user, ticker }) {
 }
 
 // <!-- ☑の処理 -->
-const Comment = ({ comment, onDelete,onUpdate }) => {
+const Marker = ({ marker, onDelete,onUpdate }) => {
 
   return (
     <li className="w-full block cursor-pointer hover:bg-gray-200 focus:outline-none focus:bg-gray-200 transition duration-150 ease-in-out">
       <div className="flex items-center px-4 py-4 sm:px-6">
         <div className="min-w-0 flex-1 flex items-center">
           <div className="text-sm leading-5 font-medium truncate">
-            {comment.date}/{comment.memo}
+            {marker.date}/{marker.memo}
           </div>
         </div>
         <button
