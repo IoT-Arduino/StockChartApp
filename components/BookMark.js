@@ -1,6 +1,7 @@
 // <!-- 必要なものをimport -->
 import { useState, useEffect } from 'react'
 import { supabase } from '../utils/supabase'
+import { Button } from "@supabase/ui";
 
 export default function BookMark({ user, ticker }) {
 
@@ -40,7 +41,7 @@ export default function BookMark({ user, ticker }) {
           setStar(true)
         }
      } else {
-       let { data, error } = await supabase.from('bookmark').delete().eq('id', bookMarkId)
+       let { data, error } = await supabase.from('bookmark').delete().match({ticker: ticker, user_id: user.id})
         if (error) setError(error.message)
         else {
           setStar(false)
@@ -49,22 +50,21 @@ export default function BookMark({ user, ticker }) {
     }
 
   return (
-    <div className="w-full">
+    <div>
       {!!errorText && <Alert text={errorText} />}
-        <button
+        <Button block
           onClick={(e) => {
             e.preventDefault()
             e.stopPropagation()
             toggleStar()
           }}
-          className="w-4 h-4 ml-2 border-2 hover:border-black rounded"
+          className="h-4 ml-2 border-2 hover:border-black rounded"
         >
-          <p>{star ? 'BookMark ★' : 'BookMark ×'}</p>
-        </button>
+          {star ? 'BookMark ★' : 'BookMark ×'}
+        </Button>
     </div>
   )
 }
-
 
 const Alert = ({ text }) => (
   <div className="rounded-md bg-red-100 p-4 my-3">

@@ -130,17 +130,21 @@ const StockChart = ({ priceData,markerData, edgarData, id,filteredSheetData }) =
   return (
     <div className={styles.container}>
       <div className={styles.chartBlock}>
-        <h2>{id} StockChartPage </h2> {!user ?<p>ログインしてください</p> : (
+        <div className="flex justify-between"><h2>{id} StockChartPage </h2>
+        {!user ? <p>ログインしてください</p> : (
           <div>
             <BookMark user={supabase.auth.user()} ticker={id} />
           </div>
-        )}
+        )}</div>
 
         {priceData ? (
           <StockCandleChart priceData={priceData} edgarData={edgarData} marker={marker} id={id}/>
         ) : (
           <p>株価データがありません</p>
         )}
+
+
+
         <h3>株式ニュース</h3>
         {}
         {filteredSheetData[0] ? <>
@@ -160,6 +164,8 @@ const StockChart = ({ priceData,markerData, edgarData, id,filteredSheetData }) =
         <p><a href={`https://stocks.finance.yahoo.co.jp/us/annual/${priceData[0].Ticker}`}>Yahooファイナンス</a></p>
         <p><a href={`https://finance.yahoo.com/quote/${priceData[0].Ticker}/financials?p=${priceData[0].Ticker}`}>YahooファイナンスUS</a></p>
         <p><a href={`https://us.kabutan.jp/stocks/${priceData[0].Ticker}/finance`}>株探US</a></p>
+
+
       </div>
     </div>
   );
