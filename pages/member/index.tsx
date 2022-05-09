@@ -1,14 +1,45 @@
 import Link from 'next/link'
-import {useEffect,useState}from 'react'
+import {useEffect,useState,useContext}from 'react'
 import Auth from '../../components/auth'
 import Dashboard from '../../components/dashboard'
-import { useUser } from '../../contexts/user'
+// import { useUser } from '../../contexts/user'
 import { supabase } from '../../utils/supabase'
+import { useRouter } from 'next/router'
+
+import { UserContext } from "../../util/UserContext";
+
+import { Button } from "@supabase/ui";
 
 export default function Home() {
-  const { user } = useUser()
+  // const { user } = useUser()
   const [bookmark,setBookmark]= useState([])
-  const [comments,setComments]= useState([])
+  const [comments, setComments] = useState([])
+
+
+  const { user, session } = useContext(UserContext);
+  const { replace } = useRouter();
+
+  const {push,pathname} = useRouter()
+  useEffect(() => {
+    if (!user) {
+      replace("/");
+    }
+  }, [user]);
+
+  console.log(user)
+  // console.log(pathname)
+
+  // const validateSession = async () => {
+  //   if (!user) {
+  //     await push('/')
+  //     console.log(user)
+  //     console.log("not user")
+  //    }
+  //  }
+
+  // useEffect(() => {
+  //   validateSession()
+  // },[])
 
 
   useEffect(() => {
@@ -81,11 +112,13 @@ export default function Home() {
   //   }
   // }
 
-  console.log(comments)
+  // console.log(comments)
 
+
+
+  // {!user ? <Auth /> : <Dashboard />}
   return (
     <div className="max-w-7xl p-10 m-auto">
-      {!user ? <Auth /> : <Dashboard />}
       <p>BookMark</p>
       {bookmark && bookmark.map((mark,i) => {
         return (
@@ -116,6 +149,18 @@ export default function Home() {
             </li>
         )
       })}
+
+       <div className="sm:max-w-xl bg-white  w-full sm:rounded-lg p-5 shadow">
+        <h2>ログイン中</h2>
+        <Button
+          block
+          onClick={() => {
+            supabase.auth.signOut();
+          }}
+        >
+          サインアウト
+        </Button>
+      </div>
 
     </div>
   )
