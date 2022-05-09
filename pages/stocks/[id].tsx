@@ -134,7 +134,7 @@ const StockChart = ({ priceData,markerData, edgarData, id,filteredSheetData }) =
         )}
 
         {priceData ? (
-          <StockCandleChart priceData={priceData} edgarData={edgarData} markerData={markerData} marker={marker}/>
+          <StockCandleChart priceData={priceData} edgarData={edgarData} markerData={markerData} marker={marker} id={id}/>
         ) : (
           <p>株価データがありません</p>
         )}
