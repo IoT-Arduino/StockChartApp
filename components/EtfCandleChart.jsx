@@ -77,8 +77,8 @@ const EtfCandleChart = ({ etfData }) => {
   };  
     
   return (
-    <div style={{ width: '80%' }} >
-      <ReactEcharts option={option} style={{ height: '600px', width: '600px' }} />
+    <div style={{ width: '100%' }} >
+      <ReactEcharts option={option} />
     </div>
   )
 }
