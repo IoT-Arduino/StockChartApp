@@ -26,12 +26,14 @@ export const Header = () => {
 
                 {!user ? 
                         ( <Link href="/signin">
-                                        <a className="text-4xl text-right">
+                                        <a className="text-2xl text-right">
                                         <p className="pt-2 m-2">サインイン</p>
                                         </a>
                                         </Link>
-                        ) :
-                        <Button block onClick={() => { supabase.auth.signOut(); }} >サインアウト</Button>
+                                ) :
+                                <div className="w-20">
+                                        <Button block onClick={() => { supabase.auth.signOut(); }} >サインアウト</Button>
+                                 </div>
                 } 
         </header>
         );
