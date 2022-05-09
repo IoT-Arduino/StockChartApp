@@ -29,7 +29,6 @@ export async function getServerSideProps() {
     })
     const etfResponseData = await Promise.all(etfResponse);
 
-
     // console.log(etfResponseData[3].meta)
     // console.log(etfResponseData[4].meta)
     // console.log(etfResponseData[5].meta)
@@ -60,7 +59,7 @@ const Home: NextPage = ({ fundsData }: any) => {
   return (
     <div className={styles.container}>
       <main className={styles.main}>
-        <h2 className={styles.title}>StockChartApp Top</h2>
+        <h2 className={styles.title}>米国主要ETF比較</h2>
         <div>米国主要ETF（Vanguard系の比較、2014年末を起点とした成長率）</div>
 
         <div>
