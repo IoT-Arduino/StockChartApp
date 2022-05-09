@@ -11,13 +11,16 @@ import Comments from '../../components/Comments'
 import BookMark from '../../components/BookMark'
 import InputMarker from '../../components/InputMarker'
 
+import {useContext}from 'react'
+import { UserContext } from "../../util/UserContext";
+
+
 export async function getServerSideProps({ query }) {
   const id = await query.id;
 
   const auth = await google.auth.getClient({ scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'] });
   const sheets = google.sheets({ version: 'v4', auth });
   const googleSheetRange = `ContentsList!A2:Q1000`;
-
 
   // Edgar データを追加したら、ここにも追加すること。
   const QTR = [
@@ -99,9 +102,12 @@ export async function getServerSideProps({ query }) {
 }
 
 const StockChart = ({ priceData,markerData, edgarData, id,filteredSheetData }) => {
-  const { user } = useUser()
+  // const { user } = useUser()
   // console.log(markerRows)
   const [marker, setMarker] = useState([])
+
+  const { user, session } = useContext(UserContext);
+
 
   useEffect(() => {
       fetchMarker()
@@ -120,8 +126,8 @@ const StockChart = ({ priceData,markerData, edgarData, id,filteredSheetData }) =
 
   return (
     <div className={styles.container}>
-      <main className={styles.chartBlock}>
-        <h2>{id} StockChartPage </h2> {!user ? <Auth /> : (
+      <div className={styles.chartBlock}>
+        <h2>{id} StockChartPage </h2> {!user ?<p>ログインしてください</p> : (
           <div>
             <BookMark user={supabase.auth.user()} ticker={id} />
           </div>
@@ -139,7 +145,7 @@ const StockChart = ({ priceData,markerData, edgarData, id,filteredSheetData }) =
         <p>Info:{filteredSheetData[0][2] ? filteredSheetData[0][2] : ""}</p></>
            : "" }
 
-        {!user ? <Auth /> : (
+        {!user ? <p>ログインしてください</p>: (
           <div>
             <Comments user={supabase.auth.user()} ticker={id} />
             <InputMarker user={supabase.auth.user()} ticker={id} />
@@ -151,7 +157,7 @@ const StockChart = ({ priceData,markerData, edgarData, id,filteredSheetData }) =
         <p><a href={`https://stocks.finance.yahoo.co.jp/us/annual/${priceData[0].Ticker}`}>Yahooファイナンス</a></p>
         <p><a href={`https://finance.yahoo.com/quote/${priceData[0].Ticker}/financials?p=${priceData[0].Ticker}`}>YahooファイナンスUS</a></p>
         <p><a href={`https://us.kabutan.jp/stocks/${priceData[0].Ticker}/finance`}>株探US</a></p>
-      </main>
+      </div>
     </div>
   );
 };
