@@ -1,29 +1,12 @@
 import ReactEcharts from "echarts-for-react";
 import { calcEdgarData } from "../functions/CalcEdgarData";
-import { createMarkerData } from "../functions/CreateMarkerData"
-
 import styles from "../styles/Home.module.css";
 
-import { getMarkerData } from "../functions/GetMarkerData"
-
-const StockCandleChart =({ priceData, edgarData, markerData,marker,id }) => {
+const StockCandleChart =({ priceData, edgarData, marker,id }) => {
   
-  // console.log(edgarData)
   const edgarFsData = calcEdgarData(edgarData);
-  const markerTempData = createMarkerData(markerData)
-  const markerFetchedTemp = getMarkerData(marker)
 
-  console.log(markerTempData)
-  console.log(markerFetchedTemp)
-  console.log(id)
-
-  const markerFilteredTicker = markerFetchedTemp.filter(item => {
-    return item.name === id
-  })
-
-
-
-  const markerChartData = markerFilteredTicker.map((item,i)=>{
+  const markerChartData = marker.map((item,i)=>{
     const closePrice = (priceData.find((value) => value.date === item.date)?.Close)*1.2
     return ({
       value: item.value,

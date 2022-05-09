@@ -7,7 +7,6 @@ export const createMarkerData = (markerData) => {
   });
     
    const markerRes = resultRes.map((res, i) => {
-      
         return   (          {
             name: res.Ticker,
             date:res.date,
