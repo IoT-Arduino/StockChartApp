@@ -14,12 +14,14 @@ export default function BookMark({ user, ticker }) {
       fetchBookMark()
   }, [])
 
-  // <!-- supabaseに接続 -->
+   console.log("bookmark",user.id)
+
+  // <!-- supabaseに接続 -->  // user_id とtickerでマッチさせる。
   const fetchBookMark = async () => {
     let { data: items, error } = await supabase
       .from('bookmark')
       .select('*')
-      .eq('ticker', ticker)
+      .match({ticker: ticker, user_id: user.id})
       .single()
 
     if (error) console.log('error', error)
