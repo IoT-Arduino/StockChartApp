@@ -14,8 +14,6 @@ export default function BookMark({ user, ticker }) {
       fetchBookMark()
   }, [])
 
-   console.log("bookmark",user.id)
-
   // <!-- supabaseに接続 -->  // user_id とtickerでマッチさせる。
   const fetchBookMark = async () => {
     let { data: items, error } = await supabase
@@ -28,7 +26,6 @@ export default function BookMark({ user, ticker }) {
     else {
       setStar(items.bookmark)
       setBookMarkId(items.id)
-      // console.log(items)
     }
   }
 

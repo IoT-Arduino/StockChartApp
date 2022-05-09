@@ -4,16 +4,16 @@ import StockCandleChart from "../../components/StockCandleChart";
 import styles from "../../styles/Home.module.css";
 import { google } from 'googleapis';
 // Supabase
-import { useUser } from '../../contexts/user'
-import Auth from '../../components/auth'
 import { supabase } from '../../utils/supabase'
 import Comments from '../../components/Comments'
 import BookMark from '../../components/BookMark'
 import InputMarker from '../../components/InputMarker'
 
 import {useContext}from 'react'
-import { UserContext } from "../../util/UserContext";
+import { UserContext } from "../../utils/UserContext";
 
+import { createMarkerData } from "../../functions/CreateMarkerData"
+import { getMarkerData } from "../../functions/GetMarkerData"
 
 export async function getServerSideProps({ query }) {
   const id = await query.id;
@@ -102,27 +102,30 @@ export async function getServerSideProps({ query }) {
 }
 
 const StockChart = ({ priceData,markerData, edgarData, id,filteredSheetData }) => {
-  // const { user } = useUser()
-  // console.log(markerRows)
+
   const [marker, setMarker] = useState([])
-
   const { user, session } = useContext(UserContext);
-
-
-  useEffect(() => {
+  
+   useEffect(() => {
+    if (user) {
       fetchMarker()
+    } else {
+      setMarker(markerData)
+    }
   }, [])
 
   const fetchMarker = async () => {
     let { data: items, error } = await supabase
       .from('marker')
       .select('*')
-
+      .match({ticker: id, user_id: user.id})
     if (error) console.log('error', error)
     else {
-      setMarker(items)
+      const markerFetchedTemp = getMarkerData(items)
+      setMarker(markerFetchedTemp)
     }
   }
+
 
   return (
     <div className={styles.container}>
@@ -134,7 +137,7 @@ const StockChart = ({ priceData,markerData, edgarData, id,filteredSheetData }) =
         )}
 
         {priceData ? (
-          <StockCandleChart priceData={priceData} edgarData={edgarData} markerData={markerData} marker={marker} id={id}/>
+          <StockCandleChart priceData={priceData} edgarData={edgarData} marker={marker} id={id}/>
         ) : (
           <p>株価データがありません</p>
         )}

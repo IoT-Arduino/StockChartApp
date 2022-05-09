@@ -3,7 +3,7 @@ import Link from "next/link";
 import logo from "../public/logo.png";
 
 import {useEffect,useState,useContext}from 'react'
-import { UserContext } from "../util/UserContext";
+import { UserContext } from "../utils/UserContext";
 
 import { Button } from "@supabase/ui";
 import { supabase } from "../utils/supabase";
