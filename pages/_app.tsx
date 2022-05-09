@@ -8,7 +8,7 @@ import { LayoutWrapper } from '../components/LayoutWrapper'
 import { Session, User } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
 import { supabase } from "../utils/supabase";
-import { UserContext } from "../util/UserContext";
+import { UserContext } from "../utils/UserContext";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [user, setUser] = useState(supabase.auth.user());
