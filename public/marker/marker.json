@@ -1,18 +1,13 @@
 [
     {
         "Ticker":"AllStock",
-        "date":"2016\/10",
-        "value":"リーマン"
-    },
-        {
-        "Ticker":"AllStock",
         "date":"2020\/03",
         "value":"コロナ"
     },
             {
-        "Ticker":"AAPL",
-        "date":"2018\/09",
-        "value":"利上げ"
+        "Ticker":"AllStock",
+        "date":"2018\/12",
+        "value":"クリスマス暴落"
     }
 
 ]
