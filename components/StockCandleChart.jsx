@@ -64,6 +64,7 @@ const StockCandleChart =({ priceData, edgarData, marker,id }) => {
 
   // 　日付をキーとして、edinet、markerData,splitDataと株価データをまとめて一つのオブジェクトにして、連想配列にする
   const companyData = priceData.map((price) => {
+
     return {
       date: price.date,
       fp:newEdgarData.find((value) => value.date === price.date)?.fp,
@@ -160,65 +161,35 @@ const StockCandleChart =({ priceData, edgarData, marker,id }) => {
     };
   });
 
-  // console.log(companyData)
-
-  // テーブル表示用、データクリーニング処理（古いデータの最後の2件を削除する、ソート）
-  // 要再確認（グラフの最初の方がおかしい）
-  let companyDataForTable = companyData.slice()
-  companyData.splice(0,2)
-
-  companyDataForTable =  companyDataForTable.sort(function (a, b) {
-    return a.date > b.date ? -1 : 1;
-  });
-  companyDataForTable.splice(-2)
-
-  // console.log(companyDataForTable)
+  // console.log(edgarData)
 
   // 　チャート表示用配列データ作成　＝＝＝＝＝＝＝＝＝＝＝＝＝
+  //   チャートの左端きれいにする為のslice処理。ただし、以下空白穴埋め処理の関係で限界あり。
+  //　　sliceは3,6が適当。
+  const slicedCompanyDataForCandle = companyData.slice(6)
 
-  const newDateData = companyData.map((item) => {
+  const newDateData = slicedCompanyDataForCandle.map((item,i) => {
     return item.date;
   });
 
-  const newPriceData = companyData.map((item) => {
+  const newPriceData = slicedCompanyDataForCandle.map((item) => {
     return [item.open, item.close, item.low, item.high];
   });
 
   // 　理論株価　資産価値計算用
-  const theoryStockPriceAsset = companyData.map((item, i) => {
-
-    // const assetValueWithRatio = item.bps / parseFloat(item.calcRatio)
+  const theoryStockPriceAsset = slicedCompanyDataForCandle.map((item, i) => {
     const assetValueWithRatio = item.bps 
-
-    //資産価値 はっしゃんさん
-    // let assetValueWithRatio;
-    // if (item.stockHoldersEquityRatio >= 0.8) {
-    //   assetValueWithRatio = item.bps * 0.8;
-    // } else if (item.stockHoldersEquityRatio >= 0.67) {
-    //   assetValueWithRatio = item.bps * 0.75;
-    // } else if (item.stockHoldersEquityRatio >= 0.5) {
-    //   assetValueWithRatio = item.bps * 0.7;
-    // } else if (item.stockHoldersEquityRatio >= 0.33) {
-    //   assetValueWithRatio = item.bps * 0.65;
-    // } else if (item.stockHoldersEquityRatio >= 0.1) {
-    //   assetValueWithRatio = item.bps * 0.6;
-    // } else {
-    //   assetValueWithRatio = item.bps * 0.5;
-    // }
-
     return assetValueWithRatio;
   });
 
   // 　理論株価　事業価値計算用
-  const theoryStockPriceOperation = companyData.map((item, i) => {
+  const theoryStockPriceOperation = slicedCompanyDataForCandle.map((item, i) => {
     // 事業価値　暫定PERの15倍 単四半期EPSベースなので4倍している。
     // const operationValue = parseFloat(item.epsDiluted) * 15 * 4 / parseFloat(item.calcRatio);
     const operationValue = parseFloat(item.epsDiluted) * 15 * 4 ;
-
     // 理論株価
     return operationValue;
   });
-
 
   // 理論株価　空白期間穴埋め処理（直近四半期のデータをコピー）
   const newTheoryStockPriceAsset = theoryStockPriceAsset;
@@ -235,7 +206,6 @@ const StockCandleChart =({ priceData, edgarData, marker,id }) => {
     if (newTheoryStockPriceAsset[i] < 0) {
       newTheoryStockPriceAsset[i] = 0
     }
-
     resultTheoryStockPriceAsset.push(newTheoryStockPriceAsset[i])
   }
 
@@ -253,33 +223,35 @@ const StockCandleChart =({ priceData, edgarData, marker,id }) => {
     if (newTheoryStockPriceOperation[i] < 0) {
       newTheoryStockPriceOperation[i] = 0
     }
-
     resultTheoryStockPriceOperation.push(newTheoryStockPriceOperation[i])
   }
 
 
-  //　キャッシュフロー棒グラフエリア用
+  //　キャッシュフロー棒グラフエリア用 ---------------------------------------
   //  一旦四半期データのみにフィルタする処理
+  // データクリーニング処理（古いデータの最後の2件を削除する）
 
-  const filteredDataForBarChart = companyData.filter((item)=>{
+  const filteredDataForBarChart = companyData.filter((item,i) => {
     return item.operatingCashFlow != null
   })
 
-  const filteredDateForBarChart = filteredDataForBarChart.map((item) => {
+  const slicedFilteredData = filteredDataForBarChart.slice(2)
+
+  const filteredDateForBarChart = slicedFilteredData.map((item) => {
     const dateData = item.date;
     return dateData;
   });
-  const operatingCashFlowIndicator = filteredDataForBarChart.map((item) => {
+  const operatingCashFlowIndicator = slicedFilteredData.map((item) => {
     const opeCashIndx = (parseFloat(item.operatingCashFlow/item.revenue)*100).toFixed(2);
     return opeCashIndx;
   });
 
-  const operatingCashFlowData = filteredDataForBarChart.map((item) => {
+  const operatingCashFlowData = slicedFilteredData.map((item) => {
     const opeCashData = parseInt(item.operatingCashFlow) / 10000000;
     return opeCashData;
   });
 
-  const netIncomeArr = filteredDataForBarChart.map((item) => {
+  const netIncomeArr = slicedFilteredData.map((item) => {
     const netIncomeData = parseInt(item.NetIncomeLoss) / 10000000;
     return netIncomeData;
   });
@@ -288,6 +260,11 @@ const StockCandleChart =({ priceData, edgarData, marker,id }) => {
 
 
   // テーブル表示用　データ処理　------------------------------
+
+  // sort は破壊的処理。プログラムの上に持ってくると、チャートの順が逆になるので注意。
+  const companyDataForTable =  companyData.sort(function (a, b) {
+    return a.date > b.date ? -1 : 1;
+  });
 
   //  通期業績データ
   const fyCompanyDataForTable = companyDataForTable.filter(item => {
@@ -299,6 +276,8 @@ const StockCandleChart =({ priceData, edgarData, marker,id }) => {
     const QTR = ["Q1","Q2","Q3","FY"]
     return  QTR.includes(item.fp)
   })
+
+  //==============================================================
 
 
   // Chart Option
