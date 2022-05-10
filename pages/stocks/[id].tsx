@@ -131,7 +131,7 @@ const StockChart = ({ priceData,markerData, edgarData, id,filteredSheetData }) =
     <div className={styles.container}>
       <div className={styles.chartBlock}>
         <div className="flex justify-between"><h2>{id} StockChartPage </h2>
-        {!user ? <p>ログインしてください</p> : (
+        {!user ? <p>ログイン</p> : (
           <div>
             <BookMark user={supabase.auth.user()} ticker={id} />
           </div>
@@ -152,7 +152,7 @@ const StockChart = ({ priceData,markerData, edgarData, id,filteredSheetData }) =
         <p>Info:{filteredSheetData[0][2] ? filteredSheetData[0][2] : ""}</p></>
            : "" }
 
-        {!user ? <p>ログインしてください</p>: (
+        {!user ? <p>会員限定情報エリア</p>: (
           <div>
             <Comments user={supabase.auth.user()} ticker={id} />
             <InputMarker user={supabase.auth.user()} ticker={id} />
