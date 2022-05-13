@@ -59,6 +59,26 @@ export async function getServerSideProps({ query }) {
         `http://localhost:3000/edgar/${item}/${id}.json`
       );
 
+      // let reqList2 = await fetch(
+      //   `http://localhost:3000/edgar/${item}/${id}-2.json`
+      // );
+      // // もし　reqList2があったら、仮配列にpush、...で展開したものをreturnする。
+      // if (reqList.status == 404 && reqList2.status == 404) {
+      //   return null
+      // } else if (reqList.status == 200 && reqList2.status == 404) {
+      //   const resData = await reqList.json();
+      //   return resData[0];
+      // } else if (reqList.status == 200 && reqList2.status == 200) {
+      //   const resData = await reqList.json();
+      //   const resData2 = await reqList2.json();
+      //   // フラット化する。
+      //   const tempResData = 
+      // 　
+      //   return resData[0];
+      // } else {
+      //   return null
+      // }
+
       if (reqList.status == 404) {
         return null
       } else if (reqList.status == 200) {
@@ -92,7 +112,6 @@ export async function getServerSideProps({ query }) {
         markerData,
         edgarData: edgarRes,
         filteredSheetData,
-        // markerRows
       },
     };
   } catch (err) {

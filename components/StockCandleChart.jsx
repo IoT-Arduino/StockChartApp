@@ -3,6 +3,8 @@ import { calcEdgarData } from "../functions/CalcEdgarData";
 import styles from "../styles/Home.module.css";
 
 const StockCandleChart =({ priceData, edgarData, marker,id }) => {
+
+  // console.log(edgarData)
   
   const edgarFsData = calcEdgarData(edgarData);
 
@@ -21,6 +23,13 @@ const StockCandleChart =({ priceData, edgarData, marker,id }) => {
   
   //　EdgarDataの加工処理
   const newEdgarData = edgarFsData.map((item) => {
+    
+    // 掛け持ち表示対応、株式数　epsBasic と Diluted (Dilutedを基本になければ、Basicとして、チャート表示とテーブル表示に対応する)
+    const epsBasicAndDiluted = (item.epsDiluted ? item.epsDiluted : item.eps)
+    const epsBasicAndDilutedAccum = (item.epsAccumDiluted ? item.epsAccumDiluted : item.epsAccum)
+    const numberOfSharesOutstanding = (item.weightedAverageNumberOfDilutedSharesOutstanding? item.weightedAverageNumberOfDilutedSharesOutstanding:item.commonStockSharesOutstanding )
+    const bookPerShare = ( item.stockHoldersEquity / numberOfSharesOutstanding )
+
     return {
       date: item.date,
       fp: item.fp,
@@ -36,17 +45,17 @@ const StockCandleChart =({ priceData, edgarData, marker,id }) => {
       assets: item.assets,
       stockHoldersEquity: item.stockHoldersEquity,
       // 株式指標・経営指標
+      numberOfSharesOutstanding:numberOfSharesOutstanding,
       commonStockSharesOutstanding:item.commonStockSharesOutstanding,
       weightedAverageNumberOfDilutedSharesOutstanding: item.weightedAverageNumberOfDilutedSharesOutstanding,
+
       // Yahoo Finance と一致する。commonStockSharesOutstanding　を使用。
-      bps: parseFloat(
-        item.stockHoldersEquity / item.commonStockSharesOutstanding
-      ).toFixed(2),
+      bps: parseFloat(bookPerShare).toFixed(2),
       // EPSはBasicを使用（データがそろっている、YahooFinanceと同じ、株探USはDiluted）
-      eps: parseFloat(item.eps).toFixed(2),
-      epsAccum: parseFloat(item.epsAccum).toFixed(2),
-      epsDiluted: parseFloat(item.epsDiluted).toFixed(2),
-      epsAccumDiluted: parseFloat(item.epsAccumDiluted).toFixed(2),
+      eps: parseFloat(epsBasicAndDiluted).toFixed(2),
+      epsAccum: parseFloat(epsBasicAndDilutedAccum).toFixed(2),
+      // epsDiluted: parseFloat(item.epsDiluted).toFixed(2),
+      // epsAccumDiluted: parseFloat(item.epsAccumDiluted).toFixed(2),
       stockHoldersEquityRatio: parseFloat(
         item.stockHoldersEquity / item.assets
       ).toFixed(2),
@@ -102,9 +111,14 @@ const StockCandleChart =({ priceData, edgarData, marker,id }) => {
       
       // 株式指標   price.calcRatio で調整する。ｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰ
       // 株式数　分割の場合、株数は過去の株数に掛け算する。。
+      numberOfSharesOutstanding: newEdgarData.find(
+        (value) => value.date === price.date
+      )?.numberOfSharesOutstanding * price.calcRatio,
+
       commonStockSharesOutstanding: newEdgarData.find(
         (value) => value.date === price.date
       )?.commonStockSharesOutstanding * price.calcRatio,
+
       weightedAverageNumberOfDilutedSharesOutstanding: newEdgarData.find(
         (value) => value.date === price.date
       )?.weightedAverageNumberOfDilutedSharesOutstanding * price.calcRatio,
@@ -113,8 +127,8 @@ const StockCandleChart =({ priceData, edgarData, marker,id }) => {
       bps: parseFloat(newEdgarData.find((value) => value.date === price.date)?.bps/price.calcRatio).toFixed(2),
       eps: parseFloat(newEdgarData.find((value) => value.date === price.date)?.eps/price.calcRatio).toFixed(2),
       epsAccum: parseFloat(newEdgarData.find((value) => value.date === price.date)?.epsAccum/price.calcRatio).toFixed(2),
-      epsDiluted: newEdgarData.find((value) => value.date === price.date)?.epsDiluted/price.calcRatio,
-      epsAccumDiluted: newEdgarData.find((value) => value.date === price.date)?.epsAccumDiluted/price.calcRatio,
+      // epsDiluted: newEdgarData.find((value) => value.date === price.date)?.epsDiluted/price.calcRatio,
+      // epsAccumDiluted: newEdgarData.find((value) => value.date === price.date)?.epsAccumDiluted/price.calcRatio,
 
       // 株価指標　株式分割調整しない。（要確認）
       pbr: parseFloat(
@@ -161,6 +175,8 @@ const StockCandleChart =({ priceData, edgarData, marker,id }) => {
     };
   });
 
+  //  console.log(companyData)
+
   // console.log(edgarData)
 
   // 　チャート表示用配列データ作成　＝＝＝＝＝＝＝＝＝＝＝＝＝
@@ -186,7 +202,7 @@ const StockCandleChart =({ priceData, edgarData, marker,id }) => {
   const theoryStockPriceOperation = slicedCompanyDataForCandle.map((item, i) => {
     // 事業価値　暫定PERの15倍 単四半期EPSベースなので4倍している。
     // const operationValue = parseFloat(item.epsDiluted) * 15 * 4 / parseFloat(item.calcRatio);
-    const operationValue = parseFloat(item.epsDiluted) * 15 * 4 ;
+    const operationValue = parseFloat(item.eps) * 15 * 4 ;
     // 理論株価
     return operationValue;
   });
@@ -454,7 +470,7 @@ const StockCandleChart =({ priceData, edgarData, marker,id }) => {
   return (
     <div>
       <ReactEcharts option={option} style={{ height: '600px', width: '100%' }} />
-      <p style={{ textAlign: 'right' }}>勘定科目金額単位は(million$)</p>
+      <p style={{ textAlign: 'right' }}>単位は(Thousand)</p>
       <h3>通期業績データ FS</h3>
 
       <table className={styles.table}>
@@ -474,11 +490,11 @@ const StockCandleChart =({ priceData, edgarData, marker,id }) => {
             return (
               <tr key={i}>
                  <td>{item.date}</td>         
-                 <td>{item.revenueAccum ? (item.revenueAccum / 1000000).toLocaleString() : "-"}</td>
-                 <td>{item.NetIncomeLossAccum ? (item.NetIncomeLossAccum / 1000000).toLocaleString() : "-"}</td>         
-                 <td>{item.operatingCashFlowAccum ? (item.operatingCashFlowAccum / 1000000).toLocaleString(): "-"}</td>                
-                 <td>{item.assets ? (item.assets / 1000000).toLocaleString(): "-"}</td>         
-                 <td>{item.stockHoldersEquity ? (item.stockHoldersEquity / 1000000).toLocaleString(): "-"}</td>                
+                 <td>{item.revenueAccum ? parseInt(item.revenueAccum / 1000).toLocaleString() : "-"}</td>
+                 <td>{item.NetIncomeLossAccum ? parseInt(item.NetIncomeLossAccum / 1000).toLocaleString() : "-"}</td>         
+                 <td>{item.operatingCashFlowAccum ? parseInt(item.operatingCashFlowAccum / 1000).toLocaleString(): "-"}</td>                
+                 <td>{item.assets ? parseInt(item.assets / 1000).toLocaleString(): "-"}</td>         
+                 <td>{item.stockHoldersEquity ? parseInt(item.stockHoldersEquity / 1000).toLocaleString(): "-"}</td>                
               </tr>
             );
           })}
@@ -538,11 +554,11 @@ const StockCandleChart =({ priceData, edgarData, marker,id }) => {
             return (
               <tr key={i}>
                  <td>{item.date}</td>         
-                 <td>{item.revenue ? (item.revenue / 1000000).toLocaleString():"-" }</td>
-                 <td>{item.NetIncomeLoss ? (item.NetIncomeLoss / 1000000).toLocaleString() : "-"} </td>         
-                 <td> {item.operatingCashFlow?(item.operatingCashFlow / 1000000).toLocaleString() : "-"}</td>                
-                 <td>{item.assets ? (item.assets / 1000000).toLocaleString() : "-"}</td>         
-                 <td>{item.stockHoldersEquity ? (item.stockHoldersEquity / 1000000).toLocaleString() : "-"}</td>                
+                 <td>{item.revenue ? parseInt(item.revenue / 1000).toLocaleString():"-" }</td>
+                 <td>{item.NetIncomeLoss ? parseInt(item.NetIncomeLoss / 1000).toLocaleString() : "-"} </td>         
+                 <td> {item.operatingCashFlow ? parseInt(item.operatingCashFlow / 1000).toLocaleString() : "-"}</td>                
+                 <td>{item.assets ? parseInt(item.assets / 1000).toLocaleString() : "-"}</td>         
+                 <td>{item.stockHoldersEquity ? parseInt(item.stockHoldersEquity / 1000).toLocaleString() : "-"}</td>                
               </tr>
             );
           })}
@@ -572,7 +588,7 @@ const StockCandleChart =({ priceData, edgarData, marker,id }) => {
                  <td>{item.bps!="NaN" ? item.bps :"-"} </td>         
                  <td>{item.pbr!="NaN" ? item.pbr :"-"} </td>                
                  <td>{item.eps!="NaN" ? item.eps :"-"}</td>         
-                 <td>{item.commonStockSharesOutstanding  ? (item.commonStockSharesOutstanding / 1000000).toFixed() : "-"} </td>                
+                 <td>{item.numberOfSharesOutstanding!="NaN" ? parseInt(item.numberOfSharesOutstanding/1000).toLocaleString() :"-"} </td>                
               </tr>
             );
           })}
