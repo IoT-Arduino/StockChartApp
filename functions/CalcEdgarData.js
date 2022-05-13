@@ -170,14 +170,14 @@ export const calcEdgarData = (edgarData) => {
       } else if (res.NetIncomeLoss_4_FY_USD) {
         return res.NetIncomeLoss_4_FY_USD;
       // 名称違い
-      } else if (res.ProfitLoss_1_Q1_USD) {
-        return res.ProfitLoss_1_Q1_USD;
-      } else if (res.ProfitLoss_2_Q2_USD) {
-        return res.ProfitLoss_2_Q2_USD;
-      } else if (res.ProfitLoss_3_Q3_USD) {
-        return res.ProfitLoss_3_Q3_USD;
-      } else if (res.ProfitLoss_4_FY_USD) {
-        return res.ProfitLoss_4_FY_USD;
+      } else if (res.NetIncomeLossConverted_1_Q1_USD) {
+        return res.NetIncomeLossConverted_1_Q1_USD;
+      } else if (res.NetIncomeLossConverted_2_Q2_USD) {
+        return res.NetIncomeLossConverted_2_Q2_USD;
+      } else if (res.NetIncomeLossConverted_3_Q3_USD) {
+        return res.NetIncomeLossConverted_3_Q3_USD;
+      } else if (res.NetIncomeLossConverted_4_FY_USD) {
+        return res.NetIncomeLossConverted_4_FY_USD;
       } else {
         return;
       }
