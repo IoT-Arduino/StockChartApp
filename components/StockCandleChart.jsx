@@ -4,7 +4,7 @@ import styles from "../styles/Home.module.css";
 
 const StockCandleChart =({ priceData, edgarData, marker,id }) => {
 
-  // console.log(edgarData)
+  console.log(edgarData)
   
   const edgarFsData = calcEdgarData(edgarData);
 
