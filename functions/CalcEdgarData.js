@@ -20,8 +20,10 @@ export const calcEdgarData = (edgarData) => {
         return res.RevenueFromContractWithCustomerExcludingAssessedTax_1_Q2_USD;
       } else if (res.RevenueFromContractWithCustomerExcludingAssessedTax_1_Q3_USD) {
         return res.RevenueFromContractWithCustomerExcludingAssessedTax_1_Q3_USD;
+      } else if (res.RevenueFromContractWithCustomerExcludingAssessedTax_1_FY_USD) {
+        return res.RevenueFromContractWithCustomerExcludingAssessedTax_1_FY_USD;
       } else if (res.RevenueFromContractWithCustomerExcludingAssessedTax_4_FY_USD) {
-        // FY年間累計から、ひとつ前のレコードの第三四半期累計をマイナスする。
+        // 第四単四半期がなければ、FY年間累計から、ひとつ前のレコードの第三四半期累計をマイナスする。
         return (
           resultRes[i].RevenueFromContractWithCustomerExcludingAssessedTax_4_FY_USD -
           resultRes[i-1].RevenueFromContractWithCustomerExcludingAssessedTax_3_Q3_USD
@@ -33,8 +35,10 @@ export const calcEdgarData = (edgarData) => {
         return res.RevenueFromContractWithCustomerIncludingAssessedTax_1_Q2_USD;
       } else if (res.RevenueFromContractWithCustomerIncludingAssessedTax_1_Q3_USD) {
         return res.RevenueFromContractWithCustomerIncludingAssessedTax_1_Q3_USD;
+      } else if (res.RevenueFromContractWithCustomerIncludingAssessedTax_1_FY_USD) {
+        return res.RevenueFromContractWithCustomerIncludingAssessedTax_1_FY_USD;
       } else if (res.RevenueFromContractWithCustomerIncludingAssessedTax_4_FY_USD) {
-        // FY年間累計から、ひとつ前のレコードの第三四半期累計をマイナスする。
+        //第四単四半期がなければ、 FY年間累計から、ひとつ前のレコードの第三四半期累計をマイナスする。
         return (
           resultRes[i].RevenueFromContractWithCustomerIncludingAssessedTax_4_FY_USD -
           resultRes[i-1].RevenueFromContractWithCustomerIncludingAssessedTax_3_Q3_USD
@@ -46,12 +50,31 @@ export const calcEdgarData = (edgarData) => {
         return res.Revenues_1_Q2_USD;
       } else if (res.Revenues_1_Q3_USD) {
         return res.Revenues_1_Q3_USD;
+      } else if (res.Revenues_1_FY_USD) {
+        return res.Revenues_1_FY_USD;        
       } else if (res.Revenues_4_FY_USD) {
-        // FY年間累計から、ひとつ前のレコードの第三四半期累計をマイナスする。
+        // 第四単四半期がなければ、FY年間累計から、ひとつ前のレコードの第三四半期累計をマイナスする。
         return (
           resultRes[i].Revenues_4_FY_USD -
           resultRes[i-1].Revenues_3_Q3_USD
         );
+      // 名称違い対応 
+      } else if (res.RevenuesConverted_1_Q1_USD) {
+        return res.RevenuesConverted_1_Q1_USD;
+      } else if (res.RevenuesConverted_1_Q2_USD) {
+        return res.RevenuesConverted_1_Q2_USD;
+      } else if (res.RevenuesConverted_1_Q3_USD) {
+        return res.RevenuesConverted_1_Q3_USD;
+      } else if (res.RevenuesConverted_1_FY_USD) {
+        return res.RevenuesConverted_1_FY_USD;
+      } else if (res.RevenuesConverted_4_FY_USD) {
+        // 第四単四半期がなければ、FY年間累計から、ひとつ前のレコードの第三四半期累計をマイナスする。
+        return (
+          resultRes[i].RevenuesConverted_4_FY_USD -
+          resultRes[i-1].RevenuesConverted_3_Q3_USD
+        );
+
+
       } else {
         return;
       }
@@ -84,6 +107,15 @@ export const calcEdgarData = (edgarData) => {
         return res.Revenues_3_Q3_USD
       } else if (res.Revenues_4_FY_USD) {
         return res.Revenues_4_FY_USD
+      // 名称違い対応
+      } else if (res.RevenuesConverted_1_Q1_USD) {
+        return res.RevenuesConverted_1_Q1_USD
+      } else if (res.RevenuesConverted_2_Q2_USD) {
+        return res.RevenuesConverted_2_Q2_USD
+      } else if (res.RevenuesConverted_3_Q3_USD) {
+        return res.RevenuesConverted_3_Q3_USD
+      } else if (res.RevenuesConverted_4_FY_USD) {
+        return res.RevenuesConverted_4_FY_USD
       } else {
         return;
       }
@@ -106,22 +138,22 @@ export const calcEdgarData = (edgarData) => {
           resultRes[i-1].NetIncomeLoss_3_Q3_USD
         );
       // 名称違い , 累計から、ひとつ前のレコードの累計をマイナスする。
-      } else if (res.ProfitLoss_1_Q1_USD) {
-        return res.ProfitLoss_1_Q1_USD;
-      } else if (res.ProfitLoss_2_Q2_USD) {
+      } else if (res.NetIncomeLossConverted_1_Q1_USD) {
+        return res.NetIncomeLossConverted_1_Q1_USD;
+      } else if (res.NetIncomeLossConverted_2_Q2_USD) {
         return (
-          resultRes[i].ProfitLoss_2_Q2_USD -
-          resultRes[i-1].ProfitLoss_1_Q1_USD
+          resultRes[i].NetIncomeLossConverted_2_Q2_USD -
+          resultRes[i-1].NetIncomeLossConverted_1_Q1_USD
         );
-      } else if (res.ProfitLoss_3_Q3_USD) {
+      } else if (res.NetIncomeLossConverted_3_Q3_USD) {
         return (
-          resultRes[i].ProfitLoss_3_Q3_USD -
-          resultRes[i-1].ProfitLoss_2_Q2_USD
+          resultRes[i].NetIncomeLossConverted_3_Q3_USD -
+          resultRes[i-1].NetIncomeLossConverted_2_Q2_USD
         );
-      } else if (res.ProfitLoss_4_FY_USD) {
+      } else if (res.NetIncomeLossConverted_4_FY_USD) {
         return (
-          resultRes[i].ProfitLoss_4_FY_USD -
-          resultRes[i-1].ProfitLoss_3_Q3_USD
+          resultRes[i].NetIncomeLossConverted_4_FY_USD -
+          resultRes[i-1].NetIncomeLossConverted_3_Q3_USD
         );
       } else {
         return;
@@ -173,6 +205,27 @@ export const calcEdgarData = (edgarData) => {
           resultRes[i].NetCashProvidedByUsedInOperatingActivities_4_FY_USD -
           resultRes[i - 1].NetCashProvidedByUsedInOperatingActivities_3_Q3_USD
         );
+      // 名称違い対応
+      } else if (res.NetCashProvidedByUsedInOperatingActivitiesConverted_1_Q1_USD) {
+        return res.NetCashProvidedByUsedInOperatingActivitiesConverted_1_Q1_USD;
+      } else if (res.NetCashProvidedByUsedInOperatingActivitiesConverted_2_Q2_USD) {
+        return (
+          resultRes[i].NetCashProvidedByUsedInOperatingActivitiesConverted_2_Q2_USD -
+          resultRes[i - 1].NetCashProvidedByUsedInOperatingActivitiesConverted_1_Q1_USD
+        );
+      } else if (res.NetCashProvidedByUsedInOperatingActivitiesConverted_3_Q3_USD) {
+        return (
+          resultRes[i].NetCashProvidedByUsedInOperatingActivitiesConverted_3_Q3_USD -
+          resultRes[i - 1].NetCashProvidedByUsedInOperatingActivitiesConverted_2_Q2_USD
+        );
+      } else if (res.NetCashProvidedByUsedInOperatingActivitiesConverted_4_FY_USD) {
+        return (
+          resultRes[i].NetCashProvidedByUsedInOperatingActivitiesConverted_4_FY_USD -
+          resultRes[i - 1].NetCashProvidedByUsedInOperatingActivitiesConverted_3_Q3_USD
+        );
+
+
+
       } else {
         return;
       }
@@ -189,6 +242,15 @@ export const calcEdgarData = (edgarData) => {
         return res.NetCashProvidedByUsedInOperatingActivities_3_Q3_USD;
       } else if (res.NetCashProvidedByUsedInOperatingActivities_4_FY_USD) {
         return res.NetCashProvidedByUsedInOperatingActivities_4_FY_USD;
+      // 名称違い対応
+      } else if (res.NetCashProvidedByUsedInOperatingActivitiesConverted_1_Q1_USD) {
+        return res.NetCashProvidedByUsedInOperatingActivitiesConverted_1_Q1_USD;
+      } else if (res.NetCashProvidedByUsedInOperatingActivitiesConverted_2_Q2_USD) {
+        return res.NetCashProvidedByUsedInOperatingActivitiesConverted_2_Q2_USD;
+      } else if (res.NetCashProvidedByUsedInOperatingActivitiesConverted_3_Q3_USD) {
+        return res.NetCashProvidedByUsedInOperatingActivitiesConverted_3_Q3_USD;
+      } else if (res.NetCashProvidedByUsedInOperatingActivitiesConverted_4_FY_USD) {
+        return res.NetCashProvidedByUsedInOperatingActivitiesConverted_4_FY_USD;
       } else {
         return;
       }
@@ -219,6 +281,15 @@ export const calcEdgarData = (edgarData) => {
         return res.StockholdersEquity_0_Q3_USD;
       } else if (res.StockholdersEquity_0_FY_USD) {
         return res.StockholdersEquity_0_FY_USD;
+        // 名称違い対応　
+      } else if (res.StockholdersEquityConverted_0_Q1_USD) {
+        return res.StockholdersEquityConverted_0_Q1_USD;
+      } else if (res.StockholdersEquityConverted_0_Q2_USD) {
+        return res.StockholdersEquityConverted_0_Q2_USD;
+      } else if (res.StockholdersEquityConverted_0_Q3_USD) {
+        return res.StockholdersEquityConverted_0_Q3_USD;
+      } else if (res.StockholdersEquityConverted_0_FY_USD) {
+        return res.StockholdersEquityConverted_0_FY_USD;
       } else {
         return;
       }
@@ -278,6 +349,8 @@ export const calcEdgarData = (edgarData) => {
         return res.EarningsPerShareBasic_1_Q2_USD;
       } else if (res.EarningsPerShareBasic_1_Q3_USD) {
         return res.EarningsPerShareBasic_1_Q3_USD;
+      } else if (res.EarningsPerShareBasic_1_FY_USD) {
+        return res.EarningsPerShareBasic_1_FY_USD;
       // 第四単四半期データ  
       } else if (res.EarningsPerShareBasic_4_FY_USD) {
         return (
