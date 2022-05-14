@@ -14,6 +14,22 @@ export const calcEdgarData = (edgarData) => {
     const revenueDataDeducted = () => {
       if (i===0) {
         return 0
+      } else if (res.RevenuesConverted_1_Q1_USD) {
+        return res.RevenuesConverted_1_Q1_USD;
+      } else if (res.RevenuesConverted_1_Q2_USD) {
+        return res.RevenuesConverted_1_Q2_USD;
+      } else if (res.RevenuesConverted_1_Q3_USD) {
+        return res.RevenuesConverted_1_Q3_USD;
+      } else if (res.RevenuesConverted_1_FY_USD) {
+        return res.RevenuesConverted_1_FY_USD;
+      } else if (res.RevenuesConverted_4_FY_USD) {
+        // 第四単四半期がなければ、FY年間累計から、ひとつ前のレコードの第三四半期累計をマイナスする。
+        return (
+          resultRes[i].RevenuesConverted_4_FY_USD -
+          resultRes[i-1].RevenuesConverted_3_Q3_USD
+        );
+
+      // 名称違い対応 
       } else if (res.RevenueFromContractWithCustomerExcludingAssessedTax_1_Q1_USD) {
         return res.RevenueFromContractWithCustomerExcludingAssessedTax_1_Q1_USD;
       } else if (res.RevenueFromContractWithCustomerExcludingAssessedTax_1_Q2_USD) {
@@ -43,6 +59,8 @@ export const calcEdgarData = (edgarData) => {
           resultRes[i].RevenueFromContractWithCustomerIncludingAssessedTax_4_FY_USD -
           resultRes[i-1].RevenueFromContractWithCustomerIncludingAssessedTax_3_Q3_USD
         );
+
+
       // 名称違い対応 
       } else if (res.Revenues_1_Q1_USD) {
         return res.Revenues_1_Q1_USD;
@@ -53,32 +71,28 @@ export const calcEdgarData = (edgarData) => {
       } else if (res.Revenues_1_FY_USD) {
         return res.Revenues_1_FY_USD;        
       } else if (res.Revenues_4_FY_USD) {
+
         // 第四単四半期がなければ、FY年間累計から、ひとつ前のレコードの第三四半期累計をマイナスする。
-        return (
+        // 第三四半期と第四四半期の売上科目が違う場合の特殊対応（GOOGL等該当、検証中）
+        if (resultRes[i-1].Revenues_3_Q3_USD) {
           resultRes[i].Revenues_4_FY_USD -
           resultRes[i-1].Revenues_3_Q3_USD
-        );
-      // 名称違い対応 
-      } else if (res.RevenuesConverted_1_Q1_USD) {
-        return res.RevenuesConverted_1_Q1_USD;
-      } else if (res.RevenuesConverted_1_Q2_USD) {
-        return res.RevenuesConverted_1_Q2_USD;
-      } else if (res.RevenuesConverted_1_Q3_USD) {
-        return res.RevenuesConverted_1_Q3_USD;
-      } else if (res.RevenuesConverted_1_FY_USD) {
-        return res.RevenuesConverted_1_FY_USD;
-      } else if (res.RevenuesConverted_4_FY_USD) {
-        // 第四単四半期がなければ、FY年間累計から、ひとつ前のレコードの第三四半期累計をマイナスする。
-        return (
-          resultRes[i].RevenuesConverted_4_FY_USD -
-          resultRes[i-1].RevenuesConverted_3_Q3_USD
-        );
-
-
+        } else if(resultRes[i-1].RevenueFromContractWithCustomerExcludingAssessedTax_3_Q3_USD){
+          return (
+            resultRes[i].Revenues_4_FY_USD -
+            resultRes[i-1].RevenueFromContractWithCustomerExcludingAssessedTax_3_Q3_USD
+          )
+        } else {
+          return (
+            resultRes[i].Revenues_4_FY_USD -
+            resultRes[i-1].RevenuesConverted_3_Q3_USD
+          )
+        }
       } else {
         return;
       }
     };
+
     // 累計四半期のPL売上データ
     const revenueDataAccum = () => {
       if (res.RevenueFromContractWithCustomerExcludingAssessedTax_1_Q1_USD) {
@@ -151,6 +165,18 @@ export const calcEdgarData = (edgarData) => {
           resultRes[i-1].NetIncomeLossConverted_2_Q2_USD
         );
       } else if (res.NetIncomeLossConverted_4_FY_USD) {
+        // 第三四半期と第四四半期（FY）の科目が違う場合の差し引き対応
+        if (resultRes[i-1].NetIncomeLossConverted_3_Q3_USD) {
+         return (
+            resultRes[i].NetIncomeLossConverted_4_FY_USD -
+            resultRes[i-1].NetIncomeLossConverted_3_Q3_USD
+          );
+        } else if (resultRes[i-1].NetIncomeLoss_3_Q3_USD) {
+          return (
+            resultRes[i].NetIncomeLossConverted_4_FY_USD -
+            resultRes[i-1].NetIncomeLoss_3_Q3_USD
+          );
+        }
         return (
           resultRes[i].NetIncomeLossConverted_4_FY_USD -
           resultRes[i-1].NetIncomeLossConverted_3_Q3_USD
@@ -170,14 +196,14 @@ export const calcEdgarData = (edgarData) => {
       } else if (res.NetIncomeLoss_4_FY_USD) {
         return res.NetIncomeLoss_4_FY_USD;
       // 名称違い
-      } else if (res.ProfitLoss_1_Q1_USD) {
-        return res.ProfitLoss_1_Q1_USD;
-      } else if (res.ProfitLoss_2_Q2_USD) {
-        return res.ProfitLoss_2_Q2_USD;
-      } else if (res.ProfitLoss_3_Q3_USD) {
-        return res.ProfitLoss_3_Q3_USD;
-      } else if (res.ProfitLoss_4_FY_USD) {
-        return res.ProfitLoss_4_FY_USD;
+      } else if (res.NetIncomeLossConverted_1_Q1_USD) {
+        return res.NetIncomeLossConverted_1_Q1_USD;
+      } else if (res.NetIncomeLossConverted_2_Q2_USD) {
+        return res.NetIncomeLossConverted_2_Q2_USD;
+      } else if (res.NetIncomeLossConverted_3_Q3_USD) {
+        return res.NetIncomeLossConverted_3_Q3_USD;
+      } else if (res.NetIncomeLossConverted_4_FY_USD) {
+        return res.NetIncomeLossConverted_4_FY_USD;
       } else {
         return;
       }
@@ -185,6 +211,7 @@ export const calcEdgarData = (edgarData) => {
 
     // -------------　CFS関連　-------------
     // operatingCashFlow (CFデータは単四半期のデータはない)
+    //　全ての科目をConvertedに寄せる方針。
     const operatingCashFlowDeducted = () => {
       if (i === 0) {
         return 0;
@@ -223,9 +250,6 @@ export const calcEdgarData = (edgarData) => {
           resultRes[i].NetCashProvidedByUsedInOperatingActivitiesConverted_4_FY_USD -
           resultRes[i - 1].NetCashProvidedByUsedInOperatingActivitiesConverted_3_Q3_USD
         );
-
-
-
       } else {
         return;
       }
@@ -318,6 +342,15 @@ export const calcEdgarData = (edgarData) => {
         res.WeightedAverageNumberOfSharesOutstandingBasic_4_FY_shares
       ) {
         return res.WeightedAverageNumberOfSharesOutstandingBasic_4_FY_shares;
+        // 名称が違う場合　CommonStockSharesConverted_0_FY_shares
+      } else if (res.CommonStockSharesConverted_0_Q1_shares) {
+        return res.CommonStockSharesConverted_0_Q1_shares;
+      } else if (res.CommonStockSharesConverted_0_Q2_shares) {
+        return res.CommonStockSharesConverted_0_Q2_shares;
+      } else if (res.CommonStockSharesConverted_0_Q3_shares) {
+        return res.CommonStockSharesConverted_0_Q3_shares;
+      } else if (res.CommonStockSharesConverted_0_FY_shares) {
+        return res.CommonStockSharesConverted_0_FY_shares;
       } else {
         return;
       }
