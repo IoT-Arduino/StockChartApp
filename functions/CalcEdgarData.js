@@ -54,10 +54,16 @@ export const calcEdgarData = (edgarData) => {
         return res.Revenues_1_FY_USD;        
       } else if (res.Revenues_4_FY_USD) {
         // 第四単四半期がなければ、FY年間累計から、ひとつ前のレコードの第三四半期累計をマイナスする。
-        return (
+        // 第三四半期と第四四半期の売上科目が違う場合の特殊対応（GOOGL等該当、検証中）
+        if (resultRes[i-1].Revenues_3_Q3_USD) {
           resultRes[i].Revenues_4_FY_USD -
           resultRes[i-1].Revenues_3_Q3_USD
-        );
+        } else {
+          return (
+            resultRes[i].Revenues_4_FY_USD -
+            resultRes[i-1].RevenueFromContractWithCustomerExcludingAssessedTax_3_Q3_USD
+          );
+        }
       // 名称違い対応 
       } else if (res.RevenuesConverted_1_Q1_USD) {
         return res.RevenuesConverted_1_Q1_USD;
