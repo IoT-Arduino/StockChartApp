@@ -4,7 +4,7 @@ import styles from "../styles/Home.module.css";
 
 const StockCandleChart =({ priceData, edgarData, marker,id }) => {
 
-  // console.log(edgarData)
+  console.log(edgarData)
   
   const edgarFsData = calcEdgarData(edgarData);
 
@@ -46,8 +46,8 @@ const StockCandleChart =({ priceData, edgarData, marker,id }) => {
       stockHoldersEquity: item.stockHoldersEquity,
       // 株式指標・経営指標
       numberOfSharesOutstanding:numberOfSharesOutstanding,
-      commonStockSharesOutstanding:item.commonStockSharesOutstanding,
-      weightedAverageNumberOfDilutedSharesOutstanding: item.weightedAverageNumberOfDilutedSharesOutstanding,
+      // commonStockSharesOutstanding:item.commonStockSharesOutstanding,
+      // weightedAverageNumberOfDilutedSharesOutstanding: item.weightedAverageNumberOfDilutedSharesOutstanding,
 
       // Yahoo Finance と一致する。commonStockSharesOutstanding　を使用。
       bps: parseFloat(bookPerShare).toFixed(2),
@@ -115,13 +115,13 @@ const StockCandleChart =({ priceData, edgarData, marker,id }) => {
         (value) => value.date === price.date
       )?.numberOfSharesOutstanding * price.calcRatio,
 
-      commonStockSharesOutstanding: newEdgarData.find(
-        (value) => value.date === price.date
-      )?.commonStockSharesOutstanding * price.calcRatio,
+      // commonStockSharesOutstanding: newEdgarData.find(
+      //   (value) => value.date === price.date
+      // )?.commonStockSharesOutstanding * price.calcRatio,
 
-      weightedAverageNumberOfDilutedSharesOutstanding: newEdgarData.find(
-        (value) => value.date === price.date
-      )?.weightedAverageNumberOfDilutedSharesOutstanding * price.calcRatio,
+      // weightedAverageNumberOfDilutedSharesOutstanding: newEdgarData.find(
+      //   (value) => value.date === price.date
+      // )?.weightedAverageNumberOfDilutedSharesOutstanding * price.calcRatio,
 
       // 一株あたり経営指標　分割の場合、EPS等は過去を割る
       bps: parseFloat(newEdgarData.find((value) => value.date === price.date)?.bps/price.calcRatio).toFixed(2),
@@ -130,7 +130,7 @@ const StockCandleChart =({ priceData, edgarData, marker,id }) => {
       // epsDiluted: newEdgarData.find((value) => value.date === price.date)?.epsDiluted/price.calcRatio,
       // epsAccumDiluted: newEdgarData.find((value) => value.date === price.date)?.epsAccumDiluted/price.calcRatio,
 
-      // 株価指標　株式分割調整しない。（要確認）
+      // 株価指標　株式分割調整。（要確認）
       pbr: parseFloat(
         (price.Close /
           newEdgarData.find((value) => value.date === price.date)?.bps)* price.calcRatio
@@ -143,7 +143,6 @@ const StockCandleChart =({ priceData, edgarData, marker,id }) => {
         (price.Close /
           newEdgarData.find((value) => value.date === price.date)?.epsAccum ) * price.calcRatio
       ).toFixed(2),
-
 
       // 配当関係　ｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰ
       // 一株当たり配当　DPS
@@ -175,45 +174,37 @@ const StockCandleChart =({ priceData, edgarData, marker,id }) => {
     };
   });
 
-  //  console.log(companyData)
+   console.log(companyData)
 
   // console.log(edgarData)
 
   // 　チャート表示用配列データ作成　＝＝＝＝＝＝＝＝＝＝＝＝＝
-  //   チャートの左端きれいにする為のslice処理。ただし、以下空白穴埋め処理の関係で限界あり。
-  //　　sliceは3,6が適当。
-  const slicedCompanyDataForCandle = companyData.slice(6)
 
-  const newDateData = slicedCompanyDataForCandle.map((item,i) => {
+  //   チャートの左端きれいにする為のslice処理。
+  // まず、companyDataに最初の値が存在するIndexを取得　fpがundefinedのもの（理論事業価値の計算揃えの為＋3する）
+  const firstEdgarIndex = companyData.findIndex(item=>item.fp != undefined) +3
+  // そのIndexをつかって以下の配列をSlice
+  const slicedCompanyData = companyData.slice(firstEdgarIndex)
+  
+  const newDateData = slicedCompanyData.map((item,i) => {
     return item.date;
   });
 
-  const newPriceData = slicedCompanyDataForCandle.map((item) => {
+  const newPriceData = slicedCompanyData.map((item) => {
     return [item.open, item.close, item.low, item.high];
   });
 
-  // 　理論株価　資産価値計算用
-  const theoryStockPriceAsset = slicedCompanyDataForCandle.map((item, i) => {
+  // 　理論株価　資産価値計算用　/ map用の配列はcompanyDataを使うこと(slicedを使わない)
+  const theoryStockPriceAsset = companyData.map((item, i) => {
     const assetValueWithRatio = item.bps 
     return assetValueWithRatio;
   });
 
-  // 　理論株価　事業価値計算用
-  const theoryStockPriceOperation = slicedCompanyDataForCandle.map((item, i) => {
-    // 事業価値　暫定PERの15倍 単四半期EPSベースなので4倍している。
-    // const operationValue = parseFloat(item.epsDiluted) * 15 * 4 / parseFloat(item.calcRatio);
-    const operationValue = parseFloat(item.eps) * 15 * 4 ;
-    // 理論株価
-    return operationValue;
-  });
 
-  // 理論株価　空白期間穴埋め処理（直近四半期のデータをコピー）
   const newTheoryStockPriceAsset = theoryStockPriceAsset;
-  const resultTheoryStockPriceAsset = [];
+  const resultTheoryStockPriceAsset = []; 
   for (let i = 0; i < newTheoryStockPriceAsset.length; i++) {
-    if (i === 0) {
-      newTheoryStockPriceAsset[i] = 0;
-    } else if (isNaN(newTheoryStockPriceAsset[i])) {
+    if (isNaN(newTheoryStockPriceAsset[i])) {
       newTheoryStockPriceAsset[i] = newTheoryStockPriceAsset[i-1];
     } else {
       newTheoryStockPriceAsset[i] = newTheoryStockPriceAsset[i]
@@ -224,50 +215,56 @@ const StockCandleChart =({ priceData, edgarData, marker,id }) => {
     }
     resultTheoryStockPriceAsset.push(newTheoryStockPriceAsset[i])
   }
+  const slicedResultTheoryStockPriceAsset = resultTheoryStockPriceAsset.slice(firstEdgarIndex)
 
-  const newTheoryStockPriceOperation = theoryStockPriceOperation;
-  const resultTheoryStockPriceOperation = [];
-  for (let i = 0; i < newTheoryStockPriceOperation.length; i++) {
-    if (i === 0) {
-      newTheoryStockPriceOperation[i] = 0;
-    } else if (isNaN(newTheoryStockPriceOperation[i])) {
-      newTheoryStockPriceOperation[i] = newTheoryStockPriceOperation[i-1];
-    } else {
-      newTheoryStockPriceOperation[i] = newTheoryStockPriceOperation[i]
-    }
-    // 理論株価　マイナスの値は０にする。
-    if (newTheoryStockPriceOperation[i] < 0) {
-      newTheoryStockPriceOperation[i] = 0
-    }
-    resultTheoryStockPriceOperation.push(newTheoryStockPriceOperation[i])
+  // 　理論株価　事業価値計算用 / map用の配列はcompanyDataを使うこと(slicedを使わない)
+  const theoryStockPriceOperation = companyData.map((item, i) => {
+    // 事業価値　暫定PERの15倍 単四半期EPSベースなので4倍している。
+    const operationValue = parseFloat(item.eps) * 15 * 4 ;
+    // 理論株価
+    return operationValue;
+  });
+
+    const newTheoryStockPriceOperation = theoryStockPriceOperation;
+    const resultTheoryStockPriceOperation = []; 
+    for (let i = 0; i < newTheoryStockPriceOperation.length; i++) {
+      if (isNaN(newTheoryStockPriceOperation[i])) {
+        newTheoryStockPriceOperation[i] = newTheoryStockPriceOperation[i-1];
+      } else {
+        newTheoryStockPriceOperation[i] = newTheoryStockPriceOperation[i]
+      }
+      // 理論株価　マイナスの値は０にする。
+      if (newTheoryStockPriceOperation[i] < 0) {
+        newTheoryStockPriceOperation[i] = 0
+      }
+      resultTheoryStockPriceOperation.push(newTheoryStockPriceOperation[i])
   }
+  
+  const slicedResultTheoryStockPriceOperation = resultTheoryStockPriceOperation.slice(firstEdgarIndex)
 
 
   //　キャッシュフロー棒グラフエリア用 ---------------------------------------
   //  一旦四半期データのみにフィルタする処理
-  // データクリーニング処理（古いデータの最後の2件を削除する）
-
-  const filteredDataForBarChart = companyData.filter((item,i) => {
+ 
+  const filteredDataForBarChart = slicedCompanyData.filter((item,i) => {
     return item.operatingCashFlow != null
   })
 
-  const slicedFilteredData = filteredDataForBarChart.slice(2)
-
-  const filteredDateForBarChart = slicedFilteredData.map((item) => {
+  const filteredDateForBarChart = filteredDataForBarChart.map((item) => {
     const dateData = item.date;
     return dateData;
   });
-  const operatingCashFlowIndicator = slicedFilteredData.map((item) => {
+  const operatingCashFlowIndicator = filteredDataForBarChart.map((item) => {
     const opeCashIndx = (parseFloat(item.operatingCashFlow/item.revenue)*100).toFixed(2);
     return opeCashIndx;
   });
 
-  const operatingCashFlowData = slicedFilteredData.map((item) => {
+  const operatingCashFlowData = filteredDataForBarChart.map((item) => {
     const opeCashData = parseInt(item.operatingCashFlow) / 10000000;
     return opeCashData;
   });
 
-  const netIncomeArr = slicedFilteredData.map((item) => {
+  const netIncomeArr = filteredDataForBarChart.map((item) => {
     const netIncomeData = parseInt(item.NetIncomeLoss) / 10000000;
     return netIncomeData;
   });
@@ -277,8 +274,7 @@ const StockCandleChart =({ priceData, edgarData, marker,id }) => {
 
   // テーブル表示用　データ処理　------------------------------
 
-  // sort は破壊的処理。プログラムの上に持ってくると、チャートの順が逆になるので注意。
-  const companyDataForTable =  companyData.sort(function (a, b) {
+  const companyDataForTable =  slicedCompanyData.slice().sort(function (a, b) {
     return a.date > b.date ? -1 : 1;
   });
 
@@ -395,7 +391,7 @@ const StockCandleChart =({ priceData, edgarData, marker,id }) => {
       emphasis: {
         focus: 'series'
       },
-        data: resultTheoryStockPriceAsset,
+        data: slicedResultTheoryStockPriceAsset,
         smooth: true,
       },
       {
@@ -415,7 +411,7 @@ const StockCandleChart =({ priceData, edgarData, marker,id }) => {
         emphasis: {
           focus: 'series'
         },
-        data: resultTheoryStockPriceOperation,
+        data: slicedResultTheoryStockPriceOperation,
         smooth: true,
       },
       {
