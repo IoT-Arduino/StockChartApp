@@ -4,7 +4,7 @@ import styles from "../styles/Home.module.css";
 
 const StockCandleChart =({ priceData, edgarData, marker,id }) => {
 
-  // console.log(edgarData)
+  console.log(edgarData)
   
   const edgarFsData = calcEdgarData(edgarData);
 
@@ -46,8 +46,8 @@ const StockCandleChart =({ priceData, edgarData, marker,id }) => {
       stockHoldersEquity: item.stockHoldersEquity,
       // 株式指標・経営指標
       numberOfSharesOutstanding:numberOfSharesOutstanding,
-      commonStockSharesOutstanding:item.commonStockSharesOutstanding,
-      weightedAverageNumberOfDilutedSharesOutstanding: item.weightedAverageNumberOfDilutedSharesOutstanding,
+      // commonStockSharesOutstanding:item.commonStockSharesOutstanding,
+      // weightedAverageNumberOfDilutedSharesOutstanding: item.weightedAverageNumberOfDilutedSharesOutstanding,
 
       // Yahoo Finance と一致する。commonStockSharesOutstanding　を使用。
       bps: parseFloat(bookPerShare).toFixed(2),
@@ -115,13 +115,13 @@ const StockCandleChart =({ priceData, edgarData, marker,id }) => {
         (value) => value.date === price.date
       )?.numberOfSharesOutstanding * price.calcRatio,
 
-      commonStockSharesOutstanding: newEdgarData.find(
-        (value) => value.date === price.date
-      )?.commonStockSharesOutstanding * price.calcRatio,
+      // commonStockSharesOutstanding: newEdgarData.find(
+      //   (value) => value.date === price.date
+      // )?.commonStockSharesOutstanding * price.calcRatio,
 
-      weightedAverageNumberOfDilutedSharesOutstanding: newEdgarData.find(
-        (value) => value.date === price.date
-      )?.weightedAverageNumberOfDilutedSharesOutstanding * price.calcRatio,
+      // weightedAverageNumberOfDilutedSharesOutstanding: newEdgarData.find(
+      //   (value) => value.date === price.date
+      // )?.weightedAverageNumberOfDilutedSharesOutstanding * price.calcRatio,
 
       // 一株あたり経営指標　分割の場合、EPS等は過去を割る
       bps: parseFloat(newEdgarData.find((value) => value.date === price.date)?.bps/price.calcRatio).toFixed(2),
@@ -143,7 +143,6 @@ const StockCandleChart =({ priceData, edgarData, marker,id }) => {
         (price.Close /
           newEdgarData.find((value) => value.date === price.date)?.epsAccum ) * price.calcRatio
       ).toFixed(2),
-
 
       // 配当関係　ｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰ
       // 一株当たり配当　DPS
