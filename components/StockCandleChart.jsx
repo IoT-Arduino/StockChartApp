@@ -275,7 +275,7 @@ const StockCandleChart =({ priceData, edgarData, marker,id }) => {
   // テーブル表示用　データ処理　------------------------------
 
   const companyDataForTable =  slicedCompanyData.slice().sort(function (a, b) {
-    return a.date > b.date ? -1 : 1;
+    return a.date < b.date ? -1 : 1;
   });
 
   //  通期業績データ
@@ -346,6 +346,7 @@ const StockCandleChart =({ priceData, edgarData, marker,id }) => {
         axisLine: { show: true },
         axisTick: { show: true },
         splitLine: { show: true },
+        min:0,
       },
       {
         name: "営業CFマージン",
@@ -359,7 +360,8 @@ const StockCandleChart =({ priceData, edgarData, marker,id }) => {
         axisLine: { show: true },
         axisTick: { show: true },
         splitLine: { show: true },
-        min:0,
+        min: 0,
+        max:100
       },
     ],
     series: [
