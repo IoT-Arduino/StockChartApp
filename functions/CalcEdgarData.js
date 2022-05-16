@@ -450,45 +450,47 @@ export const calcEdgarData = (edgarData) => {
     // CommonStockDividendsPerShareDeclared
     // CommonStockDividendsPerShareCashPaid
 
-    // const commonStockDividendsPerShareDeclaredDeducted = () => {
-    //   if (res.CommonStockDividendsPerShareDeclared_1_Q1_USD) {
-    //     return res.CommonStockDividendsPerShareDeclared_1_Q1_USD;
-    //   } else if (res.CommonStockDividendsPerShareDeclared_1_Q2_USD) {
-    //     return res.CommonStockDividendsPerShareDeclared_1_Q2_USD;
-    //   } else if (res.CommonStockDividendsPerShareDeclared_1_Q3_USD) {
-    //     return res.CommonStockDividendsPerShareDeclared_1_Q3_USD;
-    //   } else if (res.CommonStockDividendsPerShareDeclared_4_FY_USD) {
-    //     return (
-    //       resultRes[i].CommonStockDividendsPerShareDeclared_4_FY_USD -
-    //       resultRes[i - 1].CommonStockDividendsPerShareDeclared_3_Q3_USD
-    //     )
-    //   // 名称が違う場合
-    //   } else if (res.CommonStockDividendsPerShareCashPaid_1_Q1_USD) {
-    //     return res.CommonStockDividendsPerShareCashPaid_1_Q1_USD
-    //   } else if (res.CommonStockDividendsPerShareCashPaid_1_Q2_USD) {
-    //     return res.CommonStockDividendsPerShareCashPaid_1_Q2_USD
-    //   } else if (res.CommonStockDividendsPerShareCashPaid_1_Q3_USD) {
-    //     return res.CommonStockDividendsPerShareCashPaid_1_Q3_USD
-    //   } else if (res.CommonStockDividendsPerShareCashPaid_4_FY_USD) {
-    //     return (
-    //       resultRes[i].CommonStockDividendsPerShareCashPaid_4_FY_USD -
-    //       resultRes[i - 1].CommonStockDividendsPerShareCashPaid_3_Q3_USD
-    //     )
-    //   } else {
-    //     return;
-    //   }
-    // };
+    const commonStockDividendsPerShareDeclaredDeducted = () => {
+      if (i === 0) {
+        return 0
+      } else if (res.CommonStockDividendsPerShareDeclared_1_Q1_USD) {
+        return res.CommonStockDividendsPerShareDeclared_1_Q1_USD;
+      } else if (res.CommonStockDividendsPerShareDeclared_1_Q2_USD) {
+        return res.CommonStockDividendsPerShareDeclared_1_Q2_USD;
+      } else if (res.CommonStockDividendsPerShareDeclared_1_Q3_USD) {
+        return res.CommonStockDividendsPerShareDeclared_1_Q3_USD;
+      } else if (res.CommonStockDividendsPerShareDeclared_4_FY_USD) {
+        return (
+          resultRes[i].CommonStockDividendsPerShareDeclared_4_FY_USD -
+          resultRes[i - 1].CommonStockDividendsPerShareDeclared_3_Q3_USD
+        )
+      // 名称が違う場合
+      } else if (res.CommonStockDividendsPerShareCashPaid_1_Q1_USD) {
+        return res.CommonStockDividendsPerShareCashPaid_1_Q1_USD
+      } else if (res.CommonStockDividendsPerShareCashPaid_1_Q2_USD) {
+        return res.CommonStockDividendsPerShareCashPaid_1_Q2_USD
+      } else if (res.CommonStockDividendsPerShareCashPaid_1_Q3_USD) {
+        return res.CommonStockDividendsPerShareCashPaid_1_Q3_USD
+      } else if (res.CommonStockDividendsPerShareCashPaid_4_FY_USD) {
+        return (
+          resultRes[i].CommonStockDividendsPerShareCashPaid_4_FY_USD -
+          resultRes[i - 1].CommonStockDividendsPerShareCashPaid_3_Q3_USD
+        )
+      } else {
+        return;
+      }
+    };
 
     // 年間累計配当
-    // const commonStockDividendsPerShareDeclaredYear = () => {
-    //   if (res.CommonStockDividendsPerShareDeclared_4_FY_USD) {
-    //     return res.CommonStockDividendsPerShareDeclared_4_FY_USD;
-    //   } else if (res.CommonStockDividendsPerShareCashPaid_4_FY_USD) {
-    //     return res.CommonStockDividendsPerShareCashPaid_4_FY_USD
-    //   } else {
-    //     return;
-    //   }
-    // };
+    const commonStockDividendsPerShareDeclaredYear = () => {
+      if (res.CommonStockDividendsPerShareDeclared_4_FY_USD) {
+        return res.CommonStockDividendsPerShareDeclared_4_FY_USD;
+      } else if (res.CommonStockDividendsPerShareCashPaid_4_FY_USD) {
+        return res.CommonStockDividendsPerShareCashPaid_4_FY_USD
+      } else {
+        return;
+      }
+    };
 
 
 
@@ -510,8 +512,8 @@ export const calcEdgarData = (edgarData) => {
       epsAccum: earningsPerShareBasicAccum(),
       epsDiluted: earningsPerShareDiluted(),
       epsAccumDiluted: earningsPerShareAccumDiluted(),
-      // commonStockDividendsPerShareDeclaredDeducted: commonStockDividendsPerShareDeclaredDeducted(),
-      // commonStockDividendsPerShareDeclaredYear:commonStockDividendsPerShareDeclaredYear()
+      commonStockDividendsPerShareDeclaredDeducted: commonStockDividendsPerShareDeclaredDeducted(),
+      commonStockDividendsPerShareDeclaredYear:commonStockDividendsPerShareDeclaredYear()
     };
     return FinancialData;
   });
