@@ -1,4 +1,5 @@
 import React,{useEffect,useState} from 'react'
+import Link from "next/link";
 
 import StockCandleChart from "../../components/StockCandleChart";
 import styles from "../../styles/Home.module.css";
@@ -48,11 +49,19 @@ export async function getServerSideProps({ query }) {
   ];
 
   try {
-    const priceList = await fetch(`http://localhost:3000/stock/${id}.json`);
-    const priceData = await priceList.json();
+    const reqList = await fetch(
+      `http://localhost:3000/stockCode/US-StockList.json`
+    );
+    const codeList = await reqList.json();
+    const companyInfo = codeList.filter(item =>{
+      return item.Ticker === id
+    })
 
     const markerList = await fetch(`http://localhost:3000/marker/marker.json`);
     const markerData = await markerList.json();
+
+    const priceList = await fetch(`http://localhost:3000/stock/${id}.json`);
+    const priceData = await priceList.json();
 
     const edgarDataResponse = QTR.map(async (item) => {
       let reqList = await fetch(
@@ -77,14 +86,6 @@ export async function getServerSideProps({ query }) {
         return null
       }
 
-      // if (reqList.status == 404) {
-      //   return null
-      // } else if (reqList.status == 200) {
-      //   const resData = await reqList.json();
-      //   return resData[0];
-      // } else {
-      //   return null
-      // }
     });
 
     
@@ -106,6 +107,7 @@ export async function getServerSideProps({ query }) {
     return {
       props: {
         id,
+        companyInfo: companyInfo[0],
         priceData,
         markerData,
         edgarData: edgarRes.flat(),  // edgarRes.flat(),
@@ -118,7 +120,7 @@ export async function getServerSideProps({ query }) {
 
 }
 
-const StockChart = ({ priceData,markerData, edgarData, id,filteredSheetData }) => {
+const StockChart = ({ priceData,markerData, edgarData, id,companyInfo,filteredSheetData }) => {
 
   const [marker, setMarker] = useState([])
   const { user, session } = useContext(UserContext);
@@ -155,33 +157,39 @@ const StockChart = ({ priceData,markerData, edgarData, id,filteredSheetData }) =
         )}</div>
 
         {priceData ? (
-          <StockCandleChart priceData={priceData} edgarData={edgarData} marker={marker} id={id}/>
+          <StockCandleChart priceData={priceData} edgarData={edgarData} marker={marker} id={id} companyInfo={companyInfo}/>
         ) : (
           <p>株価データがありません</p>
         )}
 
+        <div className="my-4">
+          <h3 className="text-lg font-bold">株式ニュース</h3>
+          {filteredSheetData[0] ? <>
+          <p className="mx-2">News:{filteredSheetData[0][1] ? filteredSheetData[0][1] : ""}</p>
+          <p className="mx-2">Info:{filteredSheetData[0][2] ? filteredSheetData[0][2] : ""}</p></>
+              : ""}
+        </div>
 
+        <div className="my-4">
+          {!user ? <p>会員限定情報エリア</p>: (
+            <div className="my-3">
+              <Comments user={supabase.auth.user()} ticker={id} />
+              <InputMarker user={supabase.auth.user()} ticker={id} />
+            </div>
+          )}
+        </div>
 
-        <h3>株式ニュース</h3>
-        {}
-        {filteredSheetData[0] ? <>
-        <p>News:{filteredSheetData[0][1] ? filteredSheetData[0][1] : ""}</p>
-        <p>Info:{filteredSheetData[0][2] ? filteredSheetData[0][2] : ""}</p></>
-           : "" }
+        <div className="my-4">
+        <h3 className="text-lg font-bold">財務情報確認</h3>
+          <p className="mx-2"><a href={`https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${priceData[0].CIK}&type=&dateb=&owner=exclude&count=40&search_text=`}>EDGARサイト</a></p>
+          <p className="mx-2"><a href={`https://stocks.finance.yahoo.co.jp/us/annual/${priceData[0].Ticker}`}>Yahooファイナンス</a></p>
+          <p className="mx-2"><a href={`https://finance.yahoo.com/quote/${priceData[0].Ticker}/financials?p=${priceData[0].Ticker}`}>YahooファイナンスUS</a></p>
+          <p className="mx-2"><a href={`https://us.kabutan.jp/stocks/${priceData[0].Ticker}/finance`}>株探US</a></p>
+        </div>
 
-        {!user ? <p>会員限定情報エリア</p>: (
-          <div>
-            <Comments user={supabase.auth.user()} ticker={id} />
-            <InputMarker user={supabase.auth.user()} ticker={id} />
-          </div>
-        )}
-
-        <h3>財務情報確認</h3>
-        <p><a href={`https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${priceData[0].CIK}&type=&dateb=&owner=exclude&count=40&search_text=`}>EDGARサイト</a></p>
-        <p><a href={`https://stocks.finance.yahoo.co.jp/us/annual/${priceData[0].Ticker}`}>Yahooファイナンス</a></p>
-        <p><a href={`https://finance.yahoo.com/quote/${priceData[0].Ticker}/financials?p=${priceData[0].Ticker}`}>YahooファイナンスUS</a></p>
-        <p><a href={`https://us.kabutan.jp/stocks/${priceData[0].Ticker}/finance`}>株探US</a></p>
-
+        <Link href="/stocks">
+          <a>株式情報一覧ページへ</a>
+        </Link>
 
       </div>
     </div>
