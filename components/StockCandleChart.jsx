@@ -1,11 +1,49 @@
 import ReactEcharts from "echarts-for-react";
 import { calcEdgarData } from "../functions/CalcEdgarData";
 import styles from "../styles/Home.module.css";
+import {useState,useEffect} from 'react'
 
-const StockCandleChart =({ priceData, edgarData, marker,id }) => {
+const StockCandleChart =({ priceData, edgarData, marker,id,companyInfo }) => {
 
   console.log(edgarData)
+
+  // 画面表示State 管理==============================================================
+  const [isDividend,setIsDividend] = useState(false)
+  const [isSplit,setIsSplit] = useState(false)
+
+  const someDividendResult = edgarData.some(item => {
+   const isSomeDividend = Object.keys(item).some(v => {
+     return (
+        v == 'CommonStockDividendsPerShareDeclared_1_Q1_USD' ||
+        v == 'CommonStockDividendsPerShareDeclared_1_Q2_USD' ||
+        v == 'CommonStockDividendsPerShareDeclared_1_Q3_USD' ||
+        v == 'CommonStockDividendsPerShareDeclared_4_FY_USD' ||
+        v == 'CommonStockDividendsPerShareCashPaid_1_Q1_USD' ||
+        v == 'CommonStockDividendsPerShareCashPaid_1_Q2_USD' ||
+        v == 'CommonStockDividendsPerShareCashPaid_1_Q3_USD' ||
+        v == 'CommonStockDividendsPerShareCashPaid_4_FY_USD' 
+     )
+   } )
+    return isSomeDividend
+  })
+
+  const someSplitResult = priceData.some(item => {
+   const isSomeSplit = Object.keys(item).some(v => {
+     return (
+        v == 'splitCategory' 
+     )
+   } )
+    return isSomeSplit
+  })
+
+  useEffect(()=>{
+    setIsDividend(someDividendResult)
+    setIsSplit(someSplitResult)
+  },[])
+
   
+  // ----------------------------------------------
+
   const edgarFsData = calcEdgarData(edgarData);
 
   const markerChartData = marker.map((item,i)=>{
@@ -61,11 +99,11 @@ const StockCandleChart =({ priceData, edgarData, marker,id }) => {
       ).toFixed(2),
       // 配当関係　ｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰ
       // 一株当たり配当　DPS
-      // commonStockDividendsPerShareDeclaredDeducted: item.commonStockDividendsPerShareDeclaredDeducted,
-      // commonStockDividendsPerShareDeclaredYear: item.commonStockDividendsPerShareDeclaredYear,
-      // 配当性向　    四半期の場合、直近四半期の1株配当×4　 ÷ 直近4四半期の調整後希薄化EPS
-      // dividendPayoutRatio: parseFloat(item.commonStockDividendsPerShareDeclaredDeducted / item.eps).toFixed(2),
-      // dividendPayoutRatioYear: parseFloat(item.commonStockDividendsPerShareDeclaredYear / item.epsAccum).toFixed(2),
+      commonStockDividendsPerShareDeclaredDeducted: item.commonStockDividendsPerShareDeclaredDeducted,
+      commonStockDividendsPerShareDeclaredYear: item.commonStockDividendsPerShareDeclaredYear,
+      // 配当性向　    四半期の場合、直近四半期の1株配当　 ÷ 直近4四半期の調整後希薄化EPS
+      dividendPayoutRatio: parseFloat(item.commonStockDividendsPerShareDeclaredDeducted * 100/ item.eps).toFixed(1),
+      dividendPayoutRatioYear: parseFloat(item.commonStockDividendsPerShareDeclaredYear * 100/ item.epsAccum).toFixed(1),
     };
   });
 
@@ -146,35 +184,35 @@ const StockCandleChart =({ priceData, edgarData, marker,id }) => {
 
       // 配当関係　ｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰ
       // 一株当たり配当　DPS
-      // commonStockDividendsPerShareDeclaredDeducted: newEdgarData.find(
-      //   (value) => value.date === price.date
-      // )?.commonStockDividendsPerShareDeclaredDeducted,
+      commonStockDividendsPerShareDeclaredDeducted: parseFloat(newEdgarData.find(
+        (value) => value.date === price.date
+      )?.commonStockDividendsPerShareDeclaredDeducted).toFixed(2),
 
-      // commonStockDividendsPerShareDeclaredYear: newEdgarData.find(
-      //   (value) => value.date === price.date
-      // )?.commonStockDividendsPerShareDeclaredYear,
+      commonStockDividendsPerShareDeclaredYear: parseFloat(newEdgarData.find(
+        (value) => value.date === price.date
+      )?.commonStockDividendsPerShareDeclaredYear).toFixed(2),
 
-      // 配当利回り(FYのみ表示対象とする)
-      // dividendYieldDeducted:parseFloat(newEdgarData.find(
-      //   (value) => value.date === price.date
-      // )?.commonStockDividendsPerShareDeclaredDeducted / price.Close).toFixed(2),
-      // dividendYieldYear:parseFloat(newEdgarData.find(
-      //   (value) => value.date === price.date
-      // )?.commonStockDividendsPerShareDeclaredYear/price.Close).toFixed(2),
+      // 配当利回り(FYのみ表示対象とする) % 表示
+      dividendYieldDeducted:parseFloat(newEdgarData.find(
+        (value) => value.date === price.date
+      )?.commonStockDividendsPerShareDeclaredDeducted * 100/ price.Close).toFixed(2) + "%",
+      dividendYieldYear:parseFloat(newEdgarData.find(
+        (value) => value.date === price.date
+      )?.commonStockDividendsPerShareDeclaredYear * 100/price.Close).toFixed(2) + "%",
 
-      // 配当性向
-      // dividendPayoutRatio: newEdgarData.find(
-      //   (value) => value.date === price.date
-      // )?.dividendPayoutRatio,
+      // 配当性向　% 表示
+      dividendPayoutRatio: (newEdgarData.find(
+        (value) => value.date === price.date
+      )?.dividendPayoutRatio) + "%",
 
-      // dividendPayoutRatioYear: newEdgarData.find(
-      //   (value) => value.date === price.date
-      // )?.dividendPayoutRatioYear,
+      dividendPayoutRatioYear: (newEdgarData.find(
+        (value) => value.date === price.date
+      )?.dividendPayoutRatioYear) + "%",
 
     };
   });
 
-   console.log(companyData)
+  //  console.log(companyData)
 
   // console.log(edgarData)
 
@@ -271,7 +309,6 @@ const StockCandleChart =({ priceData, edgarData, marker,id }) => {
 
 
 
-
   // テーブル表示用　データ処理　------------------------------
 
   const companyDataForTable =  slicedCompanyData.slice().sort(function (a, b) {
@@ -289,10 +326,8 @@ const StockCandleChart =({ priceData, edgarData, marker,id }) => {
     return  QTR.includes(item.fp)
   })
 
-  //==============================================================
 
-
-  // Chart Option
+  // Chart Option ==============================================================
   const option = {
     xAxis: [
       {
@@ -465,6 +500,9 @@ const StockCandleChart =({ priceData, edgarData, marker,id }) => {
 
 
 
+
+  
+
   return (
     <div>
       <ReactEcharts option={option} style={{ height: '600px', width: '100%' }} />
@@ -475,7 +513,7 @@ const StockCandleChart =({ priceData, edgarData, marker,id }) => {
         <thead>
         <tr>
           <th>年月</th>
-          <th>売上高</th>
+           {companyInfo.Sector === "Finance" ? <></> : <th>売上高</th>}
           <th>純利益</th>
           <th>営業CF</th>
           <th>総資産</th>
@@ -485,7 +523,18 @@ const StockCandleChart =({ priceData, edgarData, marker,id }) => {
           <tbody>
         {fyCompanyDataForTable &&
           fyCompanyDataForTable.map((item, i) => {
-            return (
+            if (companyInfo.Sector === "Finance") {
+              return (
+                <tr key={i}>
+                  <td>{item.date}</td>         
+                  <td>{item.NetIncomeLossAccum ? parseInt(item.NetIncomeLossAccum / 1000).toLocaleString() : "-"}</td>         
+                  <td>{item.operatingCashFlowAccum ? parseInt(item.operatingCashFlowAccum / 1000).toLocaleString(): "-"}</td>                
+                  <td>{item.assets ? parseInt(item.assets / 1000).toLocaleString(): "-"}</td>         
+                  <td>{item.stockHoldersEquity ? parseInt(item.stockHoldersEquity / 1000).toLocaleString(): "-"}</td>                
+                </tr>
+              );
+            } else {
+             return (
               <tr key={i}>
                  <td>{item.date}</td>         
                  <td>{item.revenueAccum ? parseInt(item.revenueAccum / 1000).toLocaleString() : "-"}</td>
@@ -495,12 +544,10 @@ const StockCandleChart =({ priceData, edgarData, marker,id }) => {
                  <td>{item.stockHoldersEquity ? parseInt(item.stockHoldersEquity / 1000).toLocaleString(): "-"}</td>                
               </tr>
             );
+            }
           })}
           </tbody>
       </table>
-
-
-
 
       <h3>通期業績データ 指標</h3>
 
@@ -539,7 +586,7 @@ const StockCandleChart =({ priceData, edgarData, marker,id }) => {
                <thead>
         <tr>
           <th>年月</th>
-          <th>売上高</th>
+           {companyInfo.Sector === "Finance" ? <></> :  <th>売上高</th>}
           <th>純利益</th>
           <th>営業CF</th>
           <th>総資産</th>
@@ -548,7 +595,19 @@ const StockCandleChart =({ priceData, edgarData, marker,id }) => {
         </thead>
          <tbody>
         {QtrCompanyDataForTable &&
-          QtrCompanyDataForTable.map((item, i) => {
+            QtrCompanyDataForTable.map((item, i) => {
+
+            if(companyInfo.Sector === "Finance"){
+            return (
+              <tr key={i}>
+                 <td>{item.date}</td>         
+                 <td>{item.NetIncomeLoss ? parseInt(item.NetIncomeLoss / 1000).toLocaleString() : "-"} </td>         
+                 <td> {item.operatingCashFlow ? parseInt(item.operatingCashFlow / 1000).toLocaleString() : "-"}</td>                
+                 <td>{item.assets ? parseInt(item.assets / 1000).toLocaleString() : "-"}</td>         
+                 <td>{item.stockHoldersEquity ? parseInt(item.stockHoldersEquity / 1000).toLocaleString() : "-"}</td>                
+              </tr>
+            );
+            } else {
             return (
               <tr key={i}>
                  <td>{item.date}</td>         
@@ -559,6 +618,9 @@ const StockCandleChart =({ priceData, edgarData, marker,id }) => {
                  <td>{item.stockHoldersEquity ? parseInt(item.stockHoldersEquity / 1000).toLocaleString() : "-"}</td>                
               </tr>
             );
+            } 
+            
+
           })}
           </tbody>
       </table>
@@ -592,23 +654,60 @@ const StockCandleChart =({ priceData, edgarData, marker,id }) => {
           })}
           </tbody>
       </table>
-      <p style={{ textAlign:'right' }}>データ空欄部分は科目変換定義等調整中</p>
 
-      <h3>株式分割データ</h3>
-      <ul>
-        {priceData &&
-          priceData.map((item, i) => {
-            if (item.splitCategory) {
-              return (
-              <li key={i}>
-                {item.date} /
-                分割種別: {item.splitCategory} /
-                分割比率:{item.splitRatio} /
-              </li>
-              )
-            }
+     {isDividend && (
+      <div>
+      <h3>年間配当データ 指標</h3>
+      <table className={styles.table}>
+         <thead>
+        <tr>
+          <th>年月</th>
+          <th>一株当たり配当年</th>
+          <th>配当利回り年</th>
+          <th>配当性向年</th>
+        </tr>
+        </thead>
+        <tbody>
+        {fyCompanyDataForTable &&
+          fyCompanyDataForTable.map((item, i) => {
+            return (
+              <tr key={i}>
+                 <td>{item.date}</td>         
+                 <td>{item.commonStockDividendsPerShareDeclaredYear!="NaN" ? item.commonStockDividendsPerShareDeclaredYear : "-"} </td>         
+                 <td>{item.dividendYieldYear!="NaN%" ? item.dividendYieldYear : "-"}</td>         
+                 <td>{item.dividendPayoutRatioYear!="NaN%" ? item.dividendPayoutRatioYear : "-"} </td>   
+              </tr>
+            );
           })}
-      </ul>
+          </tbody>
+      </table>
+      </div>
+     )}
+
+    <p style={{ textAlign:'right' }} className="m-8">データ空欄部分は科目変換定義等調整中</p>
+
+
+     {isSplit && (
+       <div>
+        <h3 className="text-lg font-bold">株式分割データ</h3>
+        <ul className="my-3">
+          {priceData &&
+            priceData.map((item, i) => {
+              if (item.splitCategory) {
+                return (
+                <li key={i}>
+                  {item.date} /
+                  分割種別: {item.splitCategory} /
+                  分割比率:{item.splitRatio} /
+                </li>
+                )
+              } 
+            })}
+        </ul>
+       </div>
+     )}
+
+
     </div>
   );
 };

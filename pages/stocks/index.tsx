@@ -8,6 +8,7 @@ export async function getServerSideProps() {
       `http://localhost:3000/stockCode/US-StockList.json`
     );
     const codeList = await reqList.json();
+
     const codeListSorted = codeList.sort(function (a, b) {
       if (a.Ticker > b.Ticker) {
         return 1;
@@ -28,6 +29,8 @@ export async function getServerSideProps() {
 
 export default function index({ codeList }) {
 
+
+
   const codeListSP = codeList.filter(item =>{
     return item.SP500 == "SP500" && item.Unlist != "unlist"
   })
@@ -39,6 +42,11 @@ export default function index({ codeList }) {
   const codeListNSP = codeList.filter(item =>{
     return item.SP500 != "SP500"
   })
+
+  const codeListFin = codeList.filter(item =>{
+    return item.Sector == "Finance"
+  })
+
 
   return (
     <div className={styles.container}>
