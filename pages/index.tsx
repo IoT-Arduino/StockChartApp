@@ -106,7 +106,7 @@ const Home: NextPage = ({ fundsData }: any) => {
               </Link>
             </li>
             <li>
-              <Link href="/stocks/BRKB">
+              <Link href="/stocks/BRK-B">
                 <a>BRKB:バークシャーハサウェイ</a>
               </Link>
             </li>
