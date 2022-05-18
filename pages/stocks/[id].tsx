@@ -50,26 +50,26 @@ export async function getServerSideProps({ query }) {
 
   try {
     const reqList = await fetch(
-      `http://localhost:3000/stockCode/US-StockList.json`
+      `${process.env.NEXT_PUBLIC_API_ENDOPOINT}/stockCode/US-StockList.json`
     );
     const codeList = await reqList.json();
     const companyInfo = codeList.filter(item =>{
       return item.Ticker === id
     })
 
-    const markerList = await fetch(`http://localhost:3000/marker/marker.json`);
+    const markerList = await fetch(`${process.env.NEXT_PUBLIC_API_ENDOPOINT}/marker/marker.json`);
     const markerData = await markerList.json();
 
-    const priceList = await fetch(`http://localhost:3000/stock/${id}.json`);
+    const priceList = await fetch(`${process.env.NEXT_PUBLIC_API_ENDOPOINT}/stock/${id}.json`);
     const priceData = await priceList.json();
 
     const edgarDataResponse = QTR.map(async (item) => {
       let reqList = await fetch(
-        `http://localhost:3000/edgar/${item}/${id}.json`
+        `${process.env.NEXT_PUBLIC_API_ENDOPOINT}/edgar/${item}/${id}.json`
       );
 
       let reqList2 = await fetch(
-        `http://localhost:3000/edgar/${item}/${id}_2.json`
+        `${process.env.NEXT_PUBLIC_API_ENDOPOINT}/edgar/${item}/${id}_2.json`
       );
       // もし　reqList2があったら、仮配列にpush、...で展開したものをreturnする。
       if (reqList.status == 404 && reqList2.status == 404) {
