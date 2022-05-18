@@ -139,48 +139,101 @@ export const calcEdgarData = (edgarData) => {
     const netIncomeDataDeducted = () => {
       if (i===0) {
         return 0
+      // NetIncomeLoss の対応。  
       } else if (res.NetIncomeLoss_1_Q1_USD) {
         return res.NetIncomeLoss_1_Q1_USD;
       } else if (res.NetIncomeLoss_1_Q2_USD) {
         return res.NetIncomeLoss_1_Q2_USD;
       } else if (res.NetIncomeLoss_1_Q3_USD) {
         return res.NetIncomeLoss_1_Q3_USD;
+      } else if (res.NetIncomeLoss_1_FY_USD) {
+        return res.NetIncomeLoss_1_FY_USD;
+      // FY単四半期がない場合、FY年間累計から、ひとつ前のレコードの第三四半期累計をマイナスする。
       } else if (res.NetIncomeLoss_4_FY_USD) {
-        // FY年間累計から、ひとつ前のレコードの第三四半期累計をマイナスする。
         return (
           resultRes[i].NetIncomeLoss_4_FY_USD -
           resultRes[i-1].NetIncomeLoss_3_Q3_USD
         );
-      // ProfitLoss - MinorityInterest , 累計から、ひとつ前のレコードの累計をマイナスする。
-      } else if (res.NetIncomeLossConverted_1_Q1_USD) {
-        return res.NetIncomeLossConverted_1_Q1_USD;
-      } else if (res.NetIncomeLossConverted_2_Q2_USD) {
+      // ProfitLoss - MinorityInterest の対応。
+      } else if (res.ProfitLoss_1_Q1_USD) {
         return (
-          resultRes[i].NetIncomeLossConverted_2_Q2_USD -
-          resultRes[i-1].NetIncomeLossConverted_1_Q1_USD
+          resultRes[i].MinorityInterest_1_Q1_USD ? 
+          resultRes[i].ProfitLoss_1_Q1_USD - resultRes[i].MinorityInterest_1_Q1_USD :
+          resultRes[i].ProfitLoss_1_Q1_USD
         );
-      } else if (res.NetIncomeLossConverted_3_Q3_USD) {
+      } else if (res.ProfitLoss_1_Q2_USD) {
         return (
-          resultRes[i].NetIncomeLossConverted_3_Q3_USD -
-          resultRes[i-1].NetIncomeLossConverted_2_Q2_USD
+          resultRes[i].MinorityInterest_1_Q2_USD ? 
+          resultRes[i].ProfitLoss_1_Q2_USD - resultRes[i].MinorityInterest_1_Q2_USD :
+          resultRes[i].ProfitLoss_1_Q2_USD
         );
-      } else if (res.NetIncomeLossConverted_4_FY_USD) {
-        // 第三四半期と第四四半期（FY）の科目が違う場合の差し引き対応
-        if (resultRes[i-1].NetIncomeLossConverted_3_Q3_USD) {
-         return (
-            resultRes[i].NetIncomeLossConverted_4_FY_USD -
-            resultRes[i-1].NetIncomeLossConverted_3_Q3_USD
-          );
-        } else if (resultRes[i-1].NetIncomeLoss_3_Q3_USD) {
-          return (
-            resultRes[i].NetIncomeLossConverted_4_FY_USD -
-            resultRes[i-1].NetIncomeLoss_3_Q3_USD
-          );
-        }
+      } else if (res.ProfitLoss_1_Q3_USD) {
         return (
-          resultRes[i].NetIncomeLossConverted_4_FY_USD -
-          resultRes[i-1].NetIncomeLossConverted_3_Q3_USD
+          resultRes[i].MinorityInterest_1_Q3_USD ? 
+          resultRes[i].ProfitLoss_1_Q3_USD - resultRes[i].MinorityInterest_1_Q3_USD :
+          resultRes[i].ProfitLoss_1_Q3_USD
         );
+      } else if (res.ProfitLoss_1_FY_USD) {
+        return (
+          resultRes[i].MinorityInterest_1_FY_USD ? 
+          resultRes[i].ProfitLoss_1_FY_USD - resultRes[i].MinorityInterest_1_FY_USD :
+          resultRes[i].ProfitLoss_1_FY_USD
+        );
+      } else if (res.ProfitLoss_4_FY_USD) {
+        return (
+          resultRes[i].MinorityInterest_4_FY_USD ? 
+          (resultRes[i].ProfitLoss_4_FY_USD - resultRes[i].MinorityInterest_4_FY_USD) - (resultRes[i-1].ProfitLoss_3_Q3_USD - resultRes[i-1].MinorityInterest_3_Q3_USD) :
+          resultRes[i].ProfitLoss_4_FY_USD - resultRes[i-1].ProfitLoss_3_Q3_USD
+        );
+      // NetIncomeLossAvailableToCommonStockholdersBasic +  DividendsPreferredStockCash の対応
+      } else if (res.NetIncomeLossAvailableToCommonStockholdersBasic_1_Q1_USD) {
+        return (
+          resultRes[i].DividendsPreferredStockCash_1_Q1_USD ? 
+          resultRes[i].NetIncomeLossAvailableToCommonStockholdersBasic_1_Q1_USD - resultRes[i].DividendsPreferredStockCash_1_Q1_USD :
+          resultRes[i].NetIncomeLossAvailableToCommonStockholdersBasic_1_Q1_USD
+        );
+      } else if (res.NetIncomeLossAvailableToCommonStockholdersBasic_1_Q2_USD) {
+        return (
+          resultRes[i].DividendsPreferredStockCash_1_Q2_USD ? 
+          resultRes[i].NetIncomeLossAvailableToCommonStockholdersBasic_1_Q2_USD - resultRes[i].DividendsPreferredStockCash_1_Q2_USD :
+          resultRes[i].NetIncomeLossAvailableToCommonStockholdersBasic_1_Q2_USD
+        );
+      } else if (res.NetIncomeLossAvailableToCommonStockholdersBasic_1_Q3_USD) {
+        return (
+          resultRes[i].DividendsPreferredStockCash_1_Q3_USD ? 
+          resultRes[i].NetIncomeLossAvailableToCommonStockholdersBasic_1_Q3_USD - resultRes[i].DividendsPreferredStockCash_1_Q3_USD :
+          resultRes[i].NetIncomeLossAvailableToCommonStockholdersBasic_1_Q3_USD
+        );
+      } else if (res.NetIncomeLossAvailableToCommonStockholdersBasic_1_FY_USD) {
+        return (
+          resultRes[i].DividendsPreferredStockCash_1_FY_USD ? 
+          resultRes[i].NetIncomeLossAvailableToCommonStockholdersBasic_1_FY_USD - resultRes[i].DividendsPreferredStockCash_1_FY_USD :
+          resultRes[i].NetIncomeLossAvailableToCommonStockholdersBasic_1_FY_USD
+        );
+      } else if (res.NetIncomeLossAvailableToCommonStockholdersBasic_4_FY_USD) {
+        return (
+          resultRes[i].DividendsPreferredStockCash_4_FY_USD ? 
+          (resultRes[i].NetIncomeLossAvailableToCommonStockholdersBasic_4_FY_USD - resultRes[i].DividendsPreferredStockCash_4_FY_USD) - (resultRes[i-1].NetIncomeLossAvailableToCommonStockholdersBasic_3_Q3_USD - resultRes[i-1].DividendsPreferredStockCash_3_Q3_USD) :
+          resultRes[i].NetIncomeLossAvailableToCommonStockholdersBasic_4_FY_USD - resultRes[i-1].NetIncomeLossAvailableToCommonStockholdersBasic_3_Q3_USD
+        );
+
+      // } else if (res.NetIncomeLossConverted_4_FY_USD) {
+      // 第三四半期と第四四半期（FY）の科目が違う場合の差し引き対応　-> 手入力対応にする
+      // if (resultRes[i-1].NetIncomeLossConverted_3_Q3_USD) {
+      //  return (
+      //     resultRes[i].NetIncomeLossConverted_4_FY_USD -
+      //     resultRes[i-1].NetIncomeLossConverted_3_Q3_USD
+      //   );
+      // } else if (resultRes[i-1].NetIncomeLoss_3_Q3_USD) {
+      //   return (
+      //     resultRes[i].NetIncomeLossConverted_4_FY_USD -
+      //     resultRes[i-1].NetIncomeLoss_3_Q3_USD
+      //   );
+      // }
+      // return (
+      //   resultRes[i].NetIncomeLossConverted_4_FY_USD -
+      //   resultRes[i-1].NetIncomeLossConverted_3_Q3_USD
+      // );
       } else {
         return;
       }
@@ -196,14 +249,23 @@ export const calcEdgarData = (edgarData) => {
       } else if (res.NetIncomeLoss_4_FY_USD) {
         return res.NetIncomeLoss_4_FY_USD;
       // 名称違い
-      } else if (res.NetIncomeLossConverted_1_Q1_USD) {
-        return res.NetIncomeLossConverted_1_Q1_USD;
-      } else if (res.NetIncomeLossConverted_2_Q2_USD) {
-        return res.NetIncomeLossConverted_2_Q2_USD;
-      } else if (res.NetIncomeLossConverted_3_Q3_USD) {
-        return res.NetIncomeLossConverted_3_Q3_USD;
-      } else if (res.NetIncomeLossConverted_4_FY_USD) {
-        return res.NetIncomeLossConverted_4_FY_USD;
+      } else if (res.ProfitLoss_1_Q1_USD) {
+        return res.ProfitLoss_1_Q1_USD;
+      } else if (res.ProfitLoss_2_Q2_USD) {
+        return res.ProfitLoss_2_Q2_USD;
+      } else if (res.ProfitLoss_3_Q3_USD) {
+        return res.ProfitLoss_3_Q3_USD;
+      } else if (res.ProfitLoss_4_FY_USD) {
+        return res.ProfitLoss_4_FY_USD;
+      // 名称違い
+      } else if (res.NetIncomeLossAvailableToCommonStockholdersBasic_1_Q1_USD) {
+        return res.NetIncomeLossAvailableToCommonStockholdersBasic_1_Q1_USD;
+      } else if (res.NetIncomeLossAvailableToCommonStockholdersBasic_2_Q2_USD) {
+        return res.NetIncomeLossAvailableToCommonStockholdersBasic_2_Q2_USD;
+      } else if (res.NetIncomeLossAvailableToCommonStockholdersBasic_3_Q3_USD) {
+        return res.NetIncomeLossAvailableToCommonStockholdersBasic_3_Q3_USD;
+      } else if (res.NetIncomeLossAvailableToCommonStockholdersBasic_4_FY_USD) {
+        return res.NetIncomeLossAvailableToCommonStockholdersBasic_4_FY_USD;
       } else {
         return;
       }
