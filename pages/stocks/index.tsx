@@ -5,7 +5,7 @@ import styles from "../../styles/Home.module.css";
 export async function getServerSideProps() {
   try {
     const reqList = await fetch(
-      `http://localhost:3000/stockCode/US-StockList.json`
+      `${process.env.NEXT_PUBLIC_API_ENDOPOINT}/stockCode/US-StockList.json`
     );
     const codeList = await reqList.json();
 

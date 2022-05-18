@@ -135,7 +135,7 @@ export const calcEdgarData = (edgarData) => {
       }
     };
 
-    // 単四半期のPL当期利益データ
+    // 単四半期のPL当期利益データ -------------
     const netIncomeDataDeducted = () => {
       if (i===0) {
         return 0
@@ -151,7 +151,7 @@ export const calcEdgarData = (edgarData) => {
           resultRes[i].NetIncomeLoss_4_FY_USD -
           resultRes[i-1].NetIncomeLoss_3_Q3_USD
         );
-      // 名称違い , 累計から、ひとつ前のレコードの累計をマイナスする。
+      // ProfitLoss - MinorityInterest , 累計から、ひとつ前のレコードの累計をマイナスする。
       } else if (res.NetIncomeLossConverted_1_Q1_USD) {
         return res.NetIncomeLossConverted_1_Q1_USD;
       } else if (res.NetIncomeLossConverted_2_Q2_USD) {

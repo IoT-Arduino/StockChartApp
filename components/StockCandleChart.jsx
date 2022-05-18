@@ -292,9 +292,14 @@ const StockCandleChart =({ priceData, edgarData, marker,id,companyInfo }) => {
     const dateData = item.date;
     return dateData;
   });
+
   const operatingCashFlowIndicator = filteredDataForBarChart.map((item) => {
-    const opeCashIndx = (parseFloat(item.operatingCashFlow/item.revenue)*100).toFixed(2);
-    return opeCashIndx;
+    if (companyInfo.Sector === "Finance") {
+      return null
+    } else {
+      const opeCashIndx = (parseFloat(item.operatingCashFlow/item.revenue)*100).toFixed(2);
+      return opeCashIndx;
+    }
   });
 
   const operatingCashFlowData = filteredDataForBarChart.map((item) => {
@@ -490,8 +495,13 @@ const StockCandleChart =({ priceData, edgarData, marker,id,companyInfo }) => {
       grid: 1,
       xAxisIndex: 1,
       yAxisIndex: 2,
+      lineStyle: {
+        color: '#5470C6',
+        width: 1,
+        type: 'dashed'
+      },
       itemStyle: {
-        color: "#636363",
+        color: "#5470C6",
       },
       data: operatingCashFlowIndicator,
     },
