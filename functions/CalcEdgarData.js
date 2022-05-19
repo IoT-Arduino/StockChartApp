@@ -149,11 +149,30 @@ export const calcEdgarData = (edgarData) => {
       } else if (res.NetIncomeLoss_1_FY_USD) {
         return res.NetIncomeLoss_1_FY_USD;
       // FY単四半期がない場合、FY年間累計から、ひとつ前のレコードの第三四半期累計をマイナスする。
+      // さらに、第三四半期と第四四半期（FY）の科目が違う場合の差し引き対応。FYがNetIncomeLossで3QにNetIncomeLossがない場合の対応。
       } else if (res.NetIncomeLoss_4_FY_USD) {
-        return (
-          resultRes[i].NetIncomeLoss_4_FY_USD -
-          resultRes[i-1].NetIncomeLoss_3_Q3_USD
-        );
+
+        if (resultRes[i - 1].NetIncomeLoss_3_Q3_USD) {
+          return (
+            resultRes[i].NetIncomeLoss_4_FY_USD -
+            resultRes[i - 1].NetIncomeLoss_3_Q3_USD
+          );
+        } else if (resultRes[i - 1].ProfitLoss_3_Q3_USD) {
+          return (
+            resultRes[i-1].MinorityInterest_3_FY_USD ? 
+            resultRes[i].NetIncomeLoss_4_FY_USD - (resultRes[i - 1].ProfitLoss_3_Q3_USD - resultRes[i-1].MinorityInterest_3_FY_USD) :
+            resultRes[i].NetIncomeLoss_4_FY_USD - resultRes[i - 1].ProfitLoss_3_Q3_USD
+          );
+        } else if (resultRes[i - 1].NetIncomeLossAvailableToCommonStockholdersBasic_3_Q3_USD) {
+          return (
+            resultRes[i-1].DividendsPreferredStockCash_3_FY_USD ? 
+            resultRes[i].NetIncomeLoss_4_FY_USD - (resultRes[i - 1].NetIncomeLossAvailableToCommonStockholdersBasic_3_Q3_USD - resultRes[i-1].DividendsPreferredStockCash_3_FY_USD) :
+            resultRes[i].NetIncomeLoss_4_FY_USD - resultRes[i - 1].NetIncomeLossAvailableToCommonStockholdersBasic_3_Q3_USD
+          );
+        } else {
+          return 
+        }
+
       // ProfitLoss - MinorityInterest の対応。
       } else if (res.ProfitLoss_1_Q1_USD) {
         return (
@@ -217,23 +236,7 @@ export const calcEdgarData = (edgarData) => {
           resultRes[i].NetIncomeLossAvailableToCommonStockholdersBasic_4_FY_USD - resultRes[i-1].NetIncomeLossAvailableToCommonStockholdersBasic_3_Q3_USD
         );
 
-      // } else if (res.NetIncomeLossConverted_4_FY_USD) {
-      // 第三四半期と第四四半期（FY）の科目が違う場合の差し引き対応　-> 手入力対応にする
-      // if (resultRes[i-1].NetIncomeLossConverted_3_Q3_USD) {
-      //  return (
-      //     resultRes[i].NetIncomeLossConverted_4_FY_USD -
-      //     resultRes[i-1].NetIncomeLossConverted_3_Q3_USD
-      //   );
-      // } else if (resultRes[i-1].NetIncomeLoss_3_Q3_USD) {
-      //   return (
-      //     resultRes[i].NetIncomeLossConverted_4_FY_USD -
-      //     resultRes[i-1].NetIncomeLoss_3_Q3_USD
-      //   );
-      // }
-      // return (
-      //   resultRes[i].NetIncomeLossConverted_4_FY_USD -
-      //   resultRes[i-1].NetIncomeLossConverted_3_Q3_USD
-      // );
+
       } else {
         return;
       }
@@ -391,6 +394,17 @@ export const calcEdgarData = (edgarData) => {
     };
     // 株主資本
     const stockholdersEquity = () => {
+      // 少数株主持分除く
+      if (res.StockholdersEquityConverted_0_Q1_USD) {
+        return res.StockholdersEquityConverted_0_Q1_USD;
+      } else if (res.StockholdersEquityConverted_0_Q2_USD) {
+        return res.StockholdersEquityConverted_0_Q2_USD;
+      } else if (res.StockholdersEquityConverted_0_Q3_USD) {
+        return res.StockholdersEquityConverted_0_Q3_USD;
+      } else if (res.StockholdersEquityConverted_0_FY_USD) {
+        return res.StockholdersEquityConverted_0_FY_USD;
+      // 名称違い対応　
+      } else 
       if (res.StockholdersEquity_0_Q1_USD) {
         return res.StockholdersEquity_0_Q1_USD;
       } else if (res.StockholdersEquity_0_Q2_USD) {
@@ -399,15 +413,7 @@ export const calcEdgarData = (edgarData) => {
         return res.StockholdersEquity_0_Q3_USD;
       } else if (res.StockholdersEquity_0_FY_USD) {
         return res.StockholdersEquity_0_FY_USD;
-        // 名称違い対応　
-      } else if (res.StockholdersEquityConverted_0_Q1_USD) {
-        return res.StockholdersEquityConverted_0_Q1_USD;
-      } else if (res.StockholdersEquityConverted_0_Q2_USD) {
-        return res.StockholdersEquityConverted_0_Q2_USD;
-      } else if (res.StockholdersEquityConverted_0_Q3_USD) {
-        return res.StockholdersEquityConverted_0_Q3_USD;
-      } else if (res.StockholdersEquityConverted_0_FY_USD) {
-        return res.StockholdersEquityConverted_0_FY_USD;
+
       } else {
         return;
       }
