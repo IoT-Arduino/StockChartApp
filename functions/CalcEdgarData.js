@@ -14,14 +14,32 @@ export const calcEdgarData = (edgarData) => {
     const revenueDataDeducted = () => {
       if (i===0) {
         return 0
+      } else if (res.RevenuesConverted_1_Q1_USD) {
+        return res.RevenuesConverted_1_Q1_USD;
+      } else if (res.RevenuesConverted_1_Q2_USD) {
+        return res.RevenuesConverted_1_Q2_USD;
+      } else if (res.RevenuesConverted_1_Q3_USD) {
+        return res.RevenuesConverted_1_Q3_USD;
+      } else if (res.RevenuesConverted_1_FY_USD) {
+        return res.RevenuesConverted_1_FY_USD;
+      } else if (res.RevenuesConverted_4_FY_USD) {
+        // 第四単四半期がなければ、FY年間累計から、ひとつ前のレコードの第三四半期累計をマイナスする。
+        return (
+          resultRes[i].RevenuesConverted_4_FY_USD -
+          resultRes[i-1].RevenuesConverted_3_Q3_USD
+        );
+
+      // 名称違い対応 
       } else if (res.RevenueFromContractWithCustomerExcludingAssessedTax_1_Q1_USD) {
         return res.RevenueFromContractWithCustomerExcludingAssessedTax_1_Q1_USD;
       } else if (res.RevenueFromContractWithCustomerExcludingAssessedTax_1_Q2_USD) {
         return res.RevenueFromContractWithCustomerExcludingAssessedTax_1_Q2_USD;
       } else if (res.RevenueFromContractWithCustomerExcludingAssessedTax_1_Q3_USD) {
         return res.RevenueFromContractWithCustomerExcludingAssessedTax_1_Q3_USD;
+      } else if (res.RevenueFromContractWithCustomerExcludingAssessedTax_1_FY_USD) {
+        return res.RevenueFromContractWithCustomerExcludingAssessedTax_1_FY_USD;
       } else if (res.RevenueFromContractWithCustomerExcludingAssessedTax_4_FY_USD) {
-        // FY年間累計から、ひとつ前のレコードの第三四半期累計をマイナスする。
+        // 第四単四半期がなければ、FY年間累計から、ひとつ前のレコードの第三四半期累計をマイナスする。
         return (
           resultRes[i].RevenueFromContractWithCustomerExcludingAssessedTax_4_FY_USD -
           resultRes[i-1].RevenueFromContractWithCustomerExcludingAssessedTax_3_Q3_USD
@@ -33,12 +51,16 @@ export const calcEdgarData = (edgarData) => {
         return res.RevenueFromContractWithCustomerIncludingAssessedTax_1_Q2_USD;
       } else if (res.RevenueFromContractWithCustomerIncludingAssessedTax_1_Q3_USD) {
         return res.RevenueFromContractWithCustomerIncludingAssessedTax_1_Q3_USD;
+      } else if (res.RevenueFromContractWithCustomerIncludingAssessedTax_1_FY_USD) {
+        return res.RevenueFromContractWithCustomerIncludingAssessedTax_1_FY_USD;
       } else if (res.RevenueFromContractWithCustomerIncludingAssessedTax_4_FY_USD) {
-        // FY年間累計から、ひとつ前のレコードの第三四半期累計をマイナスする。
+        //第四単四半期がなければ、 FY年間累計から、ひとつ前のレコードの第三四半期累計をマイナスする。
         return (
           resultRes[i].RevenueFromContractWithCustomerIncludingAssessedTax_4_FY_USD -
           resultRes[i-1].RevenueFromContractWithCustomerIncludingAssessedTax_3_Q3_USD
         );
+
+
       // 名称違い対応 
       } else if (res.Revenues_1_Q1_USD) {
         return res.Revenues_1_Q1_USD;
@@ -46,16 +68,31 @@ export const calcEdgarData = (edgarData) => {
         return res.Revenues_1_Q2_USD;
       } else if (res.Revenues_1_Q3_USD) {
         return res.Revenues_1_Q3_USD;
+      } else if (res.Revenues_1_FY_USD) {
+        return res.Revenues_1_FY_USD;        
       } else if (res.Revenues_4_FY_USD) {
-        // FY年間累計から、ひとつ前のレコードの第三四半期累計をマイナスする。
-        return (
+
+        // 第四単四半期がなければ、FY年間累計から、ひとつ前のレコードの第三四半期累計をマイナスする。
+        // 第三四半期と第四四半期の売上科目が違う場合の特殊対応（GOOGL等該当、検証中）
+        if (resultRes[i-1].Revenues_3_Q3_USD) {
           resultRes[i].Revenues_4_FY_USD -
           resultRes[i-1].Revenues_3_Q3_USD
-        );
+        } else if(resultRes[i-1].RevenueFromContractWithCustomerExcludingAssessedTax_3_Q3_USD){
+          return (
+            resultRes[i].Revenues_4_FY_USD -
+            resultRes[i-1].RevenueFromContractWithCustomerExcludingAssessedTax_3_Q3_USD
+          )
+        } else {
+          return (
+            resultRes[i].Revenues_4_FY_USD -
+            resultRes[i-1].RevenuesConverted_3_Q3_USD
+          )
+        }
       } else {
         return;
       }
     };
+
     // 累計四半期のPL売上データ
     const revenueDataAccum = () => {
       if (res.RevenueFromContractWithCustomerExcludingAssessedTax_1_Q1_USD) {
@@ -84,45 +121,122 @@ export const calcEdgarData = (edgarData) => {
         return res.Revenues_3_Q3_USD
       } else if (res.Revenues_4_FY_USD) {
         return res.Revenues_4_FY_USD
+      // 名称違い対応
+      } else if (res.RevenuesConverted_1_Q1_USD) {
+        return res.RevenuesConverted_1_Q1_USD
+      } else if (res.RevenuesConverted_2_Q2_USD) {
+        return res.RevenuesConverted_2_Q2_USD
+      } else if (res.RevenuesConverted_3_Q3_USD) {
+        return res.RevenuesConverted_3_Q3_USD
+      } else if (res.RevenuesConverted_4_FY_USD) {
+        return res.RevenuesConverted_4_FY_USD
       } else {
         return;
       }
     };
 
-    // 単四半期のPL当期利益データ
+    // 単四半期のPL当期利益データ -------------
     const netIncomeDataDeducted = () => {
       if (i===0) {
         return 0
+      // NetIncomeLoss の対応。  
       } else if (res.NetIncomeLoss_1_Q1_USD) {
         return res.NetIncomeLoss_1_Q1_USD;
       } else if (res.NetIncomeLoss_1_Q2_USD) {
         return res.NetIncomeLoss_1_Q2_USD;
       } else if (res.NetIncomeLoss_1_Q3_USD) {
         return res.NetIncomeLoss_1_Q3_USD;
+      } else if (res.NetIncomeLoss_1_FY_USD) {
+        return res.NetIncomeLoss_1_FY_USD;
+      // FY単四半期がない場合、FY年間累計から、ひとつ前のレコードの第三四半期累計をマイナスする。
+      // さらに、第三四半期と第四四半期（FY）の科目が違う場合の差し引き対応。FYがNetIncomeLossで3QにNetIncomeLossがない場合の対応。
       } else if (res.NetIncomeLoss_4_FY_USD) {
-        // FY年間累計から、ひとつ前のレコードの第三四半期累計をマイナスする。
-        return (
-          resultRes[i].NetIncomeLoss_4_FY_USD -
-          resultRes[i-1].NetIncomeLoss_3_Q3_USD
-        );
-      // 名称違い , 累計から、ひとつ前のレコードの累計をマイナスする。
+
+        if (resultRes[i - 1].NetIncomeLoss_3_Q3_USD) {
+          return (
+            resultRes[i].NetIncomeLoss_4_FY_USD -
+            resultRes[i - 1].NetIncomeLoss_3_Q3_USD
+          );
+        } else if (resultRes[i - 1].ProfitLoss_3_Q3_USD) {
+          return (
+            resultRes[i-1].MinorityInterest_3_FY_USD ? 
+            resultRes[i].NetIncomeLoss_4_FY_USD - (resultRes[i - 1].ProfitLoss_3_Q3_USD - resultRes[i-1].MinorityInterest_3_FY_USD) :
+            resultRes[i].NetIncomeLoss_4_FY_USD - resultRes[i - 1].ProfitLoss_3_Q3_USD
+          );
+        } else if (resultRes[i - 1].NetIncomeLossAvailableToCommonStockholdersBasic_3_Q3_USD) {
+          return (
+            resultRes[i-1].DividendsPreferredStockCash_3_FY_USD ? 
+            resultRes[i].NetIncomeLoss_4_FY_USD - (resultRes[i - 1].NetIncomeLossAvailableToCommonStockholdersBasic_3_Q3_USD - resultRes[i-1].DividendsPreferredStockCash_3_FY_USD) :
+            resultRes[i].NetIncomeLoss_4_FY_USD - resultRes[i - 1].NetIncomeLossAvailableToCommonStockholdersBasic_3_Q3_USD
+          );
+        } else {
+          return 
+        }
+
+      // ProfitLoss - MinorityInterest の対応。
       } else if (res.ProfitLoss_1_Q1_USD) {
-        return res.ProfitLoss_1_Q1_USD;
-      } else if (res.ProfitLoss_2_Q2_USD) {
         return (
-          resultRes[i].ProfitLoss_2_Q2_USD -
-          resultRes[i-1].ProfitLoss_1_Q1_USD
+          resultRes[i].MinorityInterest_1_Q1_USD ? 
+          resultRes[i].ProfitLoss_1_Q1_USD - resultRes[i].MinorityInterest_1_Q1_USD :
+          resultRes[i].ProfitLoss_1_Q1_USD
         );
-      } else if (res.ProfitLoss_3_Q3_USD) {
+      } else if (res.ProfitLoss_1_Q2_USD) {
         return (
-          resultRes[i].ProfitLoss_3_Q3_USD -
-          resultRes[i-1].ProfitLoss_2_Q2_USD
+          resultRes[i].MinorityInterest_1_Q2_USD ? 
+          resultRes[i].ProfitLoss_1_Q2_USD - resultRes[i].MinorityInterest_1_Q2_USD :
+          resultRes[i].ProfitLoss_1_Q2_USD
+        );
+      } else if (res.ProfitLoss_1_Q3_USD) {
+        return (
+          resultRes[i].MinorityInterest_1_Q3_USD ? 
+          resultRes[i].ProfitLoss_1_Q3_USD - resultRes[i].MinorityInterest_1_Q3_USD :
+          resultRes[i].ProfitLoss_1_Q3_USD
+        );
+      } else if (res.ProfitLoss_1_FY_USD) {
+        return (
+          resultRes[i].MinorityInterest_1_FY_USD ? 
+          resultRes[i].ProfitLoss_1_FY_USD - resultRes[i].MinorityInterest_1_FY_USD :
+          resultRes[i].ProfitLoss_1_FY_USD
         );
       } else if (res.ProfitLoss_4_FY_USD) {
         return (
-          resultRes[i].ProfitLoss_4_FY_USD -
-          resultRes[i-1].ProfitLoss_3_Q3_USD
+          resultRes[i].MinorityInterest_4_FY_USD ? 
+          (resultRes[i].ProfitLoss_4_FY_USD - resultRes[i].MinorityInterest_4_FY_USD) - (resultRes[i-1].ProfitLoss_3_Q3_USD - resultRes[i-1].MinorityInterest_3_Q3_USD) :
+          resultRes[i].ProfitLoss_4_FY_USD - resultRes[i-1].ProfitLoss_3_Q3_USD
         );
+      // NetIncomeLossAvailableToCommonStockholdersBasic +  DividendsPreferredStockCash の対応
+      } else if (res.NetIncomeLossAvailableToCommonStockholdersBasic_1_Q1_USD) {
+        return (
+          resultRes[i].DividendsPreferredStockCash_1_Q1_USD ? 
+          resultRes[i].NetIncomeLossAvailableToCommonStockholdersBasic_1_Q1_USD - resultRes[i].DividendsPreferredStockCash_1_Q1_USD :
+          resultRes[i].NetIncomeLossAvailableToCommonStockholdersBasic_1_Q1_USD
+        );
+      } else if (res.NetIncomeLossAvailableToCommonStockholdersBasic_1_Q2_USD) {
+        return (
+          resultRes[i].DividendsPreferredStockCash_1_Q2_USD ? 
+          resultRes[i].NetIncomeLossAvailableToCommonStockholdersBasic_1_Q2_USD - resultRes[i].DividendsPreferredStockCash_1_Q2_USD :
+          resultRes[i].NetIncomeLossAvailableToCommonStockholdersBasic_1_Q2_USD
+        );
+      } else if (res.NetIncomeLossAvailableToCommonStockholdersBasic_1_Q3_USD) {
+        return (
+          resultRes[i].DividendsPreferredStockCash_1_Q3_USD ? 
+          resultRes[i].NetIncomeLossAvailableToCommonStockholdersBasic_1_Q3_USD - resultRes[i].DividendsPreferredStockCash_1_Q3_USD :
+          resultRes[i].NetIncomeLossAvailableToCommonStockholdersBasic_1_Q3_USD
+        );
+      } else if (res.NetIncomeLossAvailableToCommonStockholdersBasic_1_FY_USD) {
+        return (
+          resultRes[i].DividendsPreferredStockCash_1_FY_USD ? 
+          resultRes[i].NetIncomeLossAvailableToCommonStockholdersBasic_1_FY_USD - resultRes[i].DividendsPreferredStockCash_1_FY_USD :
+          resultRes[i].NetIncomeLossAvailableToCommonStockholdersBasic_1_FY_USD
+        );
+      } else if (res.NetIncomeLossAvailableToCommonStockholdersBasic_4_FY_USD) {
+        return (
+          resultRes[i].DividendsPreferredStockCash_4_FY_USD ? 
+          (resultRes[i].NetIncomeLossAvailableToCommonStockholdersBasic_4_FY_USD - resultRes[i].DividendsPreferredStockCash_4_FY_USD) - (resultRes[i-1].NetIncomeLossAvailableToCommonStockholdersBasic_3_Q3_USD - resultRes[i-1].DividendsPreferredStockCash_3_Q3_USD) :
+          resultRes[i].NetIncomeLossAvailableToCommonStockholdersBasic_4_FY_USD - resultRes[i-1].NetIncomeLossAvailableToCommonStockholdersBasic_3_Q3_USD
+        );
+
+
       } else {
         return;
       }
@@ -137,15 +251,56 @@ export const calcEdgarData = (edgarData) => {
         return res.NetIncomeLoss_3_Q3_USD;
       } else if (res.NetIncomeLoss_4_FY_USD) {
         return res.NetIncomeLoss_4_FY_USD;
-      // 名称違い
+      // ProfitLoss - MinorityInterest の対応。
       } else if (res.ProfitLoss_1_Q1_USD) {
-        return res.ProfitLoss_1_Q1_USD;
+        return (
+          resultRes[i].MinorityInterest_1_Q1_USD ? 
+          resultRes[i].ProfitLoss_1_Q1_USD - resultRes[i].MinorityInterest_1_Q1_USD :
+          resultRes[i].ProfitLoss_1_Q1_USD
+        );
       } else if (res.ProfitLoss_2_Q2_USD) {
-        return res.ProfitLoss_2_Q2_USD;
+        return (
+          resultRes[i].MinorityInterest_2_Q2_USD ? 
+          resultRes[i].ProfitLoss_2_Q2_USD - resultRes[i].MinorityInterest_2_Q2_USD :
+          resultRes[i].ProfitLoss_2_Q2_USD
+        );
       } else if (res.ProfitLoss_3_Q3_USD) {
-        return res.ProfitLoss_3_Q3_USD;
+        return (
+          resultRes[i].MinorityInterest_3_Q3_USD ? 
+          resultRes[i].ProfitLoss_3_Q3_USD - resultRes[i].MinorityInterest_3_Q3_USD :
+          resultRes[i].ProfitLoss_3_Q3_USD
+        );
       } else if (res.ProfitLoss_4_FY_USD) {
-        return res.ProfitLoss_4_FY_USD;
+        return (
+          resultRes[i].MinorityInterest_4_FY_USD ? 
+          resultRes[i].ProfitLoss_4_FY_USD - resultRes[i].MinorityInterest_4_FY_USD :
+          resultRes[i].ProfitLoss_4_FY_USD
+        );
+      // NetIncomeLossAvailableToCommonStockholdersBasic +  DividendsPreferredStockCash の対応
+      } else if (res.NetIncomeLossAvailableToCommonStockholdersBasic_1_Q1_USD) {
+        return (
+          resultRes[i].DividendsPreferredStockCash_1_Q1_USD ? 
+          resultRes[i].NetIncomeLossAvailableToCommonStockholdersBasic_1_Q1_USD - resultRes[i].DividendsPreferredStockCash_1_Q1_USD :
+          resultRes[i].NetIncomeLossAvailableToCommonStockholdersBasic_1_Q1_USD
+        );
+      } else if (res.NetIncomeLossAvailableToCommonStockholdersBasic_2_Q2_USD) {
+        return (
+          resultRes[i].DividendsPreferredStockCash_2_Q2_USD ? 
+          resultRes[i].NetIncomeLossAvailableToCommonStockholdersBasic_2_Q2_USD - resultRes[i].DividendsPreferredStockCash_2_Q2_USD :
+          resultRes[i].NetIncomeLossAvailableToCommonStockholdersBasic_2_Q2_USD
+        );
+      } else if (res.NetIncomeLossAvailableToCommonStockholdersBasic_3_Q3_USD) {
+        return (
+          resultRes[i].DividendsPreferredStockCash_3_Q3_USD ? 
+          resultRes[i].NetIncomeLossAvailableToCommonStockholdersBasic_3_Q3_USD - resultRes[i].DividendsPreferredStockCash_3_Q3_USD :
+          resultRes[i].NetIncomeLossAvailableToCommonStockholdersBasic_3_Q3_USD
+        );
+      } else if (res.NetIncomeLossAvailableToCommonStockholdersBasic_4_FY_USD) {
+        return (
+          resultRes[i].DividendsPreferredStockCash_4_FY_USD ? 
+          resultRes[i].NetIncomeLossAvailableToCommonStockholdersBasic_4_FY_USD - resultRes[i].DividendsPreferredStockCash_4_FY_USD :
+          resultRes[i].NetIncomeLossAvailableToCommonStockholdersBasic_4_FY_USD
+        );
       } else {
         return;
       }
@@ -153,6 +308,7 @@ export const calcEdgarData = (edgarData) => {
 
     // -------------　CFS関連　-------------
     // operatingCashFlow (CFデータは単四半期のデータはない)
+    //　全ての科目をConvertedに寄せる方針。
     const operatingCashFlowDeducted = () => {
       if (i === 0) {
         return 0;
@@ -173,6 +329,24 @@ export const calcEdgarData = (edgarData) => {
           resultRes[i].NetCashProvidedByUsedInOperatingActivities_4_FY_USD -
           resultRes[i - 1].NetCashProvidedByUsedInOperatingActivities_3_Q3_USD
         );
+      // 名称違い対応
+      } else if (res.NetCashProvidedByUsedInOperatingActivitiesConverted_1_Q1_USD) {
+        return res.NetCashProvidedByUsedInOperatingActivitiesConverted_1_Q1_USD;
+      } else if (res.NetCashProvidedByUsedInOperatingActivitiesConverted_2_Q2_USD) {
+        return (
+          resultRes[i].NetCashProvidedByUsedInOperatingActivitiesConverted_2_Q2_USD -
+          resultRes[i - 1].NetCashProvidedByUsedInOperatingActivitiesConverted_1_Q1_USD
+        );
+      } else if (res.NetCashProvidedByUsedInOperatingActivitiesConverted_3_Q3_USD) {
+        return (
+          resultRes[i].NetCashProvidedByUsedInOperatingActivitiesConverted_3_Q3_USD -
+          resultRes[i - 1].NetCashProvidedByUsedInOperatingActivitiesConverted_2_Q2_USD
+        );
+      } else if (res.NetCashProvidedByUsedInOperatingActivitiesConverted_4_FY_USD) {
+        return (
+          resultRes[i].NetCashProvidedByUsedInOperatingActivitiesConverted_4_FY_USD -
+          resultRes[i - 1].NetCashProvidedByUsedInOperatingActivitiesConverted_3_Q3_USD
+        );
       } else {
         return;
       }
@@ -189,6 +363,15 @@ export const calcEdgarData = (edgarData) => {
         return res.NetCashProvidedByUsedInOperatingActivities_3_Q3_USD;
       } else if (res.NetCashProvidedByUsedInOperatingActivities_4_FY_USD) {
         return res.NetCashProvidedByUsedInOperatingActivities_4_FY_USD;
+      // 名称違い対応
+      } else if (res.NetCashProvidedByUsedInOperatingActivitiesConverted_1_Q1_USD) {
+        return res.NetCashProvidedByUsedInOperatingActivitiesConverted_1_Q1_USD;
+      } else if (res.NetCashProvidedByUsedInOperatingActivitiesConverted_2_Q2_USD) {
+        return res.NetCashProvidedByUsedInOperatingActivitiesConverted_2_Q2_USD;
+      } else if (res.NetCashProvidedByUsedInOperatingActivitiesConverted_3_Q3_USD) {
+        return res.NetCashProvidedByUsedInOperatingActivitiesConverted_3_Q3_USD;
+      } else if (res.NetCashProvidedByUsedInOperatingActivitiesConverted_4_FY_USD) {
+        return res.NetCashProvidedByUsedInOperatingActivitiesConverted_4_FY_USD;
       } else {
         return;
       }
@@ -211,6 +394,17 @@ export const calcEdgarData = (edgarData) => {
     };
     // 株主資本
     const stockholdersEquity = () => {
+      // 少数株主持分除く
+      if (res.StockholdersEquityConverted_0_Q1_USD) {
+        return res.StockholdersEquityConverted_0_Q1_USD;
+      } else if (res.StockholdersEquityConverted_0_Q2_USD) {
+        return res.StockholdersEquityConverted_0_Q2_USD;
+      } else if (res.StockholdersEquityConverted_0_Q3_USD) {
+        return res.StockholdersEquityConverted_0_Q3_USD;
+      } else if (res.StockholdersEquityConverted_0_FY_USD) {
+        return res.StockholdersEquityConverted_0_FY_USD;
+      // 名称違い対応　
+      } else 
       if (res.StockholdersEquity_0_Q1_USD) {
         return res.StockholdersEquity_0_Q1_USD;
       } else if (res.StockholdersEquity_0_Q2_USD) {
@@ -219,6 +413,7 @@ export const calcEdgarData = (edgarData) => {
         return res.StockholdersEquity_0_Q3_USD;
       } else if (res.StockholdersEquity_0_FY_USD) {
         return res.StockholdersEquity_0_FY_USD;
+
       } else {
         return;
       }
@@ -247,6 +442,15 @@ export const calcEdgarData = (edgarData) => {
         res.WeightedAverageNumberOfSharesOutstandingBasic_4_FY_shares
       ) {
         return res.WeightedAverageNumberOfSharesOutstandingBasic_4_FY_shares;
+        // 名称が違う場合　CommonStockSharesConverted_0_FY_shares
+      } else if (res.CommonStockSharesConverted_0_Q1_shares) {
+        return res.CommonStockSharesConverted_0_Q1_shares;
+      } else if (res.CommonStockSharesConverted_0_Q2_shares) {
+        return res.CommonStockSharesConverted_0_Q2_shares;
+      } else if (res.CommonStockSharesConverted_0_Q3_shares) {
+        return res.CommonStockSharesConverted_0_Q3_shares;
+      } else if (res.CommonStockSharesConverted_0_FY_shares) {
+        return res.CommonStockSharesConverted_0_FY_shares;
       } else {
         return;
       }
@@ -278,6 +482,8 @@ export const calcEdgarData = (edgarData) => {
         return res.EarningsPerShareBasic_1_Q2_USD;
       } else if (res.EarningsPerShareBasic_1_Q3_USD) {
         return res.EarningsPerShareBasic_1_Q3_USD;
+      } else if (res.EarningsPerShareBasic_1_FY_USD) {
+        return res.EarningsPerShareBasic_1_FY_USD;
       // 第四単四半期データ  
       } else if (res.EarningsPerShareBasic_4_FY_USD) {
         return (
@@ -344,45 +550,47 @@ export const calcEdgarData = (edgarData) => {
     // CommonStockDividendsPerShareDeclared
     // CommonStockDividendsPerShareCashPaid
 
-    // const commonStockDividendsPerShareDeclaredDeducted = () => {
-    //   if (res.CommonStockDividendsPerShareDeclared_1_Q1_USD) {
-    //     return res.CommonStockDividendsPerShareDeclared_1_Q1_USD;
-    //   } else if (res.CommonStockDividendsPerShareDeclared_1_Q2_USD) {
-    //     return res.CommonStockDividendsPerShareDeclared_1_Q2_USD;
-    //   } else if (res.CommonStockDividendsPerShareDeclared_1_Q3_USD) {
-    //     return res.CommonStockDividendsPerShareDeclared_1_Q3_USD;
-    //   } else if (res.CommonStockDividendsPerShareDeclared_4_FY_USD) {
-    //     return (
-    //       resultRes[i].CommonStockDividendsPerShareDeclared_4_FY_USD -
-    //       resultRes[i - 1].CommonStockDividendsPerShareDeclared_3_Q3_USD
-    //     )
-    //   // 名称が違う場合
-    //   } else if (res.CommonStockDividendsPerShareCashPaid_1_Q1_USD) {
-    //     return res.CommonStockDividendsPerShareCashPaid_1_Q1_USD
-    //   } else if (res.CommonStockDividendsPerShareCashPaid_1_Q2_USD) {
-    //     return res.CommonStockDividendsPerShareCashPaid_1_Q2_USD
-    //   } else if (res.CommonStockDividendsPerShareCashPaid_1_Q3_USD) {
-    //     return res.CommonStockDividendsPerShareCashPaid_1_Q3_USD
-    //   } else if (res.CommonStockDividendsPerShareCashPaid_4_FY_USD) {
-    //     return (
-    //       resultRes[i].CommonStockDividendsPerShareCashPaid_4_FY_USD -
-    //       resultRes[i - 1].CommonStockDividendsPerShareCashPaid_3_Q3_USD
-    //     )
-    //   } else {
-    //     return;
-    //   }
-    // };
+    const commonStockDividendsPerShareDeclaredDeducted = () => {
+      if (i === 0) {
+        return 0
+      } else if (res.CommonStockDividendsPerShareDeclared_1_Q1_USD) {
+        return res.CommonStockDividendsPerShareDeclared_1_Q1_USD;
+      } else if (res.CommonStockDividendsPerShareDeclared_1_Q2_USD) {
+        return res.CommonStockDividendsPerShareDeclared_1_Q2_USD;
+      } else if (res.CommonStockDividendsPerShareDeclared_1_Q3_USD) {
+        return res.CommonStockDividendsPerShareDeclared_1_Q3_USD;
+      } else if (res.CommonStockDividendsPerShareDeclared_4_FY_USD) {
+        return (
+          resultRes[i].CommonStockDividendsPerShareDeclared_4_FY_USD -
+          resultRes[i - 1].CommonStockDividendsPerShareDeclared_3_Q3_USD
+        )
+      // 名称が違う場合
+      } else if (res.CommonStockDividendsPerShareCashPaid_1_Q1_USD) {
+        return res.CommonStockDividendsPerShareCashPaid_1_Q1_USD
+      } else if (res.CommonStockDividendsPerShareCashPaid_1_Q2_USD) {
+        return res.CommonStockDividendsPerShareCashPaid_1_Q2_USD
+      } else if (res.CommonStockDividendsPerShareCashPaid_1_Q3_USD) {
+        return res.CommonStockDividendsPerShareCashPaid_1_Q3_USD
+      } else if (res.CommonStockDividendsPerShareCashPaid_4_FY_USD) {
+        return (
+          resultRes[i].CommonStockDividendsPerShareCashPaid_4_FY_USD -
+          resultRes[i - 1].CommonStockDividendsPerShareCashPaid_3_Q3_USD
+        )
+      } else {
+        return;
+      }
+    };
 
     // 年間累計配当
-    // const commonStockDividendsPerShareDeclaredYear = () => {
-    //   if (res.CommonStockDividendsPerShareDeclared_4_FY_USD) {
-    //     return res.CommonStockDividendsPerShareDeclared_4_FY_USD;
-    //   } else if (res.CommonStockDividendsPerShareCashPaid_4_FY_USD) {
-    //     return res.CommonStockDividendsPerShareCashPaid_4_FY_USD
-    //   } else {
-    //     return;
-    //   }
-    // };
+    const commonStockDividendsPerShareDeclaredYear = () => {
+      if (res.CommonStockDividendsPerShareDeclared_4_FY_USD) {
+        return res.CommonStockDividendsPerShareDeclared_4_FY_USD;
+      } else if (res.CommonStockDividendsPerShareCashPaid_4_FY_USD) {
+        return res.CommonStockDividendsPerShareCashPaid_4_FY_USD
+      } else {
+        return;
+      }
+    };
 
 
 
@@ -404,8 +612,8 @@ export const calcEdgarData = (edgarData) => {
       epsAccum: earningsPerShareBasicAccum(),
       epsDiluted: earningsPerShareDiluted(),
       epsAccumDiluted: earningsPerShareAccumDiluted(),
-      // commonStockDividendsPerShareDeclaredDeducted: commonStockDividendsPerShareDeclaredDeducted(),
-      // commonStockDividendsPerShareDeclaredYear:commonStockDividendsPerShareDeclaredYear()
+      commonStockDividendsPerShareDeclaredDeducted: commonStockDividendsPerShareDeclaredDeducted(),
+      commonStockDividendsPerShareDeclaredYear:commonStockDividendsPerShareDeclaredYear()
     };
     return FinancialData;
   });
