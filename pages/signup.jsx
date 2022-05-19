@@ -5,19 +5,22 @@ import { supabase } from "../utils/supabase";
 import { useRef } from "react";
 import Link from "next/link";
 const signup = () => {
-  type formData = {
-    email: string,
-    password: string,
-  };
+  // type formData = {
+  //   email: string,
+  //   password: string,
+  // };
   const {
     control,
     handleSubmit,
     formState: { errors },
     watch,
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   } = useForm();
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const password = useRef({});
   password.current = watch("password", "");
-  const runSignup = async ({ email, password }: formData) => {
+  // const runSignup = async ({ email, password }: formData) => {
+  const runSignup = async ({ email, password }) => {
     const res = await supabase.auth.signUp({
       email,
       password,

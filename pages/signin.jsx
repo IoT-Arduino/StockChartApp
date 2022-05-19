@@ -8,11 +8,12 @@ import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 
 const signin = () => {
-  type formData = {
-    email: string,
-    password: string,
-    };
+  // type formData = {
+  //   email: string,
+  //   password: string,
+  //   };
     
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const { replace } = useRouter();
 
   const {
@@ -20,9 +21,11 @@ const signin = () => {
     handleSubmit,
     reset,
     formState: { errors },
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   } = useForm();
     
-  const runSignin = async ({ email, password }: formData) => {
+  // const runSignin = async ({ email, password }: formData) => {
+  const runSignin = async ({ email, password }) => {
     const res = await supabase.auth.signIn({
       email,
       password,
