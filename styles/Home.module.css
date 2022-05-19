@@ -34,10 +34,9 @@
 
 .table {
   width:80%;
-  margin:0 auto;
+  margin:0 auto 16px;
   text-align: right;
 }
-
 
 
 @media (max-width: 600px) {
