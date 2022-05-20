@@ -1,7 +1,5 @@
 import ReactEcharts from "echarts-for-react";
 
-
-
 const EtfCandleChart = ({ etfData }) => {
 
     const timestamp = etfData.timestamp
@@ -77,7 +75,7 @@ const EtfCandleChart = ({ etfData }) => {
   };  
     
   return (
-    <div style={{ width: '100%' }} >
+    <div className="w-4/5">
       <ReactEcharts option={option} />
     </div>
   )
