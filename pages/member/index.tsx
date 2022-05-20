@@ -16,7 +16,7 @@ export default function Home() {
   const {push,pathname} = useRouter()
   useEffect(() => {
     if (!user) {
-      replace("/");
+      replace("/signin");
     }
   }, [user]);
 
