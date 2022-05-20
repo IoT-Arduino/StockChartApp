@@ -8,13 +8,13 @@ type Props = {
 
 export const LayoutWrapper = (props: Props) => {
     return (
-    <div>
-        <div className="container mx-auto min-h-screen">
+    <div className="flex-column min-h-screen">
         <Header />
-            <div className="px-4 text-gray-600">
-                <div>{props.children}</div>
-            </div>
-        <Footer />
+        <div className="container px-4 text-gray-600">
+            <div>{props.children}</div>
+        </div>
+        <div className="mt-40">
+            <Footer />
         </div>
     </div>
     );
