@@ -152,7 +152,7 @@ const StockChart = ({ priceData,markerData, edgarData, id,companyInfo }) => {
     <div className={styles.container}>
       <div className={styles.chartBlock}>
         <div className="flex justify-between"><h2>{id} StockChartPage </h2>
-        {!user ? <p>ログイン</p> : (
+        {!user ? <></> : (
           <div>
             <BookMark user={supabase.auth.user()} ticker={id} />
           </div>
@@ -176,7 +176,7 @@ const StockChart = ({ priceData,markerData, edgarData, id,companyInfo }) => {
 
 
         <div className="my-4">
-          {!user ? <p>会員限定情報エリア</p>: (
+          {!user ? <></>: (
             <div className="my-3">
               <Comments user={supabase.auth.user()} ticker={id} />
               <InputMarker user={supabase.auth.user()} ticker={id} />
@@ -184,17 +184,13 @@ const StockChart = ({ priceData,markerData, edgarData, id,companyInfo }) => {
           )}
         </div>
 
-        <div className="my-4">
-        <h3 className="text-lg font-bold">財務情報確認</h3>
-          <p className="mx-2"><a href={`https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${priceData[0].CIK}&type=&dateb=&owner=exclude&count=40&search_text=`}>EDGARサイト</a></p>
-          <p className="mx-2"><a href={`https://stocks.finance.yahoo.co.jp/us/annual/${priceData[0].Ticker}`}>Yahooファイナンス</a></p>
-          <p className="mx-2"><a href={`https://finance.yahoo.com/quote/${priceData[0].Ticker}/financials?p=${priceData[0].Ticker}`}>YahooファイナンスUS</a></p>
-          <p className="mx-2"><a href={`https://us.kabutan.jp/stocks/${priceData[0].Ticker}/finance`}>株探US</a></p>
+        <div className="my-12">
+        <h3 className="text-lg font-bold">財務情報サイト</h3>
+          <p className="mx-2"><a href={`https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${priceData[0].CIK}&type=&dateb=&owner=exclude&count=40&search_text=`}>EDGARサイト-{id}</a></p>
+          <p className="mx-2"><a href={`https://stocks.finance.yahoo.co.jp/us/annual/${priceData[0].Ticker}`}>Yahooファイナンス-{id}</a></p>
+          <p className="mx-2"><a href={`https://finance.yahoo.com/quote/${priceData[0].Ticker}/financials?p=${priceData[0].Ticker}`}>YahooファイナンスUS-{id}</a></p>
         </div>
-
-        <Link href="/stocks">
-          <a>株式情報一覧ページへ</a>
-        </Link>
+          
 
       </div>
     </div>
