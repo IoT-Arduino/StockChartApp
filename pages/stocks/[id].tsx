@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import StockCandleChart from "../../components/StockCandleChart";
 import styles from "../../styles/Home.module.css";
-import { google } from 'googleapis';
+// import { google } from 'googleapis';
 // Supabase
 import { supabase } from '../../utils/supabase'
 import Comments from '../../components/Comments'
@@ -19,9 +19,9 @@ import { getMarkerData } from "../../functions/GetMarkerData"
 export async function getServerSideProps({ query }) {
   const id = await query.id;
 
-  const auth = await google.auth.getClient({ scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'] });
-  const sheets = google.sheets({ version: 'v4', auth });
-  const googleSheetRange = `ContentsList!A2:Q1000`;
+  // const auth = await google.auth.getClient({ scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'] });
+  // const sheets = google.sheets({ version: 'v4', auth });
+  // const googleSheetRange = `ContentsList!A2:Q1000`;
 
   // Edgar データを追加したら、ここにも追加すること。
   const QTR = [
@@ -94,15 +94,15 @@ export async function getServerSideProps({ query }) {
     // console.log(edgarRes[0].CIK)
 
     // GoogleSheet Data  Ticker == id の値をフィルタする。
-    const response = await sheets.spreadsheets.values.get({
-      auth,
-      spreadsheetId: process.env.SHEET_ID,
-      range:googleSheetRange,
-    });
-    const googleSheetData = response.data.values;
-    const filteredSheetData = googleSheetData.filter(item => {
-      return item[0] == id
-    })
+    // const response = await sheets.spreadsheets.values.get({
+    //   auth,
+    //   spreadsheetId: process.env.SHEET_ID,
+    //   range:googleSheetRange,
+    // });
+    // const googleSheetData = response.data.values;
+    // const filteredSheetData = googleSheetData.filter(item => {
+    //   return item[0] == id
+    // })
 
     return {
       props: {
@@ -111,7 +111,7 @@ export async function getServerSideProps({ query }) {
         priceData,
         markerData,
         edgarData: edgarRes.flat(),  // edgarRes.flat(),
-        filteredSheetData,
+        // filteredSheetData,
       },
     };
   } catch (err) {
@@ -120,7 +120,9 @@ export async function getServerSideProps({ query }) {
 
 }
 
-const StockChart = ({ priceData,markerData, edgarData, id,companyInfo,filteredSheetData }) => {
+const StockChart = ({ priceData,markerData, edgarData, id,companyInfo }) => {
+
+  // console.log(filteredSheetData)
 
   const [marker, setMarker] = useState([])
   const { user, session } = useContext(UserContext);
@@ -162,13 +164,16 @@ const StockChart = ({ priceData,markerData, edgarData, id,companyInfo,filteredSh
           <p>株価データがありません</p>
         )}
 
-        <div className="my-4">
-          <h3 className="text-lg font-bold">株式ニュース</h3>
-          {filteredSheetData[0] ? <>
-          <p className="mx-2">News:{filteredSheetData[0][1] ? filteredSheetData[0][1] : ""}</p>
-          <p className="mx-2">Info:{filteredSheetData[0][2] ? filteredSheetData[0][2] : ""}</p></>
-              : ""}
-        </div>
+        {/*
+          <div className="my-4">
+            <h3 className="text-lg font-bold">株式ニュース</h3>
+            {filteredSheetData[0] ? <>
+            <p className="mx-2">News:{filteredSheetData[0][1] ? filteredSheetData[0][1] : ""}</p>
+            <p className="mx-2">Info:{filteredSheetData[0][2] ? filteredSheetData[0][2] : ""}</p></>
+                : ""}
+          </div>
+        */}
+
 
         <div className="my-4">
           {!user ? <p>会員限定情報エリア</p>: (
