@@ -22,8 +22,10 @@ export default function Home() {
 
 
   useEffect(() => {
-    fetchBookmark()
-    fetchComments()
+    if (user) {
+      fetchBookmark()
+      fetchComments()
+    }
   }, [])
   
   
@@ -66,7 +68,7 @@ export default function Home() {
 
   return (
     <div className="max-w-7xl p-10 m-auto">
-      <p>BookMark</p>
+      <p className="mt-3 mb-2 font-bold font-xl">BookMark一覧</p>
       {bookmark && bookmark.map((mark,i) => {
         return (
             <div key={i}>
@@ -80,11 +82,11 @@ export default function Home() {
             </div>
         )
       })}
-      <p>Comments</p>
+      <p className="mt-3 mb-2 font-bold font-xl">Comments一覧</p>
       {comments && comments.map((comments,i) => {
         return (
             <li key={i}>
-                {comments.date}/{comments.ticker}/{comments.memo}
+                {comments.date}/{comments.ticker}-[メモの内容]:{comments.memo}
             </li>
         )
       })}
