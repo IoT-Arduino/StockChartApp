@@ -510,16 +510,14 @@ const StockCandleChart =({ priceData, edgarData, marker,id,companyInfo }) => {
 
 
 
-
-  
-
   return (
     <div>
       <ReactEcharts option={option} style={{ height: '600px', width: '100%' }} />
       <p style={{ textAlign: 'right' }}>単位は(Thousand)</p>
-      <h3>通期業績データ FS</h3>
 
-      <table className={styles.table}>
+      <div className="overflow-x-scroll">
+      <h3>通期業績データ FS</h3>
+      <table className="w-100 text-right mx-auto my-8 w-4/5">
         <thead>
         <tr>
           <th>年月</th>
@@ -557,11 +555,13 @@ const StockCandleChart =({ priceData, edgarData, marker,id,companyInfo }) => {
             }
           })}
           </tbody>
-      </table>
+        </table>
+     </div>
 
+     <div className="overflow-x-scroll">
       <h3>通期業績データ 指標</h3>
 
-      <table className={styles.table}>
+      <table className="w-100 text-right mx-auto my-8 w-4/5">
          <thead>
         <tr>
           <th>年月</th>
@@ -588,11 +588,12 @@ const StockCandleChart =({ priceData, edgarData, marker,id,companyInfo }) => {
           })}
           </tbody>
       </table>
+</div>
 
-
+     <div className="overflow-x-scroll">
       <h3>単四半期業績データ PL/CFS/BS</h3>
 
-      <table  className={styles.table}>
+      <table className="w-100 text-right mx-auto my-8 w-4/5">
                <thead>
         <tr>
           <th>年月</th>
@@ -634,10 +635,13 @@ const StockCandleChart =({ priceData, edgarData, marker,id,companyInfo }) => {
           })}
           </tbody>
       </table>
+      </div>
 
+
+      <div className="overflow-x-scroll">
       <h3>単四半期業績データ 株式指標等</h3>
 
-      <table className={styles.table}>
+      <table className="w-100 text-right mx-auto my-8 w-4/5">
       <thead>
         <tr>
           <th>年月</th>
@@ -664,11 +668,12 @@ const StockCandleChart =({ priceData, edgarData, marker,id,companyInfo }) => {
           })}
           </tbody>
       </table>
+      </div>
 
      {isDividend && (
-      <div>
+      <div className="overflow-x-scroll">
       <h3>年間配当データ 指標</h3>
-      <table className={styles.table}>
+      <table className="w-100 text-right my-8 mx-auto w-4/5">
          <thead>
         <tr>
           <th>年月</th>
@@ -692,10 +697,10 @@ const StockCandleChart =({ priceData, edgarData, marker,id,companyInfo }) => {
           </tbody>
       </table>
       </div>
-     )}
+      )}
+
 
     <p style={{ textAlign:'right' }} className="m-8">データ空欄部分は科目変換定義等調整中</p>
-
 
      {isSplit && (
        <div>
