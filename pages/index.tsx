@@ -62,13 +62,13 @@ const Home: NextPage = ({ fundsData }: any) => {
         <h2 className={styles.title}>米国主要ETF比較</h2>
         <div>米国主要ETF（Vanguard系の比較、2014年末を起点とした成長率）</div>
 
-        <div>
-          <p>VOO,VTI,VT</p>
+        <div className="m-8">
+          <p className="text-bold text-2xl">VOO,VTI,VT</p>
           <EtfCompareLineChart fundsData={fundsData} />
-          <p>VOOの説明：S&P500インデックス指数に連動したETF</p>
-          <p>VTIの説明：中小型株を含めた米国市場の約4,000銘柄をカバーしているETF。厚切りジェイソンさんが著書「ジェイソン流お金の増やし方」でおすすめしている。</p>
-          <p>VTの説明：先進国と新興国市場の両方を対象とし、米国内外の株式で構成されるETF。「ほったらかし投資術」で推奨されている。</p>
-          <p>上位構成銘柄（VOO,VTI,VT共通）</p>
+          <p>VOOの説明（赤線）：S&P500インデックス指数に連動したETF</p>
+          <p>VTIの説明（緑線）：中小型株を含めた米国市場の約4,000銘柄をカバーしているETF。厚切りジェイソンさんが著書「ジェイソン流お金の増やし方」でおすすめしている。</p>
+          <p>VTの説明（青線）：先進国と新興国市場の両方を対象とし、米国内外の株式で構成されるETF。「ほったらかし投資術」で推奨されている。</p>
+          <p className="text-bold text-xl mt-3 mb-2">上位構成銘柄（VOO,VTI,VT共通）</p>
           <ul>
             <li>
               <Link href="/stocks/AAPL">
@@ -113,11 +113,11 @@ const Home: NextPage = ({ fundsData }: any) => {
           </ul>
         </div>
 
-        <div>
-          <p>{ fundsData.vigData.meta.symbol}</p> 
+        <div className="m-8">
+          <p className="text-bold text-2xl">{ fundsData.vigData.meta.symbol}</p> 
           <EtfCandleChart etfData={fundsData.vigData} />
           <p>VIGの説明：、10年以上連続で一貫して増配する方針がとられている米国株（約250銘柄）を投資対象とするETFです（REITを除く）。</p>
-          <p>上位構成銘柄</p>
+          <p className="text-bold text-xl mt-3 mb-2">上位構成銘柄</p>
           <ul>
             <li>
               <Link href="/stocks/MSFT">
@@ -173,11 +173,11 @@ const Home: NextPage = ({ fundsData }: any) => {
           </ul>
         </div>
 
-        <div>
-          <p>{ fundsData.vymData.meta.symbol}</p>
+        <div className="m-8">
+          <p className="text-bold text-2xl">{ fundsData.vymData.meta.symbol}</p>
           <EtfCandleChart etfData={fundsData.vymData} />
           <p>VYMの説明：全米国銘柄の中から大型株を中心に予想配当利回りが市場平均を上回る銘柄で構成されています。（FTSEハイデ ィビデンド・イールド指数に連動します）</p>
-          <p>上位構成銘柄</p>
+          <p className="text-bold text-xl mt-3 mb-2">上位構成銘柄</p>
           <ul>
             <li>
               <Link href="/stocks/JNJ">
@@ -232,11 +232,11 @@ const Home: NextPage = ({ fundsData }: any) => {
           </ul>
         </div>
 
-        <div>
-          <p>{ fundsData.vwoData.meta.symbol}</p>
+        <div className="m-8">
+          <p className="text-bold text-2xl">{ fundsData.vwoData.meta.symbol}</p>
           <EtfCandleChart etfData={fundsData.vwoData} />
           <p>VWOの説明：FTSEエマージング・マーケッツ・インデックスに連動する投資成果を目指す。ブラジル、ロシア、インド、台湾、中国、南アフリカなど、世界中の新興国市場で大型・中型株を保有するETF</p>
-         　<p>構成銘柄</p>
+         　<p className="text-bold text-xl mt-3 mb-2">上位構成銘柄</p>
           <ul>
             <li>2330:TT(TSM:US)/台湾積体電路製造 [TSMC/台湾セ]</li>
             <li>700:HK/騰訊控股[テンセント・ホールディングス]</li>
@@ -249,9 +249,6 @@ const Home: NextPage = ({ fundsData }: any) => {
           </ul>
         </div>
         
-        <Link href="/stocks">
-          <a>株式情報一覧ページへ</a>
-        </Link>
       </main>
     </div>
   );
