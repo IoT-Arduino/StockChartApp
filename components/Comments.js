@@ -96,7 +96,7 @@ export default function Comments({ user, ticker }) {
 
   return (
     <div className="w-full">
-      <h4 className="mb-12">株式メモ情報</h4>
+      <h4 className="mt-10 mb-2 font-bold font-xl">株式メモ情報</h4>
       <div className="flex gap-2 my-2">
         <input
           className="rounded w-full p-2"
