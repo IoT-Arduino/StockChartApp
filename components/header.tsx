@@ -12,28 +12,40 @@ export const Header = () => {
         const { user, session } = useContext(UserContext);
 
         return (
-        <header className="flex justify-center gap-4 py-6 text-gray-600">
+        <header className="flex justify-center items-center gap-4 py-6 text-gray-600">
                 <Link href="/">
                         <a>
                                 <Image src={logo} alt="logo" width={75} height={75} />
                         </a>
                 </Link>
                 <Link href="/">
-                        <a className="text-4xl text-center">
-                                <h1 className="pt-2 m-2">StockChartApp</h1>
+                        <a className="text-2xl text-center">
+                                <h1 className="m-2">StockChartApp</h1>
                         </a>
-                </Link>
+
+                        </Link>
+                        <div>
+                                <Link href="/stocks">
+                                <a>株式一覧</a>
+                                </Link>
+                        </div>
+                             <div>
+                                <Link href="/member">
+                                <a>会員ページ</a>
+                                </Link>
+                        </div>
 
                 {!user ? 
-                        ( <Link href="/signin">
-                                        <a className="text-2xl text-right">
-                                        <p className="pt-2 m-2">サインイン</p>
-                                        </a>
-                                        </Link>
-                                ) :
-                                <div className="w-20">
-                                        <Button block onClick={() => { supabase.auth.signOut(); }} >サインアウト</Button>
-                                 </div>
+                        (<div>
+                                 <Link href="/signin">
+                                <a className="text-2xl text-right">
+                                <p className="m-2">Login</p>
+                                </a>
+                        </Link></div>
+                        ) :
+                <div className="w-20">
+                        <Button block onClick={() => { supabase.auth.signOut(); }} >サインアウト</Button>
+                </div>
                 } 
         </header>
         );
