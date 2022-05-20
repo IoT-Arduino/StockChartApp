@@ -127,7 +127,7 @@ const EtfCompareLineChart = ({ fundsData }) => {
   //   <ReactEcharts option={option} style={{ height: '600px', width: '600px' }} /> 
     
   return (
-    <div style={{ width: '100%' }} >
+    <div className="w-4/5">
       <ReactEcharts option={option} /> 
     </div>
   )
