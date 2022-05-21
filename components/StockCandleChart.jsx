@@ -212,7 +212,7 @@ const StockCandleChart =({ priceData, edgarData, marker,id,companyInfo }) => {
     };
   });
 
-  //  console.log(companyData)
+   console.log(companyData)
 
   // console.log(edgarData)
 
