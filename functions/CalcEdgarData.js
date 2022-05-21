@@ -419,7 +419,7 @@ export const calcEdgarData = (edgarData) => {
       }
     };
     // -------------　株価指標関連　-------------
-    // 流通株式 Basic
+    // 流通株式 Basic CommonStockSharesOutstanding_0_Q1_shares
     const commonStockSharesOutstanding = () => {
       if (res.CommonStockSharesOutstanding_0_Q1_shares) {
         return res.CommonStockSharesOutstanding_0_Q1_shares;
@@ -519,6 +519,8 @@ export const calcEdgarData = (edgarData) => {
         return res.EarningsPerShareDiluted_1_Q2_USD;
       } else if (res.EarningsPerShareDiluted_1_Q3_USD) {
         return res.EarningsPerShareDiluted_1_Q3_USD;
+      } else if (res.EarningsPerShareDiluted_1_FY_USD) {
+        return res.EarningsPerShareDiluted_1_FY_USD;
       // 第四単四半期データ  
       } else if (res.EarningsPerShareDiluted_4_FY_USD) {
         return (
