@@ -99,7 +99,7 @@ export default function InputMarker({ user, ticker }) {
       <h4 className="mt-10 mb-2 font-bold font-xl">Marker情報</h4>
       <div className="flex gap-2 my-2">
         <input
-          className="rounded w-full p-2"
+          className="rounded w-full p-2 border border-black"
           type="date"
           value={newDate}
           onChange={(e) => {
@@ -108,7 +108,7 @@ export default function InputMarker({ user, ticker }) {
           }}
         />
         <input
-          className="rounded w-full p-2"
+          className="rounded w-full p-2 border border-black"
           type="text"
           placeholder="メモを入力してください"
           value={newMarkerText}
@@ -120,14 +120,14 @@ export default function InputMarker({ user, ticker }) {
 
         {editItem!='' ? (
           <button
-            className="btn-black"
+            className="btn-black p-2"
             onClick={() => submitMarker(newMarkerText, newDate)}
           >
             Edit
           </button>
         ) : (
           <button
-            className="btn-black"
+            className="btn-black p-2 border border-black rounded"
             onClick={() => submitMarker(newMarkerText, newDate)}
           >
             Add
@@ -155,8 +155,8 @@ export default function InputMarker({ user, ticker }) {
 const Marker = ({ marker, onDelete,onUpdate }) => {
 
   return (
-    <li className="w-full block cursor-pointer hover:bg-gray-200 focus:outline-none focus:bg-gray-200 transition duration-150 ease-in-out">
-      <div className="flex items-center px-4 py-4 sm:px-6">
+    <li className="w-full block border-2 border-gray-300">
+      <div className="flex items-center px-4 py-2 sm:px-6">
         <div className="min-w-0 flex-1 flex items-center">
           <div className="text-sm leading-5 font-medium truncate">
             {marker.date}/{marker.memo}
@@ -168,9 +168,9 @@ const Marker = ({ marker, onDelete,onUpdate }) => {
             e.stopPropagation()
             onUpdate(e)
           }}
-          className="w-4 h-4 ml-2 border-2 hover:border-black rounded"
+          className="p-1 ml-2 border-2 hover:border-black rounded"
         >
-          U
+          E
         </button>
 
         <button
@@ -179,8 +179,8 @@ const Marker = ({ marker, onDelete,onUpdate }) => {
             e.stopPropagation()
             onDelete()
           }}
-          className="w-4 h-4 ml-2 border-2 hover:border-black rounded"
-        >x
+          className="p-1 ml-2 border-2 hover:border-black rounded"
+        >X
         </button>
       </div>
     </li>
