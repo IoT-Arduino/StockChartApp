@@ -5,7 +5,7 @@ import {useState,useEffect} from 'react'
 
 const StockCandleChart =({ priceData, edgarData, marker,id,companyInfo }) => {
 
-  console.log(edgarData)
+  // console.log(edgarData)
 
   // 画面表示State 管理==============================================================
   const [isDividend,setIsDividend] = useState(false)
@@ -212,7 +212,7 @@ const StockCandleChart =({ priceData, edgarData, marker,id,companyInfo }) => {
     };
   });
 
-   console.log(companyData)
+  //  console.log(companyData)
 
   // console.log(edgarData)
 
