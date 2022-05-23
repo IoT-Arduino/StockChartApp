@@ -1,9 +1,9 @@
-import { Button, IconKey, IconMail } from "@supabase/ui";
-import { useForm, Controller } from "react-hook-form";
-import { Input } from "@supabase/ui";
-import { supabase } from "../utils/supabase";
-import { useRef } from "react";
-import Link from "next/link";
+import { Button, IconKey, IconMail } from '@supabase/ui'
+import { useForm, Controller } from 'react-hook-form'
+import { Input } from '@supabase/ui'
+import { supabase } from '../utils/supabase'
+import { useRef } from 'react'
+import Link from 'next/link'
 const signup = () => {
   // type formData = {
   //   email: string,
@@ -14,102 +14,100 @@ const signup = () => {
     handleSubmit,
     formState: { errors },
     watch,
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+  } = useForm()
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  } = useForm();
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const password = useRef({});
-  password.current = watch("password", "");
+  const password = useRef({})
+  password.current = watch('password', '')
   // const runSignup = async ({ email, password }: formData) => {
   const runSignup = async ({ email, password }) => {
     const res = await supabase.auth.signUp({
       email,
       password,
-    });
-  };
+    })
+  }
   return (
-    <div className="h-screen flex center items-center justify-center">
-      <div className="sm:max-w-xl bg-white  w-full sm:rounded-lg p-5 shadow">
+    <div className='center flex h-screen items-center justify-center'>
+      <div className='w-full bg-white  p-5 shadow sm:max-w-xl sm:rounded-lg'>
+        <h2 className="text-xl">招待制</h2>
         <form onSubmit={handleSubmit(runSignup)}>
           <Controller
             control={control}
-            name="email"
+            name='email'
             render={({ field: { onChange, onBlur } }) => (
               <Input
                 onBlur={onBlur}
                 onChange={onChange}
-                type="email"
-                label="Email"
+                type='email'
+                label='Email'
                 icon={<IconMail />}
-                error={errors.email ? errors.email.message : ""}
-                placeholder="メールアドレス"
+                error={errors.email ? errors.email.message : ''}
+                placeholder='メールアドレス'
               />
             )}
             rules={{
-              required: "必須項目です。",
+              required: '必須項目です。',
               pattern: {
                 value: /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-                message: "メールアドレスが不適切です。",
+                message: 'メールアドレスが不適切です。',
               },
             }}
           />
           <Controller
             control={control}
-            name="password"
+            name='password'
             render={({ field: { onChange, onBlur } }) => (
               <Input
                 onBlur={onBlur}
                 onChange={onChange}
-                type="password"
+                type='password'
                 icon={<IconKey />}
-                label="Password"
-                error={errors.password ? errors.password.message : ""}
-                placeholder="パスワード(8文字以上)"
+                label='Password'
+                error={errors.password ? errors.password.message : ''}
+                placeholder='パスワード(8文字以上)'
               />
             )}
             rules={{
-              required: "必須項目です。",
+              required: '必須項目です。',
               pattern: {
                 value: /^[a-z\d]{8,100}$/i,
-                message: "パスワードは8文字以上です。",
+                message: 'パスワードは8文字以上です。',
               },
             }}
           />
           <Controller
             control={control}
-            name="confirmPassword"
+            name='confirmPassword'
             render={({ field: { onChange, onBlur } }) => (
               <Input
                 onBlur={onBlur}
                 onChange={onChange}
-                type="password"
+                type='password'
                 icon={<IconKey />}
-                label="ConfirmPassword"
-                error={
-                  errors.confirmPassword ? errors.confirmPassword.message : ""
-                }
-                placeholder="パスワード(確認用)"
+                label='ConfirmPassword'
+                error={errors.confirmPassword ? errors.confirmPassword.message : ''}
+                placeholder='パスワード(確認用)'
               />
             )}
             rules={{
-              required: "必須項目です。",
+              required: '必須項目です。',
               pattern: {
                 value: /^[a-z\d]{8,100}$/i,
-                message: "パスワードは8文字以上です。",
+                message: 'パスワードは8文字以上です。',
               },
-              validate: (value) =>
-                value === password.current || "パスワードが一致しません。",
+              validate: (value) => value === password.current || 'パスワードが一致しません。',
             }}
           />
-          <div className="h-4" />
+          <div className='h-4' />
           <Button block>送信</Button>
-          <div className="h-4" />
-          <Link href="/signin">
-            <a className=" font-bold hover:text-gray-500">サインインはこちら</a>
+          <div className='h-4' />
+          <Link href='/signin'>
+            <a className=' font-bold hover:text-gray-500'>サインインはこちら</a>
           </Link>
         </form>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default signup;
+export default signup
