@@ -25,7 +25,7 @@ const menuList = [
   },
 ]
 
-export default function HeaderNav() {
+export const HeaderNav = () => {
   const data = menuList
   const [openMenu, setOpenMenu] = useState(false)
   const { replace } = useRouter()
