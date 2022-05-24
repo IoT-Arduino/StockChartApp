@@ -21,8 +21,7 @@ export default function BookMark({ user, ticker }) {
       .from('bookmark')
       .select('*')
       .match({ticker: ticker, user_id: user.id})
-      .single()
-
+    
     if (error) console.log('error', error)
     else {
       setStar(items.bookmark)
@@ -35,7 +34,7 @@ export default function BookMark({ user, ticker }) {
        let { data, error } = await supabase
           .from('bookmark')
           .insert({ bookmark: true, user_id: user.id, ticker})
-          .single()
+
         if (error) setError(error.message)
         else {
           setStar(true)
