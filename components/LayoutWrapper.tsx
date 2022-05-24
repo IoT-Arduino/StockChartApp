@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
 import { Footer } from "./footer";
-// import { Header } from "./header";
 import  HeaderNav  from "./HeaderNav";
 
 
