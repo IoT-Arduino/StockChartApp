@@ -41,8 +41,8 @@ export default function HeaderNav() {
   }
 
   return (
-    <nav className='flex'>
-      <div className='flex-none  sm:flex-1 md:flex-1 lg:flex-1 xl:flex-1'>
+    <nav className='flex max-w-7xl mx-auto'>
+      <div className='flex-none sm:flex-1 md:flex-1 lg:flex-1 xl:flex-1'>
         <Link href='/'>
           <a>
             <Image src={logo} alt='logo' width={75} height={75} />
@@ -109,7 +109,7 @@ export default function HeaderNav() {
           )}
         </ul>
       </div>
-      <button onClick={menuFunction} className='absolute top-0 right-0 flex-initial md:hidden'>
+      <button onClick={menuFunction} className='absolute top-2 right-2 flex-initial md:hidden'>
         <Image src={menu} alt='menu' width={50} height={50} />
       </button>
     </nav>

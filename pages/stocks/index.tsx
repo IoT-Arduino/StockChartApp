@@ -4,6 +4,7 @@ import styles from "../../styles/Home.module.css";
 
 import {useContext}from 'react'
 import { UserContext } from "../../utils/UserContext";
+import { NextPage } from "next";
 
 export async function getServerSideProps() {
   try {
@@ -30,7 +31,22 @@ export async function getServerSideProps() {
   }
 }
 
-export default function StockIndex({ codeList }) {
+type PropsCode = {
+  ADR?: string;
+  CIK?: number;
+  Country?: string;
+  IPOYear?: number;
+  Industry?: string;
+  Market?: string;
+  Name: string;
+  SP500?: string;
+  Sector?: string;
+  Ticker: string;
+  Unlist?: string;
+}
+
+
+const StockIndex:NextPage<{ codeList:PropsCode[] }> = ({ codeList }) => {
 
   const { user, session } = useContext(UserContext);
 
@@ -106,3 +122,5 @@ export default function StockIndex({ codeList }) {
     </div>
   );
 }
+
+export default StockIndex
