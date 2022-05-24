@@ -2,6 +2,8 @@ import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 
 import { LayoutWrapper } from '../components/LayoutWrapper'
+import { DefaultSeo } from 'next-seo';
+import SEO from '../next-seo.config';
 
 // import { Session, User } from '@supabase/supabase-js'
 import { useEffect, useState } from 'react'
@@ -27,6 +29,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <UserContext.Provider value={{ user, session }}>
+      <DefaultSeo {...SEO} />
       <LayoutWrapper >
         <Component {...pageProps} />
       </LayoutWrapper>
