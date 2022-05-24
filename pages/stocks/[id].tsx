@@ -15,8 +15,9 @@ import { UserContext } from "../../utils/UserContext";
 
 import { createMarkerData } from "../../functions/CreateMarkerData"
 import { getMarkerData } from "../../functions/GetMarkerData"
+import { GetServerSideProps, NextPage } from 'next';
 
-export async function getServerSideProps({ query }) {
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const id = await query.id;
 
   // const auth = await google.auth.getClient({ scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'] });
@@ -48,11 +49,14 @@ export async function getServerSideProps({ query }) {
     "2022q1",
   ];
 
+
+
   try {
     const reqList = await fetch(
       `${process.env.NEXT_PUBLIC_API_ENDOPOINT}/stockCode/US-StockList.json`
     );
     const codeList = await reqList.json();
+    
     const companyInfo = codeList.filter(item =>{
       return item.Ticker === id
     })
@@ -114,15 +118,29 @@ export async function getServerSideProps({ query }) {
         // filteredSheetData,
       },
     };
-  } catch (err) {
+  } catch (err:any) {
     return { props: { status: err.message } };
   }
 
 }
 
-const StockChart = ({ priceData,markerData, edgarData, id,companyInfo }) => {
 
-  // console.log(filteredSheetData)
+type PropPrice = {
+  CIK: number;
+  Close: number;
+  Date: string;
+  High: number;
+  Low: number;
+  Open: number;
+  Ticker: string;
+  Volume: number;
+  calcRatio: number;
+  date: string;
+}
+
+const StockChart:NextPage<{ priceData:PropPrice ,markerData:any , edgarData:any , id:any ,companyInfo:any }> = ({ priceData,markerData, edgarData, id,companyInfo }) => {
+
+  // console.log(priceData)
 
   const [marker, setMarker] = useState([])
   const { user, session } = useContext(UserContext);
@@ -136,14 +154,16 @@ const StockChart = ({ priceData,markerData, edgarData, id,companyInfo }) => {
   }, [])
 
   const fetchMarker = async () => {
-    let { data: items, error } = await supabase
+    if(user){
+      let { data: items, error } = await supabase
       .from('marker')
       .select('*')
       .match({ticker: id, user_id: user.id})
-    if (error) console.log('error', error)
-    else {
-      const markerFetchedTemp = getMarkerData(items)
-      setMarker(markerFetchedTemp)
+      if (error) console.log('error', error)
+      else {
+        const markerFetchedTemp = getMarkerData(items)
+        setMarker(markerFetchedTemp)
+      }
     }
   }
 
