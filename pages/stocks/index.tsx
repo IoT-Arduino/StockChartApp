@@ -6,6 +6,8 @@ import {useContext}from 'react'
 import { UserContext } from "../../utils/UserContext";
 import { NextPage } from "next";
 
+import { NextSeo } from 'next-seo';
+
 export async function getServerSideProps() {
   try {
     const reqList = await fetch(
@@ -68,6 +70,11 @@ const StockIndex:NextPage<{ codeList:PropsCode[] }> = ({ codeList }) => {
 
 
   return (
+    <>
+    	<NextSeo
+				title="米国主要株500社一覧ページ"
+				description="米国主要株500社一覧ページ、リンクをクリックすると、株価と業績の合成チャートが確認できます。"
+			/>
     <div className={styles.container}>
       <main className={styles.main}>
         <h2 className={styles.title}>米国代表500株式一覧</h2>
@@ -77,7 +84,7 @@ const StockIndex:NextPage<{ codeList:PropsCode[] }> = ({ codeList }) => {
               <li key={i}>
                 <Link href={`/stocks/${code.Ticker}`}>
                   <a>
-                    {code.Name}/{code.Ticker}/{code.CIK}
+                    {code.Name}/{code.Ticker}/{code.CIK}/{code.Sector}
                   </a>
                 </Link>
               </li>
@@ -120,6 +127,7 @@ const StockIndex:NextPage<{ codeList:PropsCode[] }> = ({ codeList }) => {
 
       </main>
     </div>
+    </>
   );
 }
 
