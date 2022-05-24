@@ -546,8 +546,6 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
       <ReactEcharts option={option} style={{ height: '600px', width: '100%' }} />
       <p style={{ textAlign: 'right' }}>単位は(Million)</p>
 
-
-
       <div className='relative overflow-x-auto shadow-md sm:rounded-lg my-4'>
         <h3 className="my-2 p-2">通期業績データ FS</h3>
         <table className='w-full text-sm text-gray-500 dark:text-gray-400 text-right'>
@@ -588,7 +586,7 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
                   )
                 } else {
                   return (
-                    <tr clasName="border-b dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700" key={i}>
+                    <tr className="border-b dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700" key={i}>
                       <td className="px-4 py-2">{item.date}</td>
                       <td className="px-4 py-2">
                         {item.revenueAccum
@@ -637,7 +635,7 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
             {fyCompanyDataForTable &&
               fyCompanyDataForTable.map((item, i) => {
                 return (
-                  <tr key={i} clasName="border-b dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700">
+                  <tr key={i} className="border-b dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700">
                     <td className="px-4 py-2">{item.date}</td>
                     <td className="px-4 py-2">{item.close} </td>
                     <td className="px-4 py-2">{item.bps != 'NaN' ? item.bps : '-'} </td>
@@ -692,7 +690,7 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
                   )
                 } else {
                   return (
-                    <tr key={i} clasName="border-b dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700">
+                    <tr key={i} className="border-b dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700">
                       <td className="px-4 py-2">{item.date}</td>
                       <td className="px-4 py-2">{item.revenue ? parseInt(item.revenue /1000000).toLocaleString() : '-'}</td>
                       <td className="px-4 py-2">
@@ -738,7 +736,7 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
             {QtrCompanyDataForTable &&
               QtrCompanyDataForTable.map((item, i) => {
                 return (
-                  <tr key={i} clasName="border-b dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700">
+                  <tr key={i} className="border-b dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700">
                     <td className="px-4 py-2">{item.date}</td>
                     <td className="px-4 py-2">{item.close}</td>
                     <td className="px-4 py-2">{item.bps != 'NaN' ? item.bps : '-'} </td>
@@ -772,7 +770,7 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
               {fyCompanyDataForTable &&
                 fyCompanyDataForTable.map((item, i) => {
                   return (
-                    <tr key={i} clasName="border-b dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700">
+                    <tr key={i} className="border-b dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700">
                       <td className="px-4 py-2">{item.date}</td>
                       <td className="px-4 py-2">
                         {item.commonStockDividendsPerShareDeclaredYear != 'NaN'
@@ -792,10 +790,6 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
           </table>
         </div>
       )}
-
-      <p style={{ textAlign: 'right' }} className='m-8'>
-        データ空欄部分は科目変換定義等調整中
-      </p>
 
       {isSplit && (
         <div>

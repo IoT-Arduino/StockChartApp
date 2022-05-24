@@ -142,6 +142,8 @@ const StockChart: NextPage<{
   const [marker, setMarker] = useState([])
   const { user, session } = useContext(UserContext)
 
+  console.log(companyInfo)
+
   useEffect(() => {
     if (user) {
       fetchMarker()
@@ -165,10 +167,10 @@ const StockChart: NextPage<{
   }
 
   return (
-    <div className={styles.container}>
-      <div className={styles.chartBlock}>
+    <div>
+      <div>
         <div className='flex items-center justify-between'>
-          <h2>{id} StockChartPage </h2>
+          <h2>{companyInfo.Name} [{id}]</h2>
 
           {!user ? null : (
             <div>
