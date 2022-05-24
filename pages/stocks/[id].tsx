@@ -142,8 +142,6 @@ const StockChart: NextPage<{
   const [marker, setMarker] = useState([])
   const { user, session } = useContext(UserContext)
 
-  console.log(companyInfo)
-
   useEffect(() => {
     if (user) {
       fetchMarker()
