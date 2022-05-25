@@ -4,7 +4,7 @@ import styles from '../styles/Home.module.css'
 import { useState, useEffect } from 'react'
 
 const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => {
-  console.log(edgarData)
+  // console.log(edgarData)
 
   // 画面表示State 管理==============================================================
   const [isDividend, setIsDividend] = useState(false)
@@ -793,6 +793,16 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
           </table>
         </div>
       )}
+
+      <div className="my-4">
+        <h4 className="font-bold text-sm">単位について</h4>
+        <ul className="mx-8 text-xs">
+          <li className="list-disc">業績データ：売上高、純利益、営業CF、総資産、株主資本は「百万USD」。</li>
+          <li className="list-disc">株価、BPS、EPS、一株当たり配当は「USD」</li>
+          <li className="list-disc">流通株式数は、百万株単位。</li>
+          <li className="list-disc">PBR,PERは整数倍</li>
+        </ul>
+      </div>
 
       {isSplit && (
         <div>

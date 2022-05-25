@@ -7,8 +7,6 @@ export default function BookMark({ user, ticker }:{ user:any, ticker:string}) {
 
   //  <!-- BookMark -->
   const [star, setStar] = useState<boolean|null>(false)
-  // const [bookMarkId, setBookMarkId] = useState('')
-  //  <!-- 入力したtodo -->
   const [errorText, setError] = useState('')
 
   useEffect(() => {
@@ -26,7 +24,6 @@ export default function BookMark({ user, ticker }:{ user:any, ticker:string}) {
     else {
       if(items){
         setStar(items.bookmark)
-        // setBookMarkId(items.id)
       }
     }
   }
@@ -67,8 +64,3 @@ export default function BookMark({ user, ticker }:{ user:any, ticker:string}) {
   )
 }
 
-// const Alert = ({ text }) => (
-//   <div className="rounded-md bg-red-100 p-4 my-3">
-//     <div className="text-sm leading-5 text-red-700">{text}</div>
-//   </div>
-// )
