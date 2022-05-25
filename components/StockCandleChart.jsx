@@ -4,7 +4,7 @@ import styles from '../styles/Home.module.css'
 import { useState, useEffect } from 'react'
 
 const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => {
-  // console.log(edgarData)
+  console.log(edgarData)
 
   // 画面表示State 管理==============================================================
   const [isDividend, setIsDividend] = useState(false)
@@ -60,9 +60,14 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
     // 掛け持ち表示対応、株式数　epsBasic と Diluted (Dilutedを基本になければ、Basicとして、チャート表示とテーブル表示に対応する)
     const epsBasicAndDiluted = item.epsDiluted ? item.epsDiluted : item.eps
     const epsBasicAndDilutedAccum = item.epsAccumDiluted ? item.epsAccumDiluted : item.epsAccum
-    const numberOfSharesOutstanding = item.weightedAverageNumberOfDilutedSharesOutstanding
-      ? item.weightedAverageNumberOfDilutedSharesOutstanding
-      : item.commonStockSharesOutstanding
+    // const numberOfSharesOutstanding = item.weightedAverageNumberOfDilutedSharesOutstanding
+    //   ? item.weightedAverageNumberOfDilutedSharesOutstanding
+    //   : item.commonStockSharesOutstanding
+
+    const numberOfSharesOutstanding = item.commonStockSharesOutstanding
+    ? item.commonStockSharesOutstanding
+    : item.weightedAverageNumberOfDilutedSharesOutstanding
+
     const bookPerShare = item.stockHoldersEquity / numberOfSharesOutstanding
 
     return {
@@ -81,9 +86,7 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
       stockHoldersEquity: item.stockHoldersEquity,
       // 株式指標・経営指標
       numberOfSharesOutstanding: numberOfSharesOutstanding,
-      // commonStockSharesOutstanding:item.commonStockSharesOutstanding,
-      // weightedAverageNumberOfDilutedSharesOutstanding: item.weightedAverageNumberOfDilutedSharesOutstanding,
-
+ 
       // Yahoo Finance と一致する。commonStockSharesOutstanding　を使用。
       bps: parseFloat(bookPerShare).toFixed(2),
       // EPSはBasicを使用（データがそろっている、YahooFinanceと同じ、株探USはDiluted）
