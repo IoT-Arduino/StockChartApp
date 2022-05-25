@@ -355,17 +355,8 @@ export const calcEdgarData = (edgarData) => {
     }
     // 株主資本
     const stockholdersEquity = () => {
-      // 少数株主持分除く
-      if (res.StockholdersEquityConverted_0_Q1_USD) {
-        return res.StockholdersEquityConverted_0_Q1_USD
-      } else if (res.StockholdersEquityConverted_0_Q2_USD) {
-        return res.StockholdersEquityConverted_0_Q2_USD
-      } else if (res.StockholdersEquityConverted_0_Q3_USD) {
-        return res.StockholdersEquityConverted_0_Q3_USD
-      } else if (res.StockholdersEquityConverted_0_FY_USD) {
-        return res.StockholdersEquityConverted_0_FY_USD
-        // 名称違い対応
-      } else if (res.StockholdersEquity_0_Q1_USD) {
+      // 少数株主持分含まない
+      if (res.StockholdersEquity_0_Q1_USD) {
         return res.StockholdersEquity_0_Q1_USD
       } else if (res.StockholdersEquity_0_Q2_USD) {
         return res.StockholdersEquity_0_Q2_USD
@@ -373,6 +364,16 @@ export const calcEdgarData = (edgarData) => {
         return res.StockholdersEquity_0_Q3_USD
       } else if (res.StockholdersEquity_0_FY_USD) {
         return res.StockholdersEquity_0_FY_USD
+
+        // 少数株主持分含む　StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest
+      } else if (res.StockholdersEquityConverted_0_Q1_USD) {
+        return res.StockholdersEquityConverted_0_Q1_USD
+      } else if (res.StockholdersEquityConverted_0_Q2_USD) {
+        return res.StockholdersEquityConverted_0_Q2_USD
+      } else if (res.StockholdersEquityConverted_0_Q3_USD) {
+        return res.StockholdersEquityConverted_0_Q3_USD
+      } else if (res.StockholdersEquityConverted_0_FY_USD) {
+        return res.StockholdersEquityConverted_0_FY_USD
       } else {
         return
       }
@@ -388,16 +389,7 @@ export const calcEdgarData = (edgarData) => {
         return res.CommonStockSharesOutstanding_0_Q3_shares
       } else if (res.CommonStockSharesOutstanding_0_FY_shares) {
         return res.CommonStockSharesOutstanding_0_FY_shares
-        // 名称が違う場合
-      } else if (res.WeightedAverageNumberOfSharesOutstandingBasic_1_Q1_shares) {
-        return res.WeightedAverageNumberOfSharesOutstandingBasic_1_Q1_shares
-      } else if (res.WeightedAverageNumberOfSharesOutstandingBasic_2_Q2_shares) {
-        return res.WeightedAverageNumberOfSharesOutstandingBasic_2_Q2_shares
-      } else if (res.WeightedAverageNumberOfSharesOutstandingBasic_3_Q3_shares) {
-        return res.WeightedAverageNumberOfSharesOutstandingBasic_3_Q3_shares
-      } else if (res.WeightedAverageNumberOfSharesOutstandingBasic_4_FY_shares) {
-        return res.WeightedAverageNumberOfSharesOutstandingBasic_4_FY_shares
-        // 名称が違う場合　CommonStockSharesConverted_0_FY_shares
+      // 名称が違う場合　:　もとの科目は、CommonStockSharesIssued
       } else if (res.CommonStockSharesConverted_0_Q1_shares) {
         return res.CommonStockSharesConverted_0_Q1_shares
       } else if (res.CommonStockSharesConverted_0_Q2_shares) {
@@ -406,12 +398,21 @@ export const calcEdgarData = (edgarData) => {
         return res.CommonStockSharesConverted_0_Q3_shares
       } else if (res.CommonStockSharesConverted_0_FY_shares) {
         return res.CommonStockSharesConverted_0_FY_shares
+      // 名称が違う場合
+      } else if (res.WeightedAverageNumberOfSharesOutstandingBasic_1_Q1_shares) {
+        return res.WeightedAverageNumberOfSharesOutstandingBasic_1_Q1_shares
+      } else if (res.WeightedAverageNumberOfSharesOutstandingBasic_2_Q2_shares) {
+        return res.WeightedAverageNumberOfSharesOutstandingBasic_2_Q2_shares
+      } else if (res.WeightedAverageNumberOfSharesOutstandingBasic_3_Q3_shares) {
+        return res.WeightedAverageNumberOfSharesOutstandingBasic_3_Q3_shares
+      } else if (res.WeightedAverageNumberOfSharesOutstandingBasic_4_FY_shares) {
+        return res.WeightedAverageNumberOfSharesOutstandingBasic_4_FY_shares
       } else {
         return
       }
     }
 
-    // 流通株式 Diluted
+    // 流通株式 Diluted　（基本的には使わない）
     const weightedAverageNumberOfDilutedSharesOutstanding = () => {
       if (res.WeightedAverageNumberOfDilutedSharesOutstanding_1_Q1_shares) {
         return res.WeightedAverageNumberOfDilutedSharesOutstanding_1_Q1_shares
