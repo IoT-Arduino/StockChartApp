@@ -60,9 +60,14 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
     // 掛け持ち表示対応、株式数　epsBasic と Diluted (Dilutedを基本になければ、Basicとして、チャート表示とテーブル表示に対応する)
     const epsBasicAndDiluted = item.epsDiluted ? item.epsDiluted : item.eps
     const epsBasicAndDilutedAccum = item.epsAccumDiluted ? item.epsAccumDiluted : item.epsAccum
-    const numberOfSharesOutstanding = item.weightedAverageNumberOfDilutedSharesOutstanding
-      ? item.weightedAverageNumberOfDilutedSharesOutstanding
-      : item.commonStockSharesOutstanding
+    // const numberOfSharesOutstanding = item.weightedAverageNumberOfDilutedSharesOutstanding
+    //   ? item.weightedAverageNumberOfDilutedSharesOutstanding
+    //   : item.commonStockSharesOutstanding
+
+    const numberOfSharesOutstanding = item.commonStockSharesOutstanding
+    ? item.commonStockSharesOutstanding
+    : item.weightedAverageNumberOfDilutedSharesOutstanding
+
     const bookPerShare = item.stockHoldersEquity / numberOfSharesOutstanding
 
     return {
@@ -81,9 +86,7 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
       stockHoldersEquity: item.stockHoldersEquity,
       // 株式指標・経営指標
       numberOfSharesOutstanding: numberOfSharesOutstanding,
-      // commonStockSharesOutstanding:item.commonStockSharesOutstanding,
-      // weightedAverageNumberOfDilutedSharesOutstanding: item.weightedAverageNumberOfDilutedSharesOutstanding,
-
+ 
       // Yahoo Finance と一致する。commonStockSharesOutstanding　を使用。
       bps: parseFloat(bookPerShare).toFixed(2),
       // EPSはBasicを使用（データがそろっている、YahooFinanceと同じ、株探USはDiluted）
@@ -790,6 +793,16 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
           </table>
         </div>
       )}
+
+      <div className="my-4">
+        <h4 className="font-bold text-sm">単位について</h4>
+        <ul className="mx-8 text-xs">
+          <li className="list-disc">業績データ：売上高、純利益、営業CF、総資産、株主資本は「百万USD」。</li>
+          <li className="list-disc">株価、BPS、EPS、一株当たり配当は「USD」</li>
+          <li className="list-disc">流通株式数は、百万株単位。</li>
+          <li className="list-disc">PBR,PERは整数倍</li>
+        </ul>
+      </div>
 
       {isSplit && (
         <div>
