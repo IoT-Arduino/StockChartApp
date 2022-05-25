@@ -389,16 +389,7 @@ export const calcEdgarData = (edgarData) => {
         return res.CommonStockSharesOutstanding_0_Q3_shares
       } else if (res.CommonStockSharesOutstanding_0_FY_shares) {
         return res.CommonStockSharesOutstanding_0_FY_shares
-      // 名称が違う場合　:　もとの科目は、CommonStockSharesIssued
-      } else if (res.CommonStockSharesConverted_0_Q1_shares) {
-        return res.CommonStockSharesConverted_0_Q1_shares
-      } else if (res.CommonStockSharesConverted_0_Q2_shares) {
-        return res.CommonStockSharesConverted_0_Q2_shares
-      } else if (res.CommonStockSharesConverted_0_Q3_shares) {
-        return res.CommonStockSharesConverted_0_Q3_shares
-      } else if (res.CommonStockSharesConverted_0_FY_shares) {
-        return res.CommonStockSharesConverted_0_FY_shares
-      // 名称が違う場合
+        // 名称が違う場合
       } else if (res.WeightedAverageNumberOfSharesOutstandingBasic_1_Q1_shares) {
         return res.WeightedAverageNumberOfSharesOutstandingBasic_1_Q1_shares
       } else if (res.WeightedAverageNumberOfSharesOutstandingBasic_2_Q2_shares) {
@@ -407,6 +398,15 @@ export const calcEdgarData = (edgarData) => {
         return res.WeightedAverageNumberOfSharesOutstandingBasic_3_Q3_shares
       } else if (res.WeightedAverageNumberOfSharesOutstandingBasic_4_FY_shares) {
         return res.WeightedAverageNumberOfSharesOutstandingBasic_4_FY_shares
+        // 名称が違う場合　:　もとの科目は、CommonStockSharesIssued
+      } else if (res.CommonStockSharesConverted_0_Q1_shares) {
+        return res.CommonStockSharesConverted_0_Q1_shares
+      } else if (res.CommonStockSharesConverted_0_Q2_shares) {
+        return res.CommonStockSharesConverted_0_Q2_shares
+      } else if (res.CommonStockSharesConverted_0_Q3_shares) {
+        return res.CommonStockSharesConverted_0_Q3_shares
+      } else if (res.CommonStockSharesConverted_0_FY_shares) {
+        return res.CommonStockSharesConverted_0_FY_shares
       } else {
         return
       }

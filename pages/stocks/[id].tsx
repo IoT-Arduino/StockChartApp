@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import Link from 'next/link'
+import Error from 'next/error'
 
 import StockCandleChart from '../../components/StockCandleChart'
-import styles from '../../styles/Home.module.css'
 // import { google } from 'googleapis';
 // Supabase
 import { supabase } from '../../utils/supabase'
@@ -16,6 +15,13 @@ import { UserContext } from '../../utils/UserContext'
 import { createMarkerData } from '../../functions/CreateMarkerData'
 import { getMarkerData } from '../../functions/GetMarkerData'
 import { GetServerSideProps, NextPage } from 'next'
+
+// types
+import {Company} from '../../types/Company'
+import {StockPrice} from '../../types/StockPrice'
+
+
+
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const id = await query.id
@@ -50,21 +56,26 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   ]
 
   try {
-    const reqList = await fetch(
+    // Get Company Data
+    const reqListCompany = await fetch(
       `${process.env.NEXT_PUBLIC_API_ENDOPOINT}/stockCode/US-StockList.json`
     )
-    const codeList = await reqList.json()
-
+    const codeList:Company[] = await reqListCompany.json()
+    
     const companyInfo = codeList.filter((item) => {
       return item.Ticker === id
     })
-
+    
+    // Get Marker Data
     const markerList = await fetch(`${process.env.NEXT_PUBLIC_API_ENDOPOINT}/marker/marker.json`)
+    const errorCode1 = markerList.status==200 ?  200 : markerList.status
     const markerData = await markerList.json()
 
+    // Get Price Data
     const priceList = await fetch(`${process.env.NEXT_PUBLIC_API_ENDOPOINT}/stock/${id}.json`)
     const priceData = await priceList.json()
 
+    // Get Edgar Data
     const edgarDataResponse = QTR.map(async (item) => {
       let reqList = await fetch(`${process.env.NEXT_PUBLIC_API_ENDOPOINT}/edgar/${item}/${id}.json`)
 
@@ -89,7 +100,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 
     const edgarResData = await Promise.all(edgarDataResponse)
     const edgarRes = await edgarResData.filter((item) => item)
-    // console.log(edgarRes[0].CIK)
+
 
     // GoogleSheet Data  Ticker == id の値をフィルタする。
     // const response = await sheets.spreadsheets.values.get({
@@ -117,31 +128,27 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   }
 }
 
-type PropPrice = {
-  CIK: number
-  Close: number
-  Date: string
-  High: number
-  Low: number
-  Open: number
-  Ticker: string
-  Volume: number
-  calcRatio: number
-  date: string
-}
 
 const StockChart: NextPage<{
-  priceData: PropPrice
+  priceData: StockPrice
   markerData: any
   edgarData: any
   id: any
-  companyInfo: any
-}> = ({ priceData, markerData, edgarData, id, companyInfo }) => {
-  // console.log(priceData)
+  companyInfo: Company,
+  status:any
+}> = ({ priceData, markerData, edgarData, id, companyInfo,status }) => {
 
+  if (status) {
+    console.log(status)
+    return <Error statusCode={404} />
+  }
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [marker, setMarker] = useState([])
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const { user, session } = useContext(UserContext)
 
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     if (user) {
       fetchMarker()
@@ -190,6 +197,7 @@ const StockChart: NextPage<{
             <p>株価データがありません</p>
           )}
         </div>
+
 
         {/*
           <div className="my-4">
