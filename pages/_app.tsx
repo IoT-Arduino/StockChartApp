@@ -10,6 +10,10 @@ import { useEffect, useState } from 'react'
 import { supabase } from '../utils/supabase'
 import { UserContext } from '../utils/UserContext'
 
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
+
 function MyApp({ Component, pageProps }: AppProps) {
   const [user, setUser] = useState(supabase.auth.user())
   const [session, setSession] = useState(supabase.auth.session()) // 変更した。

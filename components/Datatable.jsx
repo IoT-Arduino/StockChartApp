@@ -7,7 +7,7 @@ const Datatable = ({ data }) => {
       <thead  className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
         <tr>
           <th scope="col" className="px-4 py-2">Ticker</th>
-          <th scope="col" className="px-4 py-2">Name</th>
+          <th scope="col" className="px-4 py-2">Security Name</th>
           <th scope="col" className="px-4 py-2">Sector</th>
           <th scope="col" className="px-4 py-2">Market</th>
         </tr>
