@@ -6,6 +6,7 @@ export type Company = {
     Industry?: string
     Market?: string
     Name: string
+    ShortName: string
     SP500?: string
     Sector?: string
     Ticker: string
