@@ -26,7 +26,7 @@ function SearchBar({ placeholder, data }) {
   }
 
   return (
-    <div className='search'>
+    <div>
       <div className={styles.searchInputs}>
         <input
           type='text'
@@ -34,15 +34,16 @@ function SearchBar({ placeholder, data }) {
           value={wordEntered}
           className={styles.searchInput}
           onChange={handleFilter}
+          id="tickerInput"
         />
-        <div onClick={clearInput}>Clear</div>
+        {wordEntered.length !== 0 && <div className="cursor-pointer pl-2 pr-3" onClick={clearInput}>X</div>}
       </div>
-      {filteredData.length != 0 && (
+      {filteredData.length !== 0 && (
         <div className={styles.dataResult}>
           {filteredData.slice(0, 15).map((value, key) => {
             return (
               <Link href={`/stocks/${value.Ticker}`} key={key} >
-                <a className={styles.dataItem} target='_blank' onClick={clearInput}><p>{value.Ticker} | {value.ShortName}</p></a>
+                <a className={styles.dataItem} target='_blank' onClick={clearInput}><p className="px-4">{value.Ticker} | {value.ShortName}</p></a>
               </Link>
             )
           })}
