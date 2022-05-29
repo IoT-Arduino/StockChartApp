@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styles from './HeroSearchBar.module.css'
 import Link from 'next/link'
+import * as AiIcons from 'react-icons/ai';
 
 function SearchBar({ placeholder, data }) {
   const [filteredData, setFilteredData] = useState([])
@@ -36,7 +37,7 @@ function SearchBar({ placeholder, data }) {
           onChange={handleFilter}
           id="tickerInput"
         />
-        {wordEntered.length !== 0 && <div className="cursor-pointer pl-2 pr-3" onClick={clearInput}>X</div>}
+        {wordEntered.length !== 0 && <div className="cursor-pointer py-2 px-5" onClick={clearInput}><AiIcons.AiOutlineCloseCircle /></div>}
       </div>
       {filteredData.length !== 0 && (
         <div className={styles.dataResult}>

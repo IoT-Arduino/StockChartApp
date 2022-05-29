@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { Footer } from "./footer";
 import  {HeaderNav}  from "./headerNav";
-
+import Navbar from './Navbar'
 
 type Props = {
     children: ReactNode;
@@ -11,7 +11,8 @@ type Props = {
 export const LayoutWrapper = (props: Props) => {
     return (
     <div className="flex-column min-h-screen">
-        <HeaderNav />
+        {/*<HeaderNav /> */}
+        <Navbar />
         <div className="container px-4 text-gray-600 mx-auto max-w-7xl">
             <div>{props.children}</div>
         </div>

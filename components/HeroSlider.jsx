@@ -15,6 +15,7 @@ export default function HeroSlider({codeList}) {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
+    arrows:false
   }
   return (
     <div className={styles.slideWrapper}>
