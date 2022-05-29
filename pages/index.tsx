@@ -120,14 +120,14 @@ const Home: NextPage = ({ codeList }) => {
 
       <section>
         <div className='mb-2'>
-          <div className='mx-auto w-4/5 rounded bg-yellow-100 bg-opacity-80 p-4 text-center text-gray-800 shadow-xl sm:w-1/2'>
+          <div className='mx-auto w-full sm:w-2/3 md:w-1/2 rounded-xl bg-yellow-100 bg-opacity-80 p-4 text-center text-gray-800 shadow-xl '>
             <h2 className='mb-4 text-xl font-extrabold sm:text-2xl md:text-4xl'>TenQチャート</h2>
-            <p className='mx-auto mb-2 font-sans text-lg font-extrabold sm:mb-4 sm:w-full sm:px-2 md:text-xl'>
-              業績と株価一覧確認
+            <p className='mx-auto mb-2 font-sans font-extrabold sm:mb-4 sm:w-full sm:px-2 md:text-xl'>
+              米国企業の四半期業績と株価を一発確認
             </p>
             <div className='mb-2'>
               <Link href='/stocks'>
-                <a>米国代表500社株式一覧をチェック</a>
+                <a className="text-green-500 hover:text-green-200 font-extrabold text-lg">米国代表500社株式一覧をチェック!</a>
               </Link>
             </div>
           </div>
@@ -237,7 +237,7 @@ const Home: NextPage = ({ codeList }) => {
             </div>
             <div className='flex flex-col items-center p-4 text-center md:w-1/3'>
               <div className='mb-5 inline-flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-full bg-green-100 text-green-500'>
-                <svg
+              <svg
                   fill='none'
                   stroke='currentColor'
                   strokeLinecap='round'
@@ -246,9 +246,7 @@ const Home: NextPage = ({ codeList }) => {
                   className='h-10 w-10'
                   viewBox='0 0 24 24'
                 >
-                  <circle cx='6' cy='6' r='3'></circle>
-                  <circle cx='6' cy='18' r='3'></circle>
-                  <path d='M20 4L8.12 15.88M14.47 14.48L20 20M8.12 8.12L12 12'></path>
+                  <path d='M22 12h-4l-3 9L9 3l-3 9H2'></path>
                 </svg>
               </div>
               <div className='flex-grow'>
