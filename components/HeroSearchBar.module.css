@@ -1,10 +1,11 @@
+
 .searchInputs {
-  margin-top: 105px;
+  margin-top: 24px;
   display: flex;
+  background-color: white;
 }
 
 .searchInput {
-  background-color: white;
   border: 0;
   border-radius: 2px;
   border-top-right-radius: 0px;
@@ -12,26 +13,23 @@
   font-size: 18px;
   padding: 15px;
   height: 30px;
-  width: 300px;
+  min-width: 150px;
 }
 
-/* .searchIcon {
-  height: 60px;
-  width: 50px;
-  background-color: white;
-  display: grid;
-  place-items: center;
-} */
-
-
-/* .searchIcon svg {
-  font-size: 35px;
-} */
+#tickerInput {
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  outline: none;
+  background: none;
+}
 
 .dataResult {
+  position:absolute;
   margin-top: 5px;
-  width: 300px;
+  width: 240px;
   height: 200px;
+  text-align: left;
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   overflow: hidden;
@@ -50,11 +48,3 @@
   color: black;
 }
 
-.dataItem p {
-  margin-left: 10px;
-}
-
-
-#clearBtn {
-  cursor: pointer;
-}

@@ -4,7 +4,7 @@ import styles from '../styles/Home.module.css'
 import { useState, useEffect } from 'react'
 
 const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => {
-  // console.log(edgarData)
+  console.log(edgarData)
 
   // 画面表示State 管理==============================================================
   const [isDividend, setIsDividend] = useState(false)
@@ -146,14 +146,6 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
         newEdgarData.find((value) => value.date === price.date)?.numberOfSharesOutstanding *
         price.calcRatio,
 
-      // commonStockSharesOutstanding: newEdgarData.find(
-      //   (value) => value.date === price.date
-      // )?.commonStockSharesOutstanding * price.calcRatio,
-
-      // weightedAverageNumberOfDilutedSharesOutstanding: newEdgarData.find(
-      //   (value) => value.date === price.date
-      // )?.weightedAverageNumberOfDilutedSharesOutstanding * price.calcRatio,
-
       // 一株あたり経営指標　分割の場合、EPS等は過去を割る
       bps: parseFloat(
         newEdgarData.find((value) => value.date === price.date)?.bps / price.calcRatio
@@ -164,8 +156,6 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
       epsAccum: parseFloat(
         newEdgarData.find((value) => value.date === price.date)?.epsAccum / price.calcRatio
       ).toFixed(2),
-      // epsDiluted: newEdgarData.find((value) => value.date === price.date)?.epsDiluted/price.calcRatio,
-      // epsAccumDiluted: newEdgarData.find((value) => value.date === price.date)?.epsAccumDiluted/price.calcRatio,
 
       // 株価指標　株式分割調整。（要確認）
       pbr: parseFloat(
@@ -174,7 +164,7 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
       ).toFixed(2),
       per: parseFloat(
         (price.Close / newEdgarData.find((value) => value.date === price.date)?.eps) *
-          price.calcRatio
+          price.calcRatio * 0.25 // 四半期の為　分母に0.25を掛ける。年間換算のEPS
       ).toFixed(2),
       perAccum: parseFloat(
         (price.Close / newEdgarData.find((value) => value.date === price.date)?.epsAccum) *
@@ -630,8 +620,8 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
               <th scope="col" className="px-4 py-2">株価</th>
               <th scope="col" className="px-4 py-2">BPS</th>
               <th scope="col" className="px-4 py-2">PBR</th>
-              <th scope="col" className="px-4 py-2">EPS（累計）</th>
-              <th scope="col" className="px-4 py-2">PER（累計）</th>
+              <th scope="col" className="px-4 py-2">EPS（年間）</th>
+              <th scope="col" className="px-4 py-2">PER（年間）</th>
             </tr>
           </thead>
           <tbody>
@@ -731,7 +721,8 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
               <th scope="col" className="px-4 py-2">株価</th>
               <th scope="col" className="px-4 py-2">BPS</th>
               <th scope="col" className="px-4 py-2">PBR</th>
-              <th scope="col" className="px-4 py-2">EPS</th>
+              <th scope="col" className="px-4 py-2">EPS(単四半期)</th>
+              <th scope="col" className="px-4 py-2">PER(単四半期を年間換算)</th>
               <th scope="col" className="px-4 py-2">流通株式数</th>
             </tr>
           </thead>
@@ -745,6 +736,7 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
                     <td className="px-4 py-2">{item.bps != 'NaN' ? item.bps : '-'} </td>
                     <td className="px-4 py-2">{item.pbr != 'NaN' ? item.pbr : '-'} </td>
                     <td className="px-4 py-2">{item.eps != 'NaN' ? item.eps : '-'}</td>
+                    <td className="px-4 py-2">{item.eps != 'NaN' ? item.per : '-'}</td>
                     <td className="px-4 py-2">
                       {item.numberOfSharesOutstanding != 'NaN'
                         ? parseInt(item.numberOfSharesOutstanding /1000000).toLocaleString()
