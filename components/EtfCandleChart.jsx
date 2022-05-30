@@ -58,6 +58,15 @@ const EtfCandleChart = ({ etfData }) => {
       }
 
     ],
+    lineStyle: {
+      color: '#7fbe9e',
+      width: 1,
+    },
+    areaStyle: {
+      color: '#7fbe9e',
+      opacity: 0.2,
+    },
+    showSymbol: false,
     series: [
      {
       name: '資産価格',
