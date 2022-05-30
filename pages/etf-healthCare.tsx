@@ -47,55 +47,84 @@ const Home: NextPage = ({ fundsData }: any) => {
             VVHTはアメリカの資産運用会社・バンガード社が提供するETFで、「医薬品や医療機器などを含むヘルスケアセクターの企業（約450社）」を投資対象とするETFです。
           </p>
           <p className='text-bold mt-3 mb-2 text-xl'>上位構成銘柄</p>
-          <ul>
-          <li>
-              <Link href='/stocks/UNH'>
-                <a>UNH:ユナイテッドヘルス・グループ</a>
-              </Link>
-            </li>
-            <li>
-              <Link href='/stocks/JNJ'>
-                <a>JNJ:ジョンソン・エンド・ジョンソン(J&J)</a>
-              </Link>
-            </li>
 
-            <li>
-              <Link href='/stocks/PFE'>
-                <a>ファイザー</a>
-              </Link>
-            </li>
-            <li>
-              <Link href='/stocks/ABBV'>
-                <a>アッヴィ</a>
-              </Link>
-            </li>
-            <li>
-              <Link href='/stocks/LLY'>
-                <a>イーライリリー</a>
-              </Link>
-            </li>
-            <li>
-              <Link href='/stocks/TMO'>
-                <a>サーモ・フィッシャー・サイエンティフィック</a>
-              </Link>
-            </li>
-            <li>
-              <Link href='/stocks/ABT'>
-                <a>アボットラボラトリーズ</a>
-              </Link>
-            </li>
-            <li>
-              <Link href='/stocks/BMY'>
-                <a>ブリストル・マイヤーズスクイブ</a>
-              </Link>
-            </li>
-            <li>
-              <Link href='/stocks/DHR'>
-                <a>ダナハー</a>
-              </Link>
-            </li>
+          <table className='w-full sm:w-1/2 text-center text-sm text-gray-500 dark:text-gray-400 mx-auto'>
+            <thead className='bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
+              <tr>
+                <th scope='col' className='px-4 py-2'>
+                  銘柄
+                </th>
+              </tr>
+            </thead>
+            <tbody>
 
-          </ul>
+              <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
+                <td className='px-4 py-2'>
+                <Link href='/stocks/UNH'>
+                <a className="text-green-600 hover:text-green-200">UNH:ユナイテッドヘルス・グループ</a>
+              </Link>
+                </td>
+              </tr>
+
+              <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
+                <td className='px-4 py-2'>
+                <Link href='/stocks/JNJ'>
+                <a className="text-green-600 hover:text-green-200">JNJ:ジョンソン・エンド・ジョンソン(J&J)</a>
+              </Link>
+                </td>
+              </tr>
+              <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
+                <td className='px-4 py-2'>
+                <Link href='/stocks/PFE'>
+                <a className="text-green-600 hover:text-green-200">ファイザー</a>
+              </Link>
+                </td>
+              </tr>
+              <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
+                <td className='px-4 py-2'>
+                <Link href='/stocks/ABBV'>
+                <a className="text-green-600 hover:text-green-200">アッヴィ</a>
+              </Link>
+                </td>
+              </tr>
+              <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
+                <td className='px-4 py-2'>
+                <Link href='/stocks/LLY'>
+                <a className="text-green-600 hover:text-green-200">イーライリリー</a>
+              </Link>
+                </td>
+              </tr>
+              <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
+                <td className='px-4 py-2'>
+                <Link href='/stocks/TMO'>
+                <a className="text-green-600 hover:text-green-200">サーモ・フィッシャー・サイエンティフィック</a>
+              </Link>
+                </td>
+              </tr>
+              <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
+                <td className='px-4 py-2'>
+                <Link href='/stocks/ABT'>
+                <a className="text-green-600 hover:text-green-200">アボットラボラトリーズ</a>
+              </Link>
+                </td>
+              </tr>
+              <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
+                <td className='px-4 py-2'>
+                <Link href='/stocks/BMY'>
+                <a className="text-green-600 hover:text-green-200">ブリストル・マイヤーズスクイブ</a>
+              </Link>
+                </td>
+              </tr>
+              <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
+                <td className='px-4 py-2'>
+                <Link href='/stocks/DHR'>
+                <a className="text-green-600 hover:text-green-200">ダナハー</a>
+              </Link>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
         </div>
       </div>
 
