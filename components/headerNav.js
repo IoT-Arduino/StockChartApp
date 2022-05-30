@@ -37,6 +37,7 @@ export const HeaderNav = () => {
 
   const signOut = () => {
     supabase.auth.signOut()
+    alert('SignedOut')
     replace('/')
   }
 

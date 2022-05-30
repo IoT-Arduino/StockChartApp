@@ -21,8 +21,6 @@ import {Company} from '../../types/Company'
 import {StockPrice} from '../../types/StockPrice'
 
 
-
-
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const id = await query.id
 
