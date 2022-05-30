@@ -50,9 +50,12 @@ const Navbar = () => {
   const { replace } = useRouter()
   const { user } = useContext(UserContext)
 
+   console.log(user)
+
   const signOut = () => {
     supabase.auth.signOut()
     alert("サインアウトしました")
+    console.log(user)
     replace('/')
   }
 
@@ -82,8 +85,8 @@ const Navbar = () => {
                 </li>
               ) : (
                 <li className='p-4'>
-                  <Link href='/signin' onClick={signOut} >
-                    <a className='font-bold'>サインアウト</a>
+                  <Link href='/' onClick={signOut} >
+                    <a className='font-bold'>サインアウト!</a>
                   </Link>
                 </li>
               )}

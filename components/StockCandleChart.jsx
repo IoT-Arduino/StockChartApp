@@ -4,7 +4,7 @@ import styles from '../styles/Home.module.css'
 import { useState, useEffect } from 'react'
 
 const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => {
-  console.log(edgarData)
+  // console.log(priceData)
 
   // 画面表示State 管理==============================================================
   const [isDividend, setIsDividend] = useState(false)
@@ -43,10 +43,10 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
   const edgarFsData = calcEdgarData(edgarData)
 
   const markerChartData = marker.map((item, i) => {
-    const closePrice = priceData.find((value) => value.date === item.date)?.Close * 1.2
+    const highPrice = priceData.find((value) => value.date === item.date)?.High * 1.1
     return {
       value: item.value,
-      coord: [item.date, closePrice],
+      coord: [item.date, highPrice],
       name: item.name,
       date: item.date,
       itemStyle: {
@@ -808,7 +808,7 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
                       {item.date} / 分割種別: {item.splitCategory} / 分割比率:{item.splitRatio} /
                     </li>
                   )
-                }
+                } 
               })}
           </ul>
         </div>
