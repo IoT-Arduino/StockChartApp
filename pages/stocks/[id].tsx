@@ -155,6 +155,7 @@ const StockChart: NextPage<{
     }
   }, [])
 
+  // 
   const fetchMarker = async () => {
     if (user) {
       let { data: items, error } = await supabase

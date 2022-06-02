@@ -4,7 +4,7 @@ import styles from '../styles/Home.module.css'
 import { useState, useEffect } from 'react'
 
 const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => {
-  // console.log(priceData)
+  // console.log(edgarData)
 
   // 画面表示State 管理==============================================================
   const [isDividend, setIsDividend] = useState(false)
@@ -54,6 +54,8 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
       },
     }
   })
+
+  console.log(markerChartData)
 
   //　EdgarDataの加工処理
   const newEdgarData = edgarFsData.map((item) => {
@@ -208,7 +210,7 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
     }
   })
 
-  //  console.log(companyData)
+   console.log(isNaN(companyData[0].numberOfSharesOutstanding))
 
   // console.log(edgarData)
 
@@ -557,7 +559,7 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
               fyCompanyDataForTable.map((item, i) => {
                 if (companyInfo.Sector === 'Finance') {
                   return (
-                    <tr clasName="border-b dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700" key={i}>
+                    <tr className="border-b dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700" key={i}>
                       <td className="px-4 py-2">{item.date}</td>
                       <td className="px-4 py-2">
                         {item.NetIncomeLossAccum
@@ -660,7 +662,7 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
               QtrCompanyDataForTable.map((item, i) => {
                 if (companyInfo.Sector === 'Finance') {
                   return (
-                    <tr key={i} clasName="border-b dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700">
+                    <tr key={i} className="border-b dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700">
                       <td className="px-4 py-2">{item.date}</td>
                       <td className="px-4 py-2">
                         {item.NetIncomeLoss
@@ -738,9 +740,9 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
                     <td className="px-4 py-2">{item.eps != 'NaN' ? item.eps : '-'}</td>
                     <td className="px-4 py-2">{item.eps != 'NaN' ? item.per : '-'}</td>
                     <td className="px-4 py-2">
-                      {item.numberOfSharesOutstanding != 'NaN'
-                        ? parseInt(item.numberOfSharesOutstanding /1000000).toLocaleString()
-                        : '-'}{' '}
+                      {Number.isNaN(item.numberOfSharesOutstanding)
+                        ? '-'
+                        : parseInt(item.numberOfSharesOutstanding /1000000).toLocaleString()}
                     </td>
                   </tr>
                 )
@@ -770,13 +772,13 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
                       <td className="px-4 py-2">
                         {item.commonStockDividendsPerShareDeclaredYear != 'NaN'
                           ? item.commonStockDividendsPerShareDeclaredYear
-                          : '-'}{' '}
+                          : '-'}
                       </td>
                       <td className="px-4 py-2">{item.dividendYieldYear != 'NaN%' ? item.dividendYieldYear : '-'}</td>
                       <td className="px-4 py-2">
                         {item.dividendPayoutRatioYear != 'NaN%'
                           ? item.dividendPayoutRatioYear
-                          : '-'}{' '}
+                          : '-'}
                       </td>
                     </tr>
                   )
