@@ -6,8 +6,6 @@ import Link from 'next/link'
 
 import HeroSlider from '../components/HeroSlider'
 
-import HeroSearchBar from '../components/HeroSearchBar'
-
 import {codeList} from '../data/stockCode/US-StockList'
 
 // images
@@ -17,32 +15,8 @@ import  TSLAChart  from '../public/images/TSLAChart.png'
 import  AAPLCandleChart  from '../public/images/AAPLCandleChart.png'
 import  AAPLCashFlow  from '../public/images/AAPLCashFlow.png'
 
-// export async function getServerSideProps() {
-//   try {
-//     const reqList = await fetch(
-//       `${process.env.NEXT_PUBLIC_API_ENDOPOINT}/stockCode/US-StockList.json`
-//     )
-//     const codeList = await reqList.json()
-
-//     const codeListSorted = codeList.sort(function (a: any, b: any) {
-//       if (a.Ticker > b.Ticker) {
-//         return 1
-//       } else {
-//         return -1
-//       }
-//     })
-
-//     return {
-//       props: {
-//         codeList: codeListSorted,
-//       },
-//     }
-//   } catch (err) {
-//     console.log(err)
-//   }
-// }
-
 const Home: NextPage = () => {
+
   return (
     <main>
       <HeroSlider codeList={codeList} />
@@ -218,7 +192,6 @@ const Home: NextPage = () => {
                   VOO,VTI,VTの2014年末を起点とした成長率を比較分析します。上位構成銘柄のリストアップも行います。
                 </p>
                 <Link href={`/etf-index`}>
-                  <a>
                     <a className='mt-3 inline-flex items-center text-green-500'>
                       Read More
                       <svg
@@ -233,7 +206,6 @@ const Home: NextPage = () => {
                         <path d='M5 12h14M12 5l7 7-7 7'></path>
                       </svg>
                     </a>
-                  </a>
                 </Link>
               </div>
             </div>
@@ -259,8 +231,7 @@ const Home: NextPage = () => {
                   VYG,VYMの2014年末を起点とした成長率を比較分析します。上位構成銘柄のリストアップも行います。
                 </p>
                 <Link href={`/etf-highDividend`}>
-                  <a>
-                    <a className='mt-3 inline-flex items-center text-green-500'>
+                        <a className='mt-3 inline-flex items-center text-green-500'>
                       Read More
                       <svg
                         fill='none'
@@ -273,8 +244,7 @@ const Home: NextPage = () => {
                       >
                         <path d='M5 12h14M12 5l7 7-7 7'></path>
                       </svg>
-                    </a>
-                  </a>
+                     </a>
                 </Link>
               </div>
             </div>
@@ -300,7 +270,7 @@ const Home: NextPage = () => {
                   ヘルスケアセクターファンドと市場インデックスの比較を行います。上位構成銘柄のリストアップも行います。
                 </p>
                 <Link href={`/etf-healthCare`}>
-                  <a>
+     
                     <a className='mt-3 inline-flex items-center text-green-500'>
                       Read More
                       <svg
@@ -315,8 +285,7 @@ const Home: NextPage = () => {
                         <path d='M5 12h14M12 5l7 7-7 7'></path>
                       </svg>
                     </a>
-                  </a>
-                </Link>
+                          </Link>
               </div>
             </div>
           </div>
