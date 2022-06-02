@@ -91,7 +91,7 @@ const StockIndex: NextPage<{ codeList: Company[] }> = ({ codeList }) => {
               {codeUnlist.map((code, i) => {
                 return (
                   <li key={i}>
-                    <Link href={`/stocks/${code.Ticker}`}>
+                    <Link href={`/stocks/${code.Ticker}`} prefetch={false}>
                       <a>
                         {code.Name}/{code.Ticker}/{code.CIK}
                       </a>
@@ -106,7 +106,7 @@ const StockIndex: NextPage<{ codeList: Company[] }> = ({ codeList }) => {
               {codeListNSP.map((code, i) => {
                 return (
                   <li key={i}>
-                    <Link href={`/stocks/${code.Ticker}`}>
+                    <Link href={`/stocks/${code.Ticker}`} prefetch={false}>
                       <a>
                         {code.Name}/{code.Ticker}/{code.CIK}
                       </a>
