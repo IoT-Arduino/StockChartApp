@@ -88,7 +88,7 @@ const Home:NextPage = () => {
     }
   }
 
-  console.log(markers)
+  // console.log(markers)
 
 
   // const fetchMarker = async () => {
