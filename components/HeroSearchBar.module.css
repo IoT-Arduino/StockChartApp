@@ -1,0 +1,50 @@
+
+.searchInputs {
+  margin-top: 24px;
+  display: flex;
+  background-color: white;
+}
+
+.searchInput {
+  border: 0;
+  border-radius: 2px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  font-size: 18px;
+  padding: 15px;
+  height: 30px;
+  min-width: 150px;
+}
+
+#tickerInput {
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  outline: none;
+  background: none;
+}
+
+.dataResult {
+  position:absolute;
+  margin-top: 5px;
+  width: 240px;
+  height: 200px;
+  text-align: left;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+.dataResult::-webkit-scrollbar {
+  display: none;
+}
+
+.dataItem {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  color: black;
+}
+
