@@ -55,7 +55,7 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
     }
   })
 
-  console.log(markerChartData)
+  // console.log(markerChartData)
 
   //　EdgarDataの加工処理
   const newEdgarData = edgarFsData.map((item) => {
@@ -214,7 +214,7 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
     }
   })
 
-  console.log(isNaN(companyData[0].numberOfSharesOutstanding))
+  // console.log(isNaN(companyData[0].numberOfSharesOutstanding))
 
   // console.log(edgarData)
 
