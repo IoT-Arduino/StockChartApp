@@ -1,29 +1,62 @@
 import React, { useEffect, useState } from 'react'
 import Error from 'next/error'
+import { useContext } from 'react'
+import { GetServerSideProps, NextPage } from 'next'
 
-import StockCandleChart from '../../components/StockCandleChart'
 // import { google } from 'googleapis';
+
 // Supabase
 import { supabase } from '../../utils/supabase'
+import { UserContext } from '../../utils/UserContext'
+
+// Components & Utils
 import Comments from '../../components/Comments'
 import BookMark from '../../components/BookMark'
 import InputMarker from '../../components/InputMarker'
-
-import { useContext } from 'react'
-import { UserContext } from '../../utils/UserContext'
+import StockCandleChart from '../../components/StockCandleChart'
 
 import { createMarkerData } from '../../functions/CreateMarkerData'
 import { getMarkerData } from '../../functions/GetMarkerData'
-import { GetServerSideProps, NextPage } from 'next'
+import { markerList } from '../../data/marker/marker'
+
+// json fs
+import fsPromises from 'fs/promises';
+import path from 'path'
+const fs = require('fs');
 
 // types
 import {Company} from '../../types/Company'
 import {StockPrice} from '../../types/StockPrice'
 
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const id = await query.id
 
+export async function getStaticPaths() {
+  const filePath = path.join(process.cwd(), `./data/stockCode/US-StockList.json`);
+  const jsonData = await fsPromises.readFile(filePath);
+  const objectData = JSON.parse(jsonData as any);
+
+  const paths = objectData.map(item => {
+    return {
+      params: {id : "MSFT"}
+    }
+  })
+
+  return {
+    paths,
+    // paths: [
+    //   { params: { ... } }
+    // ],
+    fallback: 'blocking' // false or 'blocking'
+  };
+}
+
+
+
+export const getStaticProps: GetServerSideProps = async ({ query,params }) => {
+  // const id = await query.id
+  const id = await params.id
+
+  
   // const auth = await google.auth.getClient({ scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'] });
   // const sheets = google.sheets({ version: 'v4', auth });
   // const googleSheetRange = `ContentsList!A2:Q1000`;
@@ -54,47 +87,94 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   ]
 
   try {
-    // Get Company Data
-    const reqListCompany = await fetch(
-      `${process.env.NEXT_PUBLIC_API_ENDOPOINT}/stockCode/US-StockList.json`
-    )
-    const codeList:Company[] = await reqListCompany.json()
-    
-    const companyInfo = codeList.filter((item) => {
+    // temp 
+    // if (fs.existsSync(`./data/edgar/2020q1/${id}_2.json`) ){
+    //   console.log("temp")
+    // }
+
+
+    // stockList data from json file
+    const filePathStockList = path.join(process.cwd(), `./data/stockCode/US-StockList.json`);
+    const jsonDataStockList = await fsPromises.readFile(filePathStockList);
+    const objectDataStockList = JSON.parse(jsonDataStockList as any);
+
+    const companyInfo = objectDataStockList.filter(item =>{
       return item.Ticker === id
     })
+
+
+    // Get Company Data
+    // const reqListCompany = await fetch(
+    //   `${process.env.NEXT_PUBLIC_API_ENDOPOINT}/stockCode/US-StockList.json`
+    // )
+    // const codeList:Company[] = await reqListCompany.json()
+    
+    // const companyInfo = codeList.filter((item) => {
+    //   return item.Ticker === id
+    // })
     
     // Get Marker Data
-    const markerList = await fetch(`${process.env.NEXT_PUBLIC_API_ENDOPOINT}/marker/marker.json`)
-    const errorCode1 = markerList.status==200 ?  200 : markerList.status
-    const markerData = await markerList.json()
+    // const markerList = await fetch(`${process.env.NEXT_PUBLIC_API_ENDOPOINT}/marker/marker.json`)
+    // const errorCode1 = markerList.status==200 ?  200 : markerList.status
+    // const markerData = await markerList.json()
+
+    // price data from json file
+    const filePathPrice = path.join(process.cwd(), `./data/stock/${id}.json`);
+    const jsonDataPrice = await fsPromises.readFile(filePathPrice);
+    const priceData = JSON.parse(jsonDataPrice as any);
 
     // Get Price Data
-    const priceList = await fetch(`${process.env.NEXT_PUBLIC_API_ENDOPOINT}/stock/${id}.json`)
-    const priceData = await priceList.json()
+    // const priceList = await fetch(`${process.env.NEXT_PUBLIC_API_ENDOPOINT}/stock/${id}.json`)
+    // const priceData = await priceList.json()
 
-    // Get Edgar Data
+
+    // edgar from json file
     const edgarDataResponse = QTR.map(async (item) => {
-      let reqList = await fetch(`${process.env.NEXT_PUBLIC_API_ENDOPOINT}/edgar/${item}/${id}.json`)
 
-      let reqList2 = await fetch(
-        `${process.env.NEXT_PUBLIC_API_ENDOPOINT}/edgar/${item}/${id}_2.json`
-      )
-      // もし　reqList2があったら、仮配列にpush、...で展開したものをreturnする。
-      if (reqList.status == 404 && reqList2.status == 404) {
-        return null
-      } else if (reqList.status == 200 && reqList2.status == 404) {
-        const resData = await reqList.json()
-        return resData[0]
-      } else if (reqList.status == 200 && reqList2.status == 200) {
-        const resData = await reqList.json()
-        const resData2 = await reqList2.json()
-        const tempResData = [resData[0], resData2[0]]
-        return tempResData
+      let tempResData;
+      if (fs.existsSync(`./data/edgar/${item}/${id}_2.json`) && fs.existsSync(`./data/edgar/${item}/${id}_2.json`)) {
+        const filePathEdgar = path.join(process.cwd(), `./data/edgar/${item}/${id}.json`);
+        const jsonDataEdgar = await fsPromises.readFile(filePathEdgar);
+        const reqList = JSON.parse(jsonDataEdgar as any);
+
+        const filePathEdgar2 = path.join(process.cwd(), `./data/edgar/${item}/${id}_2.json`);
+        const jsonDataEdgar2 = await fsPromises.readFile(filePathEdgar2);
+        const reqList2 = JSON.parse(jsonDataEdgar2 as any);
+        tempResData = [reqList[0], reqList2[0]]
+      } else if(fs.existsSync(`./data/edgar/${item}/${id}.json`) && fs.existsSync(`./data/edgar/${item}/${id}_2.json`) === false) {
+        const filePathEdgar = path.join(process.cwd(), `./data/edgar/${item}/${id}.json`);
+        const jsonDataEdgar = await fsPromises.readFile(filePathEdgar);
+        const reqList = JSON.parse(jsonDataEdgar as any);
+        tempResData = [reqList[0]]
       } else {
         return null
       }
-    })
+      return tempResData[0]
+    });
+
+
+    // Get Edgar Data
+    // const edgarDataResponse = QTR.map(async (item) => {
+    //   let reqList = await fetch(`${process.env.NEXT_PUBLIC_API_ENDOPOINT}/edgar/${item}/${id}.json`)
+
+    //   let reqList2 = await fetch(
+    //     `${process.env.NEXT_PUBLIC_API_ENDOPOINT}/edgar/${item}/${id}_2.json`
+    //   )
+    //   // もし　reqList2があったら、仮配列にpush、...で展開したものをreturnする。
+    //   if (reqList.status == 404 && reqList2.status == 404) {
+    //     return null
+    //   } else if (reqList.status == 200 && reqList2.status == 404) {
+    //     const resData = await reqList.json()
+    //     return resData[0]
+    //   } else if (reqList.status == 200 && reqList2.status == 200) {
+    //     const resData = await reqList.json()
+    //     const resData2 = await reqList2.json()
+    //     const tempResData = [resData[0], resData2[0]]
+    //     return tempResData
+    //   } else {
+    //     return null
+    //   }
+    // })
 
     const edgarResData = await Promise.all(edgarDataResponse)
     const edgarRes = await edgarResData.filter((item) => item)
@@ -116,7 +196,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
         id,
         companyInfo: companyInfo[0],
         priceData,
-        markerData,
+        // markerData,
         edgarData: edgarRes.flat(), // edgarRes.flat(),
         // filteredSheetData,
       },
@@ -134,7 +214,7 @@ const StockChart: NextPage<{
   id: any
   companyInfo: Company,
   status:any
-}> = ({ priceData, markerData, edgarData, id, companyInfo,status }) => {
+}> = ({ priceData,  edgarData, id, companyInfo,status }) => {
 
   if (status) {
     console.log(status)
@@ -151,9 +231,9 @@ const StockChart: NextPage<{
     if (user) {
       fetchMarker()
     } else {
-      setMarker(markerData)
+      setMarker(markerList as any)
     }
-  }, [])
+  }, [user])
 
   // 
   const fetchMarker = async () => {
