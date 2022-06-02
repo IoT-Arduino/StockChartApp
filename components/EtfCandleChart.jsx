@@ -1,7 +1,5 @@
 import ReactEcharts from "echarts-for-react";
 
-
-
 const EtfCandleChart = ({ etfData }) => {
 
     const timestamp = etfData.timestamp
@@ -60,6 +58,15 @@ const EtfCandleChart = ({ etfData }) => {
       }
 
     ],
+    lineStyle: {
+      color: '#7fbe9e',
+      width: 1,
+    },
+    areaStyle: {
+      color: '#7fbe9e',
+      opacity: 0.2,
+    },
+    showSymbol: false,
     series: [
      {
       name: '資産価格',
@@ -77,7 +84,7 @@ const EtfCandleChart = ({ etfData }) => {
   };  
     
   return (
-    <div style={{ width: '100%' }} >
+    <div className="w-4/5">
       <ReactEcharts option={option} />
     </div>
   )
