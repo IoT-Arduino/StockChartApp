@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import styles from './Navbar.module.css'
 
@@ -15,6 +15,13 @@ import { supabase } from '../utils/supabase'
 import { useContext } from 'react'
 import { UserContext } from '../utils/UserContext'
 import { useRouter } from 'next/router'
+
+import SearchBar from './HeroSearchBar'
+
+import { Modal } from '@mantine/core'
+
+import {codeList} from '../data/stockCode/US-StockList'
+
 
 const NavSidebarData = [
   {
@@ -38,6 +45,7 @@ const NavSidebarData = [
 ]
 
 const Navbar = () => {
+
   const [sidebar, setSidebar] = useState(false)
 
   const showSidebar = () => {
@@ -55,6 +63,9 @@ const Navbar = () => {
     console.log(user)
     replace('/')
   }
+
+  // for modal
+  const [opened, setOpened] = useState(false)
 
   return (
     <IconContext.Provider value={{ color: '#48bb78' }}>
@@ -91,18 +102,30 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Top Menu with Hamburger */}
-        <div className='flex items-center justify-between md:hidden w-full pr-6'>
+        <div className='flex w-full items-center justify-between pr-6 md:hidden'>
           <div className={styles.menuBars}>
-            <FaIcons.FaBars onClick={showSidebar} className="cursor-pointer" />
+            <FaIcons.FaBars onClick={showSidebar} className='cursor-pointer' />
           </div>
           <Link href='/' passHref>
             <div className='ml-3 cursor-pointer text-2xl font-extrabold text-green-500'>
               TenQ.cc
             </div>
           </Link>
+
           <div>
-              <p><AiIcons.AiOutlineSearch className="text-3xl cursor-pointer"/></p>
+            <p>
+              <AiIcons.AiOutlineSearch className='cursor-pointer text-3xl' onClick={() => setOpened(true)}/>
+            </p>
           </div>
+
+          <Modal
+            opened={opened}
+            onClose={() => setOpened(false)}
+            title='Input Ticker or CompanyName'
+          >
+            <SearchBar placeholder="Ticker or Company" data={codeList}/>
+
+          </Modal>
         </div>
         {/* Mobile SideMenu */}
         <div className={sidebar ? styles.navMenuActive : styles.navMenu}>

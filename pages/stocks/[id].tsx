@@ -28,14 +28,14 @@ const fs = require('fs');
 import {Company} from '../../types/Company'
 import {StockPrice} from '../../types/StockPrice'
 
-
+import {codeList} from '../../data/stockCode/US-StockList'
 
 export async function getStaticPaths() {
-  const filePath = path.join(process.cwd(), `./data/stockCode/US-StockList.json`);
-  const jsonData = await fsPromises.readFile(filePath);
-  const objectData = JSON.parse(jsonData as any);
+  // const filePath = path.join(process.cwd(), `./data/stockCode/US-StockList.json`);
+  // const jsonData = await fsPromises.readFile(filePath);
+  // const objectData = JSON.parse(jsonData as any);
 
-  const paths = objectData.map(item => {
+  const paths = codeList.map(item => {
     return {
       params: {id : "MSFT"}
     }
