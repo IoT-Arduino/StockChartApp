@@ -15,7 +15,7 @@ import Datatable from '../../components/Datatable'
 // Types
 import { Company } from '../../types/Company'
  
-export async function getServerSideProps() {
+export async function getStaticProps() {
   try {
     // const reqList = await fetch(
     //   `${process.env.NEXT_PUBLIC_API_ENDOPOINT}/stockCode/US-StockList.json`
