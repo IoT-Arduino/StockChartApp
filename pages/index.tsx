@@ -1,257 +1,327 @@
-import { useEffect } from "react";
-import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
-import Link from "next/link";
-import styles from "../styles/Home.module.css";
-import EtfCandleChart from './../components/EtfCandleChart';
-import EtfCompareLineChart from './../components/EtfCompareLineChart';
+import { useEffect } from 'react'
+import type { NextPage } from 'next'
+import Head from 'next/head'
+import Image from 'next/image'
+import Link from 'next/link'
+
+import HeroSlider from '../components/HeroSlider'
+
+import HeroSearchBar from '../components/HeroSearchBar'
+
+// images
+import DummyImage from '../public/images/TopAppleChart.png'
+import  UNHChart  from '../public/images/UNHChart.png'
+import  TSLAChart  from '../public/images/TSLAChart.png'
+import  AAPLCandleChart  from '../public/images/AAPLCandleChart.png'
+import  AAPLCashFlow  from '../public/images/AAPLCashFlow.png'
 
 export async function getServerSideProps() {
   try {
-    const symbol = "VOO"
+    const reqList = await fetch(
+      `${process.env.NEXT_PUBLIC_API_ENDOPOINT}/stockCode/US-StockList.json`
+    )
+    const codeList = await reqList.json()
 
-    const p1 = 1420038000 // 2015/01/01 
-    const p2 = 9999999999
-    const range = "5d" // week "5d" , month "1mo"
-
-    // const url = `https://query1.finance.yahoo.com/v8/finance/chart/?symbol=${symbol}&period1=${p1}&period2=${p2}&interval=${range}`
-    // const reqList = await fetch(url);
-    // const priceList = await reqList.json();
-
-    const symbols = ["VOO", "VTI","VT","VIG","VYM","VWO"]
-    
-    const etfResponse = symbols.map(async (symbol) => {
-      let reqList = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/?symbol=${symbol}&period1=${p1}&period2=${p2}&interval=${range}`)
-      const etfPriceList = await reqList.json();
-      return etfPriceList.chart.result[0];
-
+    const codeListSorted = codeList.sort(function (a: any, b: any) {
+      if (a.Ticker > b.Ticker) {
+        return 1
+      } else {
+        return -1
+      }
     })
-    const etfResponseData = await Promise.all(etfResponse);
-
-    // console.log(etfResponseData[3].meta)
-    // console.log(etfResponseData[4].meta)
-    // console.log(etfResponseData[5].meta)
-    // console.log(priceList.chart.result[0].indicators.adjclose)
 
     return {
       props: {
-        fundsData: {
-          vooData: etfResponseData[0],
-          vtiData: etfResponseData[1],
-          vtData: etfResponseData[2],
-          vigData: etfResponseData[3],
-          vymData: etfResponseData[4],
-          vwoData: etfResponseData[5],
-        }
+        codeList: codeListSorted,
       },
-    };
+    }
   } catch (err) {
-    console.log(err);
+    console.log(err)
   }
 }
 
-
-const Home: NextPage = ({ fundsData }: any) => {
-  
-  // console.log(fundsData.vigData)
-
+const Home: NextPage = ({ codeList }) => {
   return (
-    <div className={styles.container}>
-      <main className={styles.main}>
-        <h2 className={styles.title}>米国主要ETF比較</h2>
-        <div>米国主要ETF（Vanguard系の比較、2014年末を起点とした成長率）</div>
+    <main>
+      <HeroSlider codeList={codeList} />
 
-        <div className="m-8">
-          <p className="text-bold text-2xl">VOO,VTI,VT</p>
-          <EtfCompareLineChart fundsData={fundsData} />
-          <p>VOOの説明（赤線）：S&P500インデックス指数に連動したETF</p>
-          <p>VTIの説明（緑線）：中小型株を含めた米国市場の約4,000銘柄をカバーしているETF。厚切りジェイソンさんが著書「ジェイソン流お金の増やし方」でおすすめしている。</p>
-          <p>VTの説明（青線）：先進国と新興国市場の両方を対象とし、米国内外の株式で構成されるETF。「ほったらかし投資術」で推奨されている。</p>
-          <p className="text-bold text-xl mt-3 mb-2">上位構成銘柄（VOO,VTI,VT共通）</p>
-          <ul>
-            <li>
-              <Link href="/stocks/AAPL">
-                <a>AAPL:アップル</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/stocks/MSFT">
-                <a>MSFT:マイクロソフト</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/stocks/AMZN">
-                <a>AMZN:アマゾン</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/stocks/GOOGL">
-                <a>GOOGL:アルファベット</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/stocks/TSLA">
-                <a>TSLA:テスラ</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/stocks/FB">
-                <a>FB:メタ</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/stocks/NVDA">
-                <a>NVDA:エヌビディア</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/stocks/BRK-B">
-                <a>BRKB:バークシャーハサウェイ</a>
-              </Link>
-            </li>
-          </ul>
+      <section className='body-font text-gray-600'>
+        <div className='mx-auto w-full px-5 pt-10 md:max-w-5xl'>
+          <div className='mb-8'>
+            <h2 className='title-font mb-4 text-center text-xl font-medium text-gray-900 sm:text-3xl md:text-left'>
+              米国代表500社の株価、四半期業績を直感的に俯瞰できる！
+              <br />
+              TenQチャートとは
+            </h2>
+            <div className='px-2 text-xl lg:px-10'>
+              <p className='mb-4'>
+                株式投資の為の分析には二つの方法があります。
+                <br />
+                一つはチャート分析、移動平均線、RSI、MACD等のテクニカル指標を使うもの。
+                <br />
+                もう一つは、ファンダメンタル分析といい、財務諸表分析等を行うもの。
+                <br />
+              </p>
+              <p>
+                TenQチャートはこれら指標よりもさらに直感的に、企業の業績と株価を俯瞰してビッグピクチャを得るものです。TenQとは10-Qすなわち米国上場企業の四半期報告のファイリングネームにちなんで命名されました。TenQチャートを、
+                株式銘柄のスクリーニングや、株式投資判断材料の一つとしてお役立てください。複雑で詳細な分析に入る前に、企業の事業価値と株価の関係を時系列で俯瞰することができます。
+                TenQチャートを使うことで、あなたの投資力は数倍アップすることでしょう。
+              </p>
+            </div>
+
+            <div className='mt-8 flex justify-center'>
+              <div className='inline-flex h-1 w-16 rounded-full bg-green-500'></div>
+            </div>
+          </div>
         </div>
+      </section>
 
-        <div className="m-8">
-          <p className="text-bold text-2xl">{ fundsData.vigData.meta.symbol}</p> 
-          <EtfCandleChart etfData={fundsData.vigData} />
-          <p>VIGの説明：、10年以上連続で一貫して増配する方針がとられている米国株（約250銘柄）を投資対象とするETFです（REITを除く）。</p>
-          <p className="text-bold text-xl mt-3 mb-2">上位構成銘柄</p>
-          <ul>
-            <li>
-              <Link href="/stocks/MSFT">
-                <a>MSFT:マイクロソフト</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/stocks/UNH">
-                <a>UNH:ユナイテッドヘルス・グループ</a>
-              </Link>
-            </li>
-
-            <li>
-              <Link href="/stocks/JNJ">
-                <a>JNJ:ジョンソン・エンド・ジョンソン(J&J)</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/stocks/JPM">
-                <a>JPモルガン・チェース・アンド・カンパニー</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/stocks/PG">
-                <a>PG:プロクター・アンド・ギャンブル(P&G)</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/stocks/V">
-                <a>V:ビザ</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/stocks/HD">
-                <a>HD:ホーム・デポ</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/stocks/MA">
-                <a>MA:マスターカード</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/stocks/AVGO">
-                <a>AVGO:ブロードコム</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/stocks/COST">
-                <a>COST:コストコホールセール</a>
-              </Link>
-            </li>
-          </ul>
+      <section className='body-font text-gray-600'>
+        <div className='mx-auto max-w-5xl'>
+          <div className='mx-auto flex max-w-5xl flex-col items-center px-5 py-8 md:flex-row'>
+            <div className='w-5/6 md:w-1/2 lg:w-full lg:max-w-lg'>
+              <Image className='rounded object-cover object-center' alt='hero' src={AAPLCandleChart} />
+            </div>
+            <div className='mt-8 flex flex-col items-center text-center md:mb-0 md:w-1/2 md:items-start md:pl-8 md:text-left lg:flex-grow'>
+              <h2 className='title-font mb-4 text-xl font-medium text-gray-900 sm:text-2xl'>
+                BPS,EPSと株価の相関を時系列で確認。
+                <br className='hidden lg:inline-block' />
+                最適な投資タイミングを見極める。
+              </h2>
+              <p className='mb-8 leading-relaxed'>
+                企業の業績を確認する上で、重要視される、
+                BPS,PBR,EPS,PERと株価の関係を時系列でわかりやすく一覧できるようになっています。BPSとEPSの15倍（PER15倍）の合算値の水準「TenQチャートライン」と株価を比較することにより、現在の株価と企業の事業価値、資産価値との乖離を直感的に把握することができます。さらに、コロナショック等重要な社会事象を株価チャート上に吹き出し表示を追加しています。これにより、企業の業績と社会事象との関係を踏まえた株価トレンドについて正確に把握することができ、最適な投資判断の為の良質な情報をわかりやすく提供します。
+              </p>
+            </div>
+          </div>
         </div>
+      </section>
 
-        <div className="m-8">
-          <p className="text-bold text-2xl">{ fundsData.vymData.meta.symbol}</p>
-          <EtfCandleChart etfData={fundsData.vymData} />
-          <p>VYMの説明：全米国銘柄の中から大型株を中心に予想配当利回りが市場平均を上回る銘柄で構成されています。（FTSEハイデ ィビデンド・イールド指数に連動します）</p>
-          <p className="text-bold text-xl mt-3 mb-2">上位構成銘柄</p>
-          <ul>
-            <li>
-              <Link href="/stocks/JNJ">
-                <a>JNJ:ジョンソン・エンド・ジョンソン(J&J)</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/stocks/JPM">
-                <a>JPモルガン・チェース・アンド・カンパニー</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/stocks/PG">
-                <a>PG:プロクター・アンド・ギャンブル(P&G)</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/stocks/XOM">
-                <a>XOM:エクソンモービル</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/stocks/CVX">
-                <a>CVX:シェブロン</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/stocks/HD">
-                <a>HD:ホームデポ</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/stocks/BAC">
-                <a>BAC:バンク・オブ・アメリカ</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/stocks/PFE">
-                <a>PFE:ファイザー</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/stocks/ABBV">
-                <a>ABBV:アッヴィ</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/stocks/AVGO">
-                <a>AVGO:ブロードコム</a>
-              </Link>
-            </li>
-          </ul>
+      <section className='body-font text-gray-600'>
+        <div className='mx-auto max-w-5xl'>
+          <div className='mx-auto flex max-w-5xl flex-col items-center px-5 py-8 md:flex-row'>
+            <div className='w-5/6 md:w-1/2 lg:w-full lg:max-w-lg'>
+              <Image className='rounded object-cover object-center' alt='hero' src={AAPLCashFlow} />
+            </div>
+            <div className='mt-8 flex flex-col items-center text-center md:mb-0 md:w-1/2 md:items-start md:pl-8 md:text-left lg:flex-grow'>
+              <h2 className='title-font mb-4 text-xl font-medium text-gray-900 sm:text-2xl'>
+                営業ＣＦマージン、営業ＣＦと純利益を時系列で確認。
+                <br className='hidden lg:inline-block' />
+                企業の本業での稼ぐ力を時系列で見極める。
+              </h2>
+              <p className='mb-8 leading-relaxed'>
+                企業の業績を確認する上で、重要視される、
+                営業CF、営業CFマージン（営業CF/売上高）、そして営業ＣＦと純利益比較について、わかりやすく一覧できるようになっています。これにより、企業の四半期毎の純利益またそれに伴うEPSが本業から生み出されたものか、あるいは一時的な事象によるものなのかが一目で把握することができます。また株価と同じ画面に時系列でデータを確認できるので、株式の投資価値について直感的に判断することができます。
+              </p>
+            </div>
+          </div>
         </div>
+      </section>
 
-        <div className="m-8">
-          <p className="text-bold text-2xl">{ fundsData.vwoData.meta.symbol}</p>
-          <EtfCandleChart etfData={fundsData.vwoData} />
-          <p>VWOの説明：FTSEエマージング・マーケッツ・インデックスに連動する投資成果を目指す。ブラジル、ロシア、インド、台湾、中国、南アフリカなど、世界中の新興国市場で大型・中型株を保有するETF</p>
-         　<p className="text-bold text-xl mt-3 mb-2">上位構成銘柄</p>
-          <ul>
-            <li>2330:TT(TSM:US)/台湾積体電路製造 [TSMC/台湾セ]</li>
-            <li>700:HK/騰訊控股[テンセント・ホールディングス]</li>
-            <li>9988:HK/アリババグループ・ホールディング</li>
-            <li>RIL:IN/リライアンス・インダストリーズ</li>
-            <li>INFO:IN/インフォシス</li>
-            <li>VALE3:BZ/ヴァーレ</li>
-            <li>3690:HK/美団[メイトゥアン]</li>
-            <li>939:HK/中国建設銀行 [チャイナ・コンストラクション]</li>
-          </ul>
+      <section>
+        <div className='mb-2'>
+          <div className='mx-auto w-full sm:w-2/3 md:w-1/2 rounded-xl bg-yellow-100 bg-opacity-80 p-4 text-center text-gray-800 shadow-xl '>
+            <h2 className='mb-4 text-xl font-extrabold sm:text-2xl md:text-4xl'>TenQチャート</h2>
+            <p className='mx-auto mb-2 font-sans font-extrabold sm:mb-4 sm:w-full sm:px-2 md:text-xl'>
+              米国企業の四半期業績と株価を一発確認
+            </p>
+            <div className='mb-2'>
+              <Link href='/stocks'>
+                <a className="text-green-500 hover:text-green-200 font-extrabold text-lg">米国代表500社株式一覧をチェック!</a>
+              </Link>
+            </div>
+          </div>
         </div>
-        
-      </main>
-    </div>
-  );
-};
+      </section>
 
-export default Home;
+      <section className='body-font text-gray-600'>
+        <div className='mx-auto max-w-5xl'>
+          <div className='mx-auto flex max-w-5xl flex-col items-center px-5 py-8 md:flex-row'>
+            <div className='w-5/6 md:w-1/2 lg:w-full lg:max-w-lg'>
+              <Image className='rounded object-cover object-center' alt='hero' src={TSLAChart} />
+            </div>
+            <div className='mt-8 flex flex-col items-center text-center md:mb-0 md:w-1/2 md:items-start md:pl-8 md:text-left lg:flex-grow'>
+              <h2 className='title-font mb-4 text-xl font-medium text-gray-900 sm:text-2xl'>
+                銘柄分析：グロース株
+                <br className='hidden lg:inline-block' />
+                テスラ[TSLA]
+              </h2>
+              <p className='mb-8 leading-relaxed'>
+                2020年から、株価の上昇に先行する形で、業績（売上高,営業活動CF,純利益）がすさまじい勢いで上昇していることが見て取れます。現在は、TenQチャートライン（BPS+PER*15）からはかなり乖離しており、買われすぎという見方もできますが、このままの勢いで業績が上昇することで、株価に業績が追いついてくると、さらに株価が先行して上昇することも考えられますね。典型的なグロース株のチャートです。
+              </p>
+              <Link href='/stocks/TSLA'>
+                <a className="text-green-500 hover:text-green-200">TSLA:テスラのチャートページへ</a>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className='body-font text-gray-600'>
+        <div className='mx-auto max-w-5xl'>
+          <div className='mx-auto flex max-w-5xl flex-col items-center px-5 py-8 md:flex-row'>
+            <div className='w-5/6 md:w-1/2 lg:w-full lg:max-w-lg'>
+              <Image className='rounded object-cover object-center' alt='hero' src={UNHChart} />
+            </div>
+            <div className='mt-8 flex flex-col items-center text-center md:mb-0 md:w-1/2 md:items-start md:pl-8 md:text-left lg:flex-grow'>
+              <h2 className='title-font mb-4 text-xl font-medium text-gray-900 sm:text-2xl'>
+                銘柄分析：高配当バリュー株
+                <br className='hidden lg:inline-block' />
+                ユナイテッドヘルス[UNH]
+              </h2>
+              <p className='mb-8 leading-relaxed'>
+                好不況の影響に大きく左右されず、順調に利益（緑色の領域）と純資産（青色の領域）を積み上げていく、非常に堅実なヘルスセクターの代表的企業になります。また、営業活動CF（棒グラフ緑色）については、CFマージンが若干低いことが気になりますが、純利益（棒グラフ黄色）との関係は非常に良好で、本業での稼ぐ力が非常に安定した優良企業であるといえます。
+              </p>
+              <Link href='/stocks/UNH'>
+                <a className="text-green-500 hover:text-green-200">UNH:ユナイテッドヘルスのチャートページへ</a>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className='body-font text-gray-600'>
+        <div className='mx-auto w-full px-5 py-8 md:max-w-5xl'>
+          <div className='mb-12 text-center'>
+            <h2 className='title-font mb-4 text-2xl font-medium text-gray-900 sm:text-3xl'>
+              インデックスファンド（ETF）、セクター別ファンド（ETF）比較と分析
+            </h2>
+            <p className='text-gray-500s mx-auto text-base leading-relaxed lg:w-3/4 xl:w-2/4'>
+              インデックスファンド、高配当ファンドに投資される方はこちらのページで、ファンドの比較分析チャートをご覧ください。ファンド毎に上位構成銘柄のリストを掲載しています。また、上位構成銘柄のリストをクリックすることで、個別銘柄のTenQチャートを確認することができます。
+            </p>
+            <div className='mt-6 flex justify-center'>
+              <div className='inline-flex h-1 w-16 rounded-full bg-green-500'></div>
+            </div>
+          </div>
+          <div className='-mx-4 -mb-10 -mt-4 flex flex-wrap space-y-6 sm:-m-4 md:space-y-0'>
+            <div className='flex flex-col items-center p-4 text-center md:w-1/3'>
+              <div className='mb-5 inline-flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-full bg-green-100 text-green-500'>
+                <svg
+                  fill='none'
+                  stroke='currentColor'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  strokeWidth='2'
+                  className='h-10 w-10'
+                  viewBox='0 0 24 24'
+                >
+                  <path d='M22 12h-4l-3 9L9 3l-3 9H2'></path>
+                </svg>
+              </div>
+              <div className='flex-grow'>
+                <h2 className='title-font mb-3 text-lg font-medium text-gray-900'>
+                  インデックスファンド（米国株・世界株）
+                </h2>
+                <p className='text-base leading-relaxed'>
+                  VOO,VTI,VTの2014年末を起点とした成長率を比較分析します。上位構成銘柄のリストアップも行います。
+                </p>
+                <Link href={`/etf-index`}>
+                  <a>
+                    <a className='mt-3 inline-flex items-center text-green-500'>
+                      Read More
+                      <svg
+                        fill='none'
+                        stroke='currentColor'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        strokeWidth='2'
+                        className='ml-2 h-4 w-4'
+                        viewBox='0 0 24 24'
+                      >
+                        <path d='M5 12h14M12 5l7 7-7 7'></path>
+                      </svg>
+                    </a>
+                  </a>
+                </Link>
+              </div>
+            </div>
+            <div className='flex flex-col items-center p-4 text-center md:w-1/3'>
+              <div className='mb-5 inline-flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-full bg-green-100 text-green-500'>
+              <svg
+                  fill='none'
+                  stroke='currentColor'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  strokeWidth='2'
+                  className='h-10 w-10'
+                  viewBox='0 0 24 24'
+                >
+                  <path d='M22 12h-4l-3 9L9 3l-3 9H2'></path>
+                </svg>
+              </div>
+              <div className='flex-grow'>
+                <h2 className='title-font mb-3 text-lg font-medium text-gray-900'>
+                  高配当株ファンド
+                </h2>
+                <p className='text-base leading-relaxed'>
+                  VYG,VYMの2014年末を起点とした成長率を比較分析します。上位構成銘柄のリストアップも行います。
+                </p>
+                <Link href={`/etf-highDividend`}>
+                  <a>
+                    <a className='mt-3 inline-flex items-center text-green-500'>
+                      Read More
+                      <svg
+                        fill='none'
+                        stroke='currentColor'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        strokeWidth='2'
+                        className='ml-2 h-4 w-4'
+                        viewBox='0 0 24 24'
+                      >
+                        <path d='M5 12h14M12 5l7 7-7 7'></path>
+                      </svg>
+                    </a>
+                  </a>
+                </Link>
+              </div>
+            </div>
+            <div className='flex flex-col items-center p-4 text-center md:w-1/3'>
+              <div className='mb-5 inline-flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-full bg-green-100 text-green-500'>
+                <svg
+                  fill='none'
+                  stroke='currentColor'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  strokeWidth='2'
+                  className='h-10 w-10'
+                  viewBox='0 0 24 24'
+                >
+                  <path d='M22 12h-4l-3 9L9 3l-3 9H2'></path>
+                </svg>
+              </div>
+              <div className='flex-grow'>
+                <h2 className='title-font mb-3 text-lg font-medium text-gray-900'>
+                  ヘルスケアセクター比較と分析
+                </h2>
+                <p className='text-base leading-relaxed'>
+                  ヘルスケアセクターファンドと市場インデックスの比較を行います。上位構成銘柄のリストアップも行います。
+                </p>
+                <Link href={`/etf-healthCare`}>
+                  <a>
+                    <a className='mt-3 inline-flex items-center text-green-500'>
+                      Read More
+                      <svg
+                        fill='none'
+                        stroke='currentColor'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        strokeWidth='2'
+                        className='ml-2 h-4 w-4'
+                        viewBox='0 0 24 24'
+                      >
+                        <path d='M5 12h14M12 5l7 7-7 7'></path>
+                      </svg>
+                    </a>
+                  </a>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  )
+}
+
+export default Home

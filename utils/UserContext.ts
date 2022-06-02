@@ -4,4 +4,4 @@ type value = {
     user: User | null
     session:Session | null
 }
-export const UserContext = createContext<value >({user: null, session: null})
+export const UserContext = createContext<value>({user: null, session: null})

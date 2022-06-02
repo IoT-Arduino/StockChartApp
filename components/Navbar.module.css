@@ -1,0 +1,79 @@
+.navbar {
+    background-color: #f7fafc;
+    height:80px;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menuBars {
+    margin-left:2rem;
+    font-size: 2rem;
+    background:none;
+}
+
+.navMenu {
+    background-color: #f7fafc;
+    width:250px;
+    height:100vh;
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left:-100%;
+    transition: 850ms;
+    z-index: 1000;
+}
+
+.navMenuActive {
+    background-color: #f7fafc;
+    width:250px;
+    height:100vh;
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left:0;
+    transition: 350ms;
+    z-index: 1000;
+}
+
+.navText {
+    display:flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 8px 0px 8px 16px;
+    list-style: none;
+    height: 60px;
+    color: #48bb78;
+}
+
+.navText a {
+    text-decoration: none;
+    color: #48bb78;
+    font-size: 16px;
+    width: 95%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+}
+
+
+.navText a:hover {
+    background-color: #f5f5f5;
+}
+
+.navMenuItems {
+    width:100%;
+}
+
+.navBarToggle {
+    background-color: #f7fafc;
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
