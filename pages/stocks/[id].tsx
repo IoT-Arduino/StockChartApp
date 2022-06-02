@@ -29,9 +29,34 @@ import {Company} from '../../types/Company'
 import {StockPrice} from '../../types/StockPrice'
 
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const id = await query.id
 
+export async function getStaticPaths() {
+  const filePath = path.join(process.cwd(), `./data/stockCode/US-StockList.json`);
+  const jsonData = await fsPromises.readFile(filePath);
+  const objectData = JSON.parse(jsonData as any);
+
+  const paths = objectData.map(item => {
+    return {
+      params: {id : "MSFT"}
+    }
+  })
+
+  return {
+    paths,
+    // paths: [
+    //   { params: { ... } }
+    // ],
+    fallback: 'blocking' // false or 'blocking'
+  };
+}
+
+
+
+export const getStaticProps: GetServerSideProps = async ({ query,params }) => {
+  // const id = await query.id
+  const id = await params.id
+
+  
   // const auth = await google.auth.getClient({ scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'] });
   // const sheets = google.sheets({ version: 'v4', auth });
   // const googleSheetRange = `ContentsList!A2:Q1000`;
@@ -63,9 +88,9 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 
   try {
     // temp 
-    if (fs.existsSync(`./data/edgar/2020q1/${id}_2.json`) ){
-      console.log("temp")
-    }
+    // if (fs.existsSync(`./data/edgar/2020q1/${id}_2.json`) ){
+    //   console.log("temp")
+    // }
 
 
     // stockList data from json file
@@ -89,11 +114,9 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
     // })
     
     // Get Marker Data
-    const markerList = await fetch(`${process.env.NEXT_PUBLIC_API_ENDOPOINT}/marker/marker.json`)
-    const errorCode1 = markerList.status==200 ?  200 : markerList.status
-    const markerData = await markerList.json()
-
-
+    // const markerList = await fetch(`${process.env.NEXT_PUBLIC_API_ENDOPOINT}/marker/marker.json`)
+    // const errorCode1 = markerList.status==200 ?  200 : markerList.status
+    // const markerData = await markerList.json()
 
     // price data from json file
     const filePathPrice = path.join(process.cwd(), `./data/stock/${id}.json`);
@@ -173,7 +196,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
         id,
         companyInfo: companyInfo[0],
         priceData,
-        markerData,
+        // markerData,
         edgarData: edgarRes.flat(), // edgarRes.flat(),
         // filteredSheetData,
       },
@@ -191,7 +214,7 @@ const StockChart: NextPage<{
   id: any
   companyInfo: Company,
   status:any
-}> = ({ priceData, markerData, edgarData, id, companyInfo,status }) => {
+}> = ({ priceData,  edgarData, id, companyInfo,status }) => {
 
   if (status) {
     console.log(status)
