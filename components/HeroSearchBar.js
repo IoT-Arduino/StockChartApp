@@ -26,8 +26,6 @@ function SearchBar({ placeholder, data }) {
       setWordEntered('')
   }
 
-  console.log(filteredData)
-
   return (
     <div>
       <div className={styles.searchInputs}>

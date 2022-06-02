@@ -14,37 +14,27 @@ import Datatable from '../../components/Datatable'
 
 // Types
 import { Company } from '../../types/Company'
+
+import {codeList} from '../../data/stockCode/US-StockList'
+
  
-export async function getStaticProps() {
-  try {
-    // const reqList = await fetch(
-    //   `${process.env.NEXT_PUBLIC_API_ENDOPOINT}/stockCode/US-StockList.json`
-    // )
-    // const codeList = await reqList.json()
+// export async function getStaticProps() {
+//   try {
+//     const filePath = path.join(process.cwd(), './data/stockCode/US-StockList.json');
+//     const jsonData = await fsPromises.readFile(filePath);
+//     const objectDataStockList = JSON.parse(jsonData as any);
 
-    // const codeListSorted = codeList.sort(function (a: any, b: any) {
-    //   if (a.Ticker > b.Ticker) {
-    //     return 1
-    //   } else {
-    //     return -1
-    //   }
-    // })
+//     return {
+//       props: {
+//         codeList: objectDataStockList,
+//       },
+//     }
+//   } catch (err) {
+//     console.log(err)
+//   }
+// }
 
-    const filePath = path.join(process.cwd(), './data/stockCode/US-StockList.json');
-    const jsonData = await fsPromises.readFile(filePath);
-    const objectDataStockList = JSON.parse(jsonData as any);
-
-    return {
-      props: {
-        codeList: objectDataStockList,
-      },
-    }
-  } catch (err) {
-    console.log(err)
-  }
-}
-
-const StockIndex: NextPage<{ codeList: Company[] }> = ({ codeList }) => {
+const StockIndex: NextPage = () => {
   const { user, session } = useContext(UserContext)
 
   const [data, setData] = useState([])
