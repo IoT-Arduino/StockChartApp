@@ -17,7 +17,7 @@ const Datatable = ({ data }) => {
           <tr key={i} className="border-b dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700">
             <td className="px-4 py-2">{code.Ticker}</td>
             <td className="px-4 py-2">
-              <Link href={`/stocks/${code.Ticker}`}>
+              <Link href={`/stocks/${code.Ticker}`} prefetch={false}>
                 <a className="text-green-600 hover:text-green-200">{code.Name}</a>
               </Link>
             </td>
