@@ -8,6 +8,8 @@ import HeroSlider from '../components/HeroSlider'
 
 import HeroSearchBar from '../components/HeroSearchBar'
 
+import {codeList} from '../data/stockCode/US-StockList'
+
 // images
 import DummyImage from '../public/images/TopAppleChart.png'
 import  UNHChart  from '../public/images/UNHChart.png'
@@ -15,32 +17,32 @@ import  TSLAChart  from '../public/images/TSLAChart.png'
 import  AAPLCandleChart  from '../public/images/AAPLCandleChart.png'
 import  AAPLCashFlow  from '../public/images/AAPLCashFlow.png'
 
-export async function getServerSideProps() {
-  try {
-    const reqList = await fetch(
-      `${process.env.NEXT_PUBLIC_API_ENDOPOINT}/stockCode/US-StockList.json`
-    )
-    const codeList = await reqList.json()
+// export async function getServerSideProps() {
+//   try {
+//     const reqList = await fetch(
+//       `${process.env.NEXT_PUBLIC_API_ENDOPOINT}/stockCode/US-StockList.json`
+//     )
+//     const codeList = await reqList.json()
 
-    const codeListSorted = codeList.sort(function (a: any, b: any) {
-      if (a.Ticker > b.Ticker) {
-        return 1
-      } else {
-        return -1
-      }
-    })
+//     const codeListSorted = codeList.sort(function (a: any, b: any) {
+//       if (a.Ticker > b.Ticker) {
+//         return 1
+//       } else {
+//         return -1
+//       }
+//     })
 
-    return {
-      props: {
-        codeList: codeListSorted,
-      },
-    }
-  } catch (err) {
-    console.log(err)
-  }
-}
+//     return {
+//       props: {
+//         codeList: codeListSorted,
+//       },
+//     }
+//   } catch (err) {
+//     console.log(err)
+//   }
+// }
 
-const Home: NextPage = ({ codeList }) => {
+const Home: NextPage = () => {
   return (
     <main>
       <HeroSlider codeList={codeList} />
