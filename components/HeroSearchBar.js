@@ -26,6 +26,8 @@ function SearchBar({ placeholder, data }) {
       setWordEntered('')
   }
 
+  console.log(filteredData)
+
   return (
     <div>
       <div className={styles.searchInputs}>
@@ -44,7 +46,7 @@ function SearchBar({ placeholder, data }) {
           {filteredData.slice(0, 15).map((value, key) => {
             return (
               <Link href={`/stocks/${value.Ticker}`} key={key} >
-                <a className={styles.dataItem} target='_blank' onClick={clearInput}><p className="px-4">{value.Ticker} | {value.ShortName}</p></a>
+                <a className={styles.dataItem} target='_blank' onClick={clearInput}><span className="px-4">{value.Ticker} | {value.ShortName}</span></a>
               </Link>
             )
           })}

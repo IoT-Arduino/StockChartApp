@@ -14,6 +14,7 @@ import { NextPage } from 'next'
 const Home:NextPage = () => {
   const [bookmark, setBookmark] = useState<Bookmark[] | null>([])
   const [comments, setComments] = useState<Comments[] | null>([])
+  const [markers, setMarkers] = useState<Comments[] | null>([])
 
   const { user, session } = useContext(UserContext)
   const { replace } = useRouter()
@@ -28,6 +29,7 @@ const Home:NextPage = () => {
   useEffect(() => {
     fetchBookmark()
     fetchComments()
+    fetchMarkers()
   }, [])
 
   async function fetchBookmark() {
@@ -68,6 +70,43 @@ const Home:NextPage = () => {
     }
   }
 
+  async function fetchMarkers() {
+    if (user) {
+      try {
+        const { data, error } = await supabase.from('marker').select().eq('user_id', user.id)
+        if (error) {
+          throw error
+        } else {
+          // console.log(data)
+          if(data){
+            setMarkers(data)
+          }
+        }
+      } catch (error:any) {
+        alert(error.message)
+      }
+    }
+  }
+
+  console.log(markers)
+
+
+  // const fetchMarker = async () => {
+  //   if (user) {
+  //     let { data: items, error } = await supabase
+  //       .from('marker')
+  //       .select('*')
+  //       .match({ ticker: id, user_id: user.id })
+  //     if (error) console.log('error', error)
+  //     else {
+  //       const markerFetchedTemp = getMarkerData(items)
+  //       setMarker(markerFetchedTemp)
+  //     }
+  //   }
+  // }
+
+
+
   return (
     <div className='m-auto max-w-7xl p-10'>
       <p className='font-xl mt-3 mb-2 font-bold'>BookMark一覧</p>
@@ -83,6 +122,17 @@ const Home:NextPage = () => {
             </div>
           )
         })}
+
+      <p className='font-xl mt-3 mb-2 font-bold'>Marker一覧</p>
+      {markers &&
+        markers.map((marker, i) => {
+          return (
+            <li key={i}>
+              {marker.date}/{marker.ticker}-[markerの内容]:{marker.memo}
+            </li>
+          )
+        })}
+
       <p className='font-xl mt-3 mb-2 font-bold'>Comments一覧</p>
       {comments &&
         comments.map((comments, i) => {
