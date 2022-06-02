@@ -3,7 +3,7 @@ import styles from './HeroSearchBar.module.css'
 import Link from 'next/link'
 import * as AiIcons from 'react-icons/ai';
 
-function SearchBar({ placeholder, data }) {
+function SearchBar({ placeholder, data, setOpened }) {
   const [filteredData, setFilteredData] = useState([])
   const [wordEntered,setWordEntered] = useState("")
 
@@ -24,6 +24,7 @@ function SearchBar({ placeholder, data }) {
   const clearInput = () => {
       setFilteredData([])
       setWordEntered('')
+      setOpened(false)
   }
 
   return (

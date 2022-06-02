@@ -1,27 +1,27 @@
 import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
-import styles from './Navbar.module.css'
+import Link from 'next/link'
+import { useContext } from 'react'
+import { useRouter } from 'next/router'
 
+// Style & Images
+import styles from './Navbar.module.css'
+import { IconContext } from 'react-icons'
 import * as FaIcons from 'react-icons/fa'
 import * as AiIcons from 'react-icons/ai'
 import * as IoIcons from 'react-icons/io'
-
-import Link from 'next/link'
-// import { NavSidebarData } from './NavSidebarData'
-import { IconContext } from 'react-icons'
 import logo from '../public/logo.png'
-
-import { supabase } from '../utils/supabase'
-import { useContext } from 'react'
-import { UserContext } from '../utils/UserContext'
-import { useRouter } from 'next/router'
-
-import SearchBar from './HeroSearchBar'
-
 import { Modal } from '@mantine/core'
 
-import {codeList} from '../data/stockCode/US-StockList'
+// Supabase
+import { supabase } from '../utils/supabase'
+import { UserContext } from '../utils/UserContext'
 
+// Components
+import SearchBar from './HeroSearchBar'
+
+// JSON Data
+import { codeList } from '../data/stockCode/US-StockList'
 
 const NavSidebarData = [
   {
@@ -45,60 +45,74 @@ const NavSidebarData = [
 ]
 
 const Navbar = () => {
-
   const [sidebar, setSidebar] = useState(false)
+  const [opened, setOpened] = useState(false)
+  const [signIn, setSignIn] = useState(false)
+
+  const { replace } = useRouter()
+  const { user } = useContext(UserContext)
+
+  useEffect(() => {
+    if (!user) {
+      setSignIn(false)
+    } else {
+      setSignIn(true)
+    }
+  }, [user])
 
   const showSidebar = () => {
     setSidebar(!sidebar)
   }
 
-  const { replace } = useRouter()
-  const { user } = useContext(UserContext)
-
-  //  console.log(user)
-
   const signOut = () => {
     supabase.auth.signOut()
     alert('サインアウトしました')
-    console.log(user)
     replace('/')
   }
 
-  // for modal
-  const [opened, setOpened] = useState(false)
-
   return (
     <IconContext.Provider value={{ color: '#48bb78' }}>
-      <nav className='mx-auto flex h-16 max-w-7xl items-center justify-between bg-white'>
+      <nav>
         {/* PC Nav Menu */}
-        <div className='hidden flex-none md:flex md:flex-1 lg:flex-1 xl:flex-1'>
+        <div className='mx-auto hidden h-16 max-w-7xl items-center justify-between bg-white md:flex'>
           <Link href='/'>
             <a>
               <Image src={logo} alt='logo' width={75} height={75} />
             </a>
           </Link>
-        </div>
-        <div className='m-5 hidden flex-initial font-bold text-[#abc5c5] md:flex '>
-          <ul className='flex-initial text-left md:flex'>
-            {NavSidebarData.map((value, index) => (
-              <li key={index} className='p-4'>
-                <a href={value.path}>{value.title} </a>
-              </li>
-            ))}
-            {!user ? (
-              <li className='p-4'>
-                <Link href='/signin'>
-                  <a className='font-bold'>サインイン</a>
-                </Link>
-              </li>
-            ) : (
-              <li className='p-4'>
-                <Link href='/' onClick={signOut}>
-                  <a className='font-bold'>サインアウト!</a>
-                </Link>
-              </li>
-            )}
-          </ul>
+          <div className='m-5 hidden flex-initial font-bold text-[#abc5c5] md:flex '>
+            <ul className='flex-initial text-left md:flex'>
+              {NavSidebarData.map((value, index) => (
+                <li key={index} className='p-4 list-none'>
+                  <a href={value.path} className="no-underline text-green-500 hover:text-green-200">{value.title} </a>
+                </li>
+              ))}
+
+              {!signIn ? (
+                <li className='p-4 list-none'>
+                  <Link href='/signin'>
+                    <a className='font-bold no-underline text-green-500 hover:text-green-200'>サインイン</a>
+                  </Link>
+                </li>
+              ) : (
+                <li className='p-4 list-none'>
+                  <div onClick={signOut}>
+                    <a className='font-bold no-underline text-green-500 hover:text-green-200'>サインアウト!</a>
+                  </div>
+                </li>
+              )}
+
+              {/* Search Icon and ( Modal )*/}
+              <div>
+                <p>
+                  <AiIcons.AiOutlineSearch
+                    className='cursor-pointer text-3xl'
+                    onClick={() => setOpened(true)}
+                  />
+                </p>
+              </div>
+            </ul>
+          </div>
         </div>
 
         {/* Mobile Top Menu with Hamburger */}
@@ -108,38 +122,42 @@ const Navbar = () => {
           </div>
           <Link href='/' passHref>
             <div className='ml-3 cursor-pointer text-2xl font-extrabold text-green-500'>
-              TenQ.cc
+              <a>TenQ.cc</a>
             </div>
           </Link>
-
+          {/* Search Icon and Modal */}
           <div>
             <p>
-              <AiIcons.AiOutlineSearch className='cursor-pointer text-3xl' onClick={() => setOpened(true)}/>
+              <AiIcons.AiOutlineSearch
+                className='cursor-pointer text-3xl'
+                onClick={() => setOpened(true)}
+              />
             </p>
           </div>
-
           <Modal
             opened={opened}
             onClose={() => setOpened(false)}
             title='Input Ticker or CompanyName'
           >
-            <SearchBar placeholder="Ticker or Company" data={codeList}/>
-
+            <SearchBar placeholder='Ticker or Company' data={codeList} setOpened={setOpened} />
           </Modal>
         </div>
+
         {/* Mobile SideMenu */}
         <div className={sidebar ? styles.navMenuActive : styles.navMenu}>
           <ul className={styles.navMenuItems} onClick={showSidebar}>
             <li className={styles.navBarToggle}>
               <Link href='/' passHref>
                 <div className={styles.menuBars}>
-                  <AiIcons.AiOutlineClose />
+                  <a>
+                    <AiIcons.AiOutlineClose />
+                  </a>
                 </div>
               </Link>
             </li>
             {NavSidebarData.map((item, index) => {
               return (
-                <li key={index} className={item.cName}>
+                <li key={index} className={styles.navListItem}>
                   <div className={styles.navText}>
                     <Link href={item.path}>
                       <a>
@@ -151,8 +169,9 @@ const Navbar = () => {
                 </li>
               )
             })}
-            {!user ? (
-              <li>
+
+            {!signIn ? (
+              <li className="list-none">
                 <div className={styles.navText}>
                   <Link href='/signin'>
                     <a>
@@ -163,7 +182,7 @@ const Navbar = () => {
                 </div>
               </li>
             ) : (
-              <li>
+              <li className="list-none">
                 <div className={styles.navText}>
                   <div onClick={signOut} className='w-full'>
                     <a>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import Slider from 'react-slick'
 import Image from 'next/image'
 import Topimage1 from '../public/images/TopAppleChart.png'
@@ -7,6 +7,9 @@ import styles from './HeroSlider.module.css'
 import HeroSearchBar from './HeroSearchBar';
 
 export default function HeroSlider({codeList}) {
+
+  // NavbarのModalの開閉に関するもの、バグ防止用
+  const [opened, setOpened] = useState(false)
 
   var settings = {
     dots: false,
@@ -41,7 +44,7 @@ export default function HeroSlider({codeList}) {
             業績と株価一覧確認
           </p>
           <div className='mb-2'>
-            <HeroSearchBar placeholder="Ticker or Company" data={codeList}/>
+            <HeroSearchBar placeholder="Ticker or Company" data={codeList} setOpened={setOpened}/>
           </div>
         </div>
       </div>
