@@ -3,12 +3,10 @@ import { useState, useEffect } from 'react'
 import { supabase } from '../utils/supabase'
 import { Button } from "@supabase/ui";
 
-export default function BookMark({ user, ticker }) {
+export default function BookMark({ user, ticker }:{ user:any, ticker:string}) {
 
   //  <!-- BookMark -->
-  const [star, setStar] = useState(false)
-  const [bookMarkId, setBookMarkId] = useState('')
-  //  <!-- 入力したtodo -->
+  const [star, setStar] = useState<boolean|null>(false)
   const [errorText, setError] = useState('')
 
   useEffect(() => {
@@ -21,12 +19,12 @@ export default function BookMark({ user, ticker }) {
       .from('bookmark')
       .select('*')
       .match({ticker: ticker, user_id: user.id})
-      .single()
-
+    
     if (error) console.log('error', error)
     else {
-      setStar(items.bookmark)
-      setBookMarkId(items.id)
+      if(items){
+        setStar(items.bookmark)
+      }
     }
   }
 
@@ -35,7 +33,7 @@ export default function BookMark({ user, ticker }) {
        let { data, error } = await supabase
           .from('bookmark')
           .insert({ bookmark: true, user_id: user.id, ticker})
-          .single()
+
         if (error) setError(error.message)
         else {
           setStar(true)
@@ -51,7 +49,7 @@ export default function BookMark({ user, ticker }) {
 
   return (
     <div>
-      {!!errorText && <Alert text={errorText} />}
+      {/* {!!errorText && <Alert text={errorText} />} */}
         <Button block
           onClick={(e) => {
             e.preventDefault()
@@ -66,8 +64,3 @@ export default function BookMark({ user, ticker }) {
   )
 }
 
-const Alert = ({ text }) => (
-  <div className="rounded-md bg-red-100 p-4 my-3">
-    <div className="text-sm leading-5 text-red-700">{text}</div>
-  </div>
-)
