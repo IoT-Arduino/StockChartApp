@@ -27,9 +27,9 @@ const signup = () => {
     })
   }
   return (
-    <div className='center flex h-screen items-center justify-center'>
+    <div className='center flex items-center justify-center my-20'>
       <div className='w-full bg-white  p-5 shadow sm:max-w-xl sm:rounded-lg'>
-        <h2 className="text-xl">招待制</h2>
+        <h2 className="text-xl">サインアップ（招待制）</h2>
         <form onSubmit={handleSubmit(runSignup)}>
           <Controller
             control={control}
