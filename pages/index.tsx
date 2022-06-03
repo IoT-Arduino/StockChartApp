@@ -191,7 +191,7 @@ const Home: NextPage = () => {
                 <p className='text-base leading-relaxed'>
                   VOO,VTI,VTの2014年末を起点とした成長率を比較分析します。上位構成銘柄のリストアップも行います。
                 </p>
-                <Link href={`/etf-index`}>
+                <Link href={`/etfs/etf-index`}>
                     <a className='mt-3 inline-flex items-center text-green-500'>
                       Read More
                       <svg
@@ -230,7 +230,7 @@ const Home: NextPage = () => {
                 <p className='text-base leading-relaxed'>
                   VYG,VYMの2014年末を起点とした成長率を比較分析します。上位構成銘柄のリストアップも行います。
                 </p>
-                <Link href={`/etf-highDividend`}>
+                <Link href={`/etfs/etf-highDividend`}>
                         <a className='mt-3 inline-flex items-center text-green-500'>
                       Read More
                       <svg
@@ -269,7 +269,7 @@ const Home: NextPage = () => {
                 <p className='text-base leading-relaxed'>
                   ヘルスケアセクターファンドと市場インデックスの比較を行います。上位構成銘柄のリストアップも行います。
                 </p>
-                <Link href={`/etf-healthCare`}>
+                <Link href={`/etfs/etf-healthCare`}>
      
                     <a className='mt-3 inline-flex items-center text-green-500'>
                       Read More
