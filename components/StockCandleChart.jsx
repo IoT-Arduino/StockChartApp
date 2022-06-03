@@ -85,6 +85,8 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
       stockHoldersEquity: item.stockHoldersEquity,
       // 株式指標・経営指標
       numberOfSharesOutstanding: numberOfSharesOutstanding,
+      // 営業CFマージン 単四半期の営業CF / 単四半期の売上
+      operatingCashFlowMargin: item.operatingCashFlow / item.revenue,
 
       // Yahoo Finance と一致する。commonStockSharesOutstanding　を使用。
       bps: parseFloat(bookPerShare).toFixed(2),
@@ -137,6 +139,9 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
       // 経営指標
       stockHoldersEquityRatio: newEdgarData.find((value) => value.date === price.date)
         ?.stockHoldersEquityRatio,
+
+      operatingCashFlowMargin: newEdgarData.find((value) => value.date === price.date)
+        ?.operatingCashFlowMargin,
 
       // 株式指標   price.calcRatio で調整する。ｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰ
       // 株式数　分割の場合、株数は過去の株数に掛け算する。。
@@ -210,7 +215,7 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
   })
 
   // console.log(isNaN(companyData[0].numberOfSharesOutstanding))
-  // console.log(edgarData)
+  console.log(companyData)
 
   // 　チャート表示用配列データ作成　＝＝＝＝＝＝＝＝＝＝＝＝＝
 
@@ -619,7 +624,7 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
                           : '-'}
                       </td>
                       <td className='px-4 py-2'>
-                        {item.assets ? parseInt(item.assets / 1000000).toLocaleString() : '-'}
+                        {item.assets ? parseInt(item.assets / 1000).toLocaleString() : '-'}
                       </td>
                       <td className='px-4 py-2'>
                         {item.stockHoldersEquity
@@ -701,9 +706,16 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
               <th scope='col' className='px-4 py-2'>
                 営業CF
               </th>
-              <th scope='col' className='px-4 py-2'>
-                総資産
-              </th>
+              {companyInfo.Sector === 'Finance' ? (
+                <th scope='col' className='px-4 py-2'>
+                  総資産
+                </th>
+              ) : (
+                <th scope='col' className='px-4 py-2'>
+                  営業CFマージン
+                </th>
+              )}
+
               <th scope='col' className='px-4 py-2'>
                 株主資本
               </th>
@@ -762,7 +774,10 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
                           : '-'}
                       </td>
                       <td className='px-4 py-2'>
-                        {item.assets ? parseInt(item.assets / 1000000).toLocaleString() : '-'}
+                        {item.operatingCashFlowMargin
+                          ? (item.operatingCashFlowMargin * 100).toFixed(1)
+                          : '-'}
+                        %
                       </td>
                       <td className='px-4 py-2'>
                         {item.stockHoldersEquity
