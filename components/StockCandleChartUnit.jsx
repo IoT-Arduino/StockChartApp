@@ -85,6 +85,9 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
       // 株式指標・経営指標
       numberOfSharesOutstanding: numberOfSharesOutstanding,
 
+      // 営業CFマージン 単四半期の営業CF / 単四半期の売上
+      operatingCashFlowMargin:item.operatingCashFlow / item.revenue,
+
       // Yahoo Finance と一致する。commonStockSharesOutstanding　を使用。
       bps: parseFloat(bookPerShare).toFixed(2),
       // EPSはBasicを使用（データがそろっている、YahooFinanceと同じ、株探USはDiluted）
@@ -133,9 +136,12 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
         ?.stockHoldersEquity,
       assets: newEdgarData.find((value) => value.date === price.date)?.assets,
 
-      // 経営指標
+      // 経営指標 ｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰ
       stockHoldersEquityRatio: newEdgarData.find((value) => value.date === price.date)
         ?.stockHoldersEquityRatio,
+
+      operatingCashFlowMargin:newEdgarData.find((value) => value.date === price.date)
+      ?.operatingCashFlowMargin,
 
       // 株式指標   price.calcRatio で調整する。ｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰ
       // 株式数　分割の場合、株数は過去の株数に掛け算する。。
