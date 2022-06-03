@@ -6,23 +6,22 @@ import Link from 'next/link'
 
 import HeroSlider from '../components/HeroSlider'
 
-import {codeList} from '../data/stockCode/US-StockList'
+import { codeList } from '../data/stockCode/US-StockList'
 
 // images
 import DummyImage from '../public/images/TopAppleChart.png'
-import  UNHChart  from '../public/images/UNHChart.png'
-import  TSLAChart  from '../public/images/TSLAChart.png'
-import  AAPLCandleChart  from '../public/images/AAPLCandleChart.png'
-import  AAPLCashFlow  from '../public/images/AAPLCashFlow.png'
+import UNHChart from '../public/images/UNHChart.png'
+import TSLAChart from '../public/images/TSLAChart.png'
+import AAPLCandleChart from '../public/images/AAPLCandleChart.png'
+import AAPLCashFlow from '../public/images/AAPLCashFlow.png'
 
 const Home: NextPage = () => {
-
   return (
     <main>
       <HeroSlider codeList={codeList} />
 
       <section className='body-font text-gray-600'>
-        <div className='mx-auto w-full px-5 pt-10 md:max-w-5xl'>
+        <div className='mx-auto w-full px-3 pt-10 md:max-w-5xl'>
           <div className='mb-8'>
             <h2 className='title-font mb-4 text-center text-xl font-medium text-gray-900 sm:text-3xl md:text-left'>
               米国代表500社の株価、四半期業績を直感的に俯瞰できる！
@@ -30,19 +29,17 @@ const Home: NextPage = () => {
               TenQチャートとは
             </h2>
             <div className='px-2 text-xl lg:px-10'>
-              <p className='mb-4'>
-                株式投資の為の分析には二つの方法があります。
-                <br />
-                一つはチャート分析、移動平均線、RSI、MACD等のテクニカル指標を使うもの。
-                <br />
-                もう一つは、ファンダメンタル分析といい、財務諸表分析等を行うもの。
-                <br />
+              <p className='mb-4'>株式投資の為の分析には二つの方法があります。</p>
+              <p>一つはチャート分析、移動平均線、RSI、MACD等のテクニカル指標を使うもの。</p>
+              <p>もう一つは、ファンダメンタル分析といい、財務諸表分析等を行うもの。</p>
+              <p>
+                <span className="font-bold">TenQチャートはこれら指標よりもさらに直感的に、企業の業績と株価を俯瞰してビッグピクチャを得るものです。</span>
+                株式銘柄のスクリーニングや、株式投資判断材料の一つとしてお役立てください。
               </p>
               <p>
-                TenQチャートはこれら指標よりもさらに直感的に、企業の業績と株価を俯瞰してビッグピクチャを得るものです。TenQとは10-Qすなわち米国上場企業の四半期報告のファイリングネームにちなんで命名されました。TenQチャートを、
-                株式銘柄のスクリーニングや、株式投資判断材料の一つとしてお役立てください。複雑で詳細な分析に入る前に、企業の事業価値と株価の関係を時系列で俯瞰することができます。
-                TenQチャートを使うことで、あなたの投資力は数倍アップすることでしょう。
-              </p>
+                複雑で詳細な分析に入る前に、企業の事業価値と株価の関係を時系列で俯瞰することができます。</p>
+                <p className="font-bold">
+                TenQチャートを使うことで、あなたの投資力は数倍アップすることでしょう。</p>
             </div>
 
             <div className='mt-8 flex justify-center'>
@@ -54,9 +51,13 @@ const Home: NextPage = () => {
 
       <section className='body-font text-gray-600'>
         <div className='mx-auto max-w-5xl'>
-          <div className='mx-auto flex max-w-5xl flex-col items-center px-5 py-8 md:flex-row'>
+          <div className='mx-auto flex max-w-5xl flex-col items-center px-3 py-8 md:flex-row'>
             <div className='w-5/6 md:w-1/2 lg:w-full lg:max-w-lg'>
-              <Image className='rounded object-cover object-center' alt='hero' src={AAPLCandleChart} />
+              <Image
+                className='rounded object-cover object-center'
+                alt='hero'
+                src={AAPLCandleChart}
+              />
             </div>
             <div className='mt-8 flex flex-col items-center text-center md:mb-0 md:w-1/2 md:items-start md:pl-8 md:text-left lg:flex-grow'>
               <h2 className='title-font mb-4 text-xl font-medium text-gray-900 sm:text-2xl'>
@@ -75,7 +76,7 @@ const Home: NextPage = () => {
 
       <section className='body-font text-gray-600'>
         <div className='mx-auto max-w-5xl'>
-          <div className='mx-auto flex max-w-5xl flex-col items-center px-5 py-8 md:flex-row'>
+          <div className='mx-auto flex max-w-5xl flex-col items-center px-3 py-8 md:flex-row'>
             <div className='w-5/6 md:w-1/2 lg:w-full lg:max-w-lg'>
               <Image className='rounded object-cover object-center' alt='hero' src={AAPLCashFlow} />
             </div>
@@ -96,14 +97,16 @@ const Home: NextPage = () => {
 
       <section>
         <div className='mb-2'>
-          <div className='mx-auto w-full sm:w-2/3 md:w-1/2 rounded-xl bg-yellow-100 bg-opacity-80 p-4 text-center text-gray-800 shadow-xl '>
+          <div className='mx-auto w-full rounded-xl bg-yellow-100 bg-opacity-80 p-4 text-center text-gray-800 shadow-xl sm:w-2/3 md:w-1/2 '>
             <h2 className='mb-4 text-xl font-extrabold sm:text-2xl md:text-4xl'>TenQチャート</h2>
             <p className='mx-auto mb-2 font-sans font-extrabold sm:mb-4 sm:w-full sm:px-2 md:text-xl'>
               米国企業の四半期業績と株価を一発確認
             </p>
             <div className='mb-2'>
               <Link href='/stocks'>
-                <a className="text-green-500 hover:text-green-200 font-extrabold text-lg">米国代表500社株式一覧をチェック!</a>
+                <a className='text-lg font-extrabold text-green-500 hover:text-green-200'>
+                  米国代表500社株式一覧をチェック!
+                </a>
               </Link>
             </div>
           </div>
@@ -112,7 +115,7 @@ const Home: NextPage = () => {
 
       <section className='body-font text-gray-600'>
         <div className='mx-auto max-w-5xl'>
-          <div className='mx-auto flex max-w-5xl flex-col items-center px-5 py-8 md:flex-row'>
+          <div className='mx-auto flex max-w-5xl flex-col items-center px-2 py-8 md:flex-row'>
             <div className='w-5/6 md:w-1/2 lg:w-full lg:max-w-lg'>
               <Image className='rounded object-cover object-center' alt='hero' src={TSLAChart} />
             </div>
@@ -126,7 +129,7 @@ const Home: NextPage = () => {
                 2020年から、株価の上昇に先行する形で、業績（売上高,営業活動CF,純利益）がすさまじい勢いで上昇していることが見て取れます。現在は、TenQチャートライン（BPS+PER*15）からはかなり乖離しており、買われすぎという見方もできますが、このままの勢いで業績が上昇することで、株価に業績が追いついてくると、さらに株価が先行して上昇することも考えられますね。典型的なグロース株のチャートです。
               </p>
               <Link href='/stocks/TSLA'>
-                <a className="text-green-500 hover:text-green-200">TSLA:テスラのチャートページへ</a>
+                <a className='text-green-500 hover:text-green-200'>TSLA:テスラのチャートページへ</a>
               </Link>
             </div>
           </div>
@@ -135,7 +138,7 @@ const Home: NextPage = () => {
 
       <section className='body-font text-gray-600'>
         <div className='mx-auto max-w-5xl'>
-          <div className='mx-auto flex max-w-5xl flex-col items-center px-5 py-8 md:flex-row'>
+          <div className='mx-auto flex max-w-5xl flex-col items-center px-2 py-8 md:flex-row'>
             <div className='w-5/6 md:w-1/2 lg:w-full lg:max-w-lg'>
               <Image className='rounded object-cover object-center' alt='hero' src={UNHChart} />
             </div>
@@ -149,7 +152,9 @@ const Home: NextPage = () => {
                 好不況の影響に大きく左右されず、順調に利益（緑色の領域）と純資産（青色の領域）を積み上げていく、非常に堅実なヘルスセクターの代表的企業になります。また、営業活動CF（棒グラフ緑色）については、CFマージンが若干低いことが気になりますが、純利益（棒グラフ黄色）との関係は非常に良好で、本業での稼ぐ力が非常に安定した優良企業であるといえます。
               </p>
               <Link href='/stocks/UNH'>
-                <a className="text-green-500 hover:text-green-200">UNH:ユナイテッドヘルスのチャートページへ</a>
+                <a className='text-green-500 hover:text-green-200'>
+                  UNH:ユナイテッドヘルスのチャートページへ
+                </a>
               </Link>
             </div>
           </div>
@@ -157,7 +162,7 @@ const Home: NextPage = () => {
       </section>
 
       <section className='body-font text-gray-600'>
-        <div className='mx-auto w-full px-5 py-8 md:max-w-5xl'>
+        <div className='mx-auto w-full px-2 py-8 md:max-w-5xl'>
           <div className='mb-12 text-center'>
             <h2 className='title-font mb-4 text-2xl font-medium text-gray-900 sm:text-3xl'>
               インデックスファンド（ETF）、セクター別ファンド（ETF）比較と分析
@@ -169,8 +174,8 @@ const Home: NextPage = () => {
               <div className='inline-flex h-1 w-16 rounded-full bg-green-500'></div>
             </div>
           </div>
-          <div className='-mx-4 -mb-10 -mt-4 flex flex-wrap space-y-6 sm:-m-4 md:space-y-0'>
-            <div className='flex flex-col items-center p-4 text-center md:w-1/3'>
+          <div className='mb-10 mt-4 flex flex-wrap space-y-6 sm:m-4 md:space-y-0'>
+            <div className='flex flex-col items-center p-2 text-center md:w-1/3'>
               <div className='mb-5 inline-flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-full bg-green-100 text-green-500'>
                 <svg
                   fill='none'
@@ -192,26 +197,26 @@ const Home: NextPage = () => {
                   VOO,VTI,VTの2014年末を起点とした成長率を比較分析します。上位構成銘柄のリストアップも行います。
                 </p>
                 <Link href={`/etfs/etf-index`}>
-                    <a className='mt-3 inline-flex items-center text-green-500'>
-                      Read More
-                      <svg
-                        fill='none'
-                        stroke='currentColor'
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        strokeWidth='2'
-                        className='ml-2 h-4 w-4'
-                        viewBox='0 0 24 24'
-                      >
-                        <path d='M5 12h14M12 5l7 7-7 7'></path>
-                      </svg>
-                    </a>
+                  <a className='mt-3 inline-flex items-center text-green-500'>
+                    Read More
+                    <svg
+                      fill='none'
+                      stroke='currentColor'
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      strokeWidth='2'
+                      className='ml-2 h-4 w-4'
+                      viewBox='0 0 24 24'
+                    >
+                      <path d='M5 12h14M12 5l7 7-7 7'></path>
+                    </svg>
+                  </a>
                 </Link>
               </div>
             </div>
-            <div className='flex flex-col items-center p-4 text-center md:w-1/3'>
+            <div className='flex flex-col items-center p-2 text-center md:w-1/3'>
               <div className='mb-5 inline-flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-full bg-green-100 text-green-500'>
-              <svg
+                <svg
                   fill='none'
                   stroke='currentColor'
                   strokeLinecap='round'
@@ -231,24 +236,24 @@ const Home: NextPage = () => {
                   VYG,VYMの2014年末を起点とした成長率を比較分析します。上位構成銘柄のリストアップも行います。
                 </p>
                 <Link href={`/etfs/etf-highDividend`}>
-                        <a className='mt-3 inline-flex items-center text-green-500'>
-                      Read More
-                      <svg
-                        fill='none'
-                        stroke='currentColor'
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        strokeWidth='2'
-                        className='ml-2 h-4 w-4'
-                        viewBox='0 0 24 24'
-                      >
-                        <path d='M5 12h14M12 5l7 7-7 7'></path>
-                      </svg>
-                     </a>
+                  <a className='mt-3 inline-flex items-center text-green-500'>
+                    Read More
+                    <svg
+                      fill='none'
+                      stroke='currentColor'
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      strokeWidth='2'
+                      className='ml-2 h-4 w-4'
+                      viewBox='0 0 24 24'
+                    >
+                      <path d='M5 12h14M12 5l7 7-7 7'></path>
+                    </svg>
+                  </a>
                 </Link>
               </div>
             </div>
-            <div className='flex flex-col items-center p-4 text-center md:w-1/3'>
+            <div className='flex flex-col items-center p-2 text-center md:w-1/3'>
               <div className='mb-5 inline-flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-full bg-green-100 text-green-500'>
                 <svg
                   fill='none'
@@ -270,22 +275,21 @@ const Home: NextPage = () => {
                   ヘルスケアセクターファンドと市場インデックスの比較を行います。上位構成銘柄のリストアップも行います。
                 </p>
                 <Link href={`/etfs/etf-healthCare`}>
-     
-                    <a className='mt-3 inline-flex items-center text-green-500'>
-                      Read More
-                      <svg
-                        fill='none'
-                        stroke='currentColor'
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        strokeWidth='2'
-                        className='ml-2 h-4 w-4'
-                        viewBox='0 0 24 24'
-                      >
-                        <path d='M5 12h14M12 5l7 7-7 7'></path>
-                      </svg>
-                    </a>
-                          </Link>
+                  <a className='mt-3 inline-flex items-center text-green-500'>
+                    Read More
+                    <svg
+                      fill='none'
+                      stroke='currentColor'
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      strokeWidth='2'
+                      className='ml-2 h-4 w-4'
+                      viewBox='0 0 24 24'
+                    >
+                      <path d='M5 12h14M12 5l7 7-7 7'></path>
+                    </svg>
+                  </a>
+                </Link>
               </div>
             </div>
           </div>
