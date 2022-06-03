@@ -10,7 +10,7 @@ import { supabase } from '../../utils/supabase'
 import { UserContext } from '../../utils/UserContext'
 
 // Components & Utils
-import Comments from '../../components/Comments'
+import InputComments from '../../components/InputComments'
 import BookMark from '../../components/BookMark'
 import InputMarker from '../../components/InputMarker'
 import StockCandleChart from '../../components/StockCandleChart'
@@ -87,11 +87,6 @@ export const getStaticProps: GetServerSideProps = async ({ query,params }) => {
   ]
 
   try {
-    // temp 
-    // if (fs.existsSync(`./data/edgar/2020q1/${id}_2.json`) ){
-    //   console.log("temp")
-    // }
-
 
     // stockList data from json file
     const filePathStockList = path.join(process.cwd(), `./data/stockCode/US-StockList.json`);
@@ -293,7 +288,7 @@ const StockChart: NextPage<{
             <></>
           ) : (
             <div className='my-3'>
-              <Comments user={supabase.auth.user()} ticker={id} />
+              <InputComments user={supabase.auth.user()} ticker={id} />
               <InputMarker user={supabase.auth.user()} ticker={id} />
             </div>
           )}

@@ -3,8 +3,9 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import styles from '../styles/Home.module.css'
-import EtfCandleChart from './../components/EtfCandleChart'
+import styles from './../../styles/Home.module.css'
+import EtfCandleChart from './../../components/EtfCandleChart'
+import EtfCompareLineChart from './../../components/EtfCompareLineChart'
 
 export async function getServerSideProps() {
   try {
@@ -12,7 +13,7 @@ export async function getServerSideProps() {
     const p2 = 9999999999
     const range = '5d' // week "5d" , month "1mo"
 
-    const symbols = ['VIG', 'VYM']
+    const symbols = ['VOO', 'VTI', 'VT', 'VWO']
 
     const etfResponse = symbols.map(async (symbol) => {
       let reqList = await fetch(
@@ -31,8 +32,10 @@ export async function getServerSideProps() {
     return {
       props: {
         fundsData: {
-          vigData: etfResponseData[0],
-          vymData: etfResponseData[1],
+          vooData: etfResponseData[0],
+          vtiData: etfResponseData[1],
+          vtData: etfResponseData[2],
+          vwoData: etfResponseData[3],
         },
       },
     }
@@ -42,17 +45,23 @@ export async function getServerSideProps() {
 }
 
 const Home: NextPage = ({ fundsData }: any) => {
-  
   return (
     <main>
+      <h2 className={styles.title}>米国主要ETF比較</h2>
+      <div>米国主要インデックスETF（Vanguard系の比較、2014年末を起点とした成長率）</div>
+
       <div className='mx-2 mt-8'>
-        <p className='text-bold text-2xl'>{fundsData.vigData.meta.symbol}</p>
-        <EtfCandleChart etfData={fundsData.vigData} />
+        <p className='text-bold text-2xl'>VOO,VTI,VT</p>
+        <EtfCompareLineChart fundsData={fundsData} />
         <div className='mx-auto md:w-4/5'>
+          <p>VOOの説明（赤線）：S&P500インデックス指数に連動したETF</p>
           <p>
-            VIGの説明：、10年以上連続で一貫して増配する方針がとられている米国株（約250銘柄）を投資対象とするETFです（REITを除く）。
+            VTIの説明（緑線）：中小型株を含めた米国市場の約4,000銘柄をカバーしているETF。厚切りジェイソンさんが著書「ジェイソン流お金の増やし方」でおすすめしている。
           </p>
-          <p className='text-bold mt-3 mb-2 text-xl'>上位構成銘柄</p>
+          <p>
+            VTの説明（青線）：先進国と新興国市場の両方を対象とし、米国内外の株式で構成されるETF。「ほったらかし投資術」で推奨されている。
+          </p>
+          <p className='text-bold mt-3 mb-2 text-xl'>上位構成銘柄（VOO,VTI,VT共通）</p>
 
           <table className='w-full sm:w-1/2 text-center text-sm text-gray-500 dark:text-gray-400 mx-auto'>
             <thead className='bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
@@ -63,7 +72,13 @@ const Home: NextPage = ({ fundsData }: any) => {
               </tr>
             </thead>
             <tbody>
-
+              <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
+                <td className='px-4 py-2'>
+                  <Link href='/stocks/AAPL'>
+                    <a className="text-green-600 hover:text-green-200">AAPL:アップル</a>
+                  </Link>
+                </td>
+              </tr>
               <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
                 <td className='px-4 py-2'>
                   <Link href='/stocks/MSFT'>
@@ -72,89 +87,64 @@ const Home: NextPage = ({ fundsData }: any) => {
                 </td>
               </tr>
 
-
-
               <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
                 <td className='px-4 py-2'>
-                <Link href='/stocks/UNH'>
-                <a className="text-green-600 hover:text-green-200">UNH:ユナイテッドヘルス・グループ</a>
+                <Link href='/stocks/AMZN'>
+                <a className="text-green-600 hover:text-green-200">AMZN:アマゾン</a>
               </Link>
                 </td>
               </tr>
               <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
                 <td className='px-4 py-2'>
-                <Link href='/stocks/JNJ'>
-                <a className="text-green-600 hover:text-green-200">JNJ:ジョンソン・エンド・ジョンソン(J&J)</a>
+                <Link href='/stocks/GOOGL'>
+                <a className="text-green-600 hover:text-green-200">GOOGL:アルファベット</a>
               </Link>
                 </td>
               </tr>
               <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
                 <td className='px-4 py-2'>
-                <Link href='/stocks/JPM'>
-                <a className="text-green-600 hover:text-green-200">JPモルガン・チェース・アンド・カンパニー</a>
+                <Link href='/stocks/TSLA'>
+                <a className="text-green-600 hover:text-green-200">TSLA:テスラ</a>
               </Link>
                 </td>
               </tr>
               <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
                 <td className='px-4 py-2'>
-                <Link href='/stocks/PG'>
-                <a className="text-green-600 hover:text-green-200">PG:プロクター・アンド・ギャンブル(P&G)</a>
+                <Link href='/stocks/FB'>
+                <a className="text-green-600 hover:text-green-200">FB:メタ</a>
               </Link>
                 </td>
               </tr>
               <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
                 <td className='px-4 py-2'>
-                <Link href='/stocks/V'>
-                <a className="text-green-600 hover:text-green-200">V:ビザ</a>
+                <Link href='/stocks/NVDA'>
+                <a className="text-green-600 hover:text-green-200">NVDA:エヌビディア</a>
               </Link>
                 </td>
               </tr>
               <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
                 <td className='px-4 py-2'>
-                <Link href='/stocks/HD'>
-                <a className="text-green-600 hover:text-green-200">HD:ホーム・デポ</a>
-              </Link>
-                </td>
-              </tr>
-              <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
-                <td className='px-4 py-2'>
-                <Link href='/stocks/MA'>
-                <a className="text-green-600 hover:text-green-200">MA:マスターカード</a>
-              </Link>
-                </td>
-              </tr>
-              <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
-                <td className='px-4 py-2'>
-                <Link href='/stocks/AVGO'>
-                <a className="text-green-600 hover:text-green-200">AVGO:ブロードコム</a>
-              </Link>
-                </td>
-              </tr>
-              <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
-                <td className='px-4 py-2'>
-                <Link href='/stocks/COST'>
-                <a className="text-green-600 hover:text-green-200">COST:コストコホールセール</a>
+                <Link href='/stocks/BRK-B'>
+                <a className="text-green-600 hover:text-green-200">BRKB:バークシャーハサウェイ</a>
               </Link>
                 </td>
               </tr>
             </tbody>
           </table>
-
         </div>
       </div>
 
       <div className='mx-2 mt-8'>
-        <p className='text-bold text-2xl'>{fundsData.vymData.meta.symbol}</p>
-        <EtfCandleChart etfData={fundsData.vymData} />
+        <p className='text-bold text-2xl'>{fundsData.vwoData.meta.symbol}</p>
+        <EtfCandleChart etfData={fundsData.vwoData} />
         <div className='mx-auto md:w-4/5'>
           <p>
-            VYMの説明：全米国銘柄の中から大型株を中心に予想配当利回りが市場平均を上回る銘柄で構成されています。（FTSEハイデ
-            ィビデンド・イールド指数に連動します）
+            VWOの説明：FTSEエマージング・マーケッツ・インデックスに連動する投資成果を目指す。ブラジル、ロシア、インド、台湾、中国、南アフリカなど、世界中の新興国市場で大型・中型株を保有するETF
           </p>
-          <p className='text-bold mt-3 mb-2 text-xl'>上位構成銘柄</p>
+          　<p className='text-bold mt-3 mb-2 text-xl'>上位構成銘柄</p>
 
 
-          <table className='w-full sm:w-1/2 text-center text-sm text-gray-500 dark:text-gray-400 mx-auto'>
+          <table className='w-full sm:w-3/5 text-center text-sm text-gray-500 dark:text-gray-400 mx-auto'>
             <thead className='bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
               <tr>
                 <th scope='col' className='px-4 py-2'>
@@ -163,76 +153,47 @@ const Home: NextPage = ({ fundsData }: any) => {
               </tr>
             </thead>
             <tbody>
-
               <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
                 <td className='px-4 py-2'>
-                <Link href='/stocks/JNJ'>
-                <a className="text-green-600 hover:text-green-200">JNJ:ジョンソン・エンド・ジョンソン(J&J)</a>
-              </Link>
+                2330:TT(TSM:US)/台湾積体電路製造 [TSMC/台湾セ]
+                </td>
+              </tr>
+              <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
+                <td className='px-4 py-2'>
+                700:HK/騰訊控股[テンセント・ホールディングス]
                 </td>
               </tr>
 
               <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
                 <td className='px-4 py-2'>
-                <Link href='/stocks/JPM'>
-                <a className="text-green-600 hover:text-green-200">JPモルガン・チェース・アンド・カンパニー</a>
-              </Link>
+                9988:HK/アリババグループ・ホールディング
                 </td>
               </tr>
               <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
                 <td className='px-4 py-2'>
-                <Link href='/stocks/PG'>
-                <a className="text-green-600 hover:text-green-200">PG:プロクター・アンド・ギャンブル(P&G)</a>
-              </Link>
+                RIL:IN/リライアンス・インダストリーズ
                 </td>
               </tr>
               <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
                 <td className='px-4 py-2'>
-                <Link href='/stocks/XOM'>
-                <a className="text-green-600 hover:text-green-200">XOM:エクソンモービル</a>
-              </Link>
+                INFO:IN/インフォシス
                 </td>
               </tr>
               <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
                 <td className='px-4 py-2'>
-                <Link href='/stocks/CVX'>
-                <a className="text-green-600 hover:text-green-200">CVX:シェブロン</a>
-              </Link>
+                VALE3:BZ/ヴァーレ
                 </td>
               </tr>
               <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
                 <td className='px-4 py-2'>
-                <Link href='/stocks/HD'>
-                <a className="text-green-600 hover:text-green-200">HD:ホームデポ</a>
-              </Link>
+                3690:HK/美団[メイトゥアン]
                 </td>
               </tr>
               <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
                 <td className='px-4 py-2'>
-                <Link href='/stocks/BAC'>
-                <a className="text-green-600 hover:text-green-200">BAC:バンク・オブ・アメリカ</a>
-              </Link>
-                </td>
-              </tr>
-              <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
-                <td className='px-4 py-2'>
-                <Link href='/stocks/PFE'>
-                <a className="text-green-600 hover:text-green-200">PFE:ファイザー</a>
-              </Link>
-                </td>
-              </tr>
-              <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
-                <td className='px-4 py-2'>
-                <Link href='/stocks/ABBV'>
-                <a className="text-green-600 hover:text-green-200">ABBV:アッヴィ</a>
-              </Link>
-                </td>
-              </tr>
-              <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
-                <td className='px-4 py-2'>
-                <Link href='/stocks/AVGO'>
-                <a className="text-green-600 hover:text-green-200">AVGO:ブロードコム</a>
-              </Link>
+                
+                <a>939:HK/中国建設銀行 [チャイナ・コンストラクション]</a>
+             
                 </td>
               </tr>
             </tbody>

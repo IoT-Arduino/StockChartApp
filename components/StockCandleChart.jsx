@@ -62,9 +62,6 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
     // 掛け持ち表示対応、株式数　epsBasic と Diluted (Dilutedを基本になければ、Basicとして、チャート表示とテーブル表示に対応する)
     const epsBasicAndDiluted = item.epsDiluted ? item.epsDiluted : item.eps
     const epsBasicAndDilutedAccum = item.epsAccumDiluted ? item.epsAccumDiluted : item.epsAccum
-    // const numberOfSharesOutstanding = item.weightedAverageNumberOfDilutedSharesOutstanding
-    //   ? item.weightedAverageNumberOfDilutedSharesOutstanding
-    //   : item.commonStockSharesOutstanding
 
     const numberOfSharesOutstanding = item.commonStockSharesOutstanding
       ? item.commonStockSharesOutstanding
@@ -94,8 +91,6 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
       // EPSはBasicを使用（データがそろっている、YahooFinanceと同じ、株探USはDiluted）
       eps: parseFloat(epsBasicAndDiluted).toFixed(2),
       epsAccum: parseFloat(epsBasicAndDilutedAccum).toFixed(2),
-      // epsDiluted: parseFloat(item.epsDiluted).toFixed(2),
-      // epsAccumDiluted: parseFloat(item.epsAccumDiluted).toFixed(2),
       stockHoldersEquityRatio: parseFloat(item.stockHoldersEquity / item.assets).toFixed(2),
 
       // 配当関係　ｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰ
@@ -215,7 +210,6 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
   })
 
   // console.log(isNaN(companyData[0].numberOfSharesOutstanding))
-
   // console.log(edgarData)
 
   // 　チャート表示用配列データ作成　＝＝＝＝＝＝＝＝＝＝＝＝＝
