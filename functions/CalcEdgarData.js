@@ -367,13 +367,13 @@ export const calcEdgarData = (edgarData) => {
 
         // StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest - MinorityInterest
       } else if (res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_Q1_USD) {
-        return res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_Q1_USD - res.MinorityInterest_0_Q1_USD
+        return res.MinorityInterest_0_Q1_USD ? res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_Q1_USD - res.MinorityInterest_0_Q1_USD : res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_Q1_USD
       } else if (res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_Q2_USD) {
-        return res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_Q2_USD - res.MinorityInterest_0_Q2_USD
+        return res.MinorityInterest_0_Q2_USD ? res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_Q2_USD - res.MinorityInterest_0_Q2_USD : res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_Q2_USD
       } else if (res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_Q3_USD) {
-        return res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_Q3_USD - res.MinorityInterest_0_Q3_USD
+        return res.MinorityInterest_0_Q3_USD ? res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_Q3_USD - res.MinorityInterest_0_Q3_USD : res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_Q3_USD
       } else if (res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_FY_USD) {
-        return res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_FY_USD - res.MinorityInterest_0_FY_USD
+        return res.MinorityInterest_0_FY_USD ? res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_FY_USD - res.MinorityInterest_0_FY_USD : res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_FY_USD
       } else {
         return
       }
@@ -409,13 +409,13 @@ export const calcEdgarData = (edgarData) => {
         return res.WeightedAverageNumberOfShareOutstandingBasicAndDiluted_4_FY_shares
         // 名称が違う場合　:　CommonStockSharesIssued - TreasuryStockSharesConverted
       } else if (res.CommonStockSharesIssued_0_Q1_shares) {
-        return res.CommonStockSharesIssued_0_Q1_shares - res.TreasuryStockSharesConverted_0_Q1_shares
+        return res.TreasuryStockSharesConverted_0_Q1_shares ? res.CommonStockSharesIssued_0_Q1_shares - res.TreasuryStockSharesConverted_0_Q1_shares : res.CommonStockSharesIssued_0_Q1_shares
       } else if (res.CommonStockSharesIssued_0_Q2_shares) {
-        return res.CommonStockSharesIssued_0_Q2_shares - res.TreasuryStockSharesConverted_0_Q2_shares
+        return res.TreasuryStockSharesConverted_0_Q2_shares ? res.CommonStockSharesIssued_0_Q2_shares - res.TreasuryStockSharesConverted_0_Q2_shares : res.CommonStockSharesIssued_0_Q2_shares
       } else if (res.CommonStockSharesIssued_0_Q3_shares) {
-        return res.CommonStockSharesIssued_0_Q3_shares - res.TreasuryStockSharesConverted_0_Q3_shares
+        return res.TreasuryStockSharesConverted_0_Q3_shares ? res.CommonStockSharesIssued_0_Q3_shares - res.TreasuryStockSharesConverted_0_Q3_shares : res.CommonStockSharesIssued_0_Q3_shares
       } else if (res.CommonStockSharesIssued_0_FY_shares) {
-        return res.CommonStockSharesIssued_0_FY_shares - res.TreasuryStockSharesConverted_0_FY_shares
+        return res.TreasuryStockSharesConverted_0_FY_shares ? res.CommonStockSharesIssued_0_FY_shares - res.TreasuryStockSharesConverted_0_FY_shares : res.CommonStockSharesIssued_0_FY_shares
       } else {
         return
       }
@@ -564,6 +564,8 @@ export const calcEdgarData = (edgarData) => {
         return res.DividendsCash_4_FY_USD
       } else if (res.PaymentsOfDividends_4_FY_USD) {
         return res.PaymentsOfDividends_4_FY_USD
+      } else if (res.PaymentsOfDividendsCommonStock_4_FY_USD) {
+        return res.PaymentsOfDividendsCommonStock_4_FY_USD
       } else {
         return
       }
