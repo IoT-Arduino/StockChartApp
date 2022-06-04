@@ -24,28 +24,32 @@ function SearchBar({ placeholder, data, setOpened }) {
   const clearInput = () => {
       setFilteredData([])
       setWordEntered('')
+
+  }
+
+  const clickLink = ()=> {
       setOpened(false)
   }
 
   return (
     <div>
-      <div className={styles.searchInputs}>
+      <div className={styles.searchInputWrapper}>
         <input
           type='text'
           placeholder={placeholder}
           value={wordEntered}
           className={styles.searchInput}
           onChange={handleFilter}
-          id="tickerInput"
+          data-autofocus
         />
-        {wordEntered.length !== 0 && <div className="cursor-pointer py-2 px-5" onClick={clearInput}><AiIcons.AiOutlineCloseCircle /></div>}
+        {wordEntered.length !== 0 && <div className="cursor-pointer px-2" onClick={clearInput}><span className="inline-block h-8 leading-8"><AiIcons.AiOutlineCloseCircle /></span></div>}
       </div>
       {filteredData.length !== 0 && (
         <div className={styles.dataResult}>
           {filteredData.slice(0, 15).map((value, key) => {
             return (
               <Link href={`/stocks/${value.Ticker}`} key={key} >
-                <a className={styles.dataItem} target='_blank' onClick={clearInput}><span className="px-4">{value.Ticker} | {value.ShortName}</span></a>
+                <a className={styles.dataItem} target='_blank' onClick={clickLink}><span className="px-4">{value.Ticker} | {value.ShortName}</span></a>
               </Link>
             )
           })}
