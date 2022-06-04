@@ -15,6 +15,7 @@ const Home: NextPage = () => {
   const [bookmark, setBookmark] = useState<Bookmark[] | null>([])
   const [comments, setComments] = useState<Comments[] | null>([])
   const [markers, setMarkers] = useState<Comments[] | null>([])
+  const [isDisplay, setIsDisplay] = useState<boolean>(false)
 
   const { user, session } = useContext(UserContext)
   const { replace } = useRouter()
@@ -23,7 +24,9 @@ const Home: NextPage = () => {
   useEffect(() => {
     if (!user) {
       replace('/signin')
-    } 
+    } else {
+      setIsDisplay(true)
+    }
   }, [user])
 
   useEffect(() => {
@@ -106,7 +109,7 @@ const Home: NextPage = () => {
 
   return (
     <div className='m-auto max-w-7xl p-4'>
-      {bookmark && <p className='font-xl mt-3 mb-2 font-bold'>BookMark一覧</p>}
+      {isDisplay && <p className='font-xl mt-3 mb-2 font-bold'>BookMark一覧</p>}
       {bookmark &&
         bookmark.map((mark, i) => {
           return (
@@ -119,7 +122,7 @@ const Home: NextPage = () => {
             </div>
           )
         })}
-      {markers && <p className='font-xl mt-3 mb-2 font-bold'>Marker一覧</p>}
+      {isDisplay && <p className='font-xl mt-3 mb-2 font-bold'>Marker一覧</p>}
       {markers &&
         markers.map((marker, i) => {
           return (
@@ -129,7 +132,7 @@ const Home: NextPage = () => {
           )
         })}
 
-      {comments && <p className='font-xl mt-3 mb-2 font-bold'>Comments一覧</p>}
+      {isDisplay && <p className='font-xl mt-3 mb-2 font-bold'>Comments一覧</p>}
       {comments &&
         comments.map((comments, i) => {
           return (

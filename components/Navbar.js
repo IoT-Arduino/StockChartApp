@@ -138,7 +138,7 @@ const Navbar = () => {
             opened={opened}
             onClose={() => setOpened(false)}
             title='Input Ticker or CompanyName'
-          >
+             >
             <SearchBar placeholder='Ticker or Company' data={codeList} setOpened={setOpened} />
           </Modal>
         </div>
