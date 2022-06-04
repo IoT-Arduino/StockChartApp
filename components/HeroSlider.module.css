@@ -8,28 +8,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: 32px 16px;
-  /* height: 200px; */
   width: 90%;
-  max-width: 700px;
+  max-width: 600px;
 }
 
-
-/* .carousel {
-  height: 500px !important;
-  object-fit: cover;
-  object-position: 50% 50%;
-  opacity: 0.8;
-  background-image: url('/images/TopAppleChart.png');
-} */
-
-/* @media screen and (max-width: 500px) {
-  .carousel {
-    object-fit: cover;
-    object-position: 50% 50%;
-  }
-  .slideMessage {
-    height: 400px; 
-    width: 80%;
-  }
-} */
