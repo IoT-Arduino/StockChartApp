@@ -4,7 +4,7 @@
     display:flex;
     justify-content: space-between;
     align-items: center;
-}
+} 
 
 .menuBars {
     margin-left:2rem;
@@ -38,12 +38,15 @@
     z-index: 1000;
 }
 
+.navListItem{
+list-style: none;
+}
+
 .navText {
     display:flex;
     justify-content: flex-start;
     align-items: center;
     padding: 8px 0px 8px 16px;
-    list-style: none;
     height: 60px;
     color: #48bb78;
 }
@@ -75,5 +78,6 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    list-style:none;
 }
 
