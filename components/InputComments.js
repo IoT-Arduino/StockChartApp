@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '../utils/supabase'
 
-export default function Comments({ user, ticker }) {
+export default function InputComments({ user, ticker }) {
   //  <!-- comment -->
   const [comments, setComments] = useState([])
   //  <!-- 入力したcomment -->

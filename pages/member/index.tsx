@@ -11,18 +11,21 @@ import { Bookmark } from '../../types/Bookmark'
 import { Comments } from '../../types/Comments'
 import { NextPage } from 'next'
 
-const Home:NextPage = () => {
+const Home: NextPage = () => {
   const [bookmark, setBookmark] = useState<Bookmark[] | null>([])
   const [comments, setComments] = useState<Comments[] | null>([])
   const [markers, setMarkers] = useState<Comments[] | null>([])
+  const [isDisplay, setIsDisplay] = useState<boolean>(false)
 
   const { user, session } = useContext(UserContext)
   const { replace } = useRouter()
-
   const { push, pathname } = useRouter()
+
   useEffect(() => {
     if (!user) {
       replace('/signin')
+    } else {
+      setIsDisplay(true)
     }
   }, [user])
 
@@ -60,11 +63,11 @@ const Home:NextPage = () => {
           throw error
         } else {
           // console.log(data)
-          if(data){
+          if (data) {
             setComments(data)
           }
         }
-      } catch (error:any) {
+      } catch (error: any) {
         alert(error.message)
       }
     }
@@ -78,18 +81,17 @@ const Home:NextPage = () => {
           throw error
         } else {
           // console.log(data)
-          if(data){
+          if (data) {
             setMarkers(data)
           }
         }
-      } catch (error:any) {
+      } catch (error: any) {
         alert(error.message)
       }
     }
   }
 
-  console.log(markers)
-
+  // console.log(markers)
 
   // const fetchMarker = async () => {
   //   if (user) {
@@ -105,11 +107,9 @@ const Home:NextPage = () => {
   //   }
   // }
 
-
-
   return (
-    <div className='m-auto max-w-7xl p-10'>
-      <p className='font-xl mt-3 mb-2 font-bold'>BookMark一覧</p>
+    <div className='m-auto max-w-7xl p-4'>
+      {isDisplay && <p className='font-xl mt-3 mb-2 font-bold'>BookMark一覧</p>}
       {bookmark &&
         bookmark.map((mark, i) => {
           return (
@@ -122,8 +122,7 @@ const Home:NextPage = () => {
             </div>
           )
         })}
-
-      <p className='font-xl mt-3 mb-2 font-bold'>Marker一覧</p>
+      {isDisplay && <p className='font-xl mt-3 mb-2 font-bold'>Marker一覧</p>}
       {markers &&
         markers.map((marker, i) => {
           return (
@@ -133,7 +132,7 @@ const Home:NextPage = () => {
           )
         })}
 
-      <p className='font-xl mt-3 mb-2 font-bold'>Comments一覧</p>
+      {isDisplay && <p className='font-xl mt-3 mb-2 font-bold'>Comments一覧</p>}
       {comments &&
         comments.map((comments, i) => {
           return (

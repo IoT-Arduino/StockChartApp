@@ -4,7 +4,7 @@ import styles from '../styles/Home.module.css'
 import { useState, useEffect } from 'react'
 
 const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => {
-  // console.log(edgarData)
+  console.log(edgarData)
 
   // 画面表示State 管理==============================================================
   const [isDividend, setIsDividend] = useState(false)
@@ -55,22 +55,24 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
     }
   })
 
-  console.log(markerChartData)
+  // console.log(markerChartData)
 
   //　EdgarDataの加工処理
   const newEdgarData = edgarFsData.map((item) => {
     // 掛け持ち表示対応、株式数　epsBasic と Diluted (Dilutedを基本になければ、Basicとして、チャート表示とテーブル表示に対応する)
     const epsBasicAndDiluted = item.epsDiluted ? item.epsDiluted : item.eps
     const epsBasicAndDilutedAccum = item.epsAccumDiluted ? item.epsAccumDiluted : item.epsAccum
-    // const numberOfSharesOutstanding = item.weightedAverageNumberOfDilutedSharesOutstanding
-    //   ? item.weightedAverageNumberOfDilutedSharesOutstanding
-    //   : item.commonStockSharesOutstanding
 
     const numberOfSharesOutstanding = item.commonStockSharesOutstanding
       ? item.commonStockSharesOutstanding
       : item.weightedAverageNumberOfDilutedSharesOutstanding
 
     const bookPerShare = item.stockHoldersEquity / numberOfSharesOutstanding
+
+    const comonStockDividendPerShareYear = item.commonStockDividendsPerShareDeclaredYear ? item.commonStockDividendsPerShareDeclaredYear : item.commonStockDividendsCashPaidYear/numberOfSharesOutstanding
+
+    // commonStockDividendsPerShareDeclaredYear: item.commonStockDividendsPerShareDeclaredYear,
+    // commonStockDividendsCashPaidYear:item.commonStockDividendsCashPaidYear/numberOfSharesOutstanding,
 
     return {
       date: item.date,
@@ -88,21 +90,22 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
       stockHoldersEquity: item.stockHoldersEquity,
       // 株式指標・経営指標
       numberOfSharesOutstanding: numberOfSharesOutstanding,
+      // 営業CFマージン 単四半期の営業CF / 単四半期の売上
+      operatingCashFlowMargin: item.operatingCashFlow / item.revenue,
 
       // Yahoo Finance と一致する。commonStockSharesOutstanding　を使用。
       bps: parseFloat(bookPerShare).toFixed(2),
       // EPSはBasicを使用（データがそろっている、YahooFinanceと同じ、株探USはDiluted）
       eps: parseFloat(epsBasicAndDiluted).toFixed(2),
       epsAccum: parseFloat(epsBasicAndDilutedAccum).toFixed(2),
-      // epsDiluted: parseFloat(item.epsDiluted).toFixed(2),
-      // epsAccumDiluted: parseFloat(item.epsAccumDiluted).toFixed(2),
       stockHoldersEquityRatio: parseFloat(item.stockHoldersEquity / item.assets).toFixed(2),
 
       // 配当関係　ｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰ
       // 一株当たり配当　DPS
       commonStockDividendsPerShareDeclaredDeducted:
         item.commonStockDividendsPerShareDeclaredDeducted,
-      commonStockDividendsPerShareDeclaredYear: item.commonStockDividendsPerShareDeclaredYear,
+      commonStockDividendsPerShareDeclaredYear: comonStockDividendPerShareYear,
+
       // 配当性向　    四半期の場合、直近四半期の1株配当　 ÷ 直近4四半期の調整後希薄化EPS
       dividendPayoutRatio: parseFloat(
         (item.commonStockDividendsPerShareDeclaredDeducted * 100) / item.eps
@@ -142,6 +145,9 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
       // 経営指標
       stockHoldersEquityRatio: newEdgarData.find((value) => value.date === price.date)
         ?.stockHoldersEquityRatio,
+
+      operatingCashFlowMargin: newEdgarData.find((value) => value.date === price.date)
+        ?.operatingCashFlowMargin,
 
       // 株式指標   price.calcRatio で調整する。ｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰ
       // 株式数　分割の場合、株数は過去の株数に掛け算する。。
@@ -214,9 +220,8 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
     }
   })
 
-  console.log(isNaN(companyData[0].numberOfSharesOutstanding))
-
-  // console.log(edgarData)
+  // console.log(isNaN(companyData[0].numberOfSharesOutstanding))
+  console.log(companyData)
 
   // 　チャート表示用配列データ作成　＝＝＝＝＝＝＝＝＝＝＝＝＝
 
@@ -707,9 +712,16 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
               <th scope='col' className='px-4 py-2'>
                 営業CF
               </th>
-              <th scope='col' className='px-4 py-2'>
-                総資産
-              </th>
+              {companyInfo.Sector === 'Finance' ? (
+                <th scope='col' className='px-4 py-2'>
+                  総資産
+                </th>
+              ) : (
+                <th scope='col' className='px-4 py-2'>
+                  営業CFマージン
+                </th>
+              )}
+
               <th scope='col' className='px-4 py-2'>
                 株主資本
               </th>
@@ -768,7 +780,10 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
                           : '-'}
                       </td>
                       <td className='px-4 py-2'>
-                        {item.assets ? parseInt(item.assets / 1000000).toLocaleString() : '-'}
+                        {item.operatingCashFlowMargin
+                          ? (item.operatingCashFlowMargin * 100).toFixed(1)
+                          : '-'}
+                        %
                       </td>
                       <td className='px-4 py-2'>
                         {item.stockHoldersEquity
