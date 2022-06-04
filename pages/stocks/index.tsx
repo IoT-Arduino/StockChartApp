@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useContext } from 'react'
 import { UserContext } from '../../utils/UserContext'
@@ -6,49 +6,32 @@ import { NextPage } from 'next'
 import { NextSeo } from 'next-seo'
 
 // fs
-import fsPromises from 'fs/promises';
-import path from 'path'
+// import fsPromises from 'fs/promises';
+// import path from 'path'
 
 // Components
 import Datatable from '../../components/Datatable'
 
 // Types
 import { Company } from '../../types/Company'
+// JSON data
+import {codeList} from '../../data/stockCode/US-StockList'
+
  
-export async function getStaticProps() {
-  try {
-    // const reqList = await fetch(
-    //   `${process.env.NEXT_PUBLIC_API_ENDOPOINT}/stockCode/US-StockList.json`
-    // )
-    // const codeList = await reqList.json()
-
-    // const codeListSorted = codeList.sort(function (a: any, b: any) {
-    //   if (a.Ticker > b.Ticker) {
-    //     return 1
-    //   } else {
-    //     return -1
-    //   }
-    // })
-
-    const filePath = path.join(process.cwd(), './data/stockCode/US-StockList.json');
-    const jsonData = await fsPromises.readFile(filePath);
-    const objectDataStockList = JSON.parse(jsonData as any);
-
-    return {
-      props: {
-        codeList: objectDataStockList,
-      },
-    }
-  } catch (err) {
-    console.log(err)
-  }
-}
-
-const StockIndex: NextPage<{ codeList: Company[] }> = ({ codeList }) => {
+const StockIndex: NextPage = () => {
   const { user, session } = useContext(UserContext)
 
   const [data, setData] = useState([])
   const [q, setQ] = useState('')
+  const [signIn, setSignIn] = useState(false)
+
+  useEffect(() => {
+    if (!user) {
+      setSignIn(false)
+    } else {
+      setSignIn(true)
+    }
+  }, [user])
 
   const codeListSP = codeList.filter((item) => {
     return item.SP500 == 'SP500' && item.Unlist != 'unlist'
@@ -90,9 +73,9 @@ const StockIndex: NextPage<{ codeList: Company[] }> = ({ codeList }) => {
         </div>
 
         <div className='relative my-4 overflow-x-auto shadow-md sm:rounded-lg'>
-          <Datatable data={search(codeList)} />
+          <Datatable data={search(codeList as any)} />
         </div>
-        {user ? (
+        {signIn ? (
           <div>
             <h2 className='my-6'>Unlist株式一覧</h2>
             <ul>
