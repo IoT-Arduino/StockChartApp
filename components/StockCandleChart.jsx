@@ -4,7 +4,7 @@ import styles from '../styles/Home.module.css'
 import { useState, useEffect } from 'react'
 
 const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => {
-  // console.log(edgarData)
+  console.log(edgarData)
 
   // 画面表示State 管理==============================================================
   const [isDividend, setIsDividend] = useState(false)
@@ -69,6 +69,11 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
 
     const bookPerShare = item.stockHoldersEquity / numberOfSharesOutstanding
 
+    const comonStockDividendPerShareYear = item.commonStockDividendsPerShareDeclaredYear ? item.commonStockDividendsPerShareDeclaredYear : item.commonStockDividendsCashPaidYear/numberOfSharesOutstanding
+
+    // commonStockDividendsPerShareDeclaredYear: item.commonStockDividendsPerShareDeclaredYear,
+    // commonStockDividendsCashPaidYear:item.commonStockDividendsCashPaidYear/numberOfSharesOutstanding,
+
     return {
       date: item.date,
       fp: item.fp,
@@ -99,7 +104,8 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
       // 一株当たり配当　DPS
       commonStockDividendsPerShareDeclaredDeducted:
         item.commonStockDividendsPerShareDeclaredDeducted,
-      commonStockDividendsPerShareDeclaredYear: item.commonStockDividendsPerShareDeclaredYear,
+      commonStockDividendsPerShareDeclaredYear: comonStockDividendPerShareYear,
+
       // 配当性向　    四半期の場合、直近四半期の1株配当　 ÷ 直近4四半期の調整後希薄化EPS
       dividendPayoutRatio: parseFloat(
         (item.commonStockDividendsPerShareDeclaredDeducted * 100) / item.eps
@@ -624,7 +630,7 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
                           : '-'}
                       </td>
                       <td className='px-4 py-2'>
-                        {item.assets ? parseInt(item.assets / 1000).toLocaleString() : '-'}
+                        {item.assets ? parseInt(item.assets / 1000000).toLocaleString() : '-'}
                       </td>
                       <td className='px-4 py-2'>
                         {item.stockHoldersEquity
