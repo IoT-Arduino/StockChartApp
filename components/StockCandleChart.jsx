@@ -69,10 +69,17 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
 
     const bookPerShare = item.stockHoldersEquity / numberOfSharesOutstanding
 
-    const comonStockDividendPerShareYear = item.commonStockDividendsPerShareDeclaredYear ? item.commonStockDividendsPerShareDeclaredYear : item.commonStockDividendsCashPaidYear/numberOfSharesOutstanding
+    const comonStockDividendPerShareYear = item.commonStockDividendsPerShareDeclaredYear ? item.commonStockDividendsPerShareDeclaredYear :  (Math.round(item.commonStockDividendsCashPaidYear /numberOfSharesOutstanding * 100)) / 100
+
+    // (Math.round(item.commonStockDividendsCashPaidYear /numberOfSharesOutstanding * 100)) / 100,
 
     // commonStockDividendsPerShareDeclaredYear: item.commonStockDividendsPerShareDeclaredYear,
     // commonStockDividendsCashPaidYear:item.commonStockDividendsCashPaidYear/numberOfSharesOutstanding,
+
+    console.log(item.date,item.commonStockDividendsPerShareDeclaredYear)
+    console.log(item.date,epsBasicAndDilutedAccum)
+    console.log(item.date,comonStockDividendPerShareYear)
+    console.log(item.date,(Math.round(comonStockDividendPerShareYear * 100 / item.epsAccum * 100)) / 100)
 
     return {
       date: item.date,
@@ -94,11 +101,11 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
       operatingCashFlowMargin: item.operatingCashFlow / item.revenue,
 
       // Yahoo Finance と一致する。commonStockSharesOutstanding　を使用。
-      bps: parseFloat(bookPerShare).toFixed(2),
+      bps: (Math.round(bookPerShare * 100)) / 100, 
       // EPSはBasicを使用（データがそろっている、YahooFinanceと同じ、株探USはDiluted）
-      eps: parseFloat(epsBasicAndDiluted).toFixed(2),
-      epsAccum: parseFloat(epsBasicAndDilutedAccum).toFixed(2),
-      stockHoldersEquityRatio: parseFloat(item.stockHoldersEquity / item.assets).toFixed(2),
+      eps: (Math.round(epsBasicAndDiluted * 100)) / 100,
+      epsAccum: (Math.round(epsBasicAndDilutedAccum * 100)) / 100,
+      stockHoldersEquityRatio: (Math.round(item.stockHoldersEquity / item.assets * 100)) / 100,
 
       // 配当関係　ｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰ
       // 一株当たり配当　DPS
@@ -106,15 +113,21 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
         item.commonStockDividendsPerShareDeclaredDeducted,
       commonStockDividendsPerShareDeclaredYear: comonStockDividendPerShareYear,
 
-      // 配当性向　    四半期の場合、直近四半期の1株配当　 ÷ 直近4四半期の調整後希薄化EPS
-      dividendPayoutRatio: parseFloat(
-        (item.commonStockDividendsPerShareDeclaredDeducted * 100) / item.eps
-      ).toFixed(1),
-      dividendPayoutRatioYear: parseFloat(
-        (item.commonStockDividendsPerShareDeclaredYear * 100) / item.epsAccum
-      ).toFixed(1),
+      // 配当性向　    四半期の場合、直近四半期の1株配当　 ÷ 直近4四半期の調整後希薄化EPS %表示
+      dividendPayoutRatio:(Math.round(item.commonStockDividendsPerShareDeclaredDeducted * 100 / epsBasicAndDiluted * 100)) / 100,
+      // dividendPayoutRatio: parseFloat(
+      //   (item.commonStockDividendsPerShareDeclaredDeducted * 100) / item.eps
+      // ).toFixed(1),
+      // 配当性向　年間
+      dividendPayoutRatioYear: (Math.round(comonStockDividendPerShareYear * 100 / epsBasicAndDilutedAccum * 100)) / 100,
+      // dividendPayoutRatioYear: parseFloat(
+      //   comonStockDividendPerShareYear * 100 / item.epsAccum
+      // ).toFixed(1),
     }
   })
+
+  // console.log(newEdgarData)
+
 
   // 　日付をキーとして、edinet、markerData,splitDataと株価データをまとめて一つのオブジェクトにして、連想配列にする
   const companyData = priceData.map((price) => {
@@ -153,45 +166,45 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
       // 株式数　分割の場合、株数は過去の株数に掛け算する。。
       numberOfSharesOutstanding:
         newEdgarData.find((value) => value.date === price.date)?.numberOfSharesOutstanding *
-        price.calcRatio,
+        Number(price.calcRatio),
 
       // 一株あたり経営指標　分割の場合、EPS等は過去を割る
       bps: parseFloat(
-        newEdgarData.find((value) => value.date === price.date)?.bps / price.calcRatio
+        newEdgarData.find((value) => value.date === price.date)?.bps / Number(price.calcRatio)
       ).toFixed(2),
       eps: parseFloat(
-        newEdgarData.find((value) => value.date === price.date)?.eps / price.calcRatio
+        newEdgarData.find((value) => value.date === price.date)?.eps / Number(price.calcRatio)
       ).toFixed(2),
       epsAccum: parseFloat(
-        newEdgarData.find((value) => value.date === price.date)?.epsAccum / price.calcRatio
+        newEdgarData.find((value) => value.date === price.date)?.epsAccum / Number(price.calcRatio)
       ).toFixed(2),
 
       // 株価指標　株式分割調整。（要確認）
       pbr: parseFloat(
         (price.Close / newEdgarData.find((value) => value.date === price.date)?.bps) *
-          price.calcRatio
+          Number(price.calcRatio)
       ).toFixed(2),
 
       per: parseFloat(
         (price.Close / newEdgarData.find((value) => value.date === price.date)?.eps) *
-          price.calcRatio *
+          Number(price.calcRatio) *
           0.25 // 四半期の為　分母に0.25を掛ける。年間換算のEPS。
       ),
       // マイナス表示を加工する為、数値型を維持
       perAccum: parseFloat(
         (price.Close / newEdgarData.find((value) => value.date === price.date)?.epsAccum) *
-          price.calcRatio
+          Number(price.calcRatio)
       ),
 
       // 配当関係　ｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰ
       // 一株当たり配当　DPS 四半期　－　分割考慮済み
       commonStockDividendsPerShareDeclaredDeducted: parseFloat(
         newEdgarData.find((value) => value.date === price.date)
-          ?.commonStockDividendsPerShareDeclaredDeducted / price.calcRatio
+          ?.commonStockDividendsPerShareDeclaredDeducted / Number(price.calcRatio)
       ).toFixed(2), // 一株当たり配当　DPS 年間　－　分割考慮済み
       commonStockDividendsPerShareDeclaredYear: parseFloat(
         newEdgarData.find((value) => value.date === price.date)
-          ?.commonStockDividendsPerShareDeclaredYear / price.calcRatio
+          ?.commonStockDividendsPerShareDeclaredYear / Number(price.calcRatio)
       ).toFixed(2),
 
       // 配当利回り・四半期(FYのみ表示対象とする) % 表示　－　分割考慮済み
@@ -200,7 +213,7 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
           (newEdgarData.find((value) => value.date === price.date)
             ?.commonStockDividendsPerShareDeclaredDeducted *
             100) /
-            (price.Close * price.calcRatio)
+            (price.Close * Number(price.calcRatio))
         ).toFixed(2) + '%',
       // 配当利回り・年間(FYのみ表示対象とする) % 表示  －　分割考慮済み
       dividendYieldYear:
@@ -208,7 +221,7 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
           (newEdgarData.find((value) => value.date === price.date)
             ?.commonStockDividendsPerShareDeclaredYear *
             100) /
-            (price.Close * price.calcRatio)
+            (price.Close * Number(price.calcRatio))
         ).toFixed(2) + '%',
 
       // 配当性向　% 表示
@@ -303,20 +316,21 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
     if (companyInfo.Sector === 'Finance') {
       return null
     } else {
-      const opeCashIndx = (parseFloat(item.operatingCashFlow / item.revenue) * 100).toFixed(2)
-      return opeCashIndx
+      const opeCashIndx = (parseFloat(item.operatingCashFlow / item.revenue) * 100)
+      return opeCashIndx >= 0 ? opeCashIndx : 0
     }
   })
 
   const operatingCashFlowData = filteredDataForBarChart.map((item) => {
-    const opeCashData = parseInt(item.operatingCashFlow) / 10000000
+    const opeCashData = item.operatingCashFlow / 1000000
     return opeCashData
   })
 
   const netIncomeArr = filteredDataForBarChart.map((item) => {
-    const netIncomeData = parseInt(item.NetIncomeLoss) / 10000000
+    const netIncomeData = item.NetIncomeLoss / 1000000
     return netIncomeData
   })
+
 
   // テーブル表示用　データ処理　------------------------------
 
@@ -387,7 +401,7 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
         axisLine: { show: true },
         axisTick: { show: true },
         splitLine: { show: true },
-        min: 0,
+        // min: 0,
       },
       {
         name: '営業CFマージン',
@@ -402,7 +416,7 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
         axisTick: { show: true },
         splitLine: { show: true },
         min: 0,
-        max: 100,
+        max: 50,
       },
     ],
     // graphic: [
@@ -781,8 +795,8 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
                       </td>
                       <td className='px-4 py-2'>
                         {item.operatingCashFlowMargin
-                          ? (item.operatingCashFlowMargin * 100).toFixed(1)
-                          : '-'}
+                          ? item.operatingCashFlowMargin >= 0 ? (item.operatingCashFlowMargin * 100).toFixed(1)
+                          : '-': '-'}
                         %
                       </td>
                       <td className='px-4 py-2'>
