@@ -108,7 +108,7 @@ const Home: NextPage = () => {
   // }
 
   return (
-    <div className='m-auto max-w-7xl p-4'>
+    <div className='mx-auto max-w-4xl px-2 sm:px-4 py-4'>
       {isDisplay && <p className='font-xl mt-3 mb-2 font-bold'>BookMark一覧</p>}
       {bookmark &&
         bookmark.map((mark, i) => {
