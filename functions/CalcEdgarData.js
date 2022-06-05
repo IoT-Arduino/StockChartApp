@@ -576,24 +576,24 @@ export const calcEdgarData = (edgarData) => {
     const FinancialData = {
       date: res.period.slice(0, 4) + '/' + res.period.slice(4, 6),
       fp: res.fp,
-      revenue: revenueDataDeducted(),
-      revenueAccum: revenueDataAccum(),
-      NetIncomeLoss: netIncomeDataDeducted(),
-      NetIncomeLossAccum: netIncomeDataAccum(),
-      operatingCashFlow: operatingCashFlowDeducted(),
-      operatingCashFlowAccum: operatingCashFlowAccum(),
-      assets: assets(),
-      stockHoldersEquity: stockholdersEquity(),
-      commonStockSharesOutstanding: commonStockSharesOutstanding(),
+      revenue: Number(revenueDataDeducted()),
+      revenueAccum: Number(revenueDataAccum()),
+      NetIncomeLoss: Number(netIncomeDataDeducted()),
+      NetIncomeLossAccum: Number(netIncomeDataAccum()),
+      operatingCashFlow: Number(operatingCashFlowDeducted()),
+      operatingCashFlowAccum: Number(operatingCashFlowAccum()),
+      assets: Number(assets()),
+      stockHoldersEquity: Number(stockholdersEquity()),
+      commonStockSharesOutstanding: Number(commonStockSharesOutstanding()),
       weightedAverageNumberOfDilutedSharesOutstanding:
-        weightedAverageNumberOfDilutedSharesOutstanding(),
-      eps: earningsPerShareBasic(),
-      epsAccum: earningsPerShareBasicAccum(),
-      epsDiluted: earningsPerShareDiluted(),
-      epsAccumDiluted: earningsPerShareAccumDiluted(),
-      commonStockDividendsPerShareDeclaredDeducted: commonStockDividendsPerShareDeclaredDeducted(),
-      commonStockDividendsPerShareDeclaredYear: commonStockDividendsPerShareDeclaredYear(),
-      commonStockDividendsCashPaidYear:commonStockDividendsCashPaidYear()
+      Number(weightedAverageNumberOfDilutedSharesOutstanding()),
+      eps: Number(earningsPerShareBasic()),
+      epsAccum: Number(earningsPerShareBasicAccum()),
+      epsDiluted: Number(earningsPerShareDiluted()),
+      epsAccumDiluted: Number(earningsPerShareAccumDiluted()),
+      commonStockDividendsPerShareDeclaredDeducted: Number(commonStockDividendsPerShareDeclaredDeducted()),
+      commonStockDividendsPerShareDeclaredYear: Number(commonStockDividendsPerShareDeclaredYear()),
+      commonStockDividendsCashPaidYear:Number(commonStockDividendsCashPaidYear())
     }
     return FinancialData
   })
