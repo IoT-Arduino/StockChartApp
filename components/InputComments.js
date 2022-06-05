@@ -97,9 +97,9 @@ export default function InputComments({ user, ticker }) {
   return (
     <div className="w-full">
       <h4 className="mt-10 mb-2 font-bold font-xl">株式メモ情報</h4>
-      <div className="flex gap-2 my-2">
+      <div className="flex gap-2 my-2 flex-wrap">
         <input
-          className="rounded w-full p-2 border border-black"
+          className="rounded p-2 border border-black"
           type="date"
           value={newDate}
           onChange={(e) => {
