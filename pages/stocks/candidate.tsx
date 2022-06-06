@@ -71,20 +71,25 @@ const StockIndex: NextPage = () => {
       />
 
       <main className='mx-auto max-w-5xl'>
-        <h2 className='my-8 text-2xl'>米国代表500株式一覧</h2>
-        <div className='my-4 flex w-full items-center sm:justify-end'>
-          <input
-            className='sm:w-1/4 rounded border border-black p-2'
-            type='text'
-            value={q}
-            onChange={(e) => setQ(e.target.value)}
-          />
-          <p className='ml-2'>TICKER名称、会社名称で検索。</p>
-        </div>
+        {signIn ? (
+          <div>
+            <h2 className='my-6'>Unlist株式一覧</h2>
+            <ul>
+              {codeUnlist.map((code, i) => {
+                return (
+                  <li key={i}>
+                    <Link href={`/stocks/${code.Ticker}`} prefetch={false}>
+                      <a>
+                        {code.Name}/{code.Ticker}/{code.CIK}
+                      </a>
+                    </Link>
+                  </li>
+                )
+              })}
+            </ul>
 
-        <div className='relative my-4 overflow-x-auto shadow-md sm:rounded-lg'>
-          <Datatable data={search(codeListNotUnlist as any)} />
-        </div>
+         </div>
+        ) : null}
       </main>
     </>
   )
