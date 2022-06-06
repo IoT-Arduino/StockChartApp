@@ -38,7 +38,7 @@ export async function getServerSideProps() {
 const Home: NextPage = ({ fundsData }: any) => {
   
   return (
-    <main>
+    <main className="max-w-5xl mx-auto mt-6 mb-20">
       <div className='mx-2 mt-8'>
         <p className='text-bold text-2xl'>{fundsData.vhtData.meta.symbol}</p>
         <EtfCandleChart etfData={fundsData.vhtData} />

@@ -15,10 +15,17 @@ import TSLAChart from '../public/images/TSLAChart.png'
 import AAPLCandleChart from '../public/images/AAPLCandleChart.png'
 import AAPLCashFlow from '../public/images/AAPLCashFlow.png'
 
+  // 他に使用されている箇所、全体Index,StockIndex,Navbar
+const codeListNotUnlist = codeList.filter((item) => {
+  return item.Unlist != 'unlist'
+})
+
+
+
 const Home: NextPage = () => {
   return (
     <main>
-      <HeroSlider codeList={codeList} />
+      <HeroSlider codeList={codeListNotUnlist} />
 
       <section className='body-font text-gray-600'>
         <div className='mx-auto w-full px-3 pt-10 md:max-w-5xl'>

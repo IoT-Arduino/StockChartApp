@@ -46,7 +46,7 @@ export async function getServerSideProps() {
 
 const Home: NextPage = ({ fundsData }: any) => {
   return (
-    <main>
+    <main className="max-w-5xl mx-auto mt-6 mb-20">
       <h2 className={styles.title}>米国主要ETF比較</h2>
       <div>米国主要インデックスETF（Vanguard系の比較、2014年末を起点とした成長率）</div>
 
