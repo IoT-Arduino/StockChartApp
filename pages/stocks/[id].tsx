@@ -247,6 +247,7 @@ const StockChart: NextPage<{
         <h2>
           {companyInfo.Name} [{id}]
         </h2>
+        {companyInfo.Unlist ? <p className="text-red-600 font-bold">データ編集中</p> : null}
 
         {!user ? null : (
           <div className="flex-none">

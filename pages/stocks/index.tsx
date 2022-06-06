@@ -33,17 +33,27 @@ const StockIndex: NextPage = () => {
     }
   }, [user])
 
-  const codeListSP = codeList.filter((item) => {
-    return item.SP500 == 'SP500' && item.Unlist != 'unlist'
+  // 他に使用されている箇所、全体Index,StockIndex,Navbar
+  const codeListNotUnlist = codeList.filter((item) => {
+    return item.Unlist != 'unlist'
   })
-
+  
   const codeUnlist = codeList.filter((item) => {
     return item.Unlist == 'unlist'
   })
-
+  
+  // 以下使用していない。
+  const codeListSP = codeList.filter((item) => {
+    return item.SP500 == 'SP500' && item.Unlist != 'unlist'
+  })
   const codeListNSP = codeList.filter((item) => {
     return item.SP500 != 'SP500'
   })
+
+  console.log(codeListNotUnlist.length)
+  // console.log(codeListSP.length)
+  console.log(codeUnlist.length)
+  // console.log(codeListNSP.length)
 
   const search = (rows: Company[]) => {
     return rows.filter(
@@ -73,41 +83,8 @@ const StockIndex: NextPage = () => {
         </div>
 
         <div className='relative my-4 overflow-x-auto shadow-md sm:rounded-lg'>
-          <Datatable data={search(codeList as any)} />
+          <Datatable data={search(codeListNotUnlist as any)} />
         </div>
-        {signIn ? (
-          <div>
-            <h2 className='my-6'>Unlist株式一覧</h2>
-            <ul>
-              {codeUnlist.map((code, i) => {
-                return (
-                  <li key={i}>
-                    <Link href={`/stocks/${code.Ticker}`} prefetch={false}>
-                      <a>
-                        {code.Name}/{code.Ticker}/{code.CIK}
-                      </a>
-                    </Link>
-                  </li>
-                )
-              })}
-            </ul>
-
-            <h2 className='my-6'>Not500株式一覧</h2>
-            <ul>
-              {codeListNSP.map((code, i) => {
-                return (
-                  <li key={i}>
-                    <Link href={`/stocks/${code.Ticker}`} prefetch={false}>
-                      <a>
-                        {code.Name}/{code.Ticker}/{code.CIK}
-                      </a>
-                    </Link>
-                  </li>
-                )
-              })}
-            </ul>
-          </div>
-        ) : null}
       </main>
     </>
   )
