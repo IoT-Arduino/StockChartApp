@@ -51,7 +51,7 @@ export default function BookMark({ user, ticker }: { user: any; ticker: string }
     }
   }
 
-  console.log(star)
+  // console.log(star)
 
   return (
     <div>
