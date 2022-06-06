@@ -11,9 +11,10 @@ function SearchBar({ placeholder, data, setOpened }) {
     const searchWord = event.target.value
     setWordEntered(searchWord)
     const newFilter = data.filter((value) => {
-      const companyString = value.Ticker + value.ShortName
-      return companyString.toLowerCase().includes(searchWord.toLowerCase())
+      return value.Ticker.toLowerCase().indexOf(searchWord.toLowerCase()) > -1 ||
+      value.ShortName.toLowerCase().indexOf(searchWord.toLowerCase()) > -1
     })
+
     if (searchWord === '') {
       setFilteredData([])
     } else {
