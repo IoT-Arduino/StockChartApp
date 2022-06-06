@@ -76,11 +76,6 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
     // commonStockDividendsPerShareDeclaredYear: item.commonStockDividendsPerShareDeclaredYear,
     // commonStockDividendsCashPaidYear:item.commonStockDividendsCashPaidYear/numberOfSharesOutstanding,
 
-    console.log(item.date,item.commonStockDividendsPerShareDeclaredYear)
-    console.log(item.date,epsBasicAndDilutedAccum)
-    console.log(item.date,comonStockDividendPerShareYear)
-    console.log(item.date,(Math.round(comonStockDividendPerShareYear * 100 / item.epsAccum * 100)) / 100)
-
     return {
       date: item.date,
       fp: item.fp,
