@@ -23,6 +23,11 @@ import SearchBar from './HeroSearchBar'
 // JSON Data
 import { codeList } from '../data/stockCode/US-StockList'
 
+  // 他に使用されている箇所、全体Index,StockIndex,Navbar
+const codeListNotUnlist = codeList.filter((item) => {
+  return item.Unlist != 'unlist'
+})
+
 const NavSidebarData = [
   {
     title: 'Home',
@@ -139,7 +144,7 @@ const Navbar = () => {
             onClose={() => setOpened(false)}
             title='Input Ticker or CompanyName'
              >
-            <SearchBar placeholder='Ticker or Company' data={codeList} setOpened={setOpened} />
+            <SearchBar placeholder='Ticker or Company' data={codeListNotUnlist} setOpened={setOpened} />
           </Modal>
         </div>
 
