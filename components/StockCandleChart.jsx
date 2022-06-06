@@ -121,7 +121,7 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
     }
   })
 
-  // console.log(newEdgarData)
+  console.log(newEdgarData)
 
 
   // 　日付をキーとして、edinet、markerData,splitDataと株価データをまとめて一つのオブジェクトにして、連想配列にする
@@ -134,6 +134,7 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
       close: parseFloat(price.Close).toFixed(2),
       low: parseFloat(price.Low).toFixed(2),
       high: parseFloat(price.High).toFixed(2),
+      calcRatio: price.calcRatio,
       // EdgarData ----------------
       // PL
       revenue: newEdgarData.find((value) => value.date === price.date)?.revenue,
