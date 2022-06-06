@@ -21,10 +21,9 @@ export default function BookMark({ user, ticker }: { user: any; ticker: string }
       .from('bookmark')
       .select('*')
       .match({ ticker: ticker, user_id: user.id })
-
     if (error) console.log('error', error)
     else {
-      if (items) {
+      if (items.length) {
         setStar(true)
       }
     }
@@ -51,6 +50,8 @@ export default function BookMark({ user, ticker }: { user: any; ticker: string }
       }
     }
   }
+
+  console.log(star)
 
   return (
     <div>
