@@ -102,9 +102,9 @@ const Navbar = () => {
               ) : (
                 <li className='p-4 list-none'>
                   <div onClick={signOut}>
-                    <a className='font-bold no-underline text-green-500 hover:text-green-200'>サインアウト!</a>
+                    <a className='font-bold no-underline text-green-500 hover:text-green-200'>サインアウト</a>
                   </div>
-                </li>
+                </li> 
               )}
 
               {/* Search Icon and ( Modal )*/}
