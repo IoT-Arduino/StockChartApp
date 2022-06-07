@@ -1,0 +1,1 @@
+export const MarkerLimitFree = 7

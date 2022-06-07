@@ -4,7 +4,7 @@ import styles from '../styles/Home.module.css'
 import { useState, useEffect } from 'react'
 
 const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => {
-  console.log(edgarData)
+  // console.log(edgarData)
 
   // 画面表示State 管理==============================================================
   const [isDividend, setIsDividend] = useState(false)
@@ -121,7 +121,7 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
     }
   })
 
-  console.log(newEdgarData)
+  // console.log(newEdgarData)
 
 
   // 　日付をキーとして、edinet、markerData,splitDataと株価データをまとめて一つのオブジェクトにして、連想配列にする
@@ -230,7 +230,7 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
   })
 
   // console.log(isNaN(companyData[0].numberOfSharesOutstanding))
-  console.log(companyData)
+  // console.log(companyData)
 
   // 　チャート表示用配列データ作成　＝＝＝＝＝＝＝＝＝＝＝＝＝
 
