@@ -1,10 +1,12 @@
 // <!-- 必要なものをimport -->
 import { useState, useEffect } from 'react'
 import { supabase } from '../utils/supabase'
+import { MarkerLimitFree } from './../const/settings';
 
 export default function InputMarker({ user, ticker }) {
   //  <!-- marker -->
   const [markers, setMarkers] = useState([])
+  const [markersTotal, setMarkersTotal] = useState(0)
   //  <!-- 入力したmarker -->
   const [newMarkerText, setNewMarkerText] = useState('')
   const [newDate, setNewDate] = useState('')
@@ -21,14 +23,37 @@ export default function InputMarker({ user, ticker }) {
     let { data: markers, error } = await supabase
       .from('marker')
       .select('*')
-      .eq('ticker', ticker)
+      // .eq('ticker', ticker)
       .order('id', true)
     if (error) console.log('error', error)
-    else setMarkers(markers)
+    else {
+      if(markers.length){
+        setMarkersTotal(markers.length)
+        const currentTickerMarker = markers.filter( item =>{
+          return item.ticker.toLowerCase() === ticker.toLowerCase()
+        })
+        if(currentTickerMarker.length>0){
+          setMarkers(currentTickerMarker)
+        }
+      }
+    }
   }
 
   //  <!-- markerの追加 -->
   const submitMarker = async (markerText, date) => {
+
+    console.log(markersTotal >= MarkerLimitFree)
+    console.log(markersTotal)
+    console.log(MarkerLimitFree)
+    
+    // 会員数制限
+    if(markersTotal >= MarkerLimitFree){
+      alert("無料版のMarker登録は5つまでです")
+      setNewMarkerText('')
+      setNewDate('')
+      setEditItem('')
+      return 
+    }
 
     if (editItem!='') {
       let marker = markerText.trim()
@@ -99,7 +124,7 @@ export default function InputMarker({ user, ticker }) {
       <h4 className="mt-10 mb-2 font-bold font-xl">Marker情報</h4>
       <div className="flex gap-2 my-2 flex-wrap">
         <input
-          className="rounded p-2 border border-black"
+          className="rounded p-2 border border-black text-base"
           type="date"
           value={newDate}
           onChange={(e) => {
@@ -108,7 +133,7 @@ export default function InputMarker({ user, ticker }) {
           }}
         />
         <input
-          className="rounded w-full p-2 border border-black"
+          className="rounded w-full p-2 border border-black text-base"
           type="text"
           placeholder="メモを入力してください"
           value={newMarkerText}
