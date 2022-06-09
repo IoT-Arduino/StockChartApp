@@ -1,10 +1,13 @@
 import Link from 'next/link'
 import { useEffect, useState, useContext } from 'react'
-
-import { supabase } from '../../utils/supabase'
 import { useRouter } from 'next/router'
 
+import { supabase } from '../../utils/supabase'
 import { UserContext } from '../../utils/UserContext'
+
+import { useQueryComments } from '../../hooks/useQueryComments'
+import { useQueryBookMark } from '../../hooks/useQueryBookMark'
+import { useQueryMarker } from '../../hooks/useQueryMarker'
 
 // types
 import { Bookmark } from '../../types/Bookmark'
@@ -12,14 +15,18 @@ import { Comments } from '../../types/Comments'
 import { NextPage } from 'next'
 
 const Home: NextPage = () => {
-  const [bookmark, setBookmark] = useState<Bookmark[] | null>([])
-  const [comments, setComments] = useState<Comments[] | null>([])
-  const [markers, setMarkers] = useState<Comments[] | null>([])
+  // const [bookmark, setBookmark] = useState<Bookmark[] | null>([])
+  // const [comments, setComments] = useState<Comments[] | null>([])
+  // const [markers, setMarkers] = useState<Comments[] | null>([])
   const [isDisplay, setIsDisplay] = useState<boolean>(false)
 
   const { user, session } = useContext(UserContext)
   const { replace } = useRouter()
   const { push, pathname } = useRouter()
+
+  const { data: comments, status: statusComments } = useQueryComments()
+  const { data: bookmark, status: statusBookMark } = useQueryBookMark()
+  const { data: markers, status: statusMarker } = useQueryMarker()
 
   useEffect(() => {
     if (!user) {
@@ -29,67 +36,67 @@ const Home: NextPage = () => {
     }
   }, [user])
 
-  useEffect(() => {
-    fetchBookmark()
-    fetchComments()
-    fetchMarkers()
-  }, [])
+  // useEffect(() => {
+  //   fetchBookmark()
+  //   fetchComments()
+  //   fetchMarkers()
+  // }, [])
 
-  async function fetchBookmark() {
-    if (user) {
-      try {
-        const { data: bookmark, error } = await supabase
-          .from('bookmark')
-          .select()
-          .eq('user_id', user.id)
-        if (error) {
-          throw error
-        } else {
-          if (bookmark) {
-            setBookmark(bookmark)
-          }
-        }
-      } catch (error: any) {
-        alert(error.message)
-      }
-    }
-  }
+  // async function fetchBookmark() {
+  //   if (user) {
+  //     try {
+  //       const { data: bookmark, error } = await supabase
+  //         .from('bookmark')
+  //         .select()
+  //         .eq('user_id', user.id)
+  //       if (error) {
+  //         throw error
+  //       } else {
+  //         if (bookmark) {
+  //           setBookmark(bookmark)
+  //         }
+  //       }
+  //     } catch (error: any) {
+  //       alert(error.message)
+  //     }
+  //   }
+  // }
 
-  async function fetchComments() {
-    if (user) {
-      try {
-        const { data, error } = await supabase.from('comments').select().eq('user_id', user.id)
-        if (error) {
-          throw error
-        } else {
-          // console.log(data)
-          if (data) {
-            setComments(data)
-          }
-        }
-      } catch (error: any) {
-        alert(error.message)
-      }
-    }
-  }
+  // async function fetchComments() {
+  //   if (user) {
+  //     try {
+  //       const { data, error } = await supabase.from('comments').select().eq('user_id', user.id)
+  //       if (error) {
+  //         throw error
+  //       } else {
+  //         // console.log(data)
+  //         if (data) {
+  //           setComments(data)
+  //         }
+  //       }
+  //     } catch (error: any) {
+  //       alert(error.message)
+  //     }
+  //   }
+  // }
 
-  async function fetchMarkers() {
-    if (user) {
-      try {
-        const { data, error } = await supabase.from('marker').select().eq('user_id', user.id)
-        if (error) {
-          throw error
-        } else {
-          // console.log(data)
-          if (data) {
-            setMarkers(data)
-          }
-        }
-      } catch (error: any) {
-        alert(error.message)
-      }
-    }
-  }
+  // async function fetchMarkers() {
+  //   if (user) {
+  //     try {
+  //       const { data, error } = await supabase.from('marker').select().eq('user_id', user.id)
+  //       if (error) {
+  //         throw error
+  //       } else {
+  //         // console.log(data)
+  //         if (data) {
+  //           setMarkers(data)
+  //         }
+  //       }
+  //     } catch (error: any) {
+  //       alert(error.message)
+  //     }
+  //   }
+  // }
 
   // console.log(markers)
 
