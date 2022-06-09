@@ -5,6 +5,9 @@ import { LayoutWrapper } from '../components/LayoutWrapper'
 import { DefaultSeo } from 'next-seo'
 import SEO from '../next-seo.config'
 
+import { QueryClient, QueryClientProvider } from 'react-query'
+import { ReactQueryDevtools } from 'react-query/devtools'
+
 // import { Session, User } from '@supabase/supabase-js'
 import { useEffect, useState } from 'react'
 import { supabase } from '../utils/supabase'
@@ -14,6 +17,15 @@ import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 
 import { MantineProvider } from '@mantine/core'
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+      refetchOnWindowFocus: false,
+    },
+  },
+})
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [user, setUser] = useState(supabase.auth.user())
@@ -34,12 +46,14 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <UserContext.Provider value={{ user, session }}>
-      <MantineProvider withGlobalStyles withNormalizeCSS>
-        <DefaultSeo {...SEO} />
-        <LayoutWrapper>
-          <Component {...pageProps} />
-        </LayoutWrapper>
-      </MantineProvider>
+      <QueryClientProvider client={queryClient}>
+        <MantineProvider withGlobalStyles withNormalizeCSS>
+          <DefaultSeo {...SEO} />
+          <LayoutWrapper>
+            <Component {...pageProps} />
+          </LayoutWrapper>
+        </MantineProvider>
+      </QueryClientProvider>
     </UserContext.Provider>
   )
 }
