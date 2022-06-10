@@ -217,26 +217,30 @@ const StockChart: NextPage<{
   companyInfo: Company
   status: any
 }> = ({ priceData, edgarData, id, companyInfo, status }) => {
-  if (status) {
-    console.log(status)
-    return <Error statusCode={404} />
-  }
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [marker, setMarker] = useState([])
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const { user, session } = useContext(UserContext)
 
-
-
   const [canMarkerInput, setCanMarkerInput] = useState<boolean>(false)
   const [canBookMarkInput, setCanBookMarkInput] = useState<boolean>(false)
   const [canCommentsInput, setCanCommentsInput] = useState<boolean>(false)
-
   const { data: comments, status: statusComments } = useQueryComments()
   const { data: bookmark, status: statusBookMark } = useQueryBookMark()
   const { data: markers, status: statusMarker } = useQueryMarker()
   const { data: profile, status: statusProfile } = useQueryProfile()
+
+  useEffect(() => {
+    if (profile?.length) {
+      checkAllowance(profile[0].rank)
+    }
+  }, [user,profile])
+
+  if (status) {
+    console.log(status)
+    return <Error statusCode={404} />
+  }
 
   const checkAllowance = (rank: any) => {
     switch (rank) {
@@ -289,20 +293,6 @@ const StockChart: NextPage<{
         break
     }
   }
-
-  useEffect(() => {
-    if (!user) {
-      replace('/signin')
-    } else {
-      if (profile?.length) {
-        checkAllowance(profile[0].rank)
-      }
-    }
-  }, [user,profile])
-
-  console.log("marker",canMarkerInput)
-  console.log("bookmark",canBookMarkInput)
-  console.log("comments",canCommentsInput)
 
   // 以下のmarker切り替え処理書き換え必要。条件がuserではなく、markerデータの有り無しで切り替える。
   // eslint-disable-next-line react-hooks/rules-of-hooks
