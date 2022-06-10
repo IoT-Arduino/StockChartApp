@@ -1,20 +1,20 @@
 import { useQuery } from 'react-query'
 import { supabase } from './../utils/supabase';
 
-export const useQueryBookMark = () => {
-  const getBookMark = async () => {
+
+export const useQueryProfile = () => {
+  const getProfile = async () => {
     const { data, error } = await supabase
-      .from('bookmark')
+      .from('profiles')
       .select('*')
-      .order('created_at', { ascending: true })
     if (error) {
       throw new Error(`${error.message}: ${error.details}`)
     }
     return data
   }
   return useQuery({
-    queryKey: 'bookmark',
-    queryFn: getBookMark,
+    queryKey: 'profile',
+    queryFn: getProfile,
     staleTime: 0, //[ms]
     refetchOnWindowFocus: true,
   })
