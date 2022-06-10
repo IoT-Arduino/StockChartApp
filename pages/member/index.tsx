@@ -8,140 +8,103 @@ import { UserContext } from '../../utils/UserContext'
 import { useQueryComments } from '../../hooks/useQueryComments'
 import { useQueryBookMark } from '../../hooks/useQueryBookMark'
 import { useQueryMarker } from '../../hooks/useQueryMarker'
+import { useQueryProfile } from '../../hooks/useQueryProfile'
 
 // types
 import { Bookmark } from '../../types/Bookmark'
 import { Comments } from '../../types/Comments'
 import { NextPage } from 'next'
 
+// 登録数制限
+import { registerAllowance } from '../../const/settings'
+
 const Home: NextPage = () => {
-  // const [bookmark, setBookmark] = useState<Bookmark[] | null>([])
-  // const [comments, setComments] = useState<Comments[] | null>([])
-  // const [markers, setMarkers] = useState<Comments[] | null>([])
-  const [profile, setProfile] = useState<any>([])
-
-  const [isDisplay, setIsDisplay] = useState<boolean>(false)
-
   const { user, session } = useContext(UserContext)
   const { replace } = useRouter()
   const { push, pathname } = useRouter()
 
-  const { data: comments, status: statusComments } = useQueryComments()
-  const { data : bookmarkData, status: statusBookMark } = useQueryBookMark()
-  const { data: markers, status: statusMarker } = useQueryMarker()
+  const [isDisplay, setIsDisplay] = useState<boolean>(false)
+  
+  const [canMarkerInput, setCanMarkerInput] = useState<boolean>(false)
+  const [canBookMarkInput, setCanBookMarkInput] = useState<boolean>(false)
+  const [canCommentsInput, setCanCommentsInput] = useState<boolean>(false)
 
-  const bookmark = bookmarkData?.data
-  const bookmarkLength = bookmarkData?.dataLength
+  const { data: comments, status: statusComments } = useQueryComments()
+  const { data: bookmark, status: statusBookMark } = useQueryBookMark()
+  const { data: markers, status: statusMarker } = useQueryMarker()
+  const { data: profile, status: statusProfile } = useQueryProfile()
 
   useEffect(() => {
     if (!user) {
       replace('/signin')
     } else {
       setIsDisplay(true)
-      fetchProfile()
-    }
-  }, [user])
-
-
-    async function fetchProfile() {
-    if (user) {
-      try {
-        const { data: profile, error } = await supabase
-          .from('profiles')
-          .select()
-          .eq('id', user.id)
-        if (error) {
-          throw error
-        } else {
-          console.log(profile[0].rank)
-        }
-      } catch (error: any) {
-        alert(error.message)
+      if (profile?.length) {
+        checkAllowance(profile[0].rank)
       }
+    }
+  }, [user,profile])
+
+  const checkAllowance = (rank: any) => {
+    switch (rank) {
+      case 'free':
+        setCanBookMarkInput(
+          bookmark?.length ? registerAllowance.BookMarkLimitFree > bookmark.length : false
+        )
+
+        setCanMarkerInput(
+          markers?.length ? registerAllowance.MarkerLimitFree > markers.length : false
+        )
+
+        setCanCommentsInput(
+          comments?.length ? registerAllowance.CommentLimitFree > comments.length : false
+        )
+
+        break
+      case 'pro':
+        setCanBookMarkInput(
+          bookmark?.length ? registerAllowance.BookMarkLimitPro > bookmark.length : false
+        )
+
+        setCanMarkerInput(
+          markers?.length ? registerAllowance.MarkerLimitPro > markers.length : false
+        )
+
+        setCanCommentsInput(
+          comments?.length ? registerAllowance.CommentLimitPro > comments.length : false
+        )
+        break
+      case 'business':
+        setCanBookMarkInput(
+          bookmark?.length ? registerAllowance.BookMarkLimitBusiness > bookmark.length : false
+        )
+
+        setCanMarkerInput(
+          markers?.length ? registerAllowance.MarkerLimitBusiness > markers.length : false
+        )
+
+        setCanCommentsInput(
+          comments?.length ? registerAllowance.CommentLimitBusiness > comments.length : false
+        )
+        break
+      case 'admin':
+        setCanBookMarkInput(true)
+        setCanMarkerInput(true)
+        setCanCommentsInput(true)
+        break
+      default:
+        break
     }
   }
 
-  // useEffect(() => {
-  //   fetchBookmark()
-  //   fetchComments()
-  //   fetchMarkers()
-  // }, [])
-
-  // async function fetchBookmark() {
-  //   if (user) {
-  //     try {
-  //       const { data: bookmark, error } = await supabase
-  //         .from('bookmark')
-  //         .select()
-  //         .eq('user_id', user.id)
-  //       if (error) {
-  //         throw error
-  //       } else {
-  //         if (bookmark) {
-  //           setBookmark(bookmark)
-  //         }
-  //       }
-  //     } catch (error: any) {
-  //       alert(error.message)
-  //     }
-  //   }
-  // }
-
-  // async function fetchComments() {
-  //   if (user) {
-  //     try {
-  //       const { data, error } = await supabase.from('comments').select().eq('user_id', user.id)
-  //       if (error) {
-  //         throw error
-  //       } else {
-  //         // console.log(data)
-  //         if (data) {
-  //           setComments(data)
-  //         }
-  //       }
-  //     } catch (error: any) {
-  //       alert(error.message)
-  //     }
-  //   }
-  // }
-
-  // async function fetchMarkers() {
-  //   if (user) {
-  //     try {
-  //       const { data, error } = await supabase.from('marker').select().eq('user_id', user.id)
-  //       if (error) {
-  //         throw error
-  //       } else {
-  //         // console.log(data)
-  //         if (data) {
-  //           setMarkers(data)
-  //         }
-  //       }
-  //     } catch (error: any) {
-  //       alert(error.message)
-  //     }
-  //   }
-  // }
-
-  // console.log(markers)
-
-  // const fetchMarker = async () => {
-  //   if (user) {
-  //     let { data: items, error } = await supabase
-  //       .from('marker')
-  //       .select('*')
-  //       .match({ ticker: id, user_id: user.id })
-  //     if (error) console.log('error', error)
-  //     else {
-  //       const markerFetchedTemp = getMarkerData(items)
-  //       setMarker(markerFetchedTemp)
-  //     }
-  //   }
-  // }
-
   return (
-    <div className='mx-auto max-w-4xl px-2 sm:px-4 py-4'>
-      {isDisplay && <p className='font-xl mt-3 mb-2 font-bold'>BookMark一覧</p>}
+    <div className='mx-auto max-w-4xl px-2 py-4 sm:px-4'>
+      {user && isDisplay ? (
+        <p className='font-xl mt-3 mb-2 text-center font-bold'>{user.email}　様会員ページ</p>
+      ) : null}
+      {user && profile?.length ? <p>会員種別：{profile[0].rank}</p> : null}
+      {isDisplay && <p className='font-xl mt-3 mb-2 font-bold'>BookMark一覧 </p>}
+      {canBookMarkInput ? <span>登録可能です</span> : <span>登録制限に達しています</span>}
       {bookmark &&
         bookmark.map((mark, i) => {
           return (
@@ -155,6 +118,7 @@ const Home: NextPage = () => {
           )
         })}
       {isDisplay && <p className='font-xl mt-3 mb-2 font-bold'>Marker一覧</p>}
+      {canMarkerInput ? <span>登録可能です</span> : <span>登録制限に達しています</span>}
       {markers &&
         markers.map((marker, i) => {
           return (
@@ -165,6 +129,7 @@ const Home: NextPage = () => {
         })}
 
       {isDisplay && <p className='font-xl mt-3 mb-2 font-bold'>Comments一覧</p>}
+      {canCommentsInput ? <span>登録可能です</span> : <span>登録制限に達しています</span>}
       {comments &&
         comments.map((comments, i) => {
           return (
