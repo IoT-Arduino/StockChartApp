@@ -1,11 +1,6 @@
 import { useQuery } from 'react-query'
 import { supabase } from './../utils/supabase';
 
-import { MarkerLimitFree } from './../const/settings';
-import { MarkerLimitPro } from './../const/settings';
-import { MarkerLimitBusiness } from './../const/settings';
-
-
 export const useQueryBookMark = () => {
   const getBookMark = async () => {
     const { data, error } = await supabase
@@ -15,11 +10,7 @@ export const useQueryBookMark = () => {
     if (error) {
       throw new Error(`${error.message}: ${error.details}`)
     }
-    console.log(data.length > MarkerLimitFree)
-
-    const dataLength = data.length
-
-    return {data,dataLength}
+    return data
   }
   return useQuery({
     queryKey: 'bookmark',
