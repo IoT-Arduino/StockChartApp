@@ -18,6 +18,8 @@ const Home: NextPage = () => {
   // const [bookmark, setBookmark] = useState<Bookmark[] | null>([])
   // const [comments, setComments] = useState<Comments[] | null>([])
   // const [markers, setMarkers] = useState<Comments[] | null>([])
+  const [profile, setProfile] = useState<any>([])
+
   const [isDisplay, setIsDisplay] = useState<boolean>(false)
 
   const { user, session } = useContext(UserContext)
@@ -25,16 +27,39 @@ const Home: NextPage = () => {
   const { push, pathname } = useRouter()
 
   const { data: comments, status: statusComments } = useQueryComments()
-  const { data: bookmark, status: statusBookMark } = useQueryBookMark()
+  const { data : bookmarkData, status: statusBookMark } = useQueryBookMark()
   const { data: markers, status: statusMarker } = useQueryMarker()
+
+  const bookmark = bookmarkData?.data
+  const bookmarkLength = bookmarkData?.dataLength
 
   useEffect(() => {
     if (!user) {
       replace('/signin')
     } else {
       setIsDisplay(true)
+      fetchProfile()
     }
   }, [user])
+
+
+    async function fetchProfile() {
+    if (user) {
+      try {
+        const { data: profile, error } = await supabase
+          .from('profiles')
+          .select()
+          .eq('id', user.id)
+        if (error) {
+          throw error
+        } else {
+          console.log(profile[0].rank)
+        }
+      } catch (error: any) {
+        alert(error.message)
+      }
+    }
+  }
 
   // useEffect(() => {
   //   fetchBookmark()

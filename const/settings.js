@@ -1,1 +1,9 @@
 export const MarkerLimitFree = 7
+export const MarkerLimitPro = 1000
+export const MarkerLimitBusiness = 5000
+export const CommentLimitFree = 7
+export const CommentLimitPro = 1000
+export const CommentLimitBusiness = 5000
+export const BookMarkLimitFree = 3
+export const BookMarkLimitPro = 300
+export const BookMarkLimitBusiness = 5000
