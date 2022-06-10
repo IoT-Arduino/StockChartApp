@@ -6,7 +6,7 @@ export const useQueryBookMark = () => {
     const { data, error } = await supabase
       .from('bookmark')
       .select('*')
-      .order('created_at', { ascending: true })
+      .order('created_at', { ascending: false })
     if (error) {
       throw new Error(`${error.message}: ${error.details}`)
     }
