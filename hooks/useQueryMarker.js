@@ -7,7 +7,8 @@ export const useQueryMarker = () => {
     const { data, error } = await supabase
       .from('marker')
       .select('*')
-      .order('created_at', { ascending: true })
+      .order('ticker', { ascending: false })
+      .order('date', { ascending: false })
     if (error) {
       throw new Error(`${error.message}: ${error.details}`)
     }

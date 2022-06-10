@@ -24,7 +24,7 @@ const Home: NextPage = () => {
   const { push, pathname } = useRouter()
 
   const [isDisplay, setIsDisplay] = useState<boolean>(false)
-  
+
   const [canMarkerInput, setCanMarkerInput] = useState<boolean>(false)
   const [canBookMarkInput, setCanBookMarkInput] = useState<boolean>(false)
   const [canCommentsInput, setCanCommentsInput] = useState<boolean>(false)
@@ -43,7 +43,7 @@ const Home: NextPage = () => {
         checkAllowance(profile[0].rank)
       }
     }
-  }, [user,profile])
+  }, [user, profile])
 
   const checkAllowance = (rank: any) => {
     switch (rank) {
@@ -117,27 +117,97 @@ const Home: NextPage = () => {
             </div>
           )
         })}
+
       {isDisplay && <p className='font-xl mt-3 mb-2 font-bold'>Marker一覧</p>}
       {canMarkerInput ? <span>登録可能です</span> : <span>登録制限に達しています</span>}
-      {markers &&
-        markers.map((marker, i) => {
-          return (
-            <li key={i}>
-              {marker.date}/{marker.ticker}-[markerの内容]:{marker.memo}
-            </li>
-          )
-        })}
+      {markers && (
+        <div className='my-4 mx-auto w-1/2 shadow-md sm:rounded-lg'>
+          <table className='w-full text-sm text-gray-500 dark:text-gray-400'>
+            <thead className='bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
+              <tr>
+                <th scope='col' className='px-4 py-2'>
+                  銘柄
+                </th>
+                <th scope='col' className='px-4 py-2'>
+                  登録日
+                </th>
+                <th scope='col' className='px-4 py-2'>
+                  Marker内容
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {markers.map((marker, i) => {
+                return (
+                  <tr
+                    key={i}
+                    className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'
+                  >
+                    <td className='px-4 py-2'>
+                      <Link href={`/stocks/${marker.ticker}`}>
+                        <a>{marker.ticker}</a>
+                      </Link>
+                    </td>
+                    <td className='px-4 py-2'>{marker.date}</td>
+                    <td className='px-4 py-2'>{marker.memo}</td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
 
-      {isDisplay && <p className='font-xl mt-3 mb-2 font-bold'>Comments一覧</p>}
+      {isDisplay && <p className='font-xl mt-3 mb-2 font-bold'>Comment一覧</p>}
       {canCommentsInput ? <span>登録可能です</span> : <span>登録制限に達しています</span>}
-      {comments &&
-        comments.map((comments, i) => {
-          return (
-            <li key={i}>
-              {comments.date}/{comments.ticker}-[メモの内容]:{comments.memo}
-            </li>
-          )
-        })}
+
+      {comments && (
+        <div className='my-4 mx-auto w-1/2 shadow-md sm:rounded-lg'>
+          <table className='w-full text-sm text-gray-500 dark:text-gray-400'>
+            <thead className='bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
+              <tr>
+                <th scope='col' className='px-4 py-2'>
+                  銘柄
+                </th>
+                <th scope='col' className='px-4 py-2'>
+                  登録日
+                </th>
+                <th scope='col' className='px-4 py-2'>
+                  Marker内容
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {comments.map((comment, i) => {
+                return (
+                  <tr
+                    key={i}
+                    className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'
+                  >
+                    <td className='px-4 py-2'>
+                      <Link href={`/stocks/${comment.ticker}`}>
+                        <a>{comment.ticker}</a>
+                      </Link>
+                    </td>
+                    <td className='px-4 py-2'>{comment.date}</td>
+                    <td className='px-4 py-2'>{comment.memo}</td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      <div>
+        <h4>登録可能数について(無料登録ユーザー)</h4>
+        <ul>
+          <li>BookMark : {registerAllowance.BookMarkLimitFree}件まで</li>
+          <li>Comment : {registerAllowance.CommentLimitFree}件まで</li>
+          <li>Marker : {registerAllowance.MarkerLimitFree}件まで</li>
+        </ul>
+      </div>
+
     </div>
   )
 }
