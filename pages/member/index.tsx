@@ -41,9 +41,10 @@ const Home: NextPage = () => {
       setIsDisplay(true)
       if (profile?.length) {
         checkAllowance(profile[0].rank)
-      }
+        }
     }
   }, [user, profile])
+
 
   const checkAllowance = (rank: any) => {
     switch (rank) {
