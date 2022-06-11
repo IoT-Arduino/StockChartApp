@@ -31,6 +31,16 @@ import { StockPrice } from '../../types/StockPrice'
 
 import { codeList } from '../../data/stockCode/US-StockList'
 
+// 登録数制限
+import { registerAllowance } from '../../const/settings'
+
+import { useQueryComments } from '../../hooks/useQueryComments'
+import { useQueryBookMark } from '../../hooks/useQueryBookMark'
+import { useQueryMarker } from '../../hooks/useQueryMarker'
+import { useQueryProfile } from '../../hooks/useQueryProfile'
+
+
+
 export async function getStaticPaths() {
   // const filePath = path.join(process.cwd(), `./data/stockCode/US-StockList.json`);
   // const jsonData = await fsPromises.readFile(filePath);
@@ -207,24 +217,113 @@ const StockChart: NextPage<{
   companyInfo: Company
   status: any
 }> = ({ priceData, edgarData, id, companyInfo, status }) => {
-  if (status) {
-    console.log(status)
-    return <Error statusCode={404} />
-  }
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [marker, setMarker] = useState([])
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const { user, session } = useContext(UserContext)
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [canMarkerInput, setCanMarkerInput] = useState<boolean>(false)
+  const [canBookMarkInput, setCanBookMarkInput] = useState<boolean>(false)
+  const [canCommentsInput, setCanCommentsInput] = useState<boolean>(false)
+  const { data: comments, status: statusComments } = useQueryComments()
+  const { data: bookmark, status: statusBookMark } = useQueryBookMark()
+  const { data: markers, status: statusMarker } = useQueryMarker()
+  const { data: profile, status: statusProfile } = useQueryProfile()
+
   useEffect(() => {
-    if (user) {
+    if (profile?.length) {
+      checkAllowance(profile[0].rank)
+    }
+  }, [user,profile])
+
+  console.log(markers) 
+  console.log(id)
+
+  const makersWithTicker = markers?.filter(item => {
+    return item.ticker == id
+  })
+
+  console.log(makersWithTicker)
+
+  useEffect(()=>{
+    if(makersWithTicker?.length){
       fetchMarker()
     } else {
       setMarker(markerList as any)
     }
-  }, [user])
+  },[user,makersWithTicker])
+
+
+
+  if (status) {
+    console.log(status)
+    return <Error statusCode={404} />
+  }
+
+  const checkAllowance = (rank: any) => {
+    switch (rank) {
+      case 'free':
+        setCanBookMarkInput(
+          bookmark?.length ? registerAllowance.BookMarkLimitFree > bookmark.length : false
+        )
+
+        setCanMarkerInput(
+          markers?.length ? registerAllowance.MarkerLimitFree > markers.length : false
+        )
+
+        setCanCommentsInput(
+          comments?.length ? registerAllowance.CommentLimitFree > comments.length : false
+        )
+
+        break
+      case 'pro':
+        setCanBookMarkInput(
+          bookmark?.length ? registerAllowance.BookMarkLimitPro > bookmark.length : false
+        )
+
+        setCanMarkerInput(
+          markers?.length ? registerAllowance.MarkerLimitPro > markers.length : false
+        )
+
+        setCanCommentsInput(
+          comments?.length ? registerAllowance.CommentLimitPro > comments.length : false
+        )
+        break
+      case 'business':
+        setCanBookMarkInput(
+          bookmark?.length ? registerAllowance.BookMarkLimitBusiness > bookmark.length : false
+        )
+
+        setCanMarkerInput(
+          markers?.length ? registerAllowance.MarkerLimitBusiness > markers.length : false
+        )
+
+        setCanCommentsInput(
+          comments?.length ? registerAllowance.CommentLimitBusiness > comments.length : false
+        )
+        break
+      case 'admin':
+        setCanBookMarkInput(true)
+        setCanMarkerInput(true)
+        setCanCommentsInput(true)
+        break
+      default:
+        break
+    }
+  }
+
+
+  // 以下のmarker切り替え処理書き換え必要。条件がuserではなく、markerデータの有り無しで切り替える。
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  // useEffect(() => {
+  //   console.log("e",markers)
+  //   if (user) {
+  //     fetchMarker()
+  //   } else {
+  //     setMarker(markerList as any)
+  //   }
+  // }, [user])
 
   //
   const fetchMarker = async () => {
@@ -241,6 +340,9 @@ const StockChart: NextPage<{
     }
   }
 
+
+
+
   return (
     <div className="max-w-5xl mx-auto">
       <div className='flex flex-wrap items-center justify-between'>
@@ -251,7 +353,7 @@ const StockChart: NextPage<{
 
         {!user ? null : (
           <div className="flex-none">
-            <BookMark user={supabase.auth.user()} ticker={id} />
+            <BookMark user={supabase.auth.user()} ticker={id} canBookMarkInput={canBookMarkInput}/>
           </div>
         )}
       </div>
@@ -285,8 +387,8 @@ const StockChart: NextPage<{
           <></>
         ) : (
           <div className='my-3'>
-            <InputComments user={supabase.auth.user()} ticker={id} />
-            <InputMarker user={supabase.auth.user()} ticker={id} />
+            <InputComments user={supabase.auth.user()} ticker={id} canCommentsInput={canCommentsInput}/>
+            <InputMarker user={supabase.auth.user()} ticker={id} canMarkerInput={canMarkerInput}/>
           </div>
         )}
       </div>

@@ -6,7 +6,7 @@ import { Button } from '@mantine/core'
 import { useToggle } from '@mantine/hooks'
 import * as AiIcons from 'react-icons/ai'
 
-export default function BookMark({ user, ticker }: { user: any; ticker: string }) {
+export default function BookMark({ user, ticker,canBookMarkInput  }: { user: any; ticker: string, canBookMarkInput:boolean }) {
   //  <!-- BookMark -->
   const [star, setStar] = useState<boolean | null>(false)
   const [errorText, setError] = useState('')
@@ -30,7 +30,7 @@ export default function BookMark({ user, ticker }: { user: any; ticker: string }
   }
 
   const toggleStar = async () => {
-    if (!star) {
+    if (!star && canBookMarkInput) {
       let { data, error } = await supabase
         .from('bookmark')
         .insert({ bookmark: true, user_id: user.id, ticker })
@@ -39,6 +39,8 @@ export default function BookMark({ user, ticker }: { user: any; ticker: string }
       else {
         setStar(true)
       }
+    } else if(!star && canBookMarkInput===false) {
+       alert("登録数が上限に達しているので入力できません")
     } else {
       let { data, error } = await supabase
         .from('bookmark')
