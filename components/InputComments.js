@@ -1,8 +1,9 @@
 // <!-- 必要なものをimport -->
 import { useState, useEffect } from 'react'
 import { supabase } from '../utils/supabase'
+import Link from 'next/link'
 
-export default function InputComments({ user, ticker }) {
+export default function InputComments({ user, ticker,canCommentsInput }) {
   //  <!-- comment -->
   const [comments, setComments] = useState([])
   //  <!-- 入力したcomment -->
@@ -97,6 +98,14 @@ export default function InputComments({ user, ticker }) {
   return (
     <div className="w-full">
       <h4 className="mt-10 mb-2 font-bold font-xl">株式メモ情報</h4>
+      {canCommentsInput ? null : (
+        <div>
+          <span>入力数が無料枠上限に達しています</span>
+          <Link href='/member'>
+            <a>メンバーページへ</a>
+          </Link>
+        </div>
+      )}
       <div className="flex gap-2 my-2 flex-wrap">
         <input
           className="rounded p-2 border border-black text-base"
@@ -129,6 +138,7 @@ export default function InputComments({ user, ticker }) {
           <button
             className="btn-black p-2 border border-black rounded"
             onClick={() => submitComment(newCommentText, newDate)}
+            disabled={!canCommentsInput}
           >
             Add
           </button>
