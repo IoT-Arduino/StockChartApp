@@ -237,6 +237,25 @@ const StockChart: NextPage<{
     }
   }, [user,profile])
 
+  console.log(markers) 
+  console.log(id)
+
+  const makersWithTicker = markers?.filter(item => {
+    return item.ticker == id
+  })
+
+  console.log(makersWithTicker)
+
+  useEffect(()=>{
+    if(makersWithTicker?.length){
+      fetchMarker()
+    } else {
+      setMarker(markerList as any)
+    }
+  },[user,makersWithTicker])
+
+
+
   if (status) {
     console.log(status)
     return <Error statusCode={404} />
@@ -294,15 +313,17 @@ const StockChart: NextPage<{
     }
   }
 
+
   // 以下のmarker切り替え処理書き換え必要。条件がuserではなく、markerデータの有り無しで切り替える。
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  useEffect(() => {
-    if (user) {
-      fetchMarker()
-    } else {
-      setMarker(markerList as any)
-    }
-  }, [user])
+  // useEffect(() => {
+  //   console.log("e",markers)
+  //   if (user) {
+  //     fetchMarker()
+  //   } else {
+  //     setMarker(markerList as any)
+  //   }
+  // }, [user])
 
   //
   const fetchMarker = async () => {
@@ -318,6 +339,9 @@ const StockChart: NextPage<{
       }
     }
   }
+
+
+
 
   return (
     <div className="max-w-5xl mx-auto">
