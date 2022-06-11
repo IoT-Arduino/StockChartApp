@@ -5,7 +5,7 @@ export const registerAllowance = {
     MarkerLimitFree : 8 ,
     MarkerLimitPro : 1000 ,
     MarkerLimitBusiness : 5000 ,
-    CommentLimitFree : 3 ,
+    CommentLimitFree : 6 ,
     CommentLimitPro : 1000 ,
     CommentLimitBusiness : 5000 ,
 
