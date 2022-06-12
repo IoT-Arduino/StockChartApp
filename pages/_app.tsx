@@ -8,6 +8,8 @@ import SEO from '../next-seo.config'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 
+import axios from 'axios'
+
 // import { Session, User } from '@supabase/supabase-js'
 import { useEffect, useState } from 'react'
 import { supabase } from '../utils/supabase'
@@ -34,8 +36,16 @@ const queryClient = new QueryClient({
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [user, setUser] = useState(supabase.auth.user())
-  const [session, setSession] = useState(supabase.auth.session()) // 変更した。
-  useEffect(() => {
+  const [session, setSession] = useState(supabase.auth.session()) 
+
+  useEffect(()=>{
+    axios.post('/api/setSupabaseCookie', {
+      event: user ? 'SIGNED_IN' : 'SIGNED_OUT',
+      session: supabase.auth.session(),
+    })
+  },[user])
+
+   useEffect(() => {
     const session = supabase.auth.session()
     setSession(session)
     setUser(session?.user ?? null)
@@ -43,19 +53,18 @@ function MyApp({ Component, pageProps }: AppProps) {
       setSession(session)
       setUser(session?.user ?? null)
     })
-
     return () => {
       authListener?.unsubscribe()
     }
   }, [])
 
-  const router = useRouter()
-  useEffect(() => {
-    router.events.on('routeChangeComplete', pageview)
-    return () => {
-      router.events.off('routeChangeComplete', pageview)
-    }
-  }, [router.events])
+  // const router = useRouter()
+  // useEffect(() => {
+  //   router.events.on('routeChangeComplete', pageview)
+  //   return () => {
+  //     router.events.off('routeChangeComplete', pageview)
+  //   }
+  // }, [router.events])
 
   return (
     <UserContext.Provider value={{ user, session }}>
