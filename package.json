@@ -17,6 +17,8 @@
     "@mantine/next": "^4.2.7",
     "@supabase/supabase-js": "^1.35.2",
     "@supabase/ui": "^0.36.5",
+    "axios": "^0.27.2",
+    "cookie": "^0.5.0",
     "echarts": "^5.3.2",
     "echarts-for-react": "^3.0.2",
     "googleapis": "^100.0.0",
