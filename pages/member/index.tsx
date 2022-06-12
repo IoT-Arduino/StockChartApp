@@ -2,6 +2,8 @@ import Link from 'next/link'
 import { useEffect, useState, useContext } from 'react'
 import { useRouter } from 'next/router'
 
+import axios from 'axios'
+
 import { supabase } from '../../utils/supabase'
 import { UserContext } from '../../utils/UserContext'
 
@@ -19,6 +21,8 @@ import { NextPage } from 'next'
 import { registerAllowance } from '../../const/settings'
 
 const Home: NextPage = () => {
+  const router = useRouter()
+
   const { user, session } = useContext(UserContext)
   const { replace } = useRouter()
   const { push, pathname } = useRouter()
@@ -41,10 +45,23 @@ const Home: NextPage = () => {
       setIsDisplay(true)
       if (profile?.length) {
         checkAllowance(profile[0].rank)
-        }
+      }
+      // getDataFromAPI()
     }
   }, [user, profile])
 
+  // const getDataFromAPI = async() =>{
+  //   const {data} = await axios.get('/api/getData')
+  //   console.log("c",data)
+  // }
+
+  const deleteUser = async () => {
+    alert('退会処理をするとすべてのデータが削除されます、よろしいですか？')
+    const { data } = await axios.get('/api/deleteUser')
+    console.log('d', data)
+    supabase.auth.signOut()
+    router.replace('/signup')
+  }
 
   const checkAllowance = (rank: any) => {
     switch (rank) {
@@ -209,6 +226,7 @@ const Home: NextPage = () => {
         </ul>
       </div>
 
+      <button onClick={deleteUser}>退会する</button>
     </div>
   )
 }
