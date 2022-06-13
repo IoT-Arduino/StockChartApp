@@ -2,8 +2,6 @@
 import { registerAllowance } from '../const/settings'
 export const checkAllowanceComment =  (rank, comments) => {
     let canCommentInput
-
-    console.log(comments)
   
     switch (rank) {
       case 'free':
