@@ -8,5 +8,4 @@ export const registerAllowance = {
     CommentLimitFree : 6 ,
     CommentLimitPro : 1000 ,
     CommentLimitBusiness : 5000 ,
-
 }

@@ -3,5 +3,6 @@ import { createContext } from "react";
 type value = {
     user: User | null
     session:Session | null
+    rank: string| null
 }
-export const UserContext = createContext<value>({user: null, session: null})
+export const UserContext = createContext<value>({user: null, session: null, rank:null})

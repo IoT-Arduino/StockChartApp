@@ -11,7 +11,7 @@ import { supabase } from '../../utils/supabase'
 import { UserContext } from '../../utils/UserContext'
 
 // Components & Utils
-import InputComments from '../../components/InputComments'
+import InputCommentsState from '../../components/InputCommentsState'
 import BookMark from '../../components/BookMark'
 import InputMarker from '../../components/InputMarker'
 import StockCandleChart from '../../components/StockCandleChart'
@@ -234,9 +234,9 @@ const StockChart: NextPage<{
   const { data: profile, status: statusProfile } = useQueryProfile()
 
   useEffect(() => {
-    if (profile?.length) {
-      checkAllowance(profile[0].rank)
-    }
+    // if (profile?.length) {
+    //   checkAllowance(profile[0].rank)
+    // }
   }, [user,profile])
 
   console.log(markers) 
@@ -246,15 +246,16 @@ const StockChart: NextPage<{
     return item.ticker == id
   })
 
-  console.log(makersWithTicker)
+  // console.log(makersWithTicker)
 
+  // 大量レンダリング発生不具合あり、要確認。makersWithTickerを第二引数にできない。
   useEffect(()=>{
     if(makersWithTicker?.length){
       fetchMarker()
     } else {
       setMarker(markerList as any)
     }
-  },[user,makersWithTicker])
+  },[user])
 
 
 
@@ -263,57 +264,57 @@ const StockChart: NextPage<{
     return <Error statusCode={404} />
   }
 
-  const checkAllowance = (rank: any) => {
-    switch (rank) {
-      case 'free':
-        setCanBookMarkInput(
-          bookmark?.length ? registerAllowance.BookMarkLimitFree > bookmark.length : false
-        )
+  // const checkAllowance = (rank: any) => {
+  //   switch (rank) {
+  //     case 'free':
+  //       setCanBookMarkInput(
+  //         bookmark?.length ? registerAllowance.BookMarkLimitFree > bookmark.length : false
+  //       )
 
-        setCanMarkerInput(
-          markers?.length ? registerAllowance.MarkerLimitFree > markers.length : false
-        )
+  //       setCanMarkerInput(
+  //         markers?.length ? registerAllowance.MarkerLimitFree > markers.length : false
+  //       )
 
-        setCanCommentsInput(
-          comments?.length ? registerAllowance.CommentLimitFree > comments.length : false
-        )
+  //       setCanCommentsInput(
+  //         comments?.length ? registerAllowance.CommentLimitFree > comments.length : false
+  //       )
 
-        break
-      case 'pro':
-        setCanBookMarkInput(
-          bookmark?.length ? registerAllowance.BookMarkLimitPro > bookmark.length : false
-        )
+  //       break
+  //     case 'pro':
+  //       setCanBookMarkInput(
+  //         bookmark?.length ? registerAllowance.BookMarkLimitPro > bookmark.length : false
+  //       )
 
-        setCanMarkerInput(
-          markers?.length ? registerAllowance.MarkerLimitPro > markers.length : false
-        )
+  //       setCanMarkerInput(
+  //         markers?.length ? registerAllowance.MarkerLimitPro > markers.length : false
+  //       )
 
-        setCanCommentsInput(
-          comments?.length ? registerAllowance.CommentLimitPro > comments.length : false
-        )
-        break
-      case 'business':
-        setCanBookMarkInput(
-          bookmark?.length ? registerAllowance.BookMarkLimitBusiness > bookmark.length : false
-        )
+  //       setCanCommentsInput(
+  //         comments?.length ? registerAllowance.CommentLimitPro > comments.length : false
+  //       )
+  //       break
+  //     case 'business':
+  //       setCanBookMarkInput(
+  //         bookmark?.length ? registerAllowance.BookMarkLimitBusiness > bookmark.length : false
+  //       )
 
-        setCanMarkerInput(
-          markers?.length ? registerAllowance.MarkerLimitBusiness > markers.length : false
-        )
+  //       setCanMarkerInput(
+  //         markers?.length ? registerAllowance.MarkerLimitBusiness > markers.length : false
+  //       )
 
-        setCanCommentsInput(
-          comments?.length ? registerAllowance.CommentLimitBusiness > comments.length : false
-        )
-        break
-      case 'admin':
-        setCanBookMarkInput(true)
-        setCanMarkerInput(true)
-        setCanCommentsInput(true)
-        break
-      default:
-        break
-    }
-  }
+  //       setCanCommentsInput(
+  //         comments?.length ? registerAllowance.CommentLimitBusiness > comments.length : false
+  //       )
+  //       break
+  //     case 'admin':
+  //       setCanBookMarkInput(true)
+  //       setCanMarkerInput(true)
+  //       setCanCommentsInput(true)
+  //       break
+  //     default:
+  //       break
+  //   }
+  // }
 
 
   // 以下のmarker切り替え処理書き換え必要。条件がuserではなく、markerデータの有り無しで切り替える。
@@ -389,7 +390,7 @@ const StockChart: NextPage<{
           <></>
         ) : (
           <div className='my-3'>
-            <InputComments user={supabase.auth.user()} ticker={id} canCommentsInput={canCommentsInput}/>
+            <InputCommentsState ticker={id} />
             <InputMarker user={supabase.auth.user()} ticker={id} canMarkerInput={canMarkerInput}/>
           </div>
         )}
