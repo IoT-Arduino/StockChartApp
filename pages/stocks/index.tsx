@@ -50,10 +50,6 @@ const StockIndex: NextPage = () => {
     return item.SP500 != 'SP500'
   })
 
-  console.log(codeListNotUnlist.length)
-  // console.log(codeListSP.length)
-  console.log(codeUnlist.length)
-  // console.log(codeListNSP.length)
 
   const search = (rows: Company[]) => {
     return rows.filter(
