@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import Link from 'next/link'
 import { useContext } from 'react'
 import { UserContext } from '../../utils/UserContext'
 import { NextPage } from 'next'
@@ -20,7 +19,6 @@ import {codeList} from '../../data/stockCode/US-StockList'
  
 const StockIndex: NextPage = () => {
   const { user, session } = useContext(UserContext)
-
   const [data, setData] = useState([])
   const [q, setQ] = useState('')
   const [signIn, setSignIn] = useState(false)
@@ -38,17 +36,17 @@ const StockIndex: NextPage = () => {
     return item.Unlist != 'unlist'
   })
   
-  const codeUnlist = codeList.filter((item) => {
-    return item.Unlist == 'unlist'
-  })
+  // const codeUnlist = codeList.filter((item) => {
+  //   return item.Unlist == 'unlist'
+  // })
   
   // 以下使用していない。
-  const codeListSP = codeList.filter((item) => {
-    return item.SP500 == 'SP500' && item.Unlist != 'unlist'
-  })
-  const codeListNSP = codeList.filter((item) => {
-    return item.SP500 != 'SP500'
-  })
+  // const codeListSP = codeList.filter((item) => {
+  //   return item.SP500 == 'SP500' && item.Unlist != 'unlist'
+  // })
+  // const codeListNSP = codeList.filter((item) => {
+  //   return item.SP500 != 'SP500'
+  // })
 
 
   const search = (rows: Company[]) => {
