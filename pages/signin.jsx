@@ -36,7 +36,7 @@ const signin = () => {
   }
 
   return (
-    <div className='center flex h-screen items-center justify-center'>
+    <div className='flex justify-center py-40'>
       <div className='w-full bg-white  p-5 shadow sm:max-w-xl sm:rounded-lg'>
         <form onSubmit={handleSubmit(runSignin)}>
           <Controller

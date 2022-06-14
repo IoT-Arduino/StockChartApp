@@ -1,8 +1,12 @@
 
-.searchInputs {
+.searchInputWrapper {
   margin-top: 24px;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   background-color: white;
+  height: 32px;
+  border-radius: 4px;
 }
 
 .searchInput {
@@ -10,23 +14,17 @@
   border-radius: 2px;
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;
-  font-size: 18px;
-  padding: 15px;
-  height: 30px;
+  font-size: 16px;
+  padding: 8px 16px;
   min-width: 150px;
-}
-
-#tickerInput {
-  padding: 0;
+  height:32px;
   border: none;
-  border-radius: 0;
   outline: none;
-  background: none;
 }
 
 .dataResult {
   position:absolute;
-  margin-top: 5px;
+  margin-top: 8px;
   width: 240px;
   height: 200px;
   text-align: left;
