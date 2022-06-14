@@ -36,16 +36,20 @@ const queryClient = new QueryClient({
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [user, setUser] = useState(supabase.auth.user())
-  const [session, setSession] = useState(supabase.auth.session()) 
+  const [session, setSession] = useState(supabase.auth.session())
+  const [rank, setRank] = useState('')
 
-  useEffect(()=>{
+  useEffect(() => {
     axios.post('/api/setSupabaseCookie', {
       event: user ? 'SIGNED_IN' : 'SIGNED_OUT',
       session: supabase.auth.session(),
     })
-  },[user])
+    if (user) {
+      getProfile()
+    }
+  }, [user])
 
-   useEffect(() => {
+  useEffect(() => {
     const session = supabase.auth.session()
     setSession(session)
     setUser(session?.user ?? null)
@@ -58,6 +62,15 @@ function MyApp({ Component, pageProps }: AppProps) {
     }
   }, [])
 
+  const getProfile = async () => {
+    const { data, error } = await supabase.from('profiles').select('*')
+    if (error) {
+      throw new Error(error.message)
+    }
+    setRank(data[0]?.rank)
+    return data
+  }
+
   // const router = useRouter()
   // useEffect(() => {
   //   router.events.on('routeChangeComplete', pageview)
@@ -67,8 +80,8 @@ function MyApp({ Component, pageProps }: AppProps) {
   // }, [router.events])
 
   return (
-    <UserContext.Provider value={{ user, session }}>
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <UserContext.Provider value={{ user, session, rank }}>
         <MantineProvider withGlobalStyles withNormalizeCSS>
           {/* Google Tag Manager - Global base code */}
           <Script
@@ -89,8 +102,8 @@ function MyApp({ Component, pageProps }: AppProps) {
             <Component {...pageProps} />
           </LayoutWrapper>
         </MantineProvider>
-      </QueryClientProvider>
-    </UserContext.Provider>
+      </UserContext.Provider>
+    </QueryClientProvider>
   )
 }
 
