@@ -47,7 +47,7 @@ export default function HeroSlider({codeList}) {
             業績と株価一覧確認
           </p>
           <div className='mb-2'>
-            <HeroSearchBar placeholder="Ticker or Company" data={codeList} setOpened={setOpened}/>
+            <HeroSearchBar placeholder="Ticker or Company" data={codeList} setOpened={setOpened} />
           </div>
         </div>
       </div>
