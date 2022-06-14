@@ -1,7 +1,10 @@
 import React,{useState} from 'react'
 import Slider from 'react-slick'
 import Image from 'next/image'
-import Topimage1 from '../public/images/TopAppleChart.png'
+
+import Topimage1 from '../public/images/TopImage1.png'
+import Topimage2 from '../public/images/TopImage2.png'
+import Topimage3 from '../public/images/TopImage3.png'
 
 import styles from './HeroSlider.module.css'
 import HeroSearchBar from './HeroSearchBar';
@@ -22,16 +25,16 @@ export default function HeroSlider({codeList}) {
   }
   return (
     <div className={styles.slideWrapper}>
-      <div>
+      <div className="max-w-3xl mx-auto">
         <Slider {...settings}>
           <div>
-            <Image priority src={Topimage1} alt='image' />
+            <Image priority src={Topimage1}  alt='image' />
           </div>
           <div>
-            <Image priority src={Topimage1} alt='image' />
+            <Image priority src={Topimage2} alt='image' />
           </div>
           <div>
-            <Image priority src={Topimage1} alt='image' />
+            <Image priority src={Topimage3} alt='image' />
           </div>
         </Slider>
       </div>

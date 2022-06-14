@@ -47,6 +47,7 @@ const signup = () => {
             name='email'
             render={({ field: { onChange, onBlur } }) => (
               <Input
+              className="text-base"
                 onBlur={onBlur}
                 onChange={onChange}
                 type='email'
@@ -69,6 +70,7 @@ const signup = () => {
             name='password'
             render={({ field: { onChange, onBlur } }) => (
               <Input
+              className="text-base"
                 onBlur={onBlur}
                 onChange={onChange}
                 type='password'
@@ -91,6 +93,7 @@ const signup = () => {
             name='confirmPassword'
             render={({ field: { onChange, onBlur } }) => (
               <Input
+              className="text-base"
                 onBlur={onBlur}
                 onChange={onChange}
                 type='password'
