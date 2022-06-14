@@ -4,15 +4,21 @@ import { Input } from '@supabase/ui'
 import { supabase } from '../utils/supabase'
 import { useRef } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 const signup = () => {
   // type formData = {
   //   email: string,
   //   password: string,
   // };
+
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const { replace } = useRouter()
+
   const {
     control,
     handleSubmit,
     formState: { errors },
+    reset,
     watch,
     // eslint-disable-next-line react-hooks/rules-of-hooks
   } = useForm()
@@ -21,15 +27,20 @@ const signup = () => {
   password.current = watch('password', '')
   // const runSignup = async ({ email, password }: formData) => {
   const runSignup = async ({ email, password }) => {
+    console.log(email)
+    console.log(password)
     const res = await supabase.auth.signUp({
       email,
       password,
     })
+    alert("SignUp しました、メールボックスを確認してください")
+    replace('/')
+    reset()
   }
   return (
-    <div className='center flex h-screen items-center justify-center'>
+    <div className='center flex items-center justify-center my-20'>
       <div className='w-full bg-white  p-5 shadow sm:max-w-xl sm:rounded-lg'>
-        <h2 className="text-xl">招待制</h2>
+        <h2 className="text-xl">サインアップ（招待制）</h2>
         <form onSubmit={handleSubmit(runSignup)}>
           <Controller
             control={control}
