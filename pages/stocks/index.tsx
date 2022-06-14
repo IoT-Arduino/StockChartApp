@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useContext } from 'react'
 import { UserContext } from '../../utils/UserContext'
@@ -6,61 +6,54 @@ import { NextPage } from 'next'
 import { NextSeo } from 'next-seo'
 
 // fs
-import fsPromises from 'fs/promises';
-import path from 'path'
+// import fsPromises from 'fs/promises';
+// import path from 'path'
 
 // Components
 import Datatable from '../../components/Datatable'
 
 // Types
 import { Company } from '../../types/Company'
+// JSON data
+import {codeList} from '../../data/stockCode/US-StockList'
+
  
-export async function getStaticProps() {
-  try {
-    // const reqList = await fetch(
-    //   `${process.env.NEXT_PUBLIC_API_ENDOPOINT}/stockCode/US-StockList.json`
-    // )
-    // const codeList = await reqList.json()
-
-    // const codeListSorted = codeList.sort(function (a: any, b: any) {
-    //   if (a.Ticker > b.Ticker) {
-    //     return 1
-    //   } else {
-    //     return -1
-    //   }
-    // })
-
-    const filePath = path.join(process.cwd(), './data/stockCode/US-StockList.json');
-    const jsonData = await fsPromises.readFile(filePath);
-    const objectDataStockList = JSON.parse(jsonData as any);
-
-    return {
-      props: {
-        codeList: objectDataStockList,
-      },
-    }
-  } catch (err) {
-    console.log(err)
-  }
-}
-
-const StockIndex: NextPage<{ codeList: Company[] }> = ({ codeList }) => {
+const StockIndex: NextPage = () => {
   const { user, session } = useContext(UserContext)
 
   const [data, setData] = useState([])
   const [q, setQ] = useState('')
+  const [signIn, setSignIn] = useState(false)
 
-  const codeListSP = codeList.filter((item) => {
-    return item.SP500 == 'SP500' && item.Unlist != 'unlist'
+  useEffect(() => {
+    if (!user) {
+      setSignIn(false)
+    } else {
+      setSignIn(true)
+    }
+  }, [user])
+
+  // 他に使用されている箇所、全体Index,StockIndex,Navbar
+  const codeListNotUnlist = codeList.filter((item) => {
+    return item.Unlist != 'unlist'
   })
-
+  
   const codeUnlist = codeList.filter((item) => {
     return item.Unlist == 'unlist'
   })
-
+  
+  // 以下使用していない。
+  const codeListSP = codeList.filter((item) => {
+    return item.SP500 == 'SP500' && item.Unlist != 'unlist'
+  })
   const codeListNSP = codeList.filter((item) => {
     return item.SP500 != 'SP500'
   })
+
+  console.log(codeListNotUnlist.length)
+  // console.log(codeListSP.length)
+  console.log(codeUnlist.length)
+  // console.log(codeListNSP.length)
 
   const search = (rows: Company[]) => {
     return rows.filter(
@@ -90,41 +83,8 @@ const StockIndex: NextPage<{ codeList: Company[] }> = ({ codeList }) => {
         </div>
 
         <div className='relative my-4 overflow-x-auto shadow-md sm:rounded-lg'>
-          <Datatable data={search(codeList)} />
+          <Datatable data={search(codeListNotUnlist as any)} />
         </div>
-        {user ? (
-          <div>
-            <h2 className='my-6'>Unlist株式一覧</h2>
-            <ul>
-              {codeUnlist.map((code, i) => {
-                return (
-                  <li key={i}>
-                    <Link href={`/stocks/${code.Ticker}`} prefetch={false}>
-                      <a>
-                        {code.Name}/{code.Ticker}/{code.CIK}
-                      </a>
-                    </Link>
-                  </li>
-                )
-              })}
-            </ul>
-
-            <h2 className='my-6'>Not500株式一覧</h2>
-            <ul>
-              {codeListNSP.map((code, i) => {
-                return (
-                  <li key={i}>
-                    <Link href={`/stocks/${code.Ticker}`} prefetch={false}>
-                      <a>
-                        {code.Name}/{code.Ticker}/{code.CIK}
-                      </a>
-                    </Link>
-                  </li>
-                )
-              })}
-            </ul>
-          </div>
-        ) : null}
       </main>
     </>
   )

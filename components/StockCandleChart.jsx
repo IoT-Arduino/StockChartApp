@@ -55,22 +55,26 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
     }
   })
 
-  console.log(markerChartData)
+  // console.log(markerChartData)
 
   //　EdgarDataの加工処理
   const newEdgarData = edgarFsData.map((item) => {
     // 掛け持ち表示対応、株式数　epsBasic と Diluted (Dilutedを基本になければ、Basicとして、チャート表示とテーブル表示に対応する)
     const epsBasicAndDiluted = item.epsDiluted ? item.epsDiluted : item.eps
     const epsBasicAndDilutedAccum = item.epsAccumDiluted ? item.epsAccumDiluted : item.epsAccum
-    // const numberOfSharesOutstanding = item.weightedAverageNumberOfDilutedSharesOutstanding
-    //   ? item.weightedAverageNumberOfDilutedSharesOutstanding
-    //   : item.commonStockSharesOutstanding
 
     const numberOfSharesOutstanding = item.commonStockSharesOutstanding
-    ? item.commonStockSharesOutstanding
-    : item.weightedAverageNumberOfDilutedSharesOutstanding
+      ? item.commonStockSharesOutstanding
+      : item.weightedAverageNumberOfDilutedSharesOutstanding
 
     const bookPerShare = item.stockHoldersEquity / numberOfSharesOutstanding
+
+    const comonStockDividendPerShareYear = item.commonStockDividendsPerShareDeclaredYear ? item.commonStockDividendsPerShareDeclaredYear :  (Math.round(item.commonStockDividendsCashPaidYear /numberOfSharesOutstanding * 100)) / 100
+
+    // (Math.round(item.commonStockDividendsCashPaidYear /numberOfSharesOutstanding * 100)) / 100,
+
+    // commonStockDividendsPerShareDeclaredYear: item.commonStockDividendsPerShareDeclaredYear,
+    // commonStockDividendsCashPaidYear:item.commonStockDividendsCashPaidYear/numberOfSharesOutstanding,
 
     return {
       date: item.date,
@@ -88,29 +92,37 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
       stockHoldersEquity: item.stockHoldersEquity,
       // 株式指標・経営指標
       numberOfSharesOutstanding: numberOfSharesOutstanding,
- 
+      // 営業CFマージン 単四半期の営業CF / 単四半期の売上
+      operatingCashFlowMargin: item.operatingCashFlow / item.revenue,
+
       // Yahoo Finance と一致する。commonStockSharesOutstanding　を使用。
-      bps: parseFloat(bookPerShare).toFixed(2),
+      bps: (Math.round(bookPerShare * 100)) / 100, 
       // EPSはBasicを使用（データがそろっている、YahooFinanceと同じ、株探USはDiluted）
-      eps: parseFloat(epsBasicAndDiluted).toFixed(2),
-      epsAccum: parseFloat(epsBasicAndDilutedAccum).toFixed(2),
-      // epsDiluted: parseFloat(item.epsDiluted).toFixed(2),
-      // epsAccumDiluted: parseFloat(item.epsAccumDiluted).toFixed(2),
-      stockHoldersEquityRatio: parseFloat(item.stockHoldersEquity / item.assets).toFixed(2),
+      eps: (Math.round(epsBasicAndDiluted * 100)) / 100,
+      epsAccum: (Math.round(epsBasicAndDilutedAccum * 100)) / 100,
+      stockHoldersEquityRatio: (Math.round(item.stockHoldersEquity / item.assets * 100)) / 100,
+
       // 配当関係　ｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰ
       // 一株当たり配当　DPS
       commonStockDividendsPerShareDeclaredDeducted:
         item.commonStockDividendsPerShareDeclaredDeducted,
-      commonStockDividendsPerShareDeclaredYear: item.commonStockDividendsPerShareDeclaredYear,
-      // 配当性向　    四半期の場合、直近四半期の1株配当　 ÷ 直近4四半期の調整後希薄化EPS
-      dividendPayoutRatio: parseFloat(
-        (item.commonStockDividendsPerShareDeclaredDeducted * 100) / item.eps
-      ).toFixed(1),
-      dividendPayoutRatioYear: parseFloat(
-        (item.commonStockDividendsPerShareDeclaredYear * 100) / item.epsAccum
-      ).toFixed(1),
+      commonStockDividendsPerShareDeclaredYear: comonStockDividendPerShareYear,
+
+      // 配当性向　    四半期の場合、直近四半期の1株配当　 ÷ 直近4四半期の調整後希薄化EPS %表示
+      dividendPayoutRatio:(Math.round(item.commonStockDividendsPerShareDeclaredDeducted * 100 / epsBasicAndDiluted * 100)) / 100,
+      // dividendPayoutRatio: parseFloat(
+      //   (item.commonStockDividendsPerShareDeclaredDeducted * 100) / item.eps
+      // ).toFixed(1),
+      // 配当性向　年間
+      dividendPayoutRatioYear: (Math.round(comonStockDividendPerShareYear * 100 / epsBasicAndDilutedAccum * 100)) / 100,
+      // dividendPayoutRatioYear: parseFloat(
+      //   comonStockDividendPerShareYear * 100 / item.epsAccum
+      // ).toFixed(1),
     }
   })
+
+  // console.log(newEdgarData)
+
 
   // 　日付をキーとして、edinet、markerData,splitDataと株価データをまとめて一つのオブジェクトにして、連想配列にする
   const companyData = priceData.map((price) => {
@@ -122,6 +134,7 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
       close: parseFloat(price.Close).toFixed(2),
       low: parseFloat(price.Low).toFixed(2),
       high: parseFloat(price.High).toFixed(2),
+      calcRatio: price.calcRatio,
       // EdgarData ----------------
       // PL
       revenue: newEdgarData.find((value) => value.date === price.date)?.revenue,
@@ -142,63 +155,69 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
       stockHoldersEquityRatio: newEdgarData.find((value) => value.date === price.date)
         ?.stockHoldersEquityRatio,
 
+      operatingCashFlowMargin: newEdgarData.find((value) => value.date === price.date)
+        ?.operatingCashFlowMargin,
+
       // 株式指標   price.calcRatio で調整する。ｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰ
       // 株式数　分割の場合、株数は過去の株数に掛け算する。。
       numberOfSharesOutstanding:
         newEdgarData.find((value) => value.date === price.date)?.numberOfSharesOutstanding *
-        price.calcRatio,
+        Number(price.calcRatio),
 
       // 一株あたり経営指標　分割の場合、EPS等は過去を割る
       bps: parseFloat(
-        newEdgarData.find((value) => value.date === price.date)?.bps / price.calcRatio
+        newEdgarData.find((value) => value.date === price.date)?.bps / Number(price.calcRatio)
       ).toFixed(2),
       eps: parseFloat(
-        newEdgarData.find((value) => value.date === price.date)?.eps / price.calcRatio
+        newEdgarData.find((value) => value.date === price.date)?.eps / Number(price.calcRatio)
       ).toFixed(2),
       epsAccum: parseFloat(
-        newEdgarData.find((value) => value.date === price.date)?.epsAccum / price.calcRatio
+        newEdgarData.find((value) => value.date === price.date)?.epsAccum / Number(price.calcRatio)
       ).toFixed(2),
 
       // 株価指標　株式分割調整。（要確認）
       pbr: parseFloat(
         (price.Close / newEdgarData.find((value) => value.date === price.date)?.bps) *
-          price.calcRatio
+          Number(price.calcRatio)
       ).toFixed(2),
+
       per: parseFloat(
         (price.Close / newEdgarData.find((value) => value.date === price.date)?.eps) *
-          price.calcRatio * 0.25 // 四半期の為　分母に0.25を掛ける。年間換算のEPS
-      ).toFixed(2),
+          Number(price.calcRatio) *
+          0.25 // 四半期の為　分母に0.25を掛ける。年間換算のEPS。
+      ),
+      // マイナス表示を加工する為、数値型を維持
       perAccum: parseFloat(
         (price.Close / newEdgarData.find((value) => value.date === price.date)?.epsAccum) *
-          price.calcRatio
-      ).toFixed(2),
+          Number(price.calcRatio)
+      ),
 
       // 配当関係　ｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰｰ
-      // 一株当たり配当　DPS
+      // 一株当たり配当　DPS 四半期　－　分割考慮済み
       commonStockDividendsPerShareDeclaredDeducted: parseFloat(
         newEdgarData.find((value) => value.date === price.date)
-          ?.commonStockDividendsPerShareDeclaredDeducted
-      ).toFixed(2),
-
+          ?.commonStockDividendsPerShareDeclaredDeducted / Number(price.calcRatio)
+      ).toFixed(2), // 一株当たり配当　DPS 年間　－　分割考慮済み
       commonStockDividendsPerShareDeclaredYear: parseFloat(
         newEdgarData.find((value) => value.date === price.date)
-          ?.commonStockDividendsPerShareDeclaredYear
+          ?.commonStockDividendsPerShareDeclaredYear / Number(price.calcRatio)
       ).toFixed(2),
 
-      // 配当利回り(FYのみ表示対象とする) % 表示
+      // 配当利回り・四半期(FYのみ表示対象とする) % 表示　－　分割考慮済み
       dividendYieldDeducted:
         parseFloat(
           (newEdgarData.find((value) => value.date === price.date)
             ?.commonStockDividendsPerShareDeclaredDeducted *
             100) /
-            price.Close
+            (price.Close * Number(price.calcRatio))
         ).toFixed(2) + '%',
+      // 配当利回り・年間(FYのみ表示対象とする) % 表示  －　分割考慮済み
       dividendYieldYear:
         parseFloat(
           (newEdgarData.find((value) => value.date === price.date)
             ?.commonStockDividendsPerShareDeclaredYear *
             100) /
-            price.Close
+            (price.Close * Number(price.calcRatio))
         ).toFixed(2) + '%',
 
       // 配当性向　% 表示
@@ -210,9 +229,8 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
     }
   })
 
-   console.log(isNaN(companyData[0].numberOfSharesOutstanding))
-
-  // console.log(edgarData)
+  // console.log(isNaN(companyData[0].numberOfSharesOutstanding))
+  // console.log(companyData)
 
   // 　チャート表示用配列データ作成　＝＝＝＝＝＝＝＝＝＝＝＝＝
 
@@ -294,20 +312,21 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
     if (companyInfo.Sector === 'Finance') {
       return null
     } else {
-      const opeCashIndx = (parseFloat(item.operatingCashFlow / item.revenue) * 100).toFixed(2)
-      return opeCashIndx
+      const opeCashIndx = (parseFloat(item.operatingCashFlow / item.revenue) * 100)
+      return opeCashIndx >= 0 ? opeCashIndx : 0
     }
   })
 
   const operatingCashFlowData = filteredDataForBarChart.map((item) => {
-    const opeCashData = parseInt(item.operatingCashFlow) / 10000000
+    const opeCashData = item.operatingCashFlow / 1000000
     return opeCashData
   })
 
   const netIncomeArr = filteredDataForBarChart.map((item) => {
-    const netIncomeData = parseInt(item.NetIncomeLoss) / 10000000
+    const netIncomeData = item.NetIncomeLoss / 1000000
     return netIncomeData
   })
+
 
   // テーブル表示用　データ処理　------------------------------
 
@@ -378,7 +397,7 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
         axisLine: { show: true },
         axisTick: { show: true },
         splitLine: { show: true },
-        min: 0,
+        // min: 0,
       },
       {
         name: '営業CFマージン',
@@ -393,7 +412,7 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
         axisTick: { show: true },
         splitLine: { show: true },
         min: 0,
-        max: 100,
+        max: 50,
       },
     ],
     // graphic: [
@@ -541,17 +560,31 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
       <ReactEcharts option={option} style={{ height: '600px', width: '100%' }} />
       <p style={{ textAlign: 'right' }}>単位は(Million)</p>
 
-      <div className='relative overflow-x-auto shadow-md sm:rounded-lg my-4'>
-        <h3 className="my-2 p-2">通期業績データ FS</h3>
-        <table className='w-full text-sm text-gray-500 dark:text-gray-400 text-right'>
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <div className='relative my-4 overflow-x-auto shadow-md sm:rounded-lg'>
+        <h3 className='my-2 p-2'>通期業績データ FS</h3>
+        <table className='w-full text-right text-sm text-gray-500 dark:text-gray-400'>
+          <thead className='bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
             <tr>
-              <th scope="col" className="px-4 py-2">年月</th>
-              {companyInfo.Sector === 'Finance' ? null : <th scope="col" className="px-4 py-2">売上高</th>}
-              <th scope="col" className="px-4 py-2">純利益</th>
-              <th scope="col" className="px-4 py-2">営業CF</th>
-              <th scope="col" className="px-4 py-2">総資産</th>
-              <th scope="col" className="px-4 py-2">株主資本</th>
+              <th scope='col' className='px-4 py-2'>
+                年月
+              </th>
+              {companyInfo.Sector === 'Finance' ? null : (
+                <th scope='col' className='px-4 py-2'>
+                  売上高
+                </th>
+              )}
+              <th scope='col' className='px-4 py-2'>
+                純利益
+              </th>
+              <th scope='col' className='px-4 py-2'>
+                営業CF
+              </th>
+              <th scope='col' className='px-4 py-2'>
+                総資産
+              </th>
+              <th scope='col' className='px-4 py-2'>
+                株主資本
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -559,20 +592,25 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
               fyCompanyDataForTable.map((item, i) => {
                 if (companyInfo.Sector === 'Finance') {
                   return (
-                    <tr className="border-b dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700" key={i}>
-                      <td className="px-4 py-2">{item.date}</td>
-                      <td className="px-4 py-2">
+                    <tr
+                      className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'
+                      key={i}
+                    >
+                      <td className='px-4 py-2'>{item.date}</td>
+                      <td className='px-4 py-2'>
                         {item.NetIncomeLossAccum
                           ? parseInt(item.NetIncomeLossAccum / 1000).toLocaleString()
                           : '-'}
                       </td>
-                      <td className="px-4 py-2">
+                      <td className='px-4 py-2'>
                         {item.operatingCashFlowAccum
                           ? parseInt(item.operatingCashFlowAccum / 1000).toLocaleString()
                           : '-'}
                       </td>
-                      <td className="px-4 py-2">{item.assets ? parseInt(item.assets / 1000).toLocaleString() : '-'}</td>
-                      <td className="px-4 py-2">
+                      <td className='px-4 py-2'>
+                        {item.assets ? parseInt(item.assets / 1000).toLocaleString() : '-'}
+                      </td>
+                      <td className='px-4 py-2'>
                         {item.stockHoldersEquity
                           ? parseInt(item.stockHoldersEquity / 1000).toLocaleString()
                           : '-'}
@@ -581,27 +619,32 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
                   )
                 } else {
                   return (
-                    <tr className="border-b dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700" key={i}>
-                      <td className="px-4 py-2">{item.date}</td>
-                      <td className="px-4 py-2">
+                    <tr
+                      className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'
+                      key={i}
+                    >
+                      <td className='px-4 py-2'>{item.date}</td>
+                      <td className='px-4 py-2'>
                         {item.revenueAccum
                           ? parseInt(item.revenueAccum / 1000000).toLocaleString()
                           : '-'}
                       </td>
-                      <td className="px-4 py-2">
+                      <td className='px-4 py-2'>
                         {item.NetIncomeLossAccum
                           ? parseInt(item.NetIncomeLossAccum / 1000000).toLocaleString()
                           : '-'}
                       </td>
-                      <td className="px-4 py-2">
+                      <td className='px-4 py-2'>
                         {item.operatingCashFlowAccum
-                          ? parseInt(item.operatingCashFlowAccum /1000000).toLocaleString()
+                          ? parseInt(item.operatingCashFlowAccum / 1000000).toLocaleString()
                           : '-'}
                       </td>
-                      <td className="px-4 py-2">{item.assets ? parseInt(item.assets /1000000).toLocaleString() : '-'}</td>
-                      <td className="px-4 py-2">
+                      <td className='px-4 py-2'>
+                        {item.assets ? parseInt(item.assets / 1000000).toLocaleString() : '-'}
+                      </td>
+                      <td className='px-4 py-2'>
                         {item.stockHoldersEquity
-                          ? parseInt(item.stockHoldersEquity /1000000).toLocaleString()
+                          ? parseInt(item.stockHoldersEquity / 1000000).toLocaleString()
                           : '-'}
                       </td>
                     </tr>
@@ -612,31 +655,51 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
         </table>
       </div>
 
-
-      <div className='relative overflow-x-auto shadow-md sm:rounded-lg my-4'>
-        <h3 className="my-2 p-2">通期業績データ 指標</h3>
-        <table className='w-full text-sm text-gray-500 dark:text-gray-400 text-right'>
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <div className='relative my-4 overflow-x-auto shadow-md sm:rounded-lg'>
+        <h3 className='my-2 p-2'>通期業績データ 指標</h3>
+        <table className='w-full text-right text-sm text-gray-500 dark:text-gray-400'>
+          <thead className='bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
             <tr>
-              <th scope="col" className="px-4 py-2">年月</th>
-              <th scope="col" className="px-4 py-2">株価</th>
-              <th scope="col" className="px-4 py-2">BPS</th>
-              <th scope="col" className="px-4 py-2">PBR</th>
-              <th scope="col" className="px-4 py-2">EPS（年間）</th>
-              <th scope="col" className="px-4 py-2">PER（年間）</th>
+              <th scope='col' className='px-4 py-2'>
+                年月
+              </th>
+              <th scope='col' className='px-4 py-2'>
+                株価
+              </th>
+              <th scope='col' className='px-4 py-2'>
+                BPS
+              </th>
+              <th scope='col' className='px-4 py-2'>
+                PBR
+              </th>
+              <th scope='col' className='px-4 py-2'>
+                EPS（年間）
+              </th>
+              <th scope='col' className='px-4 py-2'>
+                PER（年間）
+              </th>
             </tr>
           </thead>
           <tbody>
             {fyCompanyDataForTable &&
               fyCompanyDataForTable.map((item, i) => {
                 return (
-                  <tr key={i} className="border-b dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700">
-                    <td className="px-4 py-2">{item.date}</td>
-                    <td className="px-4 py-2">{item.close} </td>
-                    <td className="px-4 py-2">{item.bps != 'NaN' ? item.bps : '-'} </td>
-                    <td className="px-4 py-2">{item.pbr != 'NaN' ? item.pbr : '-'}</td>
-                    <td className="px-4 py-2">{item.epsAccum != 'NaN' ? item.epsAccum : '-'}</td>
-                    <td className="px-4 py-2">{item.perAccum != 'NaN' ? item.perAccum : '-'} </td>
+                  <tr
+                    key={i}
+                    className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'
+                  >
+                    <td className='px-4 py-2'>{item.date}</td>
+                    <td className='px-4 py-2'>{item.close} </td>
+                    <td className='px-4 py-2'>{item.bps != 'NaN' ? item.bps : '-'} </td>
+                    <td className='px-4 py-2'>{item.pbr != 'NaN' ? item.pbr : '-'}</td>
+                    <td className='px-4 py-2'>{item.epsAccum !== 'NaN' ? item.epsAccum : '-'}</td>
+                    <td className='px-4 py-2'>
+                      {item.perAccum !== NaN
+                        ? item.perAccum > 0
+                          ? item.perAccum.toFixed(2)
+                          : 'minus'
+                        : '-'}
+                    </td>
                   </tr>
                 )
               })}
@@ -644,17 +707,34 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
         </table>
       </div>
 
-      <div className='relative overflow-x-auto shadow-md sm:rounded-lg my-4'>
-        <h3 className="my-2 p-2">単四半期業績データ PL/CFS/BS</h3>
-        <table className='w-full text-sm text-gray-500 dark:text-gray-400 text-right'>
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <div className='relative my-4 overflow-x-auto shadow-md sm:rounded-lg'>
+        <h3 className='my-2 p-2'>単四半期業績データ PL/CFS/BS</h3>
+        <table className='w-full text-right text-sm text-gray-500 dark:text-gray-400'>
+          <thead className='bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
             <tr>
-              <th scope="col" className="px-4 py-2">年月</th>
+              <th scope='col' className='px-4 py-2'>
+                年月
+              </th>
               {companyInfo.Sector === 'Finance' ? null : <th>売上高</th>}
-              <th scope="col" className="px-4 py-2">純利益</th>
-              <th scope="col" className="px-4 py-2">営業CF</th>
-              <th scope="col" className="px-4 py-2">総資産</th>
-              <th scope="col" className="px-4 py-2">株主資本</th>
+              <th scope='col' className='px-4 py-2'>
+                純利益
+              </th>
+              <th scope='col' className='px-4 py-2'>
+                営業CF
+              </th>
+              {companyInfo.Sector === 'Finance' ? (
+                <th scope='col' className='px-4 py-2'>
+                  総資産
+                </th>
+              ) : (
+                <th scope='col' className='px-4 py-2'>
+                  営業CFマージン
+                </th>
+              )}
+
+              <th scope='col' className='px-4 py-2'>
+                株主資本
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -662,47 +742,62 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
               QtrCompanyDataForTable.map((item, i) => {
                 if (companyInfo.Sector === 'Finance') {
                   return (
-                    <tr key={i} className="border-b dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700">
-                      <td className="px-4 py-2">{item.date}</td>
-                      <td className="px-4 py-2">
+                    <tr
+                      key={i}
+                      className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'
+                    >
+                      <td className='px-4 py-2'>{item.date}</td>
+                      <td className='px-4 py-2'>
                         {item.NetIncomeLoss
-                          ? parseInt(item.NetIncomeLoss /1000000).toLocaleString()
+                          ? parseInt(item.NetIncomeLoss / 1000000).toLocaleString()
                           : '-'}{' '}
                       </td>
-                      <td className="px-4 py-2">
+                      <td className='px-4 py-2'>
                         {' '}
                         {item.operatingCashFlow
-                          ? parseInt(item.operatingCashFlow /1000000).toLocaleString()
+                          ? parseInt(item.operatingCashFlow / 1000000).toLocaleString()
                           : '-'}
                       </td>
-                      <td className="px-4 py-2">{item.assets ? parseInt(item.assets /1000000).toLocaleString() : '-'}</td>
-                      <td className="px-4 py-2">
+                      <td className='px-4 py-2'>
+                        {item.assets ? parseInt(item.assets / 1000000).toLocaleString() : '-'}
+                      </td>
+                      <td className='px-4 py-2'>
                         {item.stockHoldersEquity
-                          ? parseInt(item.stockHoldersEquity /1000000).toLocaleString()
+                          ? parseInt(item.stockHoldersEquity / 1000000).toLocaleString()
                           : '-'}
                       </td>
                     </tr>
                   )
                 } else {
                   return (
-                    <tr key={i} className="border-b dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700">
-                      <td className="px-4 py-2">{item.date}</td>
-                      <td className="px-4 py-2">{item.revenue ? parseInt(item.revenue /1000000).toLocaleString() : '-'}</td>
-                      <td className="px-4 py-2">
+                    <tr
+                      key={i}
+                      className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'
+                    >
+                      <td className='px-4 py-2'>{item.date}</td>
+                      <td className='px-4 py-2'>
+                        {item.revenue ? parseInt(item.revenue / 1000000).toLocaleString() : '-'}
+                      </td>
+                      <td className='px-4 py-2'>
                         {item.NetIncomeLoss
-                          ? parseInt(item.NetIncomeLoss /1000000).toLocaleString()
+                          ? parseInt(item.NetIncomeLoss / 1000000).toLocaleString()
                           : '-'}{' '}
                       </td>
-                      <td className="px-4 py-2">
+                      <td className='px-4 py-2'>
                         {' '}
                         {item.operatingCashFlow
-                          ? parseInt(item.operatingCashFlow /1000000).toLocaleString()
+                          ? parseInt(item.operatingCashFlow / 1000000).toLocaleString()
                           : '-'}
                       </td>
-                      <td className="px-4 py-2">{item.assets ? parseInt(item.assets /1000000).toLocaleString() : '-'}</td>
-                      <td className="px-4 py-2">
+                      <td className='px-4 py-2'>
+                        {item.operatingCashFlowMargin
+                          ? item.operatingCashFlowMargin >= 0 ? (item.operatingCashFlowMargin * 100).toFixed(1)
+                          : '-': '-'}
+                        %
+                      </td>
+                      <td className='px-4 py-2'>
                         {item.stockHoldersEquity
-                          ? parseInt(item.stockHoldersEquity /1000000).toLocaleString()
+                          ? parseInt(item.stockHoldersEquity / 1000000).toLocaleString()
                           : '-'}
                       </td>
                     </tr>
@@ -713,36 +808,55 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
         </table>
       </div>
 
-      <div className='relative overflow-x-auto shadow-md sm:rounded-lg my-4'>
-        <h3 className="my-2 p-2">単四半期業績データ 株式指標等</h3>
+      <div className='relative my-4 overflow-x-auto shadow-md sm:rounded-lg'>
+        <h3 className='my-2 p-2'>単四半期業績データ 株式指標等</h3>
 
-        <table className='w-full text-sm text-gray-500 dark:text-gray-400 text-right'>
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <table className='w-full text-right text-sm text-gray-500 dark:text-gray-400'>
+          <thead className='bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
             <tr>
-              <th scope="col" className="px-4 py-2">年月</th>
-              <th scope="col" className="px-4 py-2">株価</th>
-              <th scope="col" className="px-4 py-2">BPS</th>
-              <th scope="col" className="px-4 py-2">PBR</th>
-              <th scope="col" className="px-4 py-2">EPS(単四半期)</th>
-              <th scope="col" className="px-4 py-2">PER(単四半期を年間換算)</th>
-              <th scope="col" className="px-4 py-2">流通株式数</th>
+              <th scope='col' className='px-4 py-2'>
+                年月
+              </th>
+              <th scope='col' className='px-4 py-2'>
+                株価
+              </th>
+              <th scope='col' className='px-4 py-2'>
+                BPS
+              </th>
+              <th scope='col' className='px-4 py-2'>
+                PBR
+              </th>
+              <th scope='col' className='px-4 py-2'>
+                EPS(単四半期)
+              </th>
+              <th scope='col' className='px-4 py-2'>
+                PER(単四半期を年間換算)
+              </th>
+              <th scope='col' className='px-4 py-2'>
+                流通株式数
+              </th>
             </tr>
           </thead>
           <tbody>
             {QtrCompanyDataForTable &&
               QtrCompanyDataForTable.map((item, i) => {
                 return (
-                  <tr key={i} className="border-b dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700">
-                    <td className="px-4 py-2">{item.date}</td>
-                    <td className="px-4 py-2">{item.close}</td>
-                    <td className="px-4 py-2">{item.bps != 'NaN' ? item.bps : '-'} </td>
-                    <td className="px-4 py-2">{item.pbr != 'NaN' ? item.pbr : '-'} </td>
-                    <td className="px-4 py-2">{item.eps != 'NaN' ? item.eps : '-'}</td>
-                    <td className="px-4 py-2">{item.eps != 'NaN' ? item.per : '-'}</td>
-                    <td className="px-4 py-2">
+                  <tr
+                    key={i}
+                    className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'
+                  >
+                    <td className='px-4 py-2'>{item.date}</td>
+                    <td className='px-4 py-2'>{item.close}</td>
+                    <td className='px-4 py-2'>{item.bps != 'NaN' ? item.bps : '-'} </td>
+                    <td className='px-4 py-2'>{item.pbr != 'NaN' ? item.pbr : '-'} </td>
+                    <td className='px-4 py-2'>{item.eps != 'NaN' ? item.eps : '-'}</td>
+                    <td className='px-4 py-2'>
+                      {item.per !== NaN ? (item.per >= 0 ? item.per.toFixed(2) : 'minus') : '-'}
+                    </td>
+                    <td className='px-4 py-2'>
                       {Number.isNaN(item.numberOfSharesOutstanding)
                         ? '-'
-                        : parseInt(item.numberOfSharesOutstanding /1000000).toLocaleString()}
+                        : parseInt(item.numberOfSharesOutstanding / 1000000).toLocaleString()}
                     </td>
                   </tr>
                 )
@@ -752,30 +866,43 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
       </div>
 
       {isDividend && (
-        <div className='relative overflow-x-auto shadow-md sm:rounded-lg my-4'>
-          <h3 className="my-2 p-2">年間配当データ 指標</h3>
-          <table className='w-full text-sm text-gray-500 dark:text-gray-400 text-right'>
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <div className='relative my-4 overflow-x-auto shadow-md sm:rounded-lg'>
+          <h3 className='my-2 p-2'>年間配当データ 指標</h3>
+          <table className='w-full text-right text-sm text-gray-500 dark:text-gray-400'>
+            <thead className='bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
               <tr>
-                <th scope="col" className="px-4 py-2">年月</th>
-                <th scope="col" className="px-4 py-2">一株当たり配当年</th>
-                <th scope="col" className="px-4 py-2">配当利回り年</th>
-                <th scope="col" className="px-4 py-2">配当性向年</th>
+                <th scope='col' className='px-4 py-2'>
+                  年月
+                </th>
+                <th scope='col' className='px-4 py-2'>
+                  一株当たり配当年
+                </th>
+                <th scope='col' className='px-4 py-2'>
+                  配当利回り年
+                </th>
+                <th scope='col' className='px-4 py-2'>
+                  配当性向年
+                </th>
               </tr>
             </thead>
             <tbody>
               {fyCompanyDataForTable &&
                 fyCompanyDataForTable.map((item, i) => {
                   return (
-                    <tr key={i} className="border-b dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700">
-                      <td className="px-4 py-2">{item.date}</td>
-                      <td className="px-4 py-2">
+                    <tr
+                      key={i}
+                      className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'
+                    >
+                      <td className='px-4 py-2'>{item.date}</td>
+                      <td className='px-4 py-2'>
                         {item.commonStockDividendsPerShareDeclaredYear != 'NaN'
                           ? item.commonStockDividendsPerShareDeclaredYear
                           : '-'}
                       </td>
-                      <td className="px-4 py-2">{item.dividendYieldYear != 'NaN%' ? item.dividendYieldYear : '-'}</td>
-                      <td className="px-4 py-2">
+                      <td className='px-4 py-2'>
+                        {item.dividendYieldYear != 'NaN%' ? item.dividendYieldYear : '-'}
+                      </td>
+                      <td className='px-4 py-2'>
                         {item.dividendPayoutRatioYear != 'NaN%'
                           ? item.dividendPayoutRatioYear
                           : '-'}
@@ -788,13 +915,15 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
         </div>
       )}
 
-      <div className="my-4">
-        <h4 className="font-bold text-sm">単位について</h4>
-        <ul className="mx-8 text-xs">
-          <li className="list-disc">業績データ：売上高、純利益、営業CF、総資産、株主資本は「百万USD」。</li>
-          <li className="list-disc">株価、BPS、EPS、一株当たり配当は「USD」</li>
-          <li className="list-disc">流通株式数は、百万株単位。</li>
-          <li className="list-disc">PBR,PERは整数倍</li>
+      <div className='my-4'>
+        <h4 className='text-sm font-bold'>単位について</h4>
+        <ul className='mx-8 text-xs'>
+          <li className='list-disc'>
+            業績データ：売上高、純利益、営業CF、総資産、株主資本は「百万USD」。
+          </li>
+          <li className='list-disc'>株価、BPS、EPS、一株当たり配当は「USD」</li>
+          <li className='list-disc'>流通株式数は、百万株単位。</li>
+          <li className='list-disc'>PBR,PERは整数倍</li>
         </ul>
       </div>
 
@@ -810,7 +939,7 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
                       {item.date} / 分割種別: {item.splitCategory} / 分割比率:{item.splitRatio} /
                     </li>
                   )
-                } 
+                }
               })}
           </ul>
         </div>

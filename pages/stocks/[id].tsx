@@ -3,6 +3,7 @@ import Error from 'next/error'
 import { useContext } from 'react'
 import { GetServerSideProps, NextPage } from 'next'
 
+import * as AiIcons from 'react-icons/ai'
 // import { google } from 'googleapis';
 
 // Supabase
@@ -10,9 +11,11 @@ import { supabase } from '../../utils/supabase'
 import { UserContext } from '../../utils/UserContext'
 
 // Components & Utils
-import Comments from '../../components/Comments'
+import InputCommentsState from '../../components/InputCommentsState'
 import BookMark from '../../components/BookMark'
-import InputMarker from '../../components/InputMarker'
+import BookMarkState from '../../components/BookMarkState'
+// import InputMarker from '../../components/InputMarker'
+import InputMarkerState from '../../components/InputMarkerState'
 import StockCandleChart from '../../components/StockCandleChart'
 
 import { createMarkerData } from '../../functions/CreateMarkerData'
@@ -20,15 +23,47 @@ import { getMarkerData } from '../../functions/GetMarkerData'
 import { markerList } from '../../data/marker/marker'
 
 // json fs
-import fsPromises from 'fs/promises';
+import fsPromises from 'fs/promises'
 import path from 'path'
-const fs = require('fs');
+const fs = require('fs')
 
 // types
-import {Company} from '../../types/Company'
-import {StockPrice} from '../../types/StockPrice'
+import { Company } from '../../types/Company'
+import { StockPrice } from '../../types/StockPrice'
 
+import { codeList } from '../../data/stockCode/US-StockList'
 
+// 登録数制限
+import { registerAllowance } from '../../const/settings'
+
+import { useQueryComments } from '../../hooks/useQueryComments'
+import { useQueryBookMark } from '../../hooks/useQueryBookMark'
+import { useQueryMarker } from '../../hooks/useQueryMarker'
+import { useQueryProfile } from '../../hooks/useQueryProfile'
+
+export async function getStaticPaths() {
+  // const filePath = path.join(process.cwd(), `./data/stockCode/US-StockList.json`);
+  // const jsonData = await fsPromises.readFile(filePath);
+  // const objectData = JSON.parse(jsonData as any);
+
+  const paths = codeList.map((item) => {
+    return {
+      params: { id: 'MSFT' },
+    }
+  })
+
+  return {
+    paths,
+    // paths: [
+    //   { params: { ... } }
+    // ],
+    fallback: 'blocking', // false or 'blocking'
+  }
+}
+
+export const getStaticProps: GetServerSideProps = async ({ query, params }) => {
+  // const id = await query.id
+  const id = await params?.id
 
 export async function getStaticPaths() {
   const filePath = path.join(process.cwd(), `./data/stockCode/US-StockList.json`);
@@ -84,74 +119,72 @@ export const getStaticProps: GetServerSideProps = async ({ query,params }) => {
     '2021q3',
     '2021q4',
     '2022q1',
+    '2022_04',
+    '2022_05',
   ]
 
   try {
-    // temp 
-    // if (fs.existsSync(`./data/edgar/2020q1/${id}_2.json`) ){
-    //   console.log("temp")
-    // }
-
-
     // stockList data from json file
-    const filePathStockList = path.join(process.cwd(), `./data/stockCode/US-StockList.json`);
-    const jsonDataStockList = await fsPromises.readFile(filePathStockList);
-    const objectDataStockList = JSON.parse(jsonDataStockList as any);
+    const filePathStockList = path.join(process.cwd(), `./data/stockCode/US-StockList.json`)
+    const jsonDataStockList = await fsPromises.readFile(filePathStockList)
+    const objectDataStockList = JSON.parse(jsonDataStockList as any)
 
-    const companyInfo = objectDataStockList.filter(item =>{
+    const companyInfo = objectDataStockList.filter((item) => {
       return item.Ticker === id
     })
-
 
     // Get Company Data
     // const reqListCompany = await fetch(
     //   `${process.env.NEXT_PUBLIC_API_ENDOPOINT}/stockCode/US-StockList.json`
     // )
     // const codeList:Company[] = await reqListCompany.json()
-    
+
     // const companyInfo = codeList.filter((item) => {
     //   return item.Ticker === id
     // })
-    
+
     // Get Marker Data
     // const markerList = await fetch(`${process.env.NEXT_PUBLIC_API_ENDOPOINT}/marker/marker.json`)
     // const errorCode1 = markerList.status==200 ?  200 : markerList.status
     // const markerData = await markerList.json()
 
     // price data from json file
-    const filePathPrice = path.join(process.cwd(), `./data/stock/${id}.json`);
-    const jsonDataPrice = await fsPromises.readFile(filePathPrice);
-    const priceData = JSON.parse(jsonDataPrice as any);
+    const filePathPrice = path.join(process.cwd(), `./data/stock/${id}.json`)
+    const jsonDataPrice = await fsPromises.readFile(filePathPrice)
+    const priceData = JSON.parse(jsonDataPrice as any)
 
     // Get Price Data
     // const priceList = await fetch(`${process.env.NEXT_PUBLIC_API_ENDOPOINT}/stock/${id}.json`)
     // const priceData = await priceList.json()
 
-
     // edgar from json file
     const edgarDataResponse = QTR.map(async (item) => {
+      let tempResData
+      if (
+        fs.existsSync(`./data/edgar/${item}/${id}_2.json`) &&
+        fs.existsSync(`./data/edgar/${item}/${id}_2.json`)
+      ) {
+        const filePathEdgar = path.join(process.cwd(), `./data/edgar/${item}/${id}.json`)
+        const jsonDataEdgar = await fsPromises.readFile(filePathEdgar)
+        const reqList = JSON.parse(jsonDataEdgar as any)
 
-      let tempResData;
-      if (fs.existsSync(`./data/edgar/${item}/${id}_2.json`) && fs.existsSync(`./data/edgar/${item}/${id}_2.json`)) {
-        const filePathEdgar = path.join(process.cwd(), `./data/edgar/${item}/${id}.json`);
-        const jsonDataEdgar = await fsPromises.readFile(filePathEdgar);
-        const reqList = JSON.parse(jsonDataEdgar as any);
-
-        const filePathEdgar2 = path.join(process.cwd(), `./data/edgar/${item}/${id}_2.json`);
-        const jsonDataEdgar2 = await fsPromises.readFile(filePathEdgar2);
-        const reqList2 = JSON.parse(jsonDataEdgar2 as any);
+        const filePathEdgar2 = path.join(process.cwd(), `./data/edgar/${item}/${id}_2.json`)
+        const jsonDataEdgar2 = await fsPromises.readFile(filePathEdgar2)
+        const reqList2 = JSON.parse(jsonDataEdgar2 as any)
         tempResData = [reqList[0], reqList2[0]]
-      } else if(fs.existsSync(`./data/edgar/${item}/${id}.json`) && fs.existsSync(`./data/edgar/${item}/${id}_2.json`) === false) {
-        const filePathEdgar = path.join(process.cwd(), `./data/edgar/${item}/${id}.json`);
-        const jsonDataEdgar = await fsPromises.readFile(filePathEdgar);
-        const reqList = JSON.parse(jsonDataEdgar as any);
+      } else if (
+        fs.existsSync(`./data/edgar/${item}/${id}.json`) &&
+        fs.existsSync(`./data/edgar/${item}/${id}_2.json`) === false
+      ) {
+        const filePathEdgar = path.join(process.cwd(), `./data/edgar/${item}/${id}.json`)
+        const jsonDataEdgar = await fsPromises.readFile(filePathEdgar)
+        const reqList = JSON.parse(jsonDataEdgar as any)
         tempResData = [reqList[0]]
       } else {
         return null
       }
       return tempResData[0]
-    });
-
+    })
 
     // Get Edgar Data
     // const edgarDataResponse = QTR.map(async (item) => {
@@ -179,7 +212,6 @@ export const getStaticProps: GetServerSideProps = async ({ query,params }) => {
     const edgarResData = await Promise.all(edgarDataResponse)
     const edgarRes = await edgarResData.filter((item) => item)
 
-
     // GoogleSheet Data  Ticker == id の値をフィルタする。
     // const response = await sheets.spreadsheets.values.get({
     //   auth,
@@ -206,36 +238,120 @@ export const getStaticProps: GetServerSideProps = async ({ query,params }) => {
   }
 }
 
-
 const StockChart: NextPage<{
   priceData: StockPrice
   markerData: any
   edgarData: any
   id: any
-  companyInfo: Company,
-  status:any
-}> = ({ priceData,  edgarData, id, companyInfo,status }) => {
-
-  if (status) {
-    console.log(status)
-    return <Error statusCode={404} />
-  }
-
+  companyInfo: Company
+  status: any
+}> = ({ priceData, edgarData, id, companyInfo, status }) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [marker, setMarker] = useState([])
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const { user, session } = useContext(UserContext)
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [canMarkerInput, setCanMarkerInput] = useState<boolean>(false)
+  const [canBookMarkInput, setCanBookMarkInput] = useState<boolean>(false)
+  const [canCommentsInput, setCanCommentsInput] = useState<boolean>(false)
+  const { data: comments, status: statusComments } = useQueryComments()
+  const { data: bookmark, status: statusBookMark } = useQueryBookMark()
+  const { data: profile, status: statusProfile } = useQueryProfile()
+  
+  const [signIn, setSignIn] = useState(false)
+  
+  const { data: markers, status: statusMarker } = useQueryMarker()
+  const makersWithTicker = markers?.filter((item) => {
+    return item.ticker == id
+  })
+
+  // 大量レンダリング発生不具合あり、要確認。makersWithTickerを第二引数にできない。
   useEffect(() => {
-    if (user) {
+    if (makersWithTicker?.length) {
       fetchMarker()
     } else {
       setMarker(markerList as any)
     }
   }, [user])
 
-  // 
+  useEffect(() => {
+    if (!user) {
+      setSignIn(false)
+    } else {
+      setSignIn(true)
+    }
+  }, [user])
+
+
+  if (status) {
+    console.log(status)
+    return <Error statusCode={404} />
+  }
+
+  // const checkAllowance = (rank: any) => {
+  //   switch (rank) {
+  //     case 'free':
+  //       setCanBookMarkInput(
+  //         bookmark?.length ? registerAllowance.BookMarkLimitFree > bookmark.length : false
+  //       )
+
+  //       setCanMarkerInput(
+  //         markers?.length ? registerAllowance.MarkerLimitFree > markers.length : false
+  //       )
+
+  //       setCanCommentsInput(
+  //         comments?.length ? registerAllowance.CommentLimitFree > comments.length : false
+  //       )
+
+  //       break
+  //     case 'pro':
+  //       setCanBookMarkInput(
+  //         bookmark?.length ? registerAllowance.BookMarkLimitPro > bookmark.length : false
+  //       )
+
+  //       setCanMarkerInput(
+  //         markers?.length ? registerAllowance.MarkerLimitPro > markers.length : false
+  //       )
+
+  //       setCanCommentsInput(
+  //         comments?.length ? registerAllowance.CommentLimitPro > comments.length : false
+  //       )
+  //       break
+  //     case 'business':
+  //       setCanBookMarkInput(
+  //         bookmark?.length ? registerAllowance.BookMarkLimitBusiness > bookmark.length : false
+  //       )
+
+  //       setCanMarkerInput(
+  //         markers?.length ? registerAllowance.MarkerLimitBusiness > markers.length : false
+  //       )
+
+  //       setCanCommentsInput(
+  //         comments?.length ? registerAllowance.CommentLimitBusiness > comments.length : false
+  //       )
+  //       break
+  //     case 'admin':
+  //       setCanBookMarkInput(true)
+  //       setCanMarkerInput(true)
+  //       setCanCommentsInput(true)
+  //       break
+  //     default:
+  //       break
+  //   }
+  // }
+
+  // 以下のmarker切り替え処理書き換え必要。条件がuserではなく、markerデータの有り無しで切り替える。
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  // useEffect(() => {
+  //   console.log("e",markers)
+  //   if (user) {
+  //     fetchMarker()
+  //   } else {
+  //     setMarker(markerList as any)
+  //   }
+  // }, [user])
+
+  //
   const fetchMarker = async () => {
     if (user) {
       let { data: items, error } = await supabase
@@ -251,34 +367,37 @@ const StockChart: NextPage<{
   }
 
   return (
-    <div>
+    <div className='mx-auto max-w-5xl'>
+      <div className='flex flex-wrap items-center justify-between'>
+        <h2>
+          {companyInfo.Name} [{id}]
+        </h2>
+        {companyInfo.Unlist ? <p className='font-bold text-red-600'>データ編集中</p> : null}
+
+        {!signIn ? (
+          <></>
+        ) : (
+          <div className='flex-none'>
+            <BookMarkState ticker={id} />
+          </div>
+        )}
+      </div>
+
       <div>
-        <div className='flex items-center justify-between'>
-          <h2>{companyInfo.Name} [{id}]</h2>
+        {priceData ? (
+          <StockCandleChart
+            priceData={priceData}
+            edgarData={edgarData}
+            marker={marker}
+            id={id}
+            companyInfo={companyInfo}
+          />
+        ) : (
+          <p>株価データがありません</p>
+        )}
+      </div>
 
-          {!user ? null : (
-            <div>
-              <BookMark user={supabase.auth.user()} ticker={id} />
-            </div>
-          )}
-        </div>
-
-        <div>
-          {priceData ? (
-            <StockCandleChart
-              priceData={priceData}
-              edgarData={edgarData}
-              marker={marker}
-              id={id}
-              companyInfo={companyInfo}
-            />
-          ) : (
-            <p>株価データがありません</p>
-          )}
-        </div>
-
-
-        {/*
+      {/*
           <div className="my-4">
             <h3 className="text-lg font-bold">株式ニュース</h3>
             {filteredSheetData[0] ? <>
@@ -288,39 +407,46 @@ const StockChart: NextPage<{
           </div>
         */}
 
-        <div className='my-4'>
-          {!user ? (
-            <></>
-          ) : (
-            <div className='my-3'>
-              <Comments user={supabase.auth.user()} ticker={id} />
-              <InputMarker user={supabase.auth.user()} ticker={id} />
-            </div>
-          )}
-        </div>
+      <div className='my-4'>
+        {!signIn ? (
+          <div></div>
+        ) : (
+          <div className='my-3'>
+            <InputMarkerState ticker={id} />
+            <InputCommentsState ticker={id} />
+          </div>
+        )}
+      </div>
 
-        <div className='my-12'>
-          <h3 className='text-lg font-bold'>財務情報サイト</h3>
-          <p className='mx-2'>
-            <a
-              href={`https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${priceData[0].CIK}&type=&dateb=&owner=exclude&count=40&search_text=`} target="_blank" rel="noreferrer"
-            >
-              EDGARサイト-{id}
-            </a>
-          </p>
-          <p className='mx-2'>
-            <a href={`https://stocks.finance.yahoo.co.jp/us/annual/${priceData[0].Ticker}`} target="_blank" rel="noreferrer">
-              Yahooファイナンス-{id}
-            </a>
-          </p>
-          <p className='mx-2'>
-            <a
-              href={`https://finance.yahoo.com/quote/${priceData[0].Ticker}/financials?p=${priceData[0].Ticker}`} target="_blank" rel="noreferrer"
-            >
-              YahooファイナンスUS-{id}
-            </a>
-          </p>
-        </div>
+      <div className='my-12'>
+        <h3 className='text-lg font-bold'>財務情報サイト</h3>
+        <p className='mx-2'>
+          <a
+            href={`https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${priceData[0].CIK}&type=&dateb=&owner=exclude&count=40&search_text=`}
+            target='_blank'
+            rel='noreferrer'
+          >
+            EDGARサイト-{id}
+          </a>
+        </p>
+        <p className='mx-2'>
+          <a
+            href={`https://stocks.finance.yahoo.co.jp/us/annual/${priceData[0].Ticker}`}
+            target='_blank'
+            rel='noreferrer'
+          >
+            Yahooファイナンス-{id}
+          </a>
+        </p>
+        <p className='mx-2'>
+          <a
+            href={`https://finance.yahoo.com/quote/${priceData[0].Ticker}/financials?p=${priceData[0].Ticker}`}
+            target='_blank'
+            rel='noreferrer'
+          >
+            YahooファイナンスUS-{id}
+          </a>
+        </p>
       </div>
     </div>
   )
