@@ -3,7 +3,7 @@ import Error from 'next/error'
 import { useContext } from 'react'
 import { GetServerSideProps, NextPage } from 'next'
 
-import * as AiIcons from 'react-icons/ai'
+// import * as AiIcons from 'react-icons/ai'
 // import { google } from 'googleapis';
 
 // Supabase
