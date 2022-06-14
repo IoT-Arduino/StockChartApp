@@ -23,6 +23,8 @@ import { checkAllowanceComment } from '../../functions/checkAllowanceComment'
 import { checkAllowanceMarker } from '../../functions/checkAllowanceMarker'
 import { checkAllowanceBookMark } from '../../functions/checkAllowanceBookMark'
 
+import RegisterLimit from '../../components/RegisterLimit'
+
 const Home: NextPage = () => {
   const router = useRouter()
 
@@ -225,16 +227,12 @@ const Home: NextPage = () => {
         </div>
       )}
 
-      <div>
-        <h4>登録可能数について(無料登録ユーザー)</h4>
-        <ul>
-          <li>BookMark : {registerAllowance.BookMarkLimitFree}件まで</li>
-          <li>Comment : {registerAllowance.CommentLimitFree}件まで</li>
-          <li>Marker : {registerAllowance.MarkerLimitFree}件まで</li>
-        </ul>
+      <RegisterLimit rank={rank} />
+      <div className="my-16 border-2 bg-slate-100 px-4 py-1 text-sm">
+        <h5>退会ご希望の方は以下のボタンをクリックしてください。</h5>
+        <span>すべてのデータが削除されます。ご注意ください。</span>
+        <button className="mb-4 ml-4 text-xs" onClick={deleteUser}>退会する</button>
       </div>
-
-      <button onClick={deleteUser}>退会する</button>
     </div>
   )
 }
