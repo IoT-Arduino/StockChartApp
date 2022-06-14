@@ -365,15 +365,15 @@ export const calcEdgarData = (edgarData) => {
       } else if (res.StockholdersEquity_0_FY_USD) {
         return res.StockholdersEquity_0_FY_USD
 
-        // 少数株主持分含む　StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest
-      } else if (res.StockholdersEquityConverted_0_Q1_USD) {
-        return res.StockholdersEquityConverted_0_Q1_USD
-      } else if (res.StockholdersEquityConverted_0_Q2_USD) {
-        return res.StockholdersEquityConverted_0_Q2_USD
-      } else if (res.StockholdersEquityConverted_0_Q3_USD) {
-        return res.StockholdersEquityConverted_0_Q3_USD
-      } else if (res.StockholdersEquityConverted_0_FY_USD) {
-        return res.StockholdersEquityConverted_0_FY_USD
+        // StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest - MinorityInterest
+      } else if (res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_Q1_USD) {
+        return res.MinorityInterest_0_Q1_USD ? res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_Q1_USD - res.MinorityInterest_0_Q1_USD : res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_Q1_USD
+      } else if (res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_Q2_USD) {
+        return res.MinorityInterest_0_Q2_USD ? res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_Q2_USD - res.MinorityInterest_0_Q2_USD : res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_Q2_USD
+      } else if (res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_Q3_USD) {
+        return res.MinorityInterest_0_Q3_USD ? res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_Q3_USD - res.MinorityInterest_0_Q3_USD : res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_Q3_USD
+      } else if (res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_FY_USD) {
+        return res.MinorityInterest_0_FY_USD ? res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_FY_USD - res.MinorityInterest_0_FY_USD : res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_FY_USD
       } else {
         return
       }
@@ -398,15 +398,24 @@ export const calcEdgarData = (edgarData) => {
         return res.WeightedAverageNumberOfSharesOutstandingBasic_3_Q3_shares
       } else if (res.WeightedAverageNumberOfSharesOutstandingBasic_4_FY_shares) {
         return res.WeightedAverageNumberOfSharesOutstandingBasic_4_FY_shares
-        // 名称が違う場合　:　もとの科目は、CommonStockSharesIssued
-      } else if (res.CommonStockSharesConverted_0_Q1_shares) {
-        return res.CommonStockSharesConverted_0_Q1_shares
-      } else if (res.CommonStockSharesConverted_0_Q2_shares) {
-        return res.CommonStockSharesConverted_0_Q2_shares
-      } else if (res.CommonStockSharesConverted_0_Q3_shares) {
-        return res.CommonStockSharesConverted_0_Q3_shares
-      } else if (res.CommonStockSharesConverted_0_FY_shares) {
-        return res.CommonStockSharesConverted_0_FY_shares
+        // 名称が違う場合
+      } else if (res.WeightedAverageNumberOfShareOutstandingBasicAndDiluted_1_Q1_shares) {
+        return res.WeightedAverageNumberOfShareOutstandingBasicAndDiluted_1_Q1_shares
+      } else if (res.WeightedAverageNumberOfShareOutstandingBasicAndDiluted_2_Q2_shares) {
+        return res.WeightedAverageNumberOfShareOutstandingBasicAndDiluted_2_Q2_shares
+      } else if (res.WeightedAverageNumberOfShareOutstandingBasicAndDiluted_3_Q3_shares) {
+        return res.WeightedAverageNumberOfShareOutstandingBasicAndDiluted_3_Q3_shares
+      } else if (res.WeightedAverageNumberOfShareOutstandingBasicAndDiluted_4_FY_shares) {
+        return res.WeightedAverageNumberOfShareOutstandingBasicAndDiluted_4_FY_shares
+        // 名称が違う場合　:　CommonStockSharesIssued - TreasuryStockSharesConverted
+      } else if (res.CommonStockSharesIssued_0_Q1_shares) {
+        return res.TreasuryStockSharesConverted_0_Q1_shares ? res.CommonStockSharesIssued_0_Q1_shares - res.TreasuryStockSharesConverted_0_Q1_shares : res.CommonStockSharesIssued_0_Q1_shares
+      } else if (res.CommonStockSharesIssued_0_Q2_shares) {
+        return res.TreasuryStockSharesConverted_0_Q2_shares ? res.CommonStockSharesIssued_0_Q2_shares - res.TreasuryStockSharesConverted_0_Q2_shares : res.CommonStockSharesIssued_0_Q2_shares
+      } else if (res.CommonStockSharesIssued_0_Q3_shares) {
+        return res.TreasuryStockSharesConverted_0_Q3_shares ? res.CommonStockSharesIssued_0_Q3_shares - res.TreasuryStockSharesConverted_0_Q3_shares : res.CommonStockSharesIssued_0_Q3_shares
+      } else if (res.CommonStockSharesIssued_0_FY_shares) {
+        return res.TreasuryStockSharesConverted_0_FY_shares ? res.CommonStockSharesIssued_0_FY_shares - res.TreasuryStockSharesConverted_0_FY_shares : res.CommonStockSharesIssued_0_FY_shares
       } else {
         return
       }
@@ -538,7 +547,7 @@ export const calcEdgarData = (edgarData) => {
       }
     }
 
-    // 年間累計配当
+    // 年間累計配当 pershare
     const commonStockDividendsPerShareDeclaredYear = () => {
       if (res.CommonStockDividendsPerShareDeclared_4_FY_USD) {
         return res.CommonStockDividendsPerShareDeclared_4_FY_USD
@@ -547,28 +556,44 @@ export const calcEdgarData = (edgarData) => {
       } else {
         return
       }
-    } // ------------- Return Statement --------------------
+    } 
+    
+    //// ----配当 pershare ではない、後工程で流通株式で割り、一株当たりを出す。年間のみ単四半期は使用していない-----------
+    const commonStockDividendsCashPaidYear = () => {
+      if (res.DividendsCash_4_FY_USD) {
+        return res.DividendsCash_4_FY_USD
+      } else if (res.PaymentsOfDividends_4_FY_USD) {
+        return res.PaymentsOfDividends_4_FY_USD
+      } else if (res.PaymentsOfDividendsCommonStock_4_FY_USD) {
+        return res.PaymentsOfDividendsCommonStock_4_FY_USD
+      } else {
+        return
+      }
+    } 
+    
+    // ------------- Return Statement --------------------
 
     const FinancialData = {
       date: res.period.slice(0, 4) + '/' + res.period.slice(4, 6),
       fp: res.fp,
-      revenue: revenueDataDeducted(),
-      revenueAccum: revenueDataAccum(),
-      NetIncomeLoss: netIncomeDataDeducted(),
-      NetIncomeLossAccum: netIncomeDataAccum(),
-      operatingCashFlow: operatingCashFlowDeducted(),
-      operatingCashFlowAccum: operatingCashFlowAccum(),
-      assets: assets(),
-      stockHoldersEquity: stockholdersEquity(),
-      commonStockSharesOutstanding: commonStockSharesOutstanding(),
+      revenue: Number(revenueDataDeducted()),
+      revenueAccum: Number(revenueDataAccum()),
+      NetIncomeLoss: Number(netIncomeDataDeducted()),
+      NetIncomeLossAccum: Number(netIncomeDataAccum()),
+      operatingCashFlow: Number(operatingCashFlowDeducted()),
+      operatingCashFlowAccum: Number(operatingCashFlowAccum()),
+      assets: Number(assets()),
+      stockHoldersEquity: Number(stockholdersEquity()),
+      commonStockSharesOutstanding: Number(commonStockSharesOutstanding()),
       weightedAverageNumberOfDilutedSharesOutstanding:
-        weightedAverageNumberOfDilutedSharesOutstanding(),
-      eps: earningsPerShareBasic(),
-      epsAccum: earningsPerShareBasicAccum(),
-      epsDiluted: earningsPerShareDiluted(),
-      epsAccumDiluted: earningsPerShareAccumDiluted(),
-      commonStockDividendsPerShareDeclaredDeducted: commonStockDividendsPerShareDeclaredDeducted(),
-      commonStockDividendsPerShareDeclaredYear: commonStockDividendsPerShareDeclaredYear(),
+      Number(weightedAverageNumberOfDilutedSharesOutstanding()),
+      eps: Number(earningsPerShareBasic()),
+      epsAccum: Number(earningsPerShareBasicAccum()),
+      epsDiluted: Number(earningsPerShareDiluted()),
+      epsAccumDiluted: Number(earningsPerShareAccumDiluted()),
+      commonStockDividendsPerShareDeclaredDeducted: Number(commonStockDividendsPerShareDeclaredDeducted()),
+      commonStockDividendsPerShareDeclaredYear: Number(commonStockDividendsPerShareDeclaredYear()),
+      commonStockDividendsCashPaidYear:Number(commonStockDividendsCashPaidYear())
     }
     return FinancialData
   })
