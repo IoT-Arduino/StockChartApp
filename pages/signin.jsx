@@ -26,13 +26,19 @@ const signin = () => {
 
   // const runSignin = async ({ email, password }: formData) => {
   const runSignin = async ({ email, password }) => {
-    const res = await supabase.auth.signIn({
-      email,
-      password,
-    })
-
-    replace('/member')
-    reset()
+    try {
+      const res = await supabase.auth.signIn({
+        email,
+        password,
+      })
+      replace('/member')
+      reset()
+      // if (error) throw error
+    } catch (error) {
+      alert(error.message)
+      reset()
+      console.log(error)
+    }
   }
 
   return (
@@ -44,6 +50,7 @@ const signin = () => {
             name='email'
             render={({ field: { onChange, onBlur } }) => (
               <Input
+                className='text-base'
                 onBlur={onBlur}
                 onChange={onChange}
                 type='email'
@@ -66,6 +73,7 @@ const signin = () => {
             name='password'
             render={({ field: { onChange, onBlur } }) => (
               <Input
+                className='text-base'
                 onBlur={onBlur}
                 onChange={onChange}
                 type='password'
