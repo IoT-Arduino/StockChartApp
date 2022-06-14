@@ -3,7 +3,7 @@ import Error from 'next/error'
 import { useContext } from 'react'
 import { GetServerSideProps, NextPage } from 'next'
 
-import * as AiIcons from 'react-icons/ai';
+import * as AiIcons from 'react-icons/ai'
 // import { google } from 'googleapis';
 
 // Supabase
@@ -11,9 +11,11 @@ import { supabase } from '../../utils/supabase'
 import { UserContext } from '../../utils/UserContext'
 
 // Components & Utils
-import InputComments from '../../components/InputComments'
+import InputCommentsState from '../../components/InputCommentsState'
 import BookMark from '../../components/BookMark'
-import InputMarker from '../../components/InputMarker'
+import BookMarkState from '../../components/BookMarkState'
+// import InputMarker from '../../components/InputMarker'
+import InputMarkerState from '../../components/InputMarkerState'
 import StockCandleChart from '../../components/StockCandleChart'
 
 import { createMarkerData } from '../../functions/CreateMarkerData'
@@ -38,8 +40,6 @@ import { useQueryComments } from '../../hooks/useQueryComments'
 import { useQueryBookMark } from '../../hooks/useQueryBookMark'
 import { useQueryMarker } from '../../hooks/useQueryMarker'
 import { useQueryProfile } from '../../hooks/useQueryProfile'
-
-
 
 export async function getStaticPaths() {
   // const filePath = path.join(process.cwd(), `./data/stockCode/US-StockList.json`);
@@ -219,7 +219,6 @@ const StockChart: NextPage<{
   companyInfo: Company
   status: any
 }> = ({ priceData, edgarData, id, companyInfo, status }) => {
-
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [marker, setMarker] = useState([])
   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -230,32 +229,31 @@ const StockChart: NextPage<{
   const [canCommentsInput, setCanCommentsInput] = useState<boolean>(false)
   const { data: comments, status: statusComments } = useQueryComments()
   const { data: bookmark, status: statusBookMark } = useQueryBookMark()
-  const { data: markers, status: statusMarker } = useQueryMarker()
   const { data: profile, status: statusProfile } = useQueryProfile()
-
-  useEffect(() => {
-    if (profile?.length) {
-      checkAllowance(profile[0].rank)
-    }
-  }, [user,profile])
-
-  console.log(markers) 
-  console.log(id)
-
-  const makersWithTicker = markers?.filter(item => {
+  
+  const [signIn, setSignIn] = useState(false)
+  
+  const { data: markers, status: statusMarker } = useQueryMarker()
+  const makersWithTicker = markers?.filter((item) => {
     return item.ticker == id
   })
 
-  console.log(makersWithTicker)
-
-  useEffect(()=>{
-    if(makersWithTicker?.length){
+  // 大量レンダリング発生不具合あり、要確認。makersWithTickerを第二引数にできない。
+  useEffect(() => {
+    if (makersWithTicker?.length) {
       fetchMarker()
     } else {
       setMarker(markerList as any)
     }
-  },[user,makersWithTicker])
+  }, [user])
 
+  useEffect(() => {
+    if (!user) {
+      setSignIn(false)
+    } else {
+      setSignIn(true)
+    }
+  }, [user])
 
 
   if (status) {
@@ -263,58 +261,57 @@ const StockChart: NextPage<{
     return <Error statusCode={404} />
   }
 
-  const checkAllowance = (rank: any) => {
-    switch (rank) {
-      case 'free':
-        setCanBookMarkInput(
-          bookmark?.length ? registerAllowance.BookMarkLimitFree > bookmark.length : false
-        )
+  // const checkAllowance = (rank: any) => {
+  //   switch (rank) {
+  //     case 'free':
+  //       setCanBookMarkInput(
+  //         bookmark?.length ? registerAllowance.BookMarkLimitFree > bookmark.length : false
+  //       )
 
-        setCanMarkerInput(
-          markers?.length ? registerAllowance.MarkerLimitFree > markers.length : false
-        )
+  //       setCanMarkerInput(
+  //         markers?.length ? registerAllowance.MarkerLimitFree > markers.length : false
+  //       )
 
-        setCanCommentsInput(
-          comments?.length ? registerAllowance.CommentLimitFree > comments.length : false
-        )
+  //       setCanCommentsInput(
+  //         comments?.length ? registerAllowance.CommentLimitFree > comments.length : false
+  //       )
 
-        break
-      case 'pro':
-        setCanBookMarkInput(
-          bookmark?.length ? registerAllowance.BookMarkLimitPro > bookmark.length : false
-        )
+  //       break
+  //     case 'pro':
+  //       setCanBookMarkInput(
+  //         bookmark?.length ? registerAllowance.BookMarkLimitPro > bookmark.length : false
+  //       )
 
-        setCanMarkerInput(
-          markers?.length ? registerAllowance.MarkerLimitPro > markers.length : false
-        )
+  //       setCanMarkerInput(
+  //         markers?.length ? registerAllowance.MarkerLimitPro > markers.length : false
+  //       )
 
-        setCanCommentsInput(
-          comments?.length ? registerAllowance.CommentLimitPro > comments.length : false
-        )
-        break
-      case 'business':
-        setCanBookMarkInput(
-          bookmark?.length ? registerAllowance.BookMarkLimitBusiness > bookmark.length : false
-        )
+  //       setCanCommentsInput(
+  //         comments?.length ? registerAllowance.CommentLimitPro > comments.length : false
+  //       )
+  //       break
+  //     case 'business':
+  //       setCanBookMarkInput(
+  //         bookmark?.length ? registerAllowance.BookMarkLimitBusiness > bookmark.length : false
+  //       )
 
-        setCanMarkerInput(
-          markers?.length ? registerAllowance.MarkerLimitBusiness > markers.length : false
-        )
+  //       setCanMarkerInput(
+  //         markers?.length ? registerAllowance.MarkerLimitBusiness > markers.length : false
+  //       )
 
-        setCanCommentsInput(
-          comments?.length ? registerAllowance.CommentLimitBusiness > comments.length : false
-        )
-        break
-      case 'admin':
-        setCanBookMarkInput(true)
-        setCanMarkerInput(true)
-        setCanCommentsInput(true)
-        break
-      default:
-        break
-    }
-  }
-
+  //       setCanCommentsInput(
+  //         comments?.length ? registerAllowance.CommentLimitBusiness > comments.length : false
+  //       )
+  //       break
+  //     case 'admin':
+  //       setCanBookMarkInput(true)
+  //       setCanMarkerInput(true)
+  //       setCanCommentsInput(true)
+  //       break
+  //     default:
+  //       break
+  //   }
+  // }
 
   // 以下のmarker切り替え処理書き換え必要。条件がuserではなく、markerデータの有り無しで切り替える。
   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -342,20 +339,19 @@ const StockChart: NextPage<{
     }
   }
 
-
-
-
   return (
-    <div className="max-w-5xl mx-auto">
+    <div className='mx-auto max-w-5xl'>
       <div className='flex flex-wrap items-center justify-between'>
         <h2>
           {companyInfo.Name} [{id}]
         </h2>
-        {companyInfo.Unlist ? <p className="text-red-600 font-bold">データ編集中</p> : null}
+        {companyInfo.Unlist ? <p className='font-bold text-red-600'>データ編集中</p> : null}
 
-        {!user ? null : (
-          <div className="flex-none">
-            <BookMark user={supabase.auth.user()} ticker={id} canBookMarkInput={canBookMarkInput}/>
+        {!signIn ? (
+          <></>
+        ) : (
+          <div className='flex-none'>
+            <BookMarkState ticker={id} />
           </div>
         )}
       </div>
@@ -385,12 +381,12 @@ const StockChart: NextPage<{
         */}
 
       <div className='my-4'>
-        {!user ? (
-          <></>
+        {!signIn ? (
+          <div></div>
         ) : (
           <div className='my-3'>
-            <InputComments user={supabase.auth.user()} ticker={id} canCommentsInput={canCommentsInput}/>
-            <InputMarker user={supabase.auth.user()} ticker={id} canMarkerInput={canMarkerInput}/>
+            <InputMarkerState ticker={id} />
+            <InputCommentsState ticker={id} />
           </div>
         )}
       </div>
