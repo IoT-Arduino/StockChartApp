@@ -79,7 +79,7 @@ const Navbar = () => {
     <IconContext.Provider value={{ color: '#48bb78' }}>
       <nav>
         {/* PC Nav Menu */}
-        <div className='mx-auto hidden h-16 max-w-7xl items-center justify-between bg-white md:flex'>
+        <div className='mx-auto hidden h-16 max-w-5xl items-center justify-between bg-white md:flex'>
           <Link href='/'>
             <a>
               <Image src={logo} alt='logo' width={75} height={75} />
