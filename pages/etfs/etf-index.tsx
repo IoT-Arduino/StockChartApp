@@ -1,7 +1,7 @@
-import { useEffect } from 'react'
+// import { useEffect } from 'react'
 import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
+// import Head from 'next/head'
+// import Image from 'next/image'
 import Link from 'next/link'
 import styles from './../../styles/Home.module.css'
 import EtfCandleChart from './../../components/EtfCandleChart'
@@ -24,11 +24,6 @@ export async function getServerSideProps() {
     })
     const etfResponseData = await Promise.all(etfResponse)
 
-    // console.log(etfResponseData[3].meta)
-    // console.log(etfResponseData[4].meta)
-    // console.log(etfResponseData[5].meta)
-    // console.log(priceList.chart.result[0].indicators.adjclose)
-
     return {
       props: {
         fundsData: {
@@ -46,7 +41,7 @@ export async function getServerSideProps() {
 
 const Home: NextPage = ({ fundsData }: any) => {
   return (
-    <main className="max-w-5xl mx-auto mt-6 mb-20">
+    <main className='mx-auto mt-6 mb-20 max-w-5xl'>
       <h2 className={styles.title}>米国主要ETF比較</h2>
       <div>米国主要インデックスETF（Vanguard系の比較、2014年末を起点とした成長率）</div>
 
@@ -63,7 +58,7 @@ const Home: NextPage = ({ fundsData }: any) => {
           </p>
           <p className='text-bold mt-3 mb-2 text-xl'>上位構成銘柄（VOO,VTI,VT共通）</p>
 
-          <table className='w-full sm:w-1/2 text-center text-sm text-gray-500 dark:text-gray-400 mx-auto'>
+          <table className='mx-auto w-full text-center text-sm text-gray-500 dark:text-gray-400 sm:w-1/2'>
             <thead className='bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
               <tr>
                 <th scope='col' className='px-4 py-2'>
@@ -75,58 +70,60 @@ const Home: NextPage = ({ fundsData }: any) => {
               <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
                 <td className='px-4 py-2'>
                   <Link href='/stocks/AAPL'>
-                    <a className="text-green-600 hover:text-green-200">AAPL:アップル</a>
+                    <a className='text-green-600 hover:text-green-200'>AAPL:アップル</a>
                   </Link>
                 </td>
               </tr>
               <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
                 <td className='px-4 py-2'>
                   <Link href='/stocks/MSFT'>
-                    <a className="text-green-600 hover:text-green-200">MSFT:マイクロソフト</a>
+                    <a className='text-green-600 hover:text-green-200'>MSFT:マイクロソフト</a>
                   </Link>
                 </td>
               </tr>
 
               <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
                 <td className='px-4 py-2'>
-                <Link href='/stocks/AMZN'>
-                <a className="text-green-600 hover:text-green-200">AMZN:アマゾン</a>
-              </Link>
+                  <Link href='/stocks/AMZN'>
+                    <a className='text-green-600 hover:text-green-200'>AMZN:アマゾン</a>
+                  </Link>
                 </td>
               </tr>
               <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
                 <td className='px-4 py-2'>
-                <Link href='/stocks/GOOGL'>
-                <a className="text-green-600 hover:text-green-200">GOOGL:アルファベット</a>
-              </Link>
+                  <Link href='/stocks/GOOGL'>
+                    <a className='text-green-600 hover:text-green-200'>GOOGL:アルファベット</a>
+                  </Link>
                 </td>
               </tr>
               <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
                 <td className='px-4 py-2'>
-                <Link href='/stocks/TSLA'>
-                <a className="text-green-600 hover:text-green-200">TSLA:テスラ</a>
-              </Link>
+                  <Link href='/stocks/TSLA'>
+                    <a className='text-green-600 hover:text-green-200'>TSLA:テスラ</a>
+                  </Link>
                 </td>
               </tr>
               <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
                 <td className='px-4 py-2'>
-                <Link href='/stocks/FB'>
-                <a className="text-green-600 hover:text-green-200">FB:メタ</a>
-              </Link>
+                  <Link href='/stocks/FB'>
+                    <a className='text-green-600 hover:text-green-200'>FB:メタ</a>
+                  </Link>
                 </td>
               </tr>
               <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
                 <td className='px-4 py-2'>
-                <Link href='/stocks/NVDA'>
-                <a className="text-green-600 hover:text-green-200">NVDA:エヌビディア</a>
-              </Link>
+                  <Link href='/stocks/NVDA'>
+                    <a className='text-green-600 hover:text-green-200'>NVDA:エヌビディア</a>
+                  </Link>
                 </td>
               </tr>
               <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
                 <td className='px-4 py-2'>
-                <Link href='/stocks/BRK-B'>
-                <a className="text-green-600 hover:text-green-200">BRKB:バークシャーハサウェイ</a>
-              </Link>
+                  <Link href='/stocks/BRK-B'>
+                    <a className='text-green-600 hover:text-green-200'>
+                      BRKB:バークシャーハサウェイ
+                    </a>
+                  </Link>
                 </td>
               </tr>
             </tbody>
@@ -142,9 +139,7 @@ const Home: NextPage = ({ fundsData }: any) => {
             VWOの説明：FTSEエマージング・マーケッツ・インデックスに連動する投資成果を目指す。ブラジル、ロシア、インド、台湾、中国、南アフリカなど、世界中の新興国市場で大型・中型株を保有するETF
           </p>
           　<p className='text-bold mt-3 mb-2 text-xl'>上位構成銘柄</p>
-
-
-          <table className='w-full sm:w-3/5 text-center text-sm text-gray-500 dark:text-gray-400 mx-auto'>
+          <table className='mx-auto w-full text-center text-sm text-gray-500 dark:text-gray-400 sm:w-3/5'>
             <thead className='bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
               <tr>
                 <th scope='col' className='px-4 py-2'>
@@ -154,51 +149,34 @@ const Home: NextPage = ({ fundsData }: any) => {
             </thead>
             <tbody>
               <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
-                <td className='px-4 py-2'>
-                2330:TT(TSM:US)/台湾積体電路製造 [TSMC/台湾セ]
-                </td>
+                <td className='px-4 py-2'>2330:TT(TSM:US)/台湾積体電路製造 [TSMC/台湾セ]</td>
               </tr>
               <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
-                <td className='px-4 py-2'>
-                700:HK/騰訊控股[テンセント・ホールディングス]
-                </td>
+                <td className='px-4 py-2'>700:HK/騰訊控股[テンセント・ホールディングス]</td>
               </tr>
 
               <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
-                <td className='px-4 py-2'>
-                9988:HK/アリババグループ・ホールディング
-                </td>
+                <td className='px-4 py-2'>9988:HK/アリババグループ・ホールディング</td>
+              </tr>
+              <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
+                <td className='px-4 py-2'>RIL:IN/リライアンス・インダストリーズ</td>
+              </tr>
+              <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
+                <td className='px-4 py-2'>INFO:IN/インフォシス</td>
+              </tr>
+              <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
+                <td className='px-4 py-2'>VALE3:BZ/ヴァーレ</td>
+              </tr>
+              <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
+                <td className='px-4 py-2'>3690:HK/美団[メイトゥアン]</td>
               </tr>
               <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
                 <td className='px-4 py-2'>
-                RIL:IN/リライアンス・インダストリーズ
-                </td>
-              </tr>
-              <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
-                <td className='px-4 py-2'>
-                INFO:IN/インフォシス
-                </td>
-              </tr>
-              <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
-                <td className='px-4 py-2'>
-                VALE3:BZ/ヴァーレ
-                </td>
-              </tr>
-              <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
-                <td className='px-4 py-2'>
-                3690:HK/美団[メイトゥアン]
-                </td>
-              </tr>
-              <tr className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
-                <td className='px-4 py-2'>
-                
-                <a>939:HK/中国建設銀行 [チャイナ・コンストラクション]</a>
-             
+                  <a>939:HK/中国建設銀行 [チャイナ・コンストラクション]</a>
                 </td>
               </tr>
             </tbody>
           </table>
-
         </div>
       </div>
     </main>

@@ -1,7 +1,7 @@
 import { Button, IconKey, IconMail } from '@supabase/ui'
 import { useForm, Controller } from 'react-hook-form'
 import { Input } from '@supabase/ui'
-import { supabase } from '../utils/supabase'
+import { supabase } from '../../utils/supabase'
 import { useRef } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -115,7 +115,7 @@ const signup = () => {
           <div className='h-4' />
           <Button block>送信</Button>
           <div className='h-4' />
-          <Link href='/signin'>
+          <Link href='/auth/signin'>
             <a className=' font-bold hover:text-gray-500'>サインインはこちら</a>
           </Link>
         </form>

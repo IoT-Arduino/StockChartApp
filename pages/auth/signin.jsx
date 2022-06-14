@@ -1,11 +1,11 @@
 import { Button, IconKey, IconMail } from '@supabase/ui'
 import { useForm, Controller } from 'react-hook-form'
 import { Input } from '@supabase/ui'
-import { supabase } from '../utils/supabase'
+import { supabase } from '../../utils/supabase'
 import Link from 'next/link'
 
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
+// import { useEffect } from 'react'
 
 const signin = () => {
   // type formData = {
@@ -94,9 +94,12 @@ const signin = () => {
           <div className='h-4' />
           <Button block>送信</Button>
           <div className='h-4' />
-          <Link href='/signup'>
+          <Link href='/auth/signup'>
             <a className=' font-bold hover:text-gray-500'>サインアップはこちら(招待制)</a>
-          </Link>
+          </Link><br />
+          <Link href='/auth/send-email'>
+          <a className=' font-bold hover:text-gray-500'>パスワードを忘れた方はこちら</a>
+        </Link>
         </form>
       </div>
     </div>

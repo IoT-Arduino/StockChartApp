@@ -11,16 +11,14 @@ import { supabase } from '../../utils/supabase'
 import { UserContext } from '../../utils/UserContext'
 
 // Components & Utils
-import InputCommentsState from '../../components/InputCommentsState'
-import BookMark from '../../components/BookMark'
 import BookMarkState from '../../components/BookMarkState'
-// import InputMarker from '../../components/InputMarker'
+import InputCommentsState from '../../components/InputCommentsState'
 import InputMarkerState from '../../components/InputMarkerState'
 import StockCandleChart from '../../components/StockCandleChart'
 
-import { createMarkerData } from '../../functions/CreateMarkerData'
 import { getMarkerData } from '../../functions/GetMarkerData'
 import { markerList } from '../../data/marker/marker'
+import { codeList } from '../../data/stockCode/US-StockList'
 
 // json fs
 import fsPromises from 'fs/promises'
@@ -31,15 +29,8 @@ const fs = require('fs')
 import { Company } from '../../types/Company'
 import { StockPrice } from '../../types/StockPrice'
 
-import { codeList } from '../../data/stockCode/US-StockList'
-
-// 登録数制限
-import { registerAllowance } from '../../const/settings'
-
-import { useQueryComments } from '../../hooks/useQueryComments'
-import { useQueryBookMark } from '../../hooks/useQueryBookMark'
+// hooks
 import { useQueryMarker } from '../../hooks/useQueryMarker'
-import { useQueryProfile } from '../../hooks/useQueryProfile'
 
 export async function getStaticPaths() {
   // const filePath = path.join(process.cwd(), `./data/stockCode/US-StockList.json`);
@@ -62,7 +53,6 @@ export async function getStaticPaths() {
 }
 
 export const getStaticProps: GetServerSideProps = async ({ query, params }) => {
-  // const id = await query.id
   const id = await params?.id
 
   // const auth = await google.auth.getClient({ scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'] });
@@ -224,15 +214,8 @@ const StockChart: NextPage<{
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const { user, session } = useContext(UserContext)
 
-  const [canMarkerInput, setCanMarkerInput] = useState<boolean>(false)
-  const [canBookMarkInput, setCanBookMarkInput] = useState<boolean>(false)
-  const [canCommentsInput, setCanCommentsInput] = useState<boolean>(false)
-  const { data: comments, status: statusComments } = useQueryComments()
-  const { data: bookmark, status: statusBookMark } = useQueryBookMark()
-  const { data: profile, status: statusProfile } = useQueryProfile()
-  
   const [signIn, setSignIn] = useState(false)
-  
+
   const { data: markers, status: statusMarker } = useQueryMarker()
   const makersWithTicker = markers?.filter((item) => {
     return item.ticker == id
@@ -255,76 +238,11 @@ const StockChart: NextPage<{
     }
   }, [user])
 
-
   if (status) {
     console.log(status)
     return <Error statusCode={404} />
   }
 
-  // const checkAllowance = (rank: any) => {
-  //   switch (rank) {
-  //     case 'free':
-  //       setCanBookMarkInput(
-  //         bookmark?.length ? registerAllowance.BookMarkLimitFree > bookmark.length : false
-  //       )
-
-  //       setCanMarkerInput(
-  //         markers?.length ? registerAllowance.MarkerLimitFree > markers.length : false
-  //       )
-
-  //       setCanCommentsInput(
-  //         comments?.length ? registerAllowance.CommentLimitFree > comments.length : false
-  //       )
-
-  //       break
-  //     case 'pro':
-  //       setCanBookMarkInput(
-  //         bookmark?.length ? registerAllowance.BookMarkLimitPro > bookmark.length : false
-  //       )
-
-  //       setCanMarkerInput(
-  //         markers?.length ? registerAllowance.MarkerLimitPro > markers.length : false
-  //       )
-
-  //       setCanCommentsInput(
-  //         comments?.length ? registerAllowance.CommentLimitPro > comments.length : false
-  //       )
-  //       break
-  //     case 'business':
-  //       setCanBookMarkInput(
-  //         bookmark?.length ? registerAllowance.BookMarkLimitBusiness > bookmark.length : false
-  //       )
-
-  //       setCanMarkerInput(
-  //         markers?.length ? registerAllowance.MarkerLimitBusiness > markers.length : false
-  //       )
-
-  //       setCanCommentsInput(
-  //         comments?.length ? registerAllowance.CommentLimitBusiness > comments.length : false
-  //       )
-  //       break
-  //     case 'admin':
-  //       setCanBookMarkInput(true)
-  //       setCanMarkerInput(true)
-  //       setCanCommentsInput(true)
-  //       break
-  //     default:
-  //       break
-  //   }
-  // }
-
-  // 以下のmarker切り替え処理書き換え必要。条件がuserではなく、markerデータの有り無しで切り替える。
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  // useEffect(() => {
-  //   console.log("e",markers)
-  //   if (user) {
-  //     fetchMarker()
-  //   } else {
-  //     setMarker(markerList as any)
-  //   }
-  // }, [user])
-
-  //
   const fetchMarker = async () => {
     if (user) {
       let { data: items, error } = await supabase
@@ -370,6 +288,18 @@ const StockChart: NextPage<{
         )}
       </div>
 
+      <div className='mt-8 mb-6'>
+        <h4 className='text-sm font-bold'>単位について</h4>
+        <ul className='mx-8 text-xs'>
+          <li className='list-disc'>
+            業績データ：売上高、純利益、営業CF、総資産、株主資本は「百万USD」。
+          </li>
+          <li className='list-disc'>株価、BPS、EPS、一株当たり配当は「USD」</li>
+          <li className='list-disc'>流通株式数は、百万株単位。</li>
+          <li className='list-disc'>PBR,PERは整数倍</li>
+        </ul>
+      </div>
+
       {/*
           <div className="my-4">
             <h3 className="text-lg font-bold">株式ニュース</h3>
@@ -380,16 +310,6 @@ const StockChart: NextPage<{
           </div>
         */}
 
-      <div className='my-4'>
-        {!signIn ? (
-          <div></div>
-        ) : (
-          <div className='my-3'>
-            <InputMarkerState ticker={id} />
-            <InputCommentsState ticker={id} />
-          </div>
-        )}
-      </div>
 
       <div className='my-12'>
         <h3 className='text-lg font-bold'>財務情報サイト</h3>
