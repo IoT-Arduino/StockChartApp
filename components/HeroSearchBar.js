@@ -1,18 +1,20 @@
 import React, { useState } from 'react'
 import styles from './HeroSearchBar.module.css'
 import Link from 'next/link'
-import * as AiIcons from 'react-icons/ai';
+import * as AiIcons from 'react-icons/ai'
 
 function SearchBar({ placeholder, data, setOpened }) {
   const [filteredData, setFilteredData] = useState([])
-  const [wordEntered,setWordEntered] = useState("")
+  const [wordEntered, setWordEntered] = useState('')
 
   const handleFilter = (event) => {
     const searchWord = event.target.value
     setWordEntered(searchWord)
     const newFilter = data.filter((value) => {
-      return value.Ticker.toLowerCase().indexOf(searchWord.toLowerCase()) > -1 ||
-      value.ShortName.toLowerCase().indexOf(searchWord.toLowerCase()) > -1
+      return (
+        value.Ticker.toLowerCase().indexOf(searchWord.toLowerCase()) > -1 ||
+        value.ShortName.toLowerCase().indexOf(searchWord.toLowerCase()) > -1
+      )
     })
 
     if (searchWord === '') {
@@ -23,13 +25,14 @@ function SearchBar({ placeholder, data, setOpened }) {
   }
 
   const clearInput = () => {
-      setFilteredData([])
-      setWordEntered('')
-
+    setFilteredData([])
+    setWordEntered('')
   }
 
-  const clickLink = ()=> {
-      setOpened(false)
+  const clickLink = () => {
+    setOpened(false)
+    setFilteredData([])
+    setWordEntered('')
   }
 
   return (
@@ -43,14 +46,24 @@ function SearchBar({ placeholder, data, setOpened }) {
           onChange={handleFilter}
           data-autofocus
         />
-        {wordEntered.length !== 0 && <div className="cursor-pointer px-2" onClick={clearInput}><span className="inline-block h-8 leading-8"><AiIcons.AiOutlineCloseCircle /></span></div>}
+        {wordEntered.length !== 0 && (
+          <div className='cursor-pointer px-2' onClick={clearInput}>
+            <span className='inline-block h-8 leading-8'>
+              <AiIcons.AiOutlineCloseCircle />
+            </span>
+          </div>
+        )}
       </div>
       {filteredData.length !== 0 && (
         <div className={styles.dataResult}>
           {filteredData.slice(0, 15).map((value, key) => {
             return (
-              <Link href={`/stocks/${value.Ticker}`} key={key} >
-                <a className={styles.dataItem} target='_blank' onClick={clickLink}><span className="px-4">{value.Ticker} | {value.ShortName}</span></a>
+              <Link href={`/stocks/${value.Ticker}`} key={key}>
+                <a className={styles.dataItem} target='_blank' onClick={clickLink}>
+                  <span className='px-4'>
+                    {value.Ticker} | {value.ShortName}
+                  </span>
+                </a>
               </Link>
             )
           })}
