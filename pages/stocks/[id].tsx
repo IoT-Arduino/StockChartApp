@@ -385,8 +385,8 @@ const StockChart: NextPage<{
           <div></div>
         ) : (
           <div className='my-3'>
-            <InputCommentsState ticker={id} />
             <InputMarkerState ticker={id} />
+            <InputCommentsState ticker={id} />
           </div>
         )}
       </div>
