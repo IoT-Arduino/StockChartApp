@@ -28,15 +28,15 @@ const signin = () => {
   // const runSignin = async ({ email, password }: formData) => {
   const runSignin = async ({ email, password }) => {
     try {
-      const res = await supabase.auth.signIn({
+      const { error } = await supabase.auth.signIn({
         email,
         password,
       })
       replace('/member')
       reset()
-      // if (error) throw error
+      if (error) throw error
     } catch (error) {
-      alert(error.message)
+      alert(error.message,"IDかパスワードに誤りがあります")
       reset()
       console.log(error)
     }

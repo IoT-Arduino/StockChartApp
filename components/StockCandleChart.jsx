@@ -5,9 +5,11 @@ import { useState, useEffect } from 'react'
 import { Tabs } from '@mantine/core'
 import StockTabSection from './StockTabSection'
 
+import PagingTicker from './PagingTicker'
+
 import { chartOption } from '../functions/chartOption'
 
-const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => {
+const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo,prevTicker,nextTicker,signIn }) => {
   // console.log(edgarData)
 
   // 画面表示State 管理==============================================================
@@ -367,6 +369,7 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo }) => 
   return (
     <div>
       <ReactEcharts option={option} style={{ height: '600px', width: '100%' }} />
+      <PagingTicker prevTicker={prevTicker} nextTicker={nextTicker} signIn={signIn}/>
       <p style={{ textAlign: 'right' }}>単位は(Million)</p>
 
       <StockTabSection companyInfo={companyInfo} fyCompanyDataForTable={fyCompanyDataForTable} isDividend={isDividend} isSplit={isSplit} QtrCompanyDataForTable={QtrCompanyDataForTable} priceData={priceData} ticker={id}/>
