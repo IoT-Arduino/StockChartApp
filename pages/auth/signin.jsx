@@ -94,7 +94,7 @@ const signin = () => {
           <Button block style={{fontSize: '16px !important'}}>送信</Button>
           <div className='h-4' />
           <Link href='/auth/signup'>
-            <a className=' font-bold hover:text-gray-500'>サインアップはこちら(招待制)</a>
+            <a className=' font-bold hover:text-gray-500'>会員登録はこちら(無料)</a>
           </Link><br />
           <Link href='/auth/send-email'>
           <a className=' font-bold hover:text-gray-500'>パスワードを忘れた方はこちら</a>
