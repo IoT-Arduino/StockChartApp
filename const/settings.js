@@ -1,5 +1,5 @@
 export const registerAllowance = {
-    BookMarkLimitFree : 3 ,
+    BookMarkLimitFree : 9 ,
     MarkerLimitFree : 9 ,
     CommentLimitFree : 9 ,
     BookMarkLimitPro : 300 ,
