@@ -10,7 +10,7 @@ const StockTabSection = ({companyInfo,fyCompanyDataForTable,isDividend,isSplit,Q
     const { user } = useContext(UserContext)  
 
   return (
-    <Tabs>
+    <Tabs color="teal" tabPadding="md">
         <Tabs.Tab label='通期業績・配当'>
           <div className='relative my-4 overflow-x-auto shadow-md sm:rounded-lg'>
             <h3 className='my-2 p-2'>通期業績データ FS</h3>
