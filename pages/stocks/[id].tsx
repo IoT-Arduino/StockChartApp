@@ -12,8 +12,8 @@ import { UserContext } from '../../utils/UserContext'
 
 // Components & Utils
 import BookMarkState from '../../components/BookMarkState'
-import InputCommentsState from '../../components/InputCommentsState'
-import InputMarkerState from '../../components/InputMarkerState'
+// import InputCommentsState from '../../components/InputCommentsState'
+// import InputMarkerState from '../../components/InputMarkerState'
 import StockCandleChart from '../../components/StockCandleChart'
 
 import { getMarkerData } from '../../functions/GetMarkerData'
@@ -31,6 +31,7 @@ import { StockPrice } from '../../types/StockPrice'
 
 // hooks
 import { useQueryMarker } from '../../hooks/useQueryMarker'
+
 
 export async function getStaticPaths() {
   // const filePath = path.join(process.cwd(), `./data/stockCode/US-StockList.json`);
@@ -94,6 +95,29 @@ export const getStaticProps: GetServerSideProps = async ({ query, params }) => {
 
     const companyInfo = objectDataStockList.filter((item) => {
       return item.Ticker === id
+    })
+
+    // Paging処理 prev が1以下およびnext がmax時の対応
+    const listedStockList = objectDataStockList.filter((item) => {
+      return item.Unlist === null
+    })
+    const maxPagingNum = listedStockList.length
+    const currentPageNum = companyInfo[0].PagingNum
+
+    const prevCompany = objectDataStockList.filter((item) => {
+      if (companyInfo[0].PagingNum === 1) {
+        return item.PagingNum === maxPagingNum
+      } else {
+        return item.PagingNum === currentPageNum - 1
+      }
+    })
+
+    const nextCompany = objectDataStockList.filter((item) => {
+      if (currentPageNum === maxPagingNum) {
+        return item.PagingNum === 1
+      } else {
+        return item.PagingNum === currentPageNum + 1
+      }
     })
 
     // Get Company Data
@@ -194,6 +218,8 @@ export const getStaticProps: GetServerSideProps = async ({ query, params }) => {
         // markerData,
         edgarData: edgarRes.flat(), // edgarRes.flat(),
         // filteredSheetData,
+        prevTicker: prevCompany[0].Ticker,
+        nextTicker: nextCompany[0].Ticker,
       },
     }
   } catch (err: any) {
@@ -208,7 +234,9 @@ const StockChart: NextPage<{
   id: any
   companyInfo: Company
   status: any
-}> = ({ priceData, edgarData, id, companyInfo, status }) => {
+  prevTicker: String
+  nextTicker: String
+}> = ({ priceData, edgarData, id, companyInfo, status, prevTicker, nextTicker }) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [marker, setMarker] = useState([])
   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -282,6 +310,9 @@ const StockChart: NextPage<{
             marker={marker}
             id={id}
             companyInfo={companyInfo}
+            prevTicker={prevTicker}
+            nextTicker={nextTicker}
+            signIn={signIn}
           />
         ) : (
           <p>株価データがありません</p>
@@ -309,7 +340,6 @@ const StockChart: NextPage<{
                 : ""}
           </div>
         */}
-
 
       <div className='my-12'>
         <h3 className='text-lg font-bold'>財務情報サイト</h3>
