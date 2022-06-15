@@ -3,6 +3,7 @@ import { useForm, Controller } from 'react-hook-form'
 import { Input } from '@supabase/ui'
 import { supabase } from '../../utils/supabase'
 import Link from 'next/link'
+import style from './auth.module.css'
 
 import { useRouter } from 'next/router'
 // import { useEffect } from 'react'
@@ -44,13 +45,12 @@ const signin = () => {
   return (
     <div className='flex justify-center py-40'>
       <div className='w-full bg-white  p-5 shadow sm:max-w-xl sm:rounded-lg'>
-        <form onSubmit={handleSubmit(runSignin)}>
+        <form onSubmit={handleSubmit(runSignin)} className={style.inputField}>
           <Controller
             control={control}
             name='email'
             render={({ field: { onChange, onBlur } }) => (
               <Input
-                className='text-base'
                 onBlur={onBlur}
                 onChange={onChange}
                 type='email'
@@ -73,7 +73,6 @@ const signin = () => {
             name='password'
             render={({ field: { onChange, onBlur } }) => (
               <Input
-                className='text-base'
                 onBlur={onBlur}
                 onChange={onChange}
                 type='password'
@@ -92,7 +91,7 @@ const signin = () => {
             }}
           />
           <div className='h-4' />
-          <Button block>送信</Button>
+          <Button block style={{fontSize: '16px !important'}}>送信</Button>
           <div className='h-4' />
           <Link href='/auth/signup'>
             <a className=' font-bold hover:text-gray-500'>サインアップはこちら(招待制)</a>

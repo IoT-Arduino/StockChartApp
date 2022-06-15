@@ -2,6 +2,7 @@
 import { NextPage } from 'next';
 import { useState } from 'react';
 import { supabase } from './../../utils/supabase';
+import style from './auth.module.css'
 
 const ResetPassword: NextPage = () => {
     const [password, setPassword] = useState<string>('');
@@ -38,7 +39,7 @@ const ResetPassword: NextPage = () => {
     return (
       <div>
        <p>新しいパスワードを入力してください</p>
-       <form onSubmit={handleSubmitPassword}>
+       <form onSubmit={handleSubmitPassword} className={style.inputField}>
           <input value={password} type="password" onChange={handleSetPassword} placeholder="パスワード" />
           <button type="submit">送信</button>
         </form>

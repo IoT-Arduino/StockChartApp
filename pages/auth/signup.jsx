@@ -5,6 +5,8 @@ import { supabase } from '../../utils/supabase'
 import { useRef } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import style from './auth.module.css'
+
 const signup = () => {
   // type formData = {
   //   email: string,
@@ -41,13 +43,13 @@ const signup = () => {
     <div className='center flex items-center justify-center my-20'>
       <div className='w-full bg-white  p-5 shadow sm:max-w-xl sm:rounded-lg'>
         <h2 className="text-xl">サインアップ（招待制）</h2>
-        <form onSubmit={handleSubmit(runSignup)}>
+        <form onSubmit={handleSubmit(runSignup)} className={style.inputField}>
           <Controller
             control={control}
             name='email'
             render={({ field: { onChange, onBlur } }) => (
               <Input
-              className="text-base"
+                
                 onBlur={onBlur}
                 onChange={onChange}
                 type='email'
