@@ -18,7 +18,6 @@ import { Comments } from '../../types/Comments'
 import { NextPage } from 'next'
 
 // 登録数制限
-import { registerAllowance } from '../../const/settings'
 import { checkAllowanceComment } from '../../functions/checkAllowanceComment'
 import { checkAllowanceMarker } from '../../functions/checkAllowanceMarker'
 import { checkAllowanceBookMark } from '../../functions/checkAllowanceBookMark'
@@ -50,7 +49,7 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     if (!user) {
-      replace('/signin')
+      replace('/auth/signin')
     } else {
       setIsDisplay(true)
       // if (profile?.length) {
@@ -70,60 +69,9 @@ const Home: NextPage = () => {
     const { data } = await axios.get('/api/deleteUser')
     console.log('d', data)
     supabase.auth.signOut()
-    router.replace('/signup')
+    router.replace('/auth/signup')
   }
 
-  // const checkAllowance = (rank: any) => {
-  //   switch (rank) {
-  //     case 'free':
-  //       setCanBookMarkInput(
-  //         bookmark?.length ? registerAllowance.BookMarkLimitFree > bookmark.length : false
-  //       )
-
-  //       setCanMarkerInput(
-  //         markers?.length ? registerAllowance.MarkerLimitFree > markers.length : false
-  //       )
-
-  //       setCanCommentsInput(
-  //         comments?.length ? registerAllowance.CommentLimitFree > comments.length : false
-  //       )
-
-  //       break
-  //     case 'pro':
-  //       setCanBookMarkInput(
-  //         bookmark?.length ? registerAllowance.BookMarkLimitPro > bookmark.length : false
-  //       )
-
-  //       setCanMarkerInput(
-  //         markers?.length ? registerAllowance.MarkerLimitPro > markers.length : false
-  //       )
-
-  //       setCanCommentsInput(
-  //         comments?.length ? registerAllowance.CommentLimitPro > comments.length : false
-  //       )
-  //       break
-  //     case 'business':
-  //       setCanBookMarkInput(
-  //         bookmark?.length ? registerAllowance.BookMarkLimitBusiness > bookmark.length : false
-  //       )
-
-  //       setCanMarkerInput(
-  //         markers?.length ? registerAllowance.MarkerLimitBusiness > markers.length : false
-  //       )
-
-  //       setCanCommentsInput(
-  //         comments?.length ? registerAllowance.CommentLimitBusiness > comments.length : false
-  //       )
-  //       break
-  //     case 'admin':
-  //       setCanBookMarkInput(true)
-  //       setCanMarkerInput(true)
-  //       setCanCommentsInput(true)
-  //       break
-  //     default:
-  //       break
-  //   }
-  // }
 
   return (
     <div className='mx-auto max-w-4xl px-2 py-4 sm:px-4'>

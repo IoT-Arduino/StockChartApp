@@ -1,6 +1,5 @@
 import type { ReactNode } from 'react'
 import { Footer } from './footer'
-import { HeaderNav } from './x-headerNav'
 import Navbar from './Navbar'
 
 type Props = {
