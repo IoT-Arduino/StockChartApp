@@ -79,14 +79,14 @@ const Navbar = () => {
     <IconContext.Provider value={{ color: '#48bb78' }}>
       <nav>
         {/* PC Nav Menu */}
-        <div className='mx-auto hidden h-16 max-w-7xl items-center justify-between bg-white md:flex'>
+        <div className='mx-auto hidden h-16 max-w-5xl items-center justify-between bg-white md:flex'>
           <Link href='/'>
             <a>
               <Image src={logo} alt='logo' width={75} height={75} />
             </a>
           </Link>
           <div className='m-5 hidden flex-initial font-bold text-[#abc5c5] md:flex '>
-            <ul className='flex-initial text-left md:flex'>
+            <ul className='text-left md:flex'>
               {NavSidebarData.map((value, index) => (
                 <li key={index} className='p-4 list-none'>
                   <a href={value.path} className="no-underline text-green-500 hover:text-green-200">{value.title} </a>
@@ -95,7 +95,7 @@ const Navbar = () => {
 
               {!signIn ? (
                 <li className='p-4 list-none'>
-                  <Link href='/signin'>
+                  <Link href='/auth/signin'>
                     <a className='font-bold no-underline text-green-500 hover:text-green-200'>サインイン</a>
                   </Link>
                 </li>
@@ -178,7 +178,7 @@ const Navbar = () => {
             {!signIn ? (
               <li className="list-none">
                 <div className={styles.navText}>
-                  <Link href='/signin'>
+                  <Link href='/auth/signin'>
                     <a>
                       <AiIcons.AiOutlineLogin />
                       <span className='ml-2'>サインイン</span>
