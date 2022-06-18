@@ -65,11 +65,15 @@ const Home: NextPage = () => {
   // }
 
   const deleteUser = async () => {
-    alert('退会処理をするとすべてのデータが削除されます、よろしいですか？')
-    const { data } = await axios.get('/api/deleteUser')
-    console.log('d', data)
-    supabase.auth.signOut()
-    router.replace('/auth/signup')
+    let confirmDelete = confirm("退会処理をするとすべてのデータが削除されます、よろしいですか？")
+    if(confirmDelete){
+      const { data } = await axios.get('/api/deleteUser')
+      console.log('d', data)
+      supabase.auth.signOut()
+      router.replace('/auth/signup')
+    } else {
+      return
+    }
   }
 
 

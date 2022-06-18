@@ -11,6 +11,9 @@ import { UserContext } from '../utils/UserContext'
 
 import { checkAllowanceComment } from '../functions/checkAllowanceComment'
 
+import * as AiIcons from 'react-icons/ai'
+import { ActionIcon } from '@mantine/core';
+
 export default function InputComments({ ticker }) {
   const { editedComment, resetEditedComment } = useStore()
   const update = useStore((state) => state.updateEditedComment)
@@ -46,7 +49,6 @@ export default function InputComments({ ticker }) {
           memo: editedComment.memo,
           date: editedComment.date,
         })
-
         setEditItem('')
       } catch (error) {
         console.log('error', error)
@@ -72,15 +74,23 @@ export default function InputComments({ ticker }) {
     })
   }
 
+  const deleteComment = (comment) => {
+    let confirmDelete = confirm("削除してよろしいですか?")
+    if(confirmDelete){
+      deleteCommentMutation.mutate(comment.id)
+    } else {
+      return
+    }
+  }
+
   const editCancel = () => {
-    console.log('cancel')
     setEditItem('')
     resetEditedComment()
   }
 
   return (
     <div className='w-full'>
-      <h4 className='mt-10 mb-2 font-bold font-xl'>株式メモ情報:{commentList?.length}</h4>
+      <h4 className='mt-10 mb-2 font-bold font-xl'>株式メモ情報</h4>
       <div>{canCommentInput ? <div>入力可</div> : <div>入力不可</div>}</div>
 
       <div className='flex gap-2 my-2 flex-wrap'>
@@ -128,27 +138,27 @@ export default function InputComments({ ticker }) {
                     {comment.date}/{comment.memo}
                   </div>
                 </div>
-                <button
+                <ActionIcon
                   onClick={(e) => {
                     e.preventDefault()
                     e.stopPropagation()
                     updateComment(comment)
                   }}
-                  className='p-1 ml-2 border-2 hover:border-black rounded'
+                  className='p-1 ml-2'
                 >
-                  E
-                </button>
+                <AiIcons.AiFillEdit />
+                </ActionIcon>
 
-                <button
+                <ActionIcon
                   onClick={(e) => {
                     e.preventDefault()
                     e.stopPropagation()
-                    deleteCommentMutation.mutate(comment.id)
+                    deleteComment(comment)
                   }}
-                  className='p-1 ml-2 border-2 hover:border-black rounded'
+                  className='p-1 ml-2'
                 >
-                  X
-                </button>
+                <AiIcons.AiFillDelete />
+                </ActionIcon>
               </div>
             </li>
           ))}

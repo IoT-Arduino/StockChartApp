@@ -1,6 +1,6 @@
 import React from 'react'
 import { UserContext } from '../utils/UserContext'
-import { useContext } from 'react'
+import { useContext,useState,useEffect } from 'react'
 import { Tabs } from '@mantine/core'
 import InputCommentsState from './InputCommentsState'
 import InputMarkerState from './InputMarkerState'
@@ -8,6 +8,15 @@ import InputMarkerState from './InputMarkerState'
 const StockTabSection = ({companyInfo,fyCompanyDataForTable,isDividend,isSplit,QtrCompanyDataForTable,priceData,ticker}) => {
 
     const { user } = useContext(UserContext)  
+    const [editDataForMember,setEditDataForMember] = useState()
+
+    useEffect(()=>{
+      if(user){
+        setEditDataForMember(true)
+      } else {
+        setEditDataForMember(false)
+      }
+    },[user])
 
   return (
     <Tabs color="teal" tabPadding="md">
@@ -390,7 +399,7 @@ const StockTabSection = ({companyInfo,fyCompanyDataForTable,isDividend,isSplit,Q
             </table>
           </div>
         </Tabs.Tab>
-        <Tabs.Tab label='データ入力' disabled={!user}>
+        <Tabs.Tab label='データ入力' disabled={!editDataForMember}>
             <div className='my-3'>
                 <InputMarkerState ticker={ticker} />
                 <InputCommentsState ticker={ticker} />
