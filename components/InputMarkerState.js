@@ -40,6 +40,10 @@ export default function InputMarker({ ticker }) {
   //  <!-- markerの追加 -->
   const submitMarker = async () => {
     // e.preventDefault()
+    if(editedMarker.memo === "" || editedMarker.date === "") {
+      alert("データを入力してください")
+      return 
+    }
 
     if (editItem != '') {
       try {
@@ -100,6 +104,7 @@ export default function InputMarker({ ticker }) {
           type='date'
           value={editedMarker.date}
           onChange={(e) => update({ ...editedMarker, date: e.target.value })}
+          required
         />
         <input
           className='rounded w-full p-2 border border-black text-base'
@@ -107,6 +112,7 @@ export default function InputMarker({ ticker }) {
           placeholder='メモを入力してください'
           value={editedMarker.memo}
           onChange={(e) => update({ ...editedMarker, memo: e.target.value })}
+          required
         />
 
         {editItem != '' ? (

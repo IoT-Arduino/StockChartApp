@@ -46,7 +46,6 @@ const Home: NextPage = () => {
   const { canBookMarkInput } = checkAllowanceBookMark(rank, bookmark)
   const { canMarkerInput } = checkAllowanceMarker(rank, markers)
 
-
   useEffect(() => {
     if (!user) {
       replace('/auth/signin')
@@ -65,17 +64,21 @@ const Home: NextPage = () => {
   // }
 
   const deleteUser = async () => {
-    let confirmDelete = confirm("退会処理をするとすべてのデータが削除されます、よろしいですか？")
-    if(confirmDelete){
-      const { data } = await axios.get('/api/deleteUser')
-      console.log('d', data)
-      supabase.auth.signOut()
-      router.replace('/auth/signup')
-    } else {
-      return
+    let confirmDelete = confirm('退会処理をするとすべてのデータが削除されます、よろしいですか？')
+    if (confirmDelete) {
+      const { data, error }: { data: any; error: any } = await axios.get('/api/deleteUser')
+      if (error) {
+        console.log(error.message)
+        alert(error.message)
+        supabase.auth.signOut()
+        router.replace('/auth/signup')
+      } else {
+        alert('退会処理を受け付けました')
+        supabase.auth.signOut()
+        router.replace('/auth/signup')
+      }
     }
   }
-
 
   return (
     <div className='mx-auto max-w-2xl px-2 py-4 sm:px-4'>
@@ -88,7 +91,7 @@ const Home: NextPage = () => {
       {bookmark &&
         bookmark.map((mark, i) => {
           return (
-            <div key={i} className="ml-8">
+            <div key={i} className='ml-8'>
               <li>
                 <Link href={`/stocks/${mark.ticker}`}>
                   <a>{mark.ticker}</a>
@@ -101,7 +104,7 @@ const Home: NextPage = () => {
       {isDisplay && <p className='font-xl mt-8 mb-2 font-bold'>Marker一覧</p>}
       {canMarkerInput ? <span>登録可能です</span> : <span>登録制限に達しています</span>}
       {markers && (
-        <div className='my-4 mx-auto w-full sm:w-2/3 shadow-md sm:rounded-lg'>
+        <div className='my-4 mx-auto w-full shadow-md sm:w-2/3 sm:rounded-lg'>
           <table className='w-full text-sm text-gray-500 dark:text-gray-400'>
             <thead className='bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
               <tr>
@@ -142,7 +145,7 @@ const Home: NextPage = () => {
       {canCommentInput ? <span>登録可能です</span> : <span>登録制限に達しています</span>}
 
       {comments && (
-        <div className='my-4 mx-auto w-full sm:w-2/3 shadow-md sm:rounded-lg'>
+        <div className='my-4 mx-auto w-full shadow-md sm:w-2/3 sm:rounded-lg'>
           <table className='w-full text-sm text-gray-500 dark:text-gray-400'>
             <thead className='bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
               <tr>
@@ -180,10 +183,12 @@ const Home: NextPage = () => {
       )}
 
       <RegisterLimit rank={rank} />
-      <div className="my-16 border-2 bg-slate-100 px-4 py-1 text-sm">
+      <div className='my-16 border-2 bg-slate-100 px-4 py-1 text-sm'>
         <h5>退会ご希望の方は以下のボタンをクリックしてください。</h5>
         <span>すべてのデータが削除されます。ご注意ください。</span>
-        <button className="mb-4 ml-4 text-xs" onClick={deleteUser}>退会する</button>
+        <button className='mb-4 ml-4 text-xs' onClick={deleteUser}>
+          退会する
+        </button>
       </div>
     </div>
   )

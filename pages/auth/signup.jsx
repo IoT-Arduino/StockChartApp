@@ -51,7 +51,7 @@ const signup = () => {
           <p>会員登録を行うことで、以下の機能をご利用いただけます</p>
           <ul>
           <li>
-            チャートページ送り機能、Paginationが利用できる。
+            チャートページ送り,「Pagination機能」が利用できる。
           </li>
             <li>
               チャート上に独自のマーカーを設定できる。（{registerAllowance.MarkerLimitFree}件まで）
