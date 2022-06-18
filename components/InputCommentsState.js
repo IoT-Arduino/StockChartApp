@@ -13,6 +13,7 @@ import { checkAllowanceComment } from '../functions/checkAllowanceComment'
 
 import * as AiIcons from 'react-icons/ai'
 import { ActionIcon } from '@mantine/core';
+import { DatePicker } from '@mantine/dates';
 
 export default function InputComments({ ticker }) {
   const { editedComment, resetEditedComment } = useStore()
@@ -27,7 +28,7 @@ export default function InputComments({ ticker }) {
   const { user: contextUser, session: contextSession, rank } = useContext(UserContext)
 
   //  <!-- comment -->
-  const [comments, setComments] = useState([])
+  // const [comments, setComments] = useState([])
   const [editItem, setEditItem] = useState('')
 
   const { canCommentInput } = checkAllowanceComment(rank, commentData)
@@ -41,6 +42,11 @@ export default function InputComments({ ticker }) {
   //  <!-- commentの追加 -->
   const submitComment = async () => {
     // e.preventDefault()
+
+    if(editedComment.memo === "" || editedComment.date === "") {
+      alert("データを入力してください")
+      return 
+    }
 
     if (editItem != '') {
       try {
@@ -99,6 +105,7 @@ export default function InputComments({ ticker }) {
           type='date'
           value={editedComment.date}
           onChange={(e) => update({ ...editedComment, date: e.target.value })}
+          required
         />
         <input
           className='rounded w-full p-2 border border-black text-base'
@@ -106,6 +113,7 @@ export default function InputComments({ ticker }) {
           placeholder='メモを入力してください'
           value={editedComment.memo}
           onChange={(e) => update({ ...editedComment, memo: e.target.value })}
+          required
         />
 
         {editItem != '' ? (
