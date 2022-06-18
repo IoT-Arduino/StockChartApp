@@ -1,10 +1,9 @@
-/* .navbar {
-    background-color: #f7fafc;
-    height:80px;
-    display:flex;
-    justify-content: space-between;
-    align-items: center;
-}  */
+.navbar {
+    background-color: #fff;
+    position:fixed;
+    z-index:900;
+    width:100%;
+} 
 
 /* Mobile Top Nav */
 .menuBars {
