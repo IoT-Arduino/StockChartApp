@@ -31,15 +31,17 @@ const signup = () => {
   password.current = watch('password', '')
   // const runSignup = async ({ email, password }: formData) => {
   const runSignup = async ({ email, password }) => {
-    console.log(email)
-    console.log(password)
-    const res = await supabase.auth.signUp({
+    const { error} = await supabase.auth.signUp({
       email,
       password,
     })
-    alert('SignUp しました、メールボックスを確認してください')
-    replace('/')
-    reset()
+    if(error){
+      alert(error.message)
+    } else {
+      alert('SignUp しました、メールボックスを確認してください')
+      replace('/')
+      reset()
+    }
   }
 
   return (
@@ -48,6 +50,9 @@ const signup = () => {
         <div className='mb-8'>
           <p>会員登録を行うことで、以下の機能をご利用いただけます</p>
           <ul>
+          <li>
+            チャートページ送り機能、Paginationが利用できる。
+          </li>
             <li>
               チャート上に独自のマーカーを設定できる。（{registerAllowance.MarkerLimitFree}件まで）
             </li>
