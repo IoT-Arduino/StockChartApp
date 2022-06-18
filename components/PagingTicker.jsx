@@ -12,7 +12,7 @@ const PagingTicker = ({prevTicker,nextTicker,signIn}) => {
 
       const handleNext = (e) => {
         e.preventDefault()
-        const prevLink = `/stocks/${prevTicker}`
+        const prevLink = `/stocks/${nextTicker}`
         router.push(prevLink)
       }
 
