@@ -75,7 +75,7 @@ const Home: NextPage = () => {
       } else {
         alert('退会処理を受け付けました')
         supabase.auth.signOut()
-        router.replace('/auth/signup')
+        router.replace('/')
       }
     }
   }
