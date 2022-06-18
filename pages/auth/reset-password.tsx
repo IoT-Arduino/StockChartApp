@@ -40,7 +40,7 @@ const ResetPassword: NextPage = () => {
       <div>
        <p>新しいパスワードを入力してください</p>
        <form onSubmit={handleSubmitPassword} className={style.inputField}>
-          <input value={password} type="password" onChange={handleSetPassword} placeholder="パスワード" />
+          <input value={password} type="password" onChange={handleSetPassword} placeholder="パスワード" required />
           <button type="submit">送信</button>
         </form>
       </div>

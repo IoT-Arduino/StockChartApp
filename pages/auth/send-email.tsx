@@ -43,7 +43,7 @@ const SendEmailToResetPassword: NextPage = () => {
       <div>
        <p>登録されているメールアドレスを入力してください</p>
        <form onSubmit={handleSubmitEmail} className={style.inputField}>
-          <input value={email} type="email" onChange={handleSetEmail} placeholder="メールアドレス" />
+          <input value={email} type="email" onChange={handleSetEmail} placeholder="メールアドレス" required />
           <button type="submit">送信</button>
         </form>
       </div>
