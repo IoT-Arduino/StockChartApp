@@ -248,7 +248,7 @@ const StockChart: NextPage<{
   nextTicker: String
 }> = ({ priceData, edgarData, id, companyInfo, status, prevTicker, nextTicker }) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [marker, setMarker] = useState([])
+  // const [marker, setMarker] = useState([])
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const { user, session } = useContext(UserContext)
 
@@ -259,15 +259,26 @@ const StockChart: NextPage<{
     return item.ticker == id
   })
 
-  useEffect(() => {
-    if (makersWithTicker?.length) {
+  // useEffect(() => {
+  //   if (makersWithTicker?.length) {
+  //     const markerFetchedTemp = getMarkerData(makersWithTicker)
+  //     setMarker(markerFetchedTemp)
+  //     // fetchMarker()
+  //   } else {
+  //     setMarker(markerList as any)
+  //   }
+  // }, [id])
+
+  const markerFunc = () => {
+    if(makersWithTicker?.length){
       const markerFetchedTemp = getMarkerData(makersWithTicker)
-      setMarker(markerFetchedTemp)
-      // fetchMarker()
+      return markerFetchedTemp
     } else {
-      setMarker(markerList as any)
+      return markerList
     }
-  }, [id])
+  } 
+
+  const marker = markerFunc()
 
   useEffect(() => {
     if (!user) {
