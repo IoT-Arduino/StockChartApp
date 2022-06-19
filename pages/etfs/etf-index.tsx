@@ -3,7 +3,6 @@ import type { NextPage } from 'next'
 // import Head from 'next/head'
 // import Image from 'next/image'
 import Link from 'next/link'
-import styles from './../../styles/Home.module.css'
 import EtfCandleChart from './../../components/EtfCandleChart'
 import EtfCompareLineChart from './../../components/EtfCompareLineChart'
 
@@ -42,7 +41,7 @@ export async function getServerSideProps() {
 const Home: NextPage = ({ fundsData }: any) => {
   return (
     <main className='mx-auto mt-6 mb-20 max-w-5xl'>
-      <h2 className={styles.title}>米国主要ETF比較</h2>
+      <h2>米国主要ETF比較</h2>
       <div>米国主要インデックスETF（Vanguard系の比較、2014年末を起点とした成長率）</div>
 
       <div className='mx-2 mt-8'>

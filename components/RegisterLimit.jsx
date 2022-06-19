@@ -4,7 +4,7 @@ const RegisterLimit = ({ rank }) => {
 
   if(rank === 'free') {
     return (
-        <div>
+        <div className="mt-8">
           <h4>登録可能数について({rank}ユーザー)</h4>
           <ul>
             <li>BookMark : {registerAllowance.BookMarkLimitFree}件まで</li>

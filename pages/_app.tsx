@@ -49,9 +49,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, [user])
 
   useEffect(() => {
-    const session = supabase.auth.session()
-    setSession(session)
-    setUser(session?.user ?? null)
+    // const session = supabase.auth.session()
+    // setSession(session)
+    // setUser(session?.user ?? null)
     const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
       setSession(session)
       setUser(session?.user ?? null)

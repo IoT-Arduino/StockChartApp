@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { NextPage } from 'next';
 import { supabase } from './../../utils/supabase';
-
+import style from './auth.module.css'
 
 const SendEmailToResetPassword: NextPage = () => {
     const [email, setEmail] = useState<string>('');
@@ -42,8 +42,8 @@ const SendEmailToResetPassword: NextPage = () => {
     return (
       <div>
        <p>登録されているメールアドレスを入力してください</p>
-       <form onSubmit={handleSubmitEmail}>
-          <input value={email} type="email" onChange={handleSetEmail} placeholder="メールアドレス" />
+       <form onSubmit={handleSubmitEmail} className={style.inputField}>
+          <input value={email} type="email" onChange={handleSetEmail} placeholder="メールアドレス" required />
           <button type="submit">送信</button>
         </form>
       </div>
