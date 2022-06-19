@@ -29,6 +29,7 @@ const useStore = create((set) => ({
     }),
   resetEditedMarker: () => set({ editedMarker: { ticker: '', date: '', memo: '' } }),
 
+
 }))
 
 
