@@ -11,6 +11,9 @@ import { UserContext } from '../utils/UserContext'
 
 import { checkAllowanceMarker } from '../functions/checkAllowanceMarker'
 
+import * as AiIcons from 'react-icons/ai'
+import { ActionIcon } from '@mantine/core';
+
 export default function InputMarker({ ticker }) {
   const { editedMarker, resetEditedMarker } = useStore()
   const update = useStore((state) => state.updateEditedMarker)
@@ -37,6 +40,10 @@ export default function InputMarker({ ticker }) {
   //  <!-- markerの追加 -->
   const submitMarker = async () => {
     // e.preventDefault()
+    if(editedMarker.memo === "" || editedMarker.date === "") {
+      alert("データを入力してください")
+      return 
+    }
 
     if (editItem != '') {
       try {
@@ -71,6 +78,15 @@ export default function InputMarker({ ticker }) {
     })
   }
 
+  const deleteMarker = (marker) => {
+    let confirmDelete = confirm("削除してよろしいですか?")
+    if(confirmDelete){
+      deleteMarkerMutation.mutate(marker.id)
+    } else {
+      return
+    }
+  }
+
   const editCancel = () => {
     console.log('cancel')
     setEditItem('')
@@ -79,7 +95,7 @@ export default function InputMarker({ ticker }) {
 
   return (
     <div className='w-full'>
-      <h4 className='mt-10 mb-2 font-bold font-xl'>Marker情報:{markerList?.length}</h4>
+      <h4 className='mt-10 mb-2 font-bold font-xl'>Marker情報</h4>
       <div>{canMarkerInput ? <div>入力可</div> : <div>入力不可</div>}</div>
 
       <div className='flex gap-2 my-2 flex-wrap'>
@@ -88,6 +104,7 @@ export default function InputMarker({ ticker }) {
           type='date'
           value={editedMarker.date}
           onChange={(e) => update({ ...editedMarker, date: e.target.value })}
+          required
         />
         <input
           className='rounded w-full p-2 border border-black text-base'
@@ -95,6 +112,7 @@ export default function InputMarker({ ticker }) {
           placeholder='メモを入力してください'
           value={editedMarker.memo}
           onChange={(e) => update({ ...editedMarker, memo: e.target.value })}
+          required
         />
 
         {editItem != '' ? (
@@ -120,34 +138,32 @@ export default function InputMarker({ ticker }) {
       <div className='bg-white shadow overflow-hidden rounded-md'>
         <ul>
           {markerList?.map((marker) => (
-            <li className='w-full block border-2 border-gray-300' key={marker.id}>
+            <li className='w-full block' key={marker.id}>
               <div className='flex items-center px-4 py-2 sm:px-6'>
                 <div className='min-w-0 flex-1 flex items-center'>
                   <div className='text-sm leading-5 font-medium truncate'>
                     {marker.date}/{marker.memo}
                   </div>
                 </div>
-                <button
+
+                <ActionIcon variant="hover"
                   onClick={(e) => {
                     e.preventDefault()
                     e.stopPropagation()
                     updateMarker(marker)
                   }}
-                  className='p-1 ml-2 border-2 hover:border-black rounded'
-                >
-                  E
-                </button>
-
-                <button
+                  ><AiIcons.AiFillEdit />
+                </ActionIcon>
+ 
+                <ActionIcon variant="hover"
                   onClick={(e) => {
-                    e.preventDefault()
-                    e.stopPropagation()
-                    deleteMarkerMutation.mutate(marker.id)
-                  }}
-                  className='p-1 ml-2 border-2 hover:border-black rounded'
-                >
-                  X
-                </button>
+                      e.preventDefault()
+                      e.stopPropagation()
+                      deleteMarker(marker)
+                    }}
+                    >
+                  <AiIcons.AiFillDelete />
+                </ActionIcon>
               </div>
             </li>
           ))}
