@@ -5,15 +5,13 @@ import { Button } from '@mantine/core';
 const PagingTicker = ({prevTicker,nextTicker,signIn}) => {
     const router = useRouter()
     const handlePrev = (e) => {
-        e.preventDefault()
         const prevLink = `/stocks/${prevTicker}`
         router.push(prevLink)
       }
 
       const handleNext = (e) => {
-        e.preventDefault()
-        const prevLink = `/stocks/${nextTicker}`
-        router.push(prevLink)
+        const nextLink = `/stocks/${nextTicker}`
+        router.push(nextLink)
       }
 
 

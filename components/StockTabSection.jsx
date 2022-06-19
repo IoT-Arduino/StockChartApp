@@ -399,7 +399,7 @@ const StockTabSection = ({companyInfo,fyCompanyDataForTable,isDividend,isSplit,Q
             </table>
           </div>
         </Tabs.Tab>
-        <Tabs.Tab label='データ入力' disabled={!editDataForMember}>
+        <Tabs.Tab label='データ入力（会員専用）' disabled={!editDataForMember}>
             <div className='my-3'>
                 <InputMarkerState ticker={ticker} />
                 <InputCommentsState ticker={ticker} />
