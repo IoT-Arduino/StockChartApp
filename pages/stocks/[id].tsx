@@ -32,6 +32,8 @@ import { StockPrice } from '../../types/StockPrice'
 // hooks
 import { useQueryMarker } from '../../hooks/useQueryMarker'
 
+// GoolgeSheet
+import { getStockInfo } from '../../utils/googleApiStock'
 
 export async function getStaticPaths() {
   // const filePath = path.join(process.cwd(), `./data/stockCode/US-StockList.json`);
@@ -160,7 +162,6 @@ export const getStaticProps: GetServerSideProps = async ({ query, params }) => {
         const reqList = JSON.parse(jsonDataEdgar as any)
 
         tempResData = [reqList[0], reqList2[0]]
-
       } else if (
         fs.existsSync(`./data/edgar/${item}/${id}.json`) &&
         fs.existsSync(`./data/edgar/${item}/${id}_2.json`) === false
@@ -198,7 +199,6 @@ export const getStaticProps: GetServerSideProps = async ({ query, params }) => {
     //   }
     // })
 
-
     const edgarResData = await Promise.all(edgarDataResponse)
     const edgarRes = await edgarResData.filter((item) => item)
 
@@ -219,6 +219,9 @@ export const getStaticProps: GetServerSideProps = async ({ query, params }) => {
     //   return item[0] == id
     // })
 
+    // GoolgeSheet
+    const filteredSheetDataTemp = await getStockInfo(id)
+    const filteredSheetData = filteredSheetDataTemp ? filteredSheetDataTemp : null
 
     return {
       props: {
@@ -227,7 +230,7 @@ export const getStaticProps: GetServerSideProps = async ({ query, params }) => {
         priceData,
         // markerData,
         edgarData: edgarRes.flat(), // edgarRes.flat(),
-        // filteredSheetData,
+        filteredSheetData,
         prevTicker: prevCompany[0].Ticker,
         nextTicker: nextCompany[0].Ticker,
       },
@@ -243,10 +246,20 @@ const StockChart: NextPage<{
   edgarData: any
   id: any
   companyInfo: Company
+  filteredSheetData: any
   status: any
   prevTicker: String
   nextTicker: String
-}> = ({ priceData, edgarData, id, companyInfo, status, prevTicker, nextTicker }) => {
+}> = ({
+  priceData,
+  edgarData,
+  id,
+  companyInfo,
+  filteredSheetData,
+  status,
+  prevTicker,
+  nextTicker,
+}) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   // const [marker, setMarker] = useState([])
   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -270,13 +283,13 @@ const StockChart: NextPage<{
   // }, [id])
 
   const markerFunc = () => {
-    if(makersWithTicker?.length){
+    if (makersWithTicker?.length) {
       const markerFetchedTemp = getMarkerData(makersWithTicker)
       return markerFetchedTemp
     } else {
       return markerList
     }
-  } 
+  }
 
   const marker = markerFunc()
 
@@ -306,7 +319,6 @@ const StockChart: NextPage<{
   //     }
   //   }
   // }
-
 
   return (
     <div className='mx-auto max-w-5xl'>
@@ -364,6 +376,26 @@ const StockChart: NextPage<{
           </div>
         */}
 
+      {filteredSheetData ? (
+        <div className='my-8'>
+          <h3 className='text-lg font-bold my-0'>株式関連情報</h3>
+          <ul className="my-2">
+          {filteredSheetData?.map((item, i) => {
+            return (
+              <li key={i}>
+                {item.date}/
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: item.news,
+                  }}
+                />
+              </li>
+            )
+          })}
+          </ul>
+        </div>
+      ) : null}
+
       <div className='my-12'>
         <h3 className='text-lg font-bold'>財務情報サイト</h3>
         <p className='mx-2'>
@@ -373,15 +405,6 @@ const StockChart: NextPage<{
             rel='noreferrer'
           >
             EDGARサイト-{id}
-          </a>
-        </p>
-        <p className='mx-2'>
-          <a
-            href={`https://stocks.finance.yahoo.co.jp/us/annual/${priceData[0].Ticker}`}
-            target='_blank'
-            rel='noreferrer'
-          >
-            Yahooファイナンス-{id}
           </a>
         </p>
         <p className='mx-2'>
