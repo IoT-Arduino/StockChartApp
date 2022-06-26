@@ -383,7 +383,7 @@ const StockChart: NextPage<{
           {filteredSheetData?.map((item, i) => {
             return (
               <li key={i}>
-                {item.date}/
+                {item.date}{"  "} 
                 <span
                   dangerouslySetInnerHTML={{
                     __html: item.news,
