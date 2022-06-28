@@ -17,8 +17,8 @@ export const useQueryMarker = () => {
   return useQuery({
     queryKey: 'marker',
     queryFn: getMarker,
-    staleTime: 0, //[ms]
-    // refetchOnWindowFocus: true,
+    staleTime: 500, //[ms]
+    refetchOnWindowFocus: true,
     // refetchOnMount:"always",
     // notifyOnChangeProps:"tracked",
     // refetchOnReconnect:"always",

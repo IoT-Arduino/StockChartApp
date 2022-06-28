@@ -136,7 +136,7 @@ const signup = () => {
             }}
           />
           <div className='h-4' />
-          <Button block disabled={true}>送信(会員登録休止中、近日中再開予定)</Button>
+          <Button block>送信</Button>
           <div className='h-4' />
         </form>
 

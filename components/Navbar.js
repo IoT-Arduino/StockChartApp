@@ -41,13 +41,7 @@ const NavSidebarData = [
     path: '/stocks',
     icon: <AiIcons.AiOutlineUnorderedList />,
     cName: 'navText',
-  },
-  {
-    title: '会員ページ',
-    path: '/member',
-    icon: <AiIcons.AiOutlineUser />,
-    cName: 'navText',
-  },
+  }
 ]
 
 
@@ -102,21 +96,39 @@ const Navbar = () => {
                 ))}
 
                 {!signIn ? (
+                  <>
                   <li className='list-none p-4'>
                     <Link href='/auth/signin'>
                       <a className='font-bold text-green-500 no-underline hover:text-green-200'>
-                        サインイン
+                        ログイン
                       </a>
                     </Link>
                   </li>
+                  <li className='list-none p-4'>
+                  <Link href='/auth/signup'>
+                    <a className='font-bold text-green-500 no-underline hover:text-green-200'>
+                      会員登録
+                    </a>
+                  </Link>
+                </li>
+                  </>
                 ) : (
+                  <>
+                  <li className='list-none p-4'>
+                  <Link href='/member'>
+                    <a className='font-bold text-green-500 no-underline hover:text-green-200'>
+                      会員ページ
+                    </a>
+                  </Link>
+                </li>
                   <li className='list-none p-4'>
                     <div onClick={signOut}>
                       <a className='font-bold text-green-500 no-underline hover:text-green-200'>
-                        サインアウト
+                        ログアウト
                       </a>
                     </div>
                   </li>
+                  </>
                 )}
 
                 {/* Search Icon and ( Modal )*/}
