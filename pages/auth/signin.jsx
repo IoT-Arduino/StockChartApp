@@ -4,9 +4,11 @@ import { Input } from '@supabase/ui'
 import { supabase } from '../../utils/supabase'
 import Link from 'next/link'
 import style from './auth.module.css'
-
 import { useRouter } from 'next/router'
-// import { useEffect } from 'react'
+
+// i18n
+import en from './../../locales/en/en'
+import ja from './../../locales/ja/ja'
 
 const signin = () => {
   // type formData = {
@@ -15,7 +17,15 @@ const signin = () => {
   //   };
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const { replace } = useRouter()
+  const { replace,locale} = useRouter()
+
+  // i18n 対応用
+  let t
+  if (locale === 'ja-JP') {
+    t = ja
+  } else {
+    t = en
+  }
 
   const {
     control,
@@ -36,7 +46,7 @@ const signin = () => {
       reset()
       if (error) throw error
     } catch (error) {
-      alert(error.message,"IDかパスワードに誤りがあります")
+      alert(error.message, `${t.signInErrorMsg}`)
       reset()
       console.log(error)
     }
@@ -57,14 +67,14 @@ const signin = () => {
                 label='Email'
                 icon={<IconMail />}
                 error={errors.email ? errors.email.message : ''}
-                placeholder='メールアドレス'
+                placeholder='email'
               />
             )}
             rules={{
-              required: '必須項目です。',
+              required: `${t.signInRequired}`,
               pattern: {
                 value: /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-                message: 'メールアドレスが不適切です。',
+                message: `${t.signInEmailAlert}`,
               },
             }}
           />
@@ -79,26 +89,29 @@ const signin = () => {
                 icon={<IconKey />}
                 label='Password'
                 error={errors.password ? errors.password.message : ''}
-                placeholder='パスワード(8文字以上)'
+                placeholder={t.signInPwdPlaceHolder}
               />
             )}
             rules={{
-              required: '必須項目です。',
+              required: `${t.signInRequired}`,
               pattern: {
                 value: /^[a-z\d]{8,100}$/i,
-                message: 'パスワードは8文字以上です。',
+                message: `${t.signInPwdAlert}`,
               },
             }}
           />
           <div className='h-4' />
-          <Button block style={{fontSize: '16px !important'}}>送信</Button>
+          <Button block style={{ fontSize: '16px !important' }}>
+            {t.signInSubmit}
+          </Button>
           <div className='h-4' />
           <Link href='/auth/signup'>
-            <a className=' font-bold hover:text-gray-500'>会員登録はこちら(無料)</a>
-          </Link><br />
+            <a className=' font-bold hover:text-gray-500'>{t.signInSignUpLink}</a>
+          </Link>
+          <br />
           <Link href='/auth/send-email'>
-          <a className=' font-bold hover:text-gray-500'>パスワードを忘れた方はこちら</a>
-        </Link>
+            <a className=' font-bold hover:text-gray-500'>{t.signInForgotPwdLink}</a>
+          </Link>
         </form>
       </div>
     </div>
