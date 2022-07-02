@@ -1,15 +1,15 @@
 import { registerAllowance } from '../const/settings'
 
-const RegisterLimit = ({ rank }) => {
+const RegisterLimit = ({ rank,t }) => {
 
   if(rank === 'free') {
     return (
         <div className="mt-8">
-          <h4>登録可能数について({rank}ユーザー)</h4>
+          <h4>{t.memberShipRegisterAvail}({rank}{t.memberShipRegisterUser})</h4>
           <ul>
-            <li>BookMark : {registerAllowance.BookMarkLimitFree}件まで</li>
-            <li>Marker : {registerAllowance.MarkerLimitFree}件まで</li>
-            <li>Comment : {registerAllowance.CommentLimitFree}件まで</li>
+            <li>BookMark : {registerAllowance.BookMarkLimitFree}{t.memberShipRegisterUntil}</li>
+            <li>Marker : {registerAllowance.MarkerLimitFree}{t.memberShipRegisterUntil}</li>
+            <li>Comment : {registerAllowance.CommentLimitFree}{t.memberShipRegisterUntil}</li>
           </ul>
         </div>
       )
@@ -17,11 +17,11 @@ const RegisterLimit = ({ rank }) => {
     }else if(rank === 'pro'){
         return (
             <div>
-              <h4>登録可能数について({rank}ユーザー)</h4>
+              <h4>{t.memberShipRegisterAvail}({rank}{t.memberShipRegisterUser})</h4>
               <ul>
-                <li>BookMark : {registerAllowance.BookMarkLimitPro}件まで</li>
-                <li>Marker : {registerAllowance.MarkerLimitPro}件まで</li>
-                <li>Comment : {registerAllowance.CommentLimitPro}件まで</li>
+                <li>BookMark : {registerAllowance.BookMarkLimitPro}{t.memberShipRegisterUntil}</li>
+                <li>Marker : {registerAllowance.MarkerLimitPro}{t.memberShipRegisterUntil}</li>
+                <li>Comment : {registerAllowance.CommentLimitPro}{t.memberShipRegisterUntil}</li>
               </ul>
             </div>
           )
@@ -29,11 +29,11 @@ const RegisterLimit = ({ rank }) => {
     }else if(rank === 'business'){
         return (
             <div>
-              <h4>登録可能数について({rank}ユーザー)</h4>
+              <h4>{t.memberShipRegisterAvail}({rank}{t.memberShipRegisterUser})</h4>
               <ul>
-                <li>BookMark : {registerAllowance.BookMarkLimitBusiness}件まで</li>
-                <li>Marker : {registerAllowance.MarkerLimitBusiness}件まで</li>
-                <li>Comment : {registerAllowance.CommentLimitBusiness}件まで</li>
+                <li>BookMark : {registerAllowance.BookMarkLimitBusiness}{t.memberShipRegisterUntil}</li>
+                <li>Marker : {registerAllowance.MarkerLimitBusiness}{t.memberShipRegisterUntil}</li>
+                <li>Comment : {registerAllowance.CommentLimitBusiness}{t.memberShipRegisterUntil}</li>
               </ul>
             </div>
           )
@@ -43,11 +43,11 @@ const RegisterLimit = ({ rank }) => {
 
         return (
             <div>
-              <h4>登録可能数について({rank}ユーザー)</h4>
+              <h4>{t.memberShipRegisterAvail}({rank}{t.memberShipRegisterUser})</h4>
               <ul>
-                <li>BookMark :登録制限なし</li>
-                <li>Comment : 登録制限なし</li>
-                <li>Marker :登録制限なし</li>
+                <li>BookMark :{t.memberShipRegisterUnlimit}</li>
+                <li>Comment : {t.memberShipRegisterUnlimit}</li>
+                <li>Marker :{t.memberShipRegisterUnlimit}</li>
               </ul>
             </div>
           )
