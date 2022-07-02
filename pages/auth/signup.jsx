@@ -9,6 +9,14 @@ import style from './auth.module.css'
 
 import { registerAllowance } from '../../const/settings'
 
+// i18n
+import en from './../../locales/en/en'
+import ja from './../../locales/ja/ja'
+import SignUp1en from './../../locales/en/SignUpComponent1'
+import SignUp2en from './../../locales/en/SignUpComponent2'
+import SignUp1ja from './../../locales/ja/SignUpComponent1'
+import SignUp2ja from './../../locales/ja/SignUpComponent2'
+
 const signup = () => {
   // type formData = {
   //   email: string,
@@ -16,7 +24,15 @@ const signup = () => {
   // };
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const { replace } = useRouter()
+  const { replace,locale } = useRouter()
+
+    // i18n 対応用
+    let t
+    if (locale === 'ja-JP') {
+      t = ja
+    } else {
+      t = en
+    }
 
   const {
     control,
@@ -38,7 +54,7 @@ const signup = () => {
     if(error){
       alert(error.message)
     } else {
-      alert('SignUp しました、メールボックスを確認してください')
+      alert(`${t.signUpAlertMsg}`)
       replace('/')
       reset()
     }
@@ -47,23 +63,9 @@ const signup = () => {
   return (
     <div className='center my-4 flex items-center justify-center'>
       <div className='w-full bg-white  p-5 shadow sm:max-w-xl sm:rounded-lg'>
-        <div className='mb-8'>
-          <p>会員登録を行うことで、以下の機能をご利用いただけます</p>
-          <ul>
-          <li>
-            チャートページ送り,「Pagination機能」が利用できる。
-          </li>
-            <li>
-              チャート上に独自のマーカーを設定できる。（{registerAllowance.MarkerLimitFree}件まで）
-            </li>
-            <li>特定銘柄のメモ情報を登録できる（{registerAllowance.CommentLimitFree}件まで）</li>
-            <li>
-              特定銘柄ブックマーク設定ができる。（{registerAllowance.BookMarkLimitFree}件まで）
-            </li>
-          </ul>
-        </div>
+      {t == ja ? <SignUp1ja registerAllowance={registerAllowance} /> : <SignUp1en registerAllowance={registerAllowance} />}
 
-        <h2 className='text-xl'>会員登録（無料）</h2>
+        <h2 className='text-xl'>{t.signUpTitle}</h2>
 
         <form onSubmit={handleSubmit(runSignup)} className={style.inputField}>
           <Controller
@@ -77,14 +79,14 @@ const signup = () => {
                 label='Email'
                 icon={<IconMail />}
                 error={errors.email ? errors.email.message : ''}
-                placeholder='メールアドレス'
+                placeholder='email'
               />
             )}
             rules={{
-              required: '必須項目です。',
+              required: `${t.signInRequired}`,
               pattern: {
                 value: /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-                message: 'メールアドレスが不適切です。',
+                message: `${t.signInEmailAlert}`,
               },
             }}
           />
@@ -100,14 +102,14 @@ const signup = () => {
                 icon={<IconKey />}
                 label='Password'
                 error={errors.password ? errors.password.message : ''}
-                placeholder='パスワード(8文字以上)'
+                placeholder={t.signInPwdPlaceHolder}
               />
             )}
             rules={{
-              required: '必須項目です。',
+              required: `${t.signInRequired}`,
               pattern: {
                 value: /^[a-z\d]{8,100}$/i,
-                message: 'パスワードは8文字以上です。',
+                message: `${t.signInPwdAlert}`,
               },
             }}
           />
@@ -123,16 +125,16 @@ const signup = () => {
                 icon={<IconKey />}
                 label='ConfirmPassword'
                 error={errors.confirmPassword ? errors.confirmPassword.message : ''}
-                placeholder='パスワード(確認用)'
+                placeholder={t.signUpPwdConfirm}
               />
             )}
             rules={{
-              required: '必須項目です。',
+              required:  `${t.signInRequired}`,
               pattern: {
                 value: /^[a-z\d]{8,100}$/i,
-                message: 'パスワードは8文字以上です。',
+                message: `${t.signInPwdAlert}`,
               },
-              validate: (value) => value === password.current || 'パスワードが一致しません。',
+              validate: (value) => value === password.current || `${t.signUpPwdNotMatch}`,
             }}
           />
           <div className='h-4' />
@@ -140,20 +142,8 @@ const signup = () => {
           <div className='h-4' />
         </form>
 
-        <div className='mt-8 text-xs'>
-          <h3>ユーザー登録にあたって（ご覧の上、ご登録ください）</h3>
-          <ul>
-            <li>ユーザー登録、および、ユーザー限定サービスは無料で利用できます。</li>
-            <li>ユーザーはいつでも所定の手続きで登録を削除することができます。</li>
-            <li>
-              当サイトからユーザーに対し、サービスに関連する連絡等をメールで行うことがあります。
-            </li>
-            <li>当サイトは独自の判断で、事前の告知なしに登録を取り消す場合があります。</li>
-            <li>ユーザー限定サービスは事前の告知なしに変更、または終了する場合があります。</li>
-            <li>登録された情報は、当サイトのサービス提供以外の目的では使用されません。</li>
-            <li>チャート画像のブログ等での引用は、引用元（TenQ.cc）等の記載をお願いします。</li>
-          </ul>
-        </div>
+        {t == ja ? <SignUp2ja /> : <SignUp2en />}
+
       </div>
     </div>
   )
