@@ -17,6 +17,15 @@ export default {
     type: 'website',
     locale: 'en_US',
     site_name: 'U.S. Stock Quarterly Earnings Chart',
+    images: [
+      {
+        url: `${process.env.NEXT_PUBLIC_API_ENDOPOINT}/images/TopAppleChart.png`,
+        width: 800,
+        height: 600,
+        alt: 'Og Image Alt',
+        type: 'image/jpeg',
+      },
+     ],
   },
   twitter: {
     handle: '@Sa10shitoushi',

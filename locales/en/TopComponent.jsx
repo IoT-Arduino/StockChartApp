@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 // images
-import DummyImage from './../../public/images/TopAppleChart.png'
+// import DummyImage from './../../public/images/TopAppleChart.png'
 import UNHChart from './../../public/images/UNHChart.png'
 import TSLAChart from './../../public/images/TSLAChart.png'
 import AAPLCandleChart from './../../public/images/AAPLCandleChartEn.png'
