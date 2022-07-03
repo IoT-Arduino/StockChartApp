@@ -27,7 +27,7 @@ export const chartOption = (newDateData,filteredDateForBarChart,newPriceData,mar
     ],
     yAxis: [
       {
-        name: '株価(USD)',
+        name: 'Price(USD)',
         scale: true,
         // interval: 100,
         axisLabel: {
@@ -41,7 +41,7 @@ export const chartOption = (newDateData,filteredDateForBarChart,newPriceData,mar
         },
       },
       {
-        name: '営業CF(緑) : 純利益（黄）',
+        name: 'OpeCF(GR) : NetIncome（YL）',
         scale: true,
         splitNumber: 1,
         gridIndex: 1,
@@ -55,7 +55,7 @@ export const chartOption = (newDateData,filteredDateForBarChart,newPriceData,mar
         // min: 0,
       },
       {
-        name: '営業CFマージン',
+        name: 'OpeCFMgn',
         scale: true,
         splitNumber: 1,
         gridIndex: 1,

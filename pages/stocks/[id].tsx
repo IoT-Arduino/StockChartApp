@@ -17,7 +17,7 @@ import BookMarkState from '../../components/BookMarkState'
 import StockCandleChart from '../../components/StockCandleChart'
 
 import { getMarkerData } from '../../functions/GetMarkerData'
-import { markerList } from '../../data/marker/marker'
+
 import { codeList } from '../../data/stockCode/US-StockList'
 
 // json fs
@@ -38,7 +38,9 @@ import { getStockInfo } from '../../utils/googleApiStock'
 // i18n
 import en from './../../locales/en/en'
 import ja from './../../locales/ja/ja'
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/router'
+import { markerListJa } from '../../data/marker/markerJa'
+import { markerListEn } from '../../data/marker/markerEn'
 
 export async function getStaticPaths() {
   // const filePath = path.join(process.cwd(), `./data/stockCode/US-StockList.json`);
@@ -269,7 +271,6 @@ const StockChart: NextPage<{
   // const [marker, setMarker] = useState([])
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const { user, session } = useContext(UserContext)
-
   const [signIn, setSignIn] = useState(false)
 
   const { data: markers, status: statusMarker } = useQueryMarker()
@@ -281,10 +282,16 @@ const StockChart: NextPage<{
   const router = useRouter()
   const { locale } = router
   let t
+  let sheetData
+  let markerList:any
   if (locale === 'ja-JP') {
     t = ja
+    sheetData = filteredSheetData.newsDataFiltered ?  filteredSheetData.newsDataFiltered :null
+    markerList = markerListJa
   } else {
     t = en
+    sheetData = filteredSheetData.infoDataFiltered ? filteredSheetData.infoDataFiltered : null
+    markerList = markerListEn
   }
 
   // useEffect(() => {
@@ -335,8 +342,6 @@ const StockChart: NextPage<{
   //   }
   // }
 
-
-
   return (
     <div className='mx-auto max-w-5xl'>
       <div className='flex flex-wrap items-center justify-between'>
@@ -365,6 +370,7 @@ const StockChart: NextPage<{
             prevTicker={prevTicker}
             nextTicker={nextTicker}
             signIn={signIn}
+            t={t}
           />
         ) : (
           <p>{t.stockIdNoStockData}</p>
@@ -374,9 +380,7 @@ const StockChart: NextPage<{
       <div className='mt-8 mb-6'>
         <h4 className='text-sm font-bold'>{t.stockIdIsUnit}</h4>
         <ul className='mx-8 text-xs'>
-          <li className='list-disc'>
-            {t.stockIdIsUnit1}
-          </li>
+          <li className='list-disc'>{t.stockIdIsUnit1}</li>
           <li className='list-disc'>{t.stockIdIsUnit2}</li>
           <li className='list-disc'>{t.stockIdIsUnit3}</li>
           <li className='list-disc'>P{t.stockIdIsUnit4}</li>
@@ -393,25 +397,28 @@ const StockChart: NextPage<{
           </div>
         */}
 
-      {filteredSheetData ? (
+      {sheetData ? (
         <div className='my-8'>
-          <h3 className='text-lg font-bold my-0'>{t.stockIdStockInfoTitle}</h3>
-          <ul className="my-2">
-          {filteredSheetData?.map((item, i) => {
-            return (
-              <li key={i}>
-                {item.date}{"  "} 
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: item.news,
-                  }}
-                />
-              </li>
-            )
-          })}
+          <h3 className='my-0 text-lg font-bold'>{t.stockIdStockInfoTitle}</h3>
+          <ul className='my-2'>
+            {sheetData?.map((item, i) => {
+              return (
+                <li key={i}>
+                  {item.date}
+                  {'  '}
+                  <span
+                    dangerouslySetInnerHTML={{
+                      __html: item.news,
+                    }}
+                  />
+                </li>
+              )
+            })}
           </ul>
         </div>
       ) : null}
+
+    
 
       <div className='my-12'>
         <h3 className='text-lg font-bold'>{t.stockIdLinkInfoTitle}</h3>
