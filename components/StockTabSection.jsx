@@ -62,7 +62,7 @@ const StockTabSection = ({
         <div className='relative my-4 overflow-x-auto shadow-md sm:rounded-lg'>
           <h3 className='my-2 p-2'>{t.tab1Title1}</h3>
           <table className='w-full text-right text-sm text-gray-500 dark:text-gray-400'>
-            <thead className='bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
+            <thead className='bg-gray-50 text-xs text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
               <tr>
                 <th scope='col' className='px-4 py-2'>
                   {t.tabTableDate}
@@ -157,7 +157,7 @@ const StockTabSection = ({
         <div className='relative my-4 overflow-x-auto shadow-md sm:rounded-lg'>
           <h3 className='my-2 p-2'>{t.tab1Title2}</h3>
           <table className='w-full text-right text-sm text-gray-500 dark:text-gray-400'>
-            <thead className='bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
+            <thead className='bg-gray-50 text-xs text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
               <tr>
                 <th scope='col' className='px-4 py-2'>
                 {t.tabTableDate}
@@ -210,7 +210,7 @@ const StockTabSection = ({
           <div className='relative my-4 overflow-x-auto shadow-md sm:rounded-lg'>
             <h3 className='my-2 p-2'>{t.tab1TitleDividend}</h3>
             <table className='w-full text-right text-sm text-gray-500 dark:text-gray-400'>
-              <thead className='bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
+              <thead className='bg-gray-50 text-xs text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
                 <tr>
                   <th scope='col' className='px-4 py-2'>
                     {t.tabTableDate}
@@ -277,7 +277,7 @@ const StockTabSection = ({
         <div className='relative my-4 overflow-x-auto shadow-md sm:rounded-lg'>
           <h3 className='my-2 p-2'>{t.tab2Title1}</h3>
           <table className='w-full text-right text-sm text-gray-500 dark:text-gray-400'>
-            <thead className='bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
+            <thead className='bg-gray-50 text-xs text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
               <tr>
                 <th scope='col' className='px-4 py-2'>
                   {t.tabTableDate}
@@ -382,7 +382,7 @@ const StockTabSection = ({
           <h3 className='my-2 p-2'>{t.tab3Title1}</h3>
 
           <table className='w-full text-right text-sm text-gray-500 dark:text-gray-400'>
-            <thead className='bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
+            <thead className='bg-gray-50 text-xs text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
               <tr>
                 <th scope='col' className='px-4 py-2'>
                   {t.tabTableDate}

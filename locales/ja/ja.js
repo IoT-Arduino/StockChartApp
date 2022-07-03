@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-anonymous-default-export
 export default  {
   stockList: "株式一覧",
   login:"ログイン",
@@ -90,6 +91,8 @@ export default  {
   authResetPwd3:"登録されているメールアドレスを入力してください",
   authResetPwd4:"新しいパスワードを入力してください",
   authResetPwd5:"送信",
+
+  pagingInform:"TickerPagingボタンは会員専用機能です。",
 
     subtitle:
       "NextJSとStrapi（HeadlessCMS）をつかった多言語サイトテンプレート。メニューバー、コンテンツ一覧、コンテンツ詳細ページ等すべてが多言語化されています。",
