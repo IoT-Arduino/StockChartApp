@@ -7,6 +7,11 @@ import InputMarkerState from './InputMarkerState'
 
 import dayjs from 'dayjs'
 
+// i18n
+import en from '../locales/en/en'
+import ja from '../locales/ja/ja'
+import { useRouter } from 'next/router';
+
 const StockTabSection = ({
   companyInfo,
   fyCompanyDataForTable,
@@ -27,6 +32,16 @@ const StockTabSection = ({
     }
   }, [user])
 
+    // i18n 対応用
+    const router = useRouter()
+    const { locale } = router
+    let t
+    if (locale === 'ja-JP') {
+      t = ja
+    } else {
+      t = en
+    }
+
   // 株式分割の月を1か月加算してもとに戻す処理
   const splitFilteredData = priceData.filter((item) => {
     return item.splitCategory === 'rSplit' || item.splitCategory === 'split'
@@ -43,31 +58,31 @@ const StockTabSection = ({
 
   return (
     <Tabs color='teal' tabPadding='md'>
-      <Tabs.Tab label='通期業績・配当'>
+      <Tabs.Tab label={t.tab1Label}>
         <div className='relative my-4 overflow-x-auto shadow-md sm:rounded-lg'>
-          <h3 className='my-2 p-2'>通期業績データ FS</h3>
+          <h3 className='my-2 p-2'>{t.tab1Title1}</h3>
           <table className='w-full text-right text-sm text-gray-500 dark:text-gray-400'>
-            <thead className='bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
+            <thead className='bg-gray-50 text-xs text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
               <tr>
                 <th scope='col' className='px-4 py-2'>
-                  年月
+                  {t.tabTableDate}
                 </th>
                 {companyInfo.Sector === 'Finance' ? null : (
                   <th scope='col' className='px-4 py-2'>
-                    売上高
+                    {t.tabTableFsRevenue}
                   </th>
                 )}
                 <th scope='col' className='px-4 py-2'>
-                  純利益
+                {t.tabTableFsNetIncome}
                 </th>
                 <th scope='col' className='px-4 py-2'>
-                  営業CF
+                {t.tabTableFsOpeCf}
                 </th>
                 <th scope='col' className='px-4 py-2'>
-                  総資産
+                {t.tabTableFsAsset}
                 </th>
                 <th scope='col' className='px-4 py-2'>
-                  株主資本
+                {t.tabTableFsEquity}
                 </th>
               </tr>
             </thead>
@@ -83,20 +98,20 @@ const StockTabSection = ({
                         <td className='px-4 py-2'>{item.date}</td>
                         <td className='px-4 py-2'>
                           {item.NetIncomeLossAccum
-                            ? parseInt(item.NetIncomeLossAccum / 1000).toLocaleString()
+                            ? Number((item.NetIncomeLossAccum / 1000000).toFixed(2)).toLocaleString()
                             : '-'}
                         </td>
                         <td className='px-4 py-2'>
                           {item.operatingCashFlowAccum
-                            ? parseInt(item.operatingCashFlowAccum / 1000).toLocaleString()
+                            ? Number((item.operatingCashFlowAccum / 1000000).toFixed(2)).toLocaleString()
                             : '-'}
                         </td>
                         <td className='px-4 py-2'>
-                          {item.assets ? parseInt(item.assets / 1000).toLocaleString() : '-'}
+                          {item.assets ? Number((item.assets / 1000000).toFixed(2)).toLocaleString() : '-'}
                         </td>
                         <td className='px-4 py-2'>
                           {item.stockHoldersEquity
-                            ? parseInt(item.stockHoldersEquity / 1000).toLocaleString()
+                            ? Number((item.stockHoldersEquity / 1000000).toFixed(2)).toLocaleString()
                             : '-'}
                         </td>
                       </tr>
@@ -110,25 +125,25 @@ const StockTabSection = ({
                         <td className='px-4 py-2'>{item.date}</td>
                         <td className='px-4 py-2'>
                           {item.revenueAccum
-                            ? parseInt(item.revenueAccum / 1000000).toLocaleString()
+                            ? Number((item.revenueAccum / 1000000).toFixed(2)).toLocaleString()
                             : '-'}
                         </td>
                         <td className='px-4 py-2'>
                           {item.NetIncomeLossAccum
-                            ? parseInt(item.NetIncomeLossAccum / 1000000).toLocaleString()
+                            ? Number((item.NetIncomeLossAccum / 1000000).toFixed(2)).toLocaleString()
                             : '-'}
                         </td>
                         <td className='px-4 py-2'>
                           {item.operatingCashFlowAccum
-                            ? parseInt(item.operatingCashFlowAccum / 1000000).toLocaleString()
+                            ? Number((item.operatingCashFlowAccum / 1000000).toFixed(2)).toLocaleString()
                             : '-'}
                         </td>
                         <td className='px-4 py-2'>
-                          {item.assets ? parseInt(item.assets / 1000000).toLocaleString() : '-'}
+                          {item.assets ? Number((item.assets / 1000000).toFixed(2)).toLocaleString() : '-'}
                         </td>
                         <td className='px-4 py-2'>
                           {item.stockHoldersEquity
-                            ? parseInt(item.stockHoldersEquity / 1000000).toLocaleString()
+                            ? Number((item.stockHoldersEquity / 1000000).toFixed(2)).toLocaleString()
                             : '-'}
                         </td>
                       </tr>
@@ -140,15 +155,15 @@ const StockTabSection = ({
         </div>
 
         <div className='relative my-4 overflow-x-auto shadow-md sm:rounded-lg'>
-          <h3 className='my-2 p-2'>通期業績データ 指標</h3>
+          <h3 className='my-2 p-2'>{t.tab1Title2}</h3>
           <table className='w-full text-right text-sm text-gray-500 dark:text-gray-400'>
-            <thead className='bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
+            <thead className='bg-gray-50 text-xs text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
               <tr>
                 <th scope='col' className='px-4 py-2'>
-                  年月
+                {t.tabTableDate}
                 </th>
                 <th scope='col' className='px-4 py-2'>
-                  株価
+                  {t.tabIndicatorPrice}
                 </th>
                 <th scope='col' className='px-4 py-2'>
                   BPS
@@ -157,10 +172,10 @@ const StockTabSection = ({
                   PBR
                 </th>
                 <th scope='col' className='px-4 py-2'>
-                  EPS（年間）
+                  {t.tabIndicatorEpsAnnual}
                 </th>
                 <th scope='col' className='px-4 py-2'>
-                  PER（年間）
+                  {t.tabIndicatorPerAnnual}
                 </th>
               </tr>
             </thead>
@@ -193,21 +208,21 @@ const StockTabSection = ({
 
         {isDividend && (
           <div className='relative my-4 overflow-x-auto shadow-md sm:rounded-lg'>
-            <h3 className='my-2 p-2'>年間配当データ 指標</h3>
+            <h3 className='my-2 p-2'>{t.tab1TitleDividend}</h3>
             <table className='w-full text-right text-sm text-gray-500 dark:text-gray-400'>
-              <thead className='bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
+              <thead className='bg-gray-50 text-xs text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
                 <tr>
                   <th scope='col' className='px-4 py-2'>
-                    年月
+                    {t.tabTableDate}
                   </th>
                   <th scope='col' className='px-4 py-2'>
-                    一株当たり配当年
+                   {t.tabIndicatorDps}
                   </th>
                   <th scope='col' className='px-4 py-2'>
-                    配当利回り年
+                    {t.tabIndicatorDividendYield}
                   </th>
                   <th scope='col' className='px-4 py-2'>
-                    配当性向年
+                    {t.tabIndicatorDividendPayoutRatio}
                   </th>
                 </tr>
               </thead>
@@ -242,14 +257,14 @@ const StockTabSection = ({
         )}
         {isSplit && (
           <div className='relative my-4 overflow-x-auto shadow-md sm:rounded-lg'>
-            <h3 className='my-2 p-2 text-lg font-bold'>株式分割データ</h3>
+            <h3 className='my-2 p-2 text-lg font-bold'>{t.tab1TitleSplit}</h3>
             <ul className='my-3'>
               {splitFixedMonthData &&
                 splitFixedMonthData.map((item, i) => {
                   if (item.splitCategory) {
                     return (
                       <li key={i}>
-                        {item.date} / 分割種別: {item.splitCategory} / 分割比率:{item.splitRatio} /
+                        {item.date} / {t.tabSplitCate}: {item.splitCategory} / {t.tabSplitRatio}:{item.splitRatio} /
                       </li>
                     )
                   }
@@ -258,34 +273,34 @@ const StockTabSection = ({
           </div>
         )}
       </Tabs.Tab>
-      <Tabs.Tab label='四半期財務'>
+      <Tabs.Tab label={t.tab2Label}>
         <div className='relative my-4 overflow-x-auto shadow-md sm:rounded-lg'>
-          <h3 className='my-2 p-2'>単四半期業績データ PL/CFS/BS</h3>
+          <h3 className='my-2 p-2'>{t.tab2Title1}</h3>
           <table className='w-full text-right text-sm text-gray-500 dark:text-gray-400'>
-            <thead className='bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
+            <thead className='bg-gray-50 text-xs text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
               <tr>
                 <th scope='col' className='px-4 py-2'>
-                  年月
+                  {t.tabTableDate}
                 </th>
-                {companyInfo.Sector === 'Finance' ? null : <th>売上高</th>}
+                {companyInfo.Sector === 'Finance' ? null : <th>{t.tabTableFsRevenue}</th>}
                 <th scope='col' className='px-4 py-2'>
-                  純利益
+                  {t.tabTableFsNetIncome}
                 </th>
                 <th scope='col' className='px-4 py-2'>
-                  営業CF
+                  {t.tabTableFsOpeCf}
                 </th>
                 {companyInfo.Sector === 'Finance' ? (
                   <th scope='col' className='px-4 py-2'>
-                    総資産
+                    {t.tabTableFsAsset}
                   </th>
                 ) : (
                   <th scope='col' className='px-4 py-2'>
-                    営業CFマージン
+                    {t.tabTableFsOpeCfMargin}
                   </th>
                 )}
 
                 <th scope='col' className='px-4 py-2'>
-                  株主資本
+                  {t.tabTableFsEquity}
                 </th>
               </tr>
             </thead>
@@ -301,21 +316,21 @@ const StockTabSection = ({
                         <td className='px-4 py-2'>{item.date}</td>
                         <td className='px-4 py-2'>
                           {item.NetIncomeLoss
-                            ? parseInt(item.NetIncomeLoss / 1000000).toLocaleString()
+                            ? Number((item.NetIncomeLoss / 1000000).toFixed(2)).toLocaleString()
                             : '-'}{' '}
                         </td>
                         <td className='px-4 py-2'>
                           {' '}
                           {item.operatingCashFlow
-                            ? parseInt(item.operatingCashFlow / 1000000).toLocaleString()
+                            ? Number((item.operatingCashFlow / 1000000).toFixed(2)).toLocaleString()
                             : '-'}
                         </td>
                         <td className='px-4 py-2'>
-                          {item.assets ? parseInt(item.assets / 1000000).toLocaleString() : '-'}
+                          {item.assets ? Number((item.assets / 1000000).toFixed(2)).toLocaleString() : '-'}
                         </td>
                         <td className='px-4 py-2'>
                           {item.stockHoldersEquity
-                            ? parseInt(item.stockHoldersEquity / 1000000).toLocaleString()
+                            ? Number((item.stockHoldersEquity / 1000000).toFixed(2)).toLocaleString()
                             : '-'}
                         </td>
                       </tr>
@@ -328,17 +343,17 @@ const StockTabSection = ({
                       >
                         <td className='px-4 py-2'>{item.date}</td>
                         <td className='px-4 py-2'>
-                          {item.revenue ? parseInt(item.revenue / 1000000).toLocaleString() : '-'}
+                          {item.revenue ? Number((item.revenue / 1000000).toFixed(2)).toLocaleString() : '-'}
                         </td>
                         <td className='px-4 py-2'>
                           {item.NetIncomeLoss
-                            ? parseInt(item.NetIncomeLoss / 1000000).toLocaleString()
+                            ? Number((item.NetIncomeLoss / 1000000).toFixed(2)).toLocaleString()
                             : '-'}{' '}
                         </td>
                         <td className='px-4 py-2'>
                           {' '}
                           {item.operatingCashFlow
-                            ? parseInt(item.operatingCashFlow / 1000000).toLocaleString()
+                            ? Number((item.operatingCashFlow / 1000000).toFixed(2)).toLocaleString()
                             : '-'}
                         </td>
                         <td className='px-4 py-2'>
@@ -351,7 +366,7 @@ const StockTabSection = ({
                         </td>
                         <td className='px-4 py-2'>
                           {item.stockHoldersEquity
-                            ? parseInt(item.stockHoldersEquity / 1000000).toLocaleString()
+                            ? Number((item.stockHoldersEquity / 1000000).toFixed(2)).toLocaleString()
                             : '-'}
                         </td>
                       </tr>
@@ -362,18 +377,18 @@ const StockTabSection = ({
           </table>
         </div>
       </Tabs.Tab>
-      <Tabs.Tab label='四半期株価指標'>
+      <Tabs.Tab label={t.tab3Label}>
         <div className='relative my-4 overflow-x-auto shadow-md sm:rounded-lg'>
-          <h3 className='my-2 p-2'>単四半期業績データ 株式指標等</h3>
+          <h3 className='my-2 p-2'>{t.tab3Title1}</h3>
 
           <table className='w-full text-right text-sm text-gray-500 dark:text-gray-400'>
-            <thead className='bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
+            <thead className='bg-gray-50 text-xs text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
               <tr>
                 <th scope='col' className='px-4 py-2'>
-                  年月
+                  {t.tabTableDate}
                 </th>
                 <th scope='col' className='px-4 py-2'>
-                  株価
+                  {t.tabIndicatorPrice}
                 </th>
                 <th scope='col' className='px-4 py-2'>
                   BPS
@@ -382,13 +397,13 @@ const StockTabSection = ({
                   PBR
                 </th>
                 <th scope='col' className='px-4 py-2'>
-                  EPS(単四半期)
+                  {t.tabIndicatorEpsQtr}
                 </th>
                 <th scope='col' className='px-4 py-2'>
-                  PER(単四半期を年間換算)
+                  {t.tabIndicatorPerQtrToAnnual}
                 </th>
                 <th scope='col' className='px-4 py-2'>
-                  流通株式数
+                  {t.tabIndicatorShareOutstanding}
                 </th>
               </tr>
             </thead>
@@ -420,7 +435,7 @@ const StockTabSection = ({
           </table>
         </div>
       </Tabs.Tab>
-      <Tabs.Tab label='データ入力（会員専用）' disabled={!editDataForMember}>
+      <Tabs.Tab label={t.tab4Label} disabled={!editDataForMember}>
         <div className='my-3'>
           <InputMarkerState ticker={ticker} />
           <InputCommentsState ticker={ticker} />

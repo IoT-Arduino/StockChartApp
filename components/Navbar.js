@@ -9,7 +9,7 @@ import styles from './Navbar.module.css'
 import { IconContext } from 'react-icons'
 import * as FaIcons from 'react-icons/fa'
 import * as AiIcons from 'react-icons/ai'
-import * as IoIcons from 'react-icons/io'
+// import * as IoIcons from 'react-icons/io'
 import {IoDocumentTextOutline} from 'react-icons/io5'
 import logo from '../public/logo.png'
 import { Modal } from '@mantine/core'
@@ -24,25 +24,14 @@ import SearchBar from './HeroSearchBar'
 // JSON Data
 import { codeList } from '../data/stockCode/US-StockList'
 
+// i18n
+import en from '../locales/en/en'
+import ja from '../locales/ja/ja'
+
 // 他に使用されている箇所、全体Index,StockIndex,Navbar
 const codeListNotUnlist = codeList.filter((item) => {
   return item.Unlist != 'unlist'
 })
-
-const NavSidebarData = [
-  {
-    title: 'Home',
-    path: '/',
-    icon: <AiIcons.AiOutlineHome />,
-    cName: 'navText',
-  },
-  {
-    title: '株式一覧',
-    path: '/stocks',
-    icon: <AiIcons.AiOutlineUnorderedList />,
-    cName: 'navText',
-  }
-]
 
 
 const Navbar = () => {
@@ -67,9 +56,21 @@ const Navbar = () => {
 
   const signOut = () => {
     supabase.auth.signOut()
-    alert('サインアウトしました')
+    alert(t.messageSignout)
     replace('/')
   }
+
+  // i18n 対応用
+  const router = useRouter()
+  const { locale } = router
+  let t
+  if (locale === 'ja-JP') {
+    t = ja
+  } else {
+    t = en
+  }
+
+
 
   return (
     <IconContext.Provider value={{ color: '#48bb78' }}>
@@ -84,30 +85,40 @@ const Navbar = () => {
             </Link>
             <div className='m-5 hidden flex-initial font-bold text-[#abc5c5] md:flex '>
               <ul className='text-left md:flex'>
-                {NavSidebarData.map((value, index) => (
-                  <li key={index} className='list-none p-4'>
-                    <a
-                      href={value.path}
-                      className='text-green-500 no-underline hover:text-green-200'
-                    >
-                      {value.title}{' '}
-                    </a>
-                  </li>
-                ))}
+
+
+
+
+                <li className='list-none p-4'>
+                <Link href='/'>
+                  <a className='font-bold text-green-500 no-underline hover:text-green-200'>
+                    Home
+                  </a>
+                </Link>
+              </li>
+
+
+                <li className='list-none p-4'>
+                <Link href='/stocks'>
+                  <a className='font-bold text-green-500 no-underline hover:text-green-200'>
+                    {t.stockList}
+                  </a>
+                </Link>
+              </li>
 
                 {!signIn ? (
                   <>
                   <li className='list-none p-4'>
                     <Link href='/auth/signin'>
                       <a className='font-bold text-green-500 no-underline hover:text-green-200'>
-                        ログイン
+                        {t.login}
                       </a>
                     </Link>
                   </li>
                   <li className='list-none p-4'>
                   <Link href='/auth/signup'>
                     <a className='font-bold text-green-500 no-underline hover:text-green-200'>
-                      会員登録
+                      {t.signup}
                     </a>
                   </Link>
                 </li>
@@ -117,14 +128,14 @@ const Navbar = () => {
                   <li className='list-none p-4'>
                   <Link href='/member'>
                     <a className='font-bold text-green-500 no-underline hover:text-green-200'>
-                      会員ページ
+                      {t.member}
                     </a>
                   </Link>
                 </li>
                   <li className='list-none p-4'>
                     <div onClick={signOut}>
                       <a className='font-bold text-green-500 no-underline hover:text-green-200'>
-                        ログアウト
+                        {t.logout}
                       </a>
                     </div>
                   </li>
@@ -191,27 +202,36 @@ const Navbar = () => {
                 </div>
               </Link>
             </li>
-            {NavSidebarData.map((item, index) => {
-              return (
-                <li key={index} className={styles.navListItem}>
-                  <div className={styles.navText}>
-                    <Link href={item.path}>
-                      <a>
-                        {item.icon}
-                        <span className='ml-2'>{item.title}</span>
-                      </a>
-                    </Link>
-                  </div>
-                </li>
-              )
-            })}
+
+
+            <li className='list-none'>
+            <div className={styles.navText}>
+              <Link href='/'>
+                <a>
+                <AiIcons.AiOutlineHome />
+                  <span className='ml-2'>Home</span>
+                </a>
+              </Link>
+            </div>
+          </li>
+
+            <li className='list-none'>
+            <div className={styles.navText}>
+              <Link href='/stocks'>
+                <a>
+                <AiIcons.AiOutlineUnorderedList />
+                  <span className='ml-2'>{t.stockList}</span>
+                </a>
+              </Link>
+            </div>
+          </li>
 
             <li className='list-none'>
             <div className={styles.navText}>
               <Link href='/rules/discraimer'>
                 <a>
                   <IoDocumentTextOutline />
-                  <span className='ml-2'>免責事項</span>
+                  <span className='ml-2'>{t.disclaimer}</span>
                 </a>
               </Link>
             </div>
@@ -223,7 +243,7 @@ const Navbar = () => {
                   <Link href='/auth/signin'>
                     <a>
                       <AiIcons.AiOutlineLogin />
-                      <span className='ml-2'>サインイン</span>
+                      <span className='ml-2'>{t.signin}</span>
                     </a>
                   </Link>
                 </div>
@@ -234,7 +254,7 @@ const Navbar = () => {
                   <div onClick={signOut} className='w-full'>
                     <a>
                       <AiIcons.AiOutlineLogout />
-                      <span className='ml-2'>サインアウト</span>
+                      <span className='ml-2'>{t.signout}</span>
                     </a>
                   </div>
                 </div>
