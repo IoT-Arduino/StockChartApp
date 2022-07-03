@@ -17,7 +17,7 @@ export const useQueryComments = () => {
   return useQuery({
     queryKey: 'comments',
     queryFn: getComments,
-    staleTime: 0, //[ms]
+    staleTime: 500, //[ms]
     refetchOnWindowFocus: true,
   })
 }
