@@ -7,7 +7,7 @@ import { GetServerSideProps, NextPage } from 'next'
 // import { google } from 'googleapis';
 
 // Supabase
-import { supabase } from '../../utils/supabase'
+// import { supabase } from '../../utils/supabase'
 import { UserContext } from '../../utils/UserContext'
 
 // Components & Utils
@@ -17,7 +17,7 @@ import BookMarkState from '../../components/BookMarkState'
 import StockCandleChart from '../../components/StockCandleChart'
 
 import { getMarkerData } from '../../functions/GetMarkerData'
-import { markerList } from '../../data/marker/marker'
+
 import { codeList } from '../../data/stockCode/US-StockList'
 
 // json fs
@@ -34,6 +34,13 @@ import { useQueryMarker } from '../../hooks/useQueryMarker'
 
 // GoolgeSheet
 import { getStockInfo } from '../../utils/googleApiStock'
+
+// i18n
+import en from './../../locales/en/en'
+import ja from './../../locales/ja/ja'
+import { useRouter } from 'next/router'
+import { markerListJa } from '../../data/marker/markerJa'
+import { markerListEn } from '../../data/marker/markerEn'
 
 export async function getStaticPaths() {
   // const filePath = path.join(process.cwd(), `./data/stockCode/US-StockList.json`);
@@ -264,13 +271,28 @@ const StockChart: NextPage<{
   // const [marker, setMarker] = useState([])
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const { user, session } = useContext(UserContext)
-
   const [signIn, setSignIn] = useState(false)
 
   const { data: markers, status: statusMarker } = useQueryMarker()
   const makersWithTicker = markers?.filter((item) => {
     return item.ticker == id
   })
+
+  // i18n 対応用
+  const router = useRouter()
+  const { locale } = router
+  let t
+  let sheetData
+  let markerList:any
+  if (locale === 'ja-JP') {
+    t = ja
+    sheetData = filteredSheetData.newsDataFiltered ?  filteredSheetData.newsDataFiltered :null
+    markerList = markerListJa
+  } else {
+    t = en
+    sheetData = filteredSheetData.infoDataFiltered ? filteredSheetData.infoDataFiltered : null
+    markerList = markerListEn
+  }
 
   // useEffect(() => {
   //   if (makersWithTicker?.length) {
@@ -326,7 +348,7 @@ const StockChart: NextPage<{
         <h2>
           {companyInfo.Name} [{id}]
         </h2>
-        {companyInfo.Unlist ? <p className='font-bold text-red-600'>データ編集中</p> : null}
+        {companyInfo.Unlist ? <p className='font-bold text-red-600'>{t.stockIdIsEditing}</p> : null}
 
         {!signIn ? (
           <></>
@@ -348,21 +370,20 @@ const StockChart: NextPage<{
             prevTicker={prevTicker}
             nextTicker={nextTicker}
             signIn={signIn}
+            t={t}
           />
         ) : (
-          <p>株価データがありません</p>
+          <p>{t.stockIdNoStockData}</p>
         )}
       </div>
 
       <div className='mt-8 mb-6'>
-        <h4 className='text-sm font-bold'>単位について</h4>
+        <h4 className='text-sm font-bold'>{t.stockIdIsUnit}</h4>
         <ul className='mx-8 text-xs'>
-          <li className='list-disc'>
-            業績データ：売上高、純利益、営業CF、総資産、株主資本は「百万USD」。
-          </li>
-          <li className='list-disc'>株価、BPS、EPS、一株当たり配当は「USD」</li>
-          <li className='list-disc'>流通株式数は、百万株単位。</li>
-          <li className='list-disc'>PBR,PERは整数倍</li>
+          <li className='list-disc'>{t.stockIdIsUnit1}</li>
+          <li className='list-disc'>{t.stockIdIsUnit2}</li>
+          <li className='list-disc'>{t.stockIdIsUnit3}</li>
+          <li className='list-disc'>P{t.stockIdIsUnit4}</li>
         </ul>
       </div>
 
@@ -376,35 +397,38 @@ const StockChart: NextPage<{
           </div>
         */}
 
-      {filteredSheetData ? (
+      {sheetData ? (
         <div className='my-8'>
-          <h3 className='text-lg font-bold my-0'>株式関連情報</h3>
-          <ul className="my-2">
-          {filteredSheetData?.map((item, i) => {
-            return (
-              <li key={i}>
-                {item.date}{"  "} 
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: item.news,
-                  }}
-                />
-              </li>
-            )
-          })}
+          <h3 className='my-0 text-lg font-bold'>{t.stockIdStockInfoTitle}</h3>
+          <ul className='my-2'>
+            {sheetData?.map((item, i) => {
+              return (
+                <li key={i}>
+                  {item.date}
+                  {'  '}
+                  <span
+                    dangerouslySetInnerHTML={{
+                      __html: item.news,
+                    }}
+                  />
+                </li>
+              )
+            })}
           </ul>
         </div>
       ) : null}
 
+    
+
       <div className='my-12'>
-        <h3 className='text-lg font-bold'>財務情報サイト</h3>
+        <h3 className='text-lg font-bold'>{t.stockIdLinkInfoTitle}</h3>
         <p className='mx-2'>
           <a
             href={`https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${priceData[0].CIK}&type=&dateb=&owner=exclude&count=40&search_text=`}
             target='_blank'
             rel='noreferrer'
           >
-            EDGARサイト-{id}
+            EDGAR Web Site-{id}
           </a>
         </p>
         <p className='mx-2'>
@@ -413,7 +437,7 @@ const StockChart: NextPage<{
             target='_blank'
             rel='noreferrer'
           >
-            YahooファイナンスUS-{id}
+            YahooFinance US-{id}
           </a>
         </p>
       </div>

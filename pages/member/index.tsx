@@ -24,6 +24,10 @@ import { checkAllowanceBookMark } from '../../functions/checkAllowanceBookMark'
 
 import RegisterLimit from '../../components/RegisterLimit'
 
+// i18n
+import en from '../../locales/en/en'
+import ja from '../../locales/ja/ja'
+
 const Home: NextPage = () => {
   const router = useRouter()
 
@@ -63,8 +67,17 @@ const Home: NextPage = () => {
   //   console.log("c",data)
   // }
 
+    // i18n 対応用
+    const { locale } = router
+    let t;
+    if (locale === 'ja-JP') {
+      t = ja
+    } else {
+      t = en
+    }
+
   const deleteUser = async () => {
-    let confirmDelete = confirm('退会処理をするとすべてのデータが削除されます、よろしいですか？')
+    let confirmDelete = confirm(`${t.memberShipDeleteAlert1}`)
     if (confirmDelete) {
       const { data, error }: { data: any; error: any } = await axios.get('/api/deleteUser')
       if (error) {
@@ -74,7 +87,7 @@ const Home: NextPage = () => {
         router.replace('/auth/signup')
       } else {
         supabase.auth.signOut()
-        alert('退会処理を受け付けました')
+        alert(`${t.memberShipDeleteAlert2}`)
         router.replace('/')
       }
     }
@@ -83,11 +96,11 @@ const Home: NextPage = () => {
   return (
     <div className='mx-auto max-w-2xl px-2 py-4 sm:px-4'>
       {user && isDisplay ? (
-        <p className='font-xl mt-3 mb-8 text-center font-bold'>{user.email}　様会員ページ</p>
+        <p className='font-xl mt-3 mb-8 text-center font-bold'>{user.email}　{t.memberUserTop}</p>
       ) : null}
-      {user && rank ? <p>会員種別：{rank}</p> : null}
-      {isDisplay && <p className='font-xl mt-8 mb-2 font-bold'>BookMark一覧 </p>}
-      {canBookMarkInput ? <span>登録可能です</span> : <span>登録制限に達しています</span>}
+      {user && rank ? <p>{t.memberShipRankLabel}{rank}</p> : null}
+      {isDisplay && <p className='font-xl mt-8 mb-2 font-bold'>{t.memberShipSecTitle1}</p>}
+      {canBookMarkInput ? <span>{t.memberShipCanInput}</span> : <span>{t.memberShipCanNotInput}</span>}
       {bookmark &&
         bookmark.map((mark, i) => {
           return (
@@ -101,21 +114,21 @@ const Home: NextPage = () => {
           )
         })}
 
-      {isDisplay && <p className='font-xl mt-8 mb-2 font-bold'>Marker一覧</p>}
-      {canMarkerInput ? <span>登録可能です</span> : <span>登録制限に達しています</span>}
+      {isDisplay && <p className='font-xl mt-8 mb-2 font-bold'>{t.memberShipSecTitle2}</p>}
+      {canMarkerInput ? <span>{t.memberShipCanInput}</span> : <span>{t.memberShipCanNotInput}</span>}
       {markers && (
         <div className='my-4 mx-auto w-full shadow-md sm:w-2/3 sm:rounded-lg'>
           <table className='w-full text-sm text-gray-500 dark:text-gray-400'>
             <thead className='bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
               <tr>
                 <th scope='col' className='px-4 py-2'>
-                  銘柄
+                  {t.memberShipTableTicker}
                 </th>
                 <th scope='col' className='px-4 py-2'>
-                  登録日
+                  {t.memberShipTableDate}
                 </th>
                 <th scope='col' className='px-4 py-2'>
-                  Marker内容
+                  {t.memberShipTableMemo}
                 </th>
               </tr>
             </thead>
@@ -141,8 +154,8 @@ const Home: NextPage = () => {
         </div>
       )}
 
-      {isDisplay && <p className='font-xl mt-8 mb-2 font-bold'>Comment一覧</p>}
-      {canCommentInput ? <span>登録可能です</span> : <span>登録制限に達しています</span>}
+      {isDisplay && <p className='font-xl mt-8 mb-2 font-bold'>{t.memberShipSecTitle3}</p>}
+      {canCommentInput ? <span>{t.memberShipCanInput}</span> : <span>{t.memberShipCanNotInput}</span>}
 
       {comments && (
         <div className='my-4 mx-auto w-full shadow-md sm:w-2/3 sm:rounded-lg'>
@@ -150,13 +163,13 @@ const Home: NextPage = () => {
             <thead className='bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
               <tr>
                 <th scope='col' className='px-4 py-2'>
-                  銘柄
+                {t.memberShipTableTicker}
                 </th>
                 <th scope='col' className='px-4 py-2'>
-                  登録日
+                {t.memberShipTableDate}
                 </th>
                 <th scope='col' className='px-4 py-2'>
-                  Marker内容
+                {t.memberShipTableMemo}
                 </th>
               </tr>
             </thead>
@@ -182,12 +195,12 @@ const Home: NextPage = () => {
         </div>
       )}
 
-      <RegisterLimit rank={rank} />
+      <RegisterLimit rank={rank} t={t}/>
       <div className='my-16 border-2 bg-slate-100 px-4 py-1 text-sm'>
-        <h5>退会ご希望の方は以下のボタンをクリックしてください。</h5>
-        <span>すべてのデータが削除されます。ご注意ください。</span>
+        <h5>{t.memberShipUnsub}</h5>
+        <span>{t.memberShipUnsubWarning}</span>
         <button className='mb-4 ml-4 text-xs' onClick={deleteUser}>
-          退会する
+          {t.memberShipUnsubButton}
         </button>
       </div>
     </div>
