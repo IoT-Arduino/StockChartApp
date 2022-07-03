@@ -2,7 +2,7 @@ import React from 'react'
 import { useRouter } from 'next/router'
 import { Button } from '@mantine/core';
 
-const PagingTicker = ({prevTicker,nextTicker,signIn}) => {
+const PagingTicker = ({prevTicker,nextTicker,signIn,t}) => {
     const router = useRouter()
     const handlePrev = (e) => {
         const prevLink = `/stocks/${prevTicker}`
@@ -27,7 +27,7 @@ const PagingTicker = ({prevTicker,nextTicker,signIn}) => {
         Next Ticker
       </Button>
     </div>
-    <span className={`${!signIn ? "w-full text-center my-2 block text-sm" :"hidden"} ? `}>TickerPagingボタンは会員専用機能です。</span>
+    <span className={`${!signIn ? "w-full text-center my-2 block text-sm" :"hidden"} ? `}>{t.pagingInform}</span>
     </div>
   )
 }
