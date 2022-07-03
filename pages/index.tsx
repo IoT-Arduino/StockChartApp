@@ -40,10 +40,8 @@ const Home: NextPage = () => {
   let tTop;
   if (locale === "ja-JP") {
     t = ja;
-    tTop = jaTop
   } else {
     t = en;
-    tTop = enTop
   }
 
   return (
