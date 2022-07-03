@@ -7,7 +7,7 @@ import { GetServerSideProps, NextPage } from 'next'
 // import { google } from 'googleapis';
 
 // Supabase
-import { supabase } from '../../utils/supabase'
+// import { supabase } from '../../utils/supabase'
 import { UserContext } from '../../utils/UserContext'
 
 // Components & Utils

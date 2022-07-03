@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 // images
-import DummyImage from './../../public/images/TopAppleChart.png'
+// import DummyImage from './../../public/images/TopAppleChart.png'
 import UNHChart from './../../public/images/UNHChart.png'
 import TSLAChart from './../../public/images/TSLAChart.png'
 import AAPLCandleChart from './../../public/images/AAPLCandleChart.png'
@@ -47,7 +47,7 @@ export const TopComponentJ = () => {
 
       <section className='body-font text-gray-600'>
         <div className='mx-auto max-w-5xl'>
-          <div className='mx-auto flex max-w-5xl flex-col items-center px-3 py-8 md:flex-row'>
+          <div className='mx-auto flex max-w-5xl flex-col md:flex-row items-center px-3 py-8'>
             <div className='w-5/6 md:w-1/2 lg:w-full lg:max-w-lg'>
               <Image
                 className='rounded object-cover object-center'
@@ -291,6 +291,7 @@ export const TopComponentJ = () => {
           </div>
         </div>
       </section>
+
     </div>
   )
 }
