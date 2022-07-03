@@ -27,7 +27,7 @@ export default function InputMarker({ ticker }) {
   const { user: contextUser, session: contextSession, rank } = useContext(UserContext)
 
   //  <!-- marker -->
-  const [markers, setMarkers] = useState([])
+  // const [markers, setMarkers] = useState([])
   const [editItem, setEditItem] = useState('')
 
   const { canMarkerInput } = checkAllowanceMarker(rank, markerData)

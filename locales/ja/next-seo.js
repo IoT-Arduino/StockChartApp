@@ -17,6 +17,15 @@ export default {
     type: 'website',
     locale: 'ja_JP',
     site_name: '米国株四半期業績チャート',
+    images: [
+      {
+        url: `${process.env.NEXT_PUBLIC_API_ENDOPOINT}/images/TopAppleChart.png`,
+        width: 800,
+        height: 600,
+        alt: 'Og Image Alt',
+        type: 'image/jpeg',
+      },
+     ],
   },
   twitter: {
     handle: '@Sa10shitoushi',

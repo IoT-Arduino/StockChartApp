@@ -2,14 +2,14 @@ import ReactEcharts from 'echarts-for-react'
 import { calcEdgarData } from '../functions/CalcEdgarData'
 import { useState, useEffect } from 'react'
 
-import { Tabs } from '@mantine/core'
+// import { Tabs } from '@mantine/core'
 import StockTabSection from './StockTabSection'
 
 import PagingTicker from './PagingTicker'
 
 import { chartOption } from '../functions/chartOption'
 
-const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo,prevTicker,nextTicker,signIn }) => {
+const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo,prevTicker,nextTicker,signIn,t }) => {
   // console.log(edgarData)
 
   // 画面表示State 管理==============================================================
@@ -369,8 +369,8 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo,prevTi
   return (
     <div>
       <ReactEcharts option={option} style={{ height: '600px', width: '100%' }} />
-      <PagingTicker prevTicker={prevTicker} nextTicker={nextTicker} signIn={signIn}/>
-      <p style={{ textAlign: 'right' }}>単位は(Million)</p>
+      <PagingTicker prevTicker={prevTicker} nextTicker={nextTicker} signIn={signIn} t={t}/>
+      <p style={{ textAlign: 'right' }}>(Million)</p>
 
       <StockTabSection companyInfo={companyInfo} fyCompanyDataForTable={fyCompanyDataForTable} isDividend={isDividend} isSplit={isSplit} QtrCompanyDataForTable={QtrCompanyDataForTable} priceData={priceData} ticker={id}/>
 

@@ -3,7 +3,8 @@ import type { AppProps } from 'next/app'
 
 import { LayoutWrapper } from '../components/LayoutWrapper'
 import { DefaultSeo } from 'next-seo'
-import SEO from '../next-seo.config'
+import SeoJa from '../locales/ja/next-seo.js'
+import SeoEn from '../locales/en/next-seo.js'
 
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
@@ -23,6 +24,7 @@ import { MantineProvider } from '@mantine/core'
 // for GTM
 import Script from 'next/script'
 import { GTM_ID, pageview } from '../utils/gtm'
+import { useRouter } from 'next/router';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -69,6 +71,17 @@ function MyApp({ Component, pageProps }: AppProps) {
     setRank(data[0]?.rank)
     return data
   }
+
+    // i18n 対応用
+    const router = useRouter()
+    const { locale } = router
+
+    let SEO
+    if (locale === 'ja-JP') {
+      SEO = SeoJa
+    } else {
+      SEO = SeoEn
+    }
 
   // const router = useRouter()
   // useEffect(() => {

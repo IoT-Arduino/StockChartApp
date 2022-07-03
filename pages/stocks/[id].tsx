@@ -7,7 +7,7 @@ import { GetServerSideProps, NextPage } from 'next'
 // import { google } from 'googleapis';
 
 // Supabase
-import { supabase } from '../../utils/supabase'
+// import { supabase } from '../../utils/supabase'
 import { UserContext } from '../../utils/UserContext'
 
 // Components & Utils
@@ -17,7 +17,7 @@ import BookMarkState from '../../components/BookMarkState'
 import StockCandleChart from '../../components/StockCandleChart'
 
 import { getMarkerData } from '../../functions/GetMarkerData'
-import { markerList } from '../../data/marker/marker'
+
 import { codeList } from '../../data/stockCode/US-StockList'
 
 // json fs
@@ -32,6 +32,15 @@ import { StockPrice } from '../../types/StockPrice'
 // hooks
 import { useQueryMarker } from '../../hooks/useQueryMarker'
 
+// GoolgeSheet
+import { getStockInfo } from '../../utils/googleApiStock'
+
+// i18n
+import en from './../../locales/en/en'
+import ja from './../../locales/ja/ja'
+import { useRouter } from 'next/router'
+import { markerListJa } from '../../data/marker/markerJa'
+import { markerListEn } from '../../data/marker/markerEn'
 
 export async function getStaticPaths() {
   // const filePath = path.join(process.cwd(), `./data/stockCode/US-StockList.json`);
@@ -187,7 +196,6 @@ export const getStaticProps: GetServerSideProps = async ({ query,params }) => {
         const reqList = JSON.parse(jsonDataEdgar as any)
 
         tempResData = [reqList[0], reqList2[0]]
-
       } else if (
         fs.existsSync(`./data/edgar/${item}/${id}.json`) &&
         fs.existsSync(`./data/edgar/${item}/${id}_2.json`) === false
@@ -225,7 +233,6 @@ export const getStaticProps: GetServerSideProps = async ({ query,params }) => {
     //   }
     // })
 
-
     const edgarResData = await Promise.all(edgarDataResponse)
     const edgarRes = await edgarResData.filter((item) => item)
 
@@ -246,6 +253,9 @@ export const getStaticProps: GetServerSideProps = async ({ query,params }) => {
     //   return item[0] == id
     // })
 
+    // GoolgeSheet
+    const filteredSheetDataTemp = await getStockInfo(id)
+    const filteredSheetData = filteredSheetDataTemp ? filteredSheetDataTemp : null
 
     return {
       props: {
@@ -254,7 +264,7 @@ export const getStaticProps: GetServerSideProps = async ({ query,params }) => {
         priceData,
         // markerData,
         edgarData: edgarRes.flat(), // edgarRes.flat(),
-        // filteredSheetData,
+        filteredSheetData,
         prevTicker: prevCompany[0].Ticker,
         nextTicker: nextCompany[0].Ticker,
       },
@@ -270,15 +280,24 @@ const StockChart: NextPage<{
   edgarData: any
   id: any
   companyInfo: Company
+  filteredSheetData: any
   status: any
   prevTicker: String
   nextTicker: String
-}> = ({ priceData, edgarData, id, companyInfo, status, prevTicker, nextTicker }) => {
+}> = ({
+  priceData,
+  edgarData,
+  id,
+  companyInfo,
+  filteredSheetData,
+  status,
+  prevTicker,
+  nextTicker,
+}) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [marker, setMarker] = useState([])
+  // const [marker, setMarker] = useState([])
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const { user, session } = useContext(UserContext)
-
   const [signIn, setSignIn] = useState(false)
 
   const { data: markers, status: statusMarker } = useQueryMarker()
@@ -286,15 +305,42 @@ const StockChart: NextPage<{
     return item.ticker == id
   })
 
-  useEffect(() => {
+  // i18n 対応用
+  const router = useRouter()
+  const { locale } = router
+  let t
+  let sheetData
+  let markerList:any
+  if (locale === 'ja-JP') {
+    t = ja
+    sheetData = filteredSheetData.newsDataFiltered ?  filteredSheetData.newsDataFiltered :null
+    markerList = markerListJa
+  } else {
+    t = en
+    sheetData = filteredSheetData.infoDataFiltered ? filteredSheetData.infoDataFiltered : null
+    markerList = markerListEn
+  }
+
+  // useEffect(() => {
+  //   if (makersWithTicker?.length) {
+  //     const markerFetchedTemp = getMarkerData(makersWithTicker)
+  //     setMarker(markerFetchedTemp)
+  //     // fetchMarker()
+  //   } else {
+  //     setMarker(markerList as any)
+  //   }
+  // }, [id])
+
+  const markerFunc = () => {
     if (makersWithTicker?.length) {
       const markerFetchedTemp = getMarkerData(makersWithTicker)
-      setMarker(markerFetchedTemp)
-      // fetchMarker()
+      return markerFetchedTemp
     } else {
-      setMarker(markerList as any)
+      return markerList
     }
-  }, [id])
+  }
+
+  const marker = markerFunc()
 
   useEffect(() => {
     if (!user) {
@@ -323,14 +369,13 @@ const StockChart: NextPage<{
   //   }
   // }
 
-
   return (
     <div className='mx-auto max-w-5xl'>
       <div className='flex flex-wrap items-center justify-between'>
         <h2>
           {companyInfo.Name} [{id}]
         </h2>
-        {companyInfo.Unlist ? <p className='font-bold text-red-600'>データ編集中</p> : null}
+        {companyInfo.Unlist ? <p className='font-bold text-red-600'>{t.stockIdIsEditing}</p> : null}
 
         {!signIn ? (
           <></>
@@ -352,21 +397,20 @@ const StockChart: NextPage<{
             prevTicker={prevTicker}
             nextTicker={nextTicker}
             signIn={signIn}
+            t={t}
           />
         ) : (
-          <p>株価データがありません</p>
+          <p>{t.stockIdNoStockData}</p>
         )}
       </div>
 
       <div className='mt-8 mb-6'>
-        <h4 className='text-sm font-bold'>単位について</h4>
+        <h4 className='text-sm font-bold'>{t.stockIdIsUnit}</h4>
         <ul className='mx-8 text-xs'>
-          <li className='list-disc'>
-            業績データ：売上高、純利益、営業CF、総資産、株主資本は「百万USD」。
-          </li>
-          <li className='list-disc'>株価、BPS、EPS、一株当たり配当は「USD」</li>
-          <li className='list-disc'>流通株式数は、百万株単位。</li>
-          <li className='list-disc'>PBR,PERは整数倍</li>
+          <li className='list-disc'>{t.stockIdIsUnit1}</li>
+          <li className='list-disc'>{t.stockIdIsUnit2}</li>
+          <li className='list-disc'>{t.stockIdIsUnit3}</li>
+          <li className='list-disc'>P{t.stockIdIsUnit4}</li>
         </ul>
       </div>
 
@@ -380,24 +424,38 @@ const StockChart: NextPage<{
           </div>
         */}
 
+      {sheetData ? (
+        <div className='my-8'>
+          <h3 className='my-0 text-lg font-bold'>{t.stockIdStockInfoTitle}</h3>
+          <ul className='my-2'>
+            {sheetData?.map((item, i) => {
+              return (
+                <li key={i}>
+                  {item.date}
+                  {'  '}
+                  <span
+                    dangerouslySetInnerHTML={{
+                      __html: item.news,
+                    }}
+                  />
+                </li>
+              )
+            })}
+          </ul>
+        </div>
+      ) : null}
+
+    
+
       <div className='my-12'>
-        <h3 className='text-lg font-bold'>財務情報サイト</h3>
+        <h3 className='text-lg font-bold'>{t.stockIdLinkInfoTitle}</h3>
         <p className='mx-2'>
           <a
             href={`https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${priceData[0].CIK}&type=&dateb=&owner=exclude&count=40&search_text=`}
             target='_blank'
             rel='noreferrer'
           >
-            EDGARサイト-{id}
-          </a>
-        </p>
-        <p className='mx-2'>
-          <a
-            href={`https://stocks.finance.yahoo.co.jp/us/annual/${priceData[0].Ticker}`}
-            target='_blank'
-            rel='noreferrer'
-          >
-            Yahooファイナンス-{id}
+            EDGAR Web Site-{id}
           </a>
         </p>
         <p className='mx-2'>
@@ -406,7 +464,7 @@ const StockChart: NextPage<{
             target='_blank'
             rel='noreferrer'
           >
-            YahooファイナンスUS-{id}
+            YahooFinance US-{id}
           </a>
         </p>
       </div>
