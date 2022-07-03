@@ -6,8 +6,8 @@ import Image from 'next/image'
 import DummyImage from './../../public/images/TopAppleChart.png'
 import UNHChart from './../../public/images/UNHChart.png'
 import TSLAChart from './../../public/images/TSLAChart.png'
-import AAPLCandleChart from './../../public/images/AAPLCandleChart.png'
-import AAPLCashFlow from './../../public/images/AAPLCashFlow.png'
+import AAPLCandleChart from './../../public/images/AAPLCandleChartEn.png'
+import AAPLCashFlow from './../../public/images/AAPLCashFlowEn.png'
 
 export const TopComponentE = () => {
   return (
@@ -145,7 +145,7 @@ export const TopComponentE = () => {
           <h2 className='title-font mb-4 text-xl font-medium text-gray-900 sm:text-2xl'>
           Stock Analysis : High Dividend value stock
             <br className='hidden lg:inline-block' />
-            UnitedHealth[UNH]
+            UnitedHealth Group[UNH]
           </h2>
           <p className='mb-8 leading-relaxed'>
           It will be a representative company of the very solid health sector, which is not greatly affected by boom and bust, and steadily accumulates profit (green area) and net assets (blue area).

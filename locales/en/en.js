@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   stockList: "Stock List",
   login:"SignIn",
@@ -90,6 +91,8 @@ export default {
   authResetPwd3:"Please input email.",
   authResetPwd4:"Please input new password.",
   authResetPwd5:"Submit",
+
+  pagingInform:"The TickerPaging button is a members-only feature.",
 
     subtitle:
       "Multilingual site template using NextJS and Strapi (HeadlessCMS). The menu bar, contents list, contents detail page, etc. are all multilingual.",
