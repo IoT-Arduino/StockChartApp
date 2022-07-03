@@ -3,6 +3,7 @@ import { useContext } from 'react'
 import { UserContext } from '../../utils/UserContext'
 import { NextPage } from 'next'
 import { NextSeo } from 'next-seo'
+import { useRouter } from 'next/router'
 
 // fs
 // import fsPromises from 'fs/promises';
@@ -14,9 +15,12 @@ import Datatable from '../../components/Datatable'
 // Types
 import { Company } from '../../types/Company'
 // JSON data
-import {codeList} from '../../data/stockCode/US-StockList'
+import { codeList } from '../../data/stockCode/US-StockList'
 
- 
+// i18n
+import en from './../../locales/en/en'
+import ja from './../../locales/ja/ja'
+
 const StockIndex: NextPage = () => {
   const { user, session } = useContext(UserContext)
   const [data, setData] = useState([])
@@ -35,11 +39,21 @@ const StockIndex: NextPage = () => {
   const codeListNotUnlist = codeList.filter((item) => {
     return item.Unlist != 'unlist'
   })
-  
+
+  // i18n 対応用
+  const router = useRouter()
+  const { locale } = router
+  let t
+  if (locale === 'ja-JP') {
+    t = ja
+  } else {
+    t = en
+  }
+
   // const codeUnlist = codeList.filter((item) => {
   //   return item.Unlist == 'unlist'
   // })
-  
+
   // 以下使用していない。
   // const codeListSP = codeList.filter((item) => {
   //   return item.SP500 == 'SP500' && item.Unlist != 'unlist'
@@ -47,7 +61,6 @@ const StockIndex: NextPage = () => {
   // const codeListNSP = codeList.filter((item) => {
   //   return item.SP500 != 'SP500'
   // })
-
 
   const search = (rows: Company[]) => {
     return rows.filter(
@@ -65,15 +78,15 @@ const StockIndex: NextPage = () => {
       />
 
       <main className='mx-auto max-w-5xl'>
-        <h2 className='my-8 text-2xl'>米国代表500株式一覧</h2>
+        <h2 className='my-8 text-2xl'>{t.stock500List}</h2>
         <div className='my-4 flex w-full items-center sm:justify-end'>
           <input
-            className='sm:w-1/4 rounded border border-black p-2'
+            className='rounded border border-black p-2 sm:w-1/4'
             type='text'
             value={q}
             onChange={(e) => setQ(e.target.value)}
           />
-          <p className='ml-2'>TICKER名称、会社名称で検索。</p>
+          <p className='ml-2'>{t.searchStockList}</p>
         </div>
 
         <div className='relative my-4 overflow-x-auto shadow-md sm:rounded-lg'>
