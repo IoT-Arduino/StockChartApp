@@ -22,7 +22,6 @@ export default  {
   stockIdStockInfoTitle:"株式関連情報",
   stockIdLinkInfoTitle:"財務情報サイト",
 
-
   tab1Label:"通期業績・配当",
   tab2Label:"四半期財務",
   tab3Label:"四半期株価指標",
@@ -103,6 +102,12 @@ export default  {
   inputCommentTitle:"株式メモ情報",
   inputMarkerTitle:"Marker情報",
 
+  pageTitleStockList:"米国主要株500社一覧ページ",
+  pageDescStockList:"米国主要株500社一覧ページ、リンクをクリックすると、株価と四半期決算業績の合成チャートが確認できます。",
+
+  
+  pageTitleStockId:"株価・四半期業績チャート",
+  pageDescStockId:"の株価ローソク足と四半期業績（BPS＋PER15倍）を合成したチャートを表示。営業キャッシュフローマージン、配当、株式分割情報も掲載",
 
 
     // subtitle:

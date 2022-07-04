@@ -73,8 +73,8 @@ const StockIndex: NextPage = () => {
   return (
     <>
       <NextSeo
-        title='米国主要株500社一覧ページ'
-        description='米国主要株500社一覧ページ、リンクをクリックすると、株価と四半期決算業績の合成チャートが確認できます。'
+        title={t.pageTitleStockList}
+        description={t.pageDescStockList}
       />
 
       <main className='mx-auto max-w-5xl'>
