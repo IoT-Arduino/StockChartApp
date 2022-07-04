@@ -14,7 +14,7 @@ import { checkAllowanceMarker } from '../functions/checkAllowanceMarker'
 import * as AiIcons from 'react-icons/ai'
 import { ActionIcon } from '@mantine/core';
 
-export default function InputMarker({ ticker }) {
+export default function InputMarker({ ticker,t }) {
   const { editedMarker, resetEditedMarker } = useStore()
   const update = useStore((state) => state.updateEditedMarker)
   const { createMarkerMutation, updateMarkerMutation, deleteMarkerMutation } = useMutateMarker()
@@ -41,7 +41,7 @@ export default function InputMarker({ ticker }) {
   const submitMarker = async () => {
     // e.preventDefault()
     if(editedMarker.memo === "" || editedMarker.date === "") {
-      alert("データを入力してください")
+      alert(`${t.inputRequiredAlert}`)
       return 
     }
 
@@ -79,7 +79,7 @@ export default function InputMarker({ ticker }) {
   }
 
   const deleteMarker = (marker) => {
-    let confirmDelete = confirm("削除してよろしいですか?")
+    let confirmDelete = confirm(`${t.inputDeleteAlert}`)
     if(confirmDelete){
       deleteMarkerMutation.mutate(marker.id)
     } else {
@@ -95,8 +95,8 @@ export default function InputMarker({ ticker }) {
 
   return (
     <div className='w-full'>
-      <h4 className='mt-10 mb-2 font-bold font-xl'>Marker情報</h4>
-      <div>{canMarkerInput ? <div>入力可</div> : <div>入力不可</div>}</div>
+      <h4 className='mt-10 mb-2 font-bold font-xl'>{t.inputMarkerTitle}</h4>
+      <div>{canMarkerInput ? <div>{t.inputCan}</div> : <div>{t.inputCannot}</div>}</div>
 
       <div className='flex gap-2 my-2 flex-wrap'>
         <input
@@ -109,7 +109,7 @@ export default function InputMarker({ ticker }) {
         <input
           className='rounded w-full p-2 border border-black text-base'
           type='text'
-          placeholder='メモを入力してください'
+          placeholder={t.inputPlaceHolder}
           value={editedMarker.memo}
           onChange={(e) => update({ ...editedMarker, memo: e.target.value })}
           required

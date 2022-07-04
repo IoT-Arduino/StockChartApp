@@ -42,28 +42,6 @@ import { useRouter } from 'next/router'
 import { markerListJa } from '../../data/marker/markerJa'
 import { markerListEn } from '../../data/marker/markerEn'
 
-export async function getStaticPaths() {
-  // const filePath = path.join(process.cwd(), `./data/stockCode/US-StockList.json`);
-  // const jsonData = await fsPromises.readFile(filePath);
-  // const objectData = JSON.parse(jsonData as any);
-
-  const paths = codeList.map((item) => {
-    return {
-      params: { id: 'MSFT' },
-    }
-  })
-
-  return {
-    paths,
-    // paths: [
-    //   { params: { ... } }
-    // ],
-    fallback: 'blocking', // false or 'blocking'
-  }
-}
-
-export const getStaticProps: GetServerSideProps = async ({ query, params }) => {
-  const id = await params?.id
 
 export async function getStaticPaths() {
   const filePath = path.join(process.cwd(), `./data/stockCode/US-StockList.json`);
@@ -84,7 +62,6 @@ export async function getStaticPaths() {
     fallback: 'blocking' // false or 'blocking'
   };
 }
-
 
 
 export const getStaticProps: GetServerSideProps = async ({ query,params }) => {
@@ -381,7 +358,7 @@ const StockChart: NextPage<{
           <></>
         ) : (
           <div className='flex-none'>
-            <BookMarkState ticker={id} />
+            <BookMarkState ticker={id} t={t}/>
           </div>
         )}
       </div>

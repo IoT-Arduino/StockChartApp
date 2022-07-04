@@ -15,7 +15,7 @@ import * as AiIcons from 'react-icons/ai'
 import { ActionIcon } from '@mantine/core';
 import { DatePicker } from '@mantine/dates';
 
-export default function InputComments({ ticker }) {
+export default function InputComments({ ticker,t }) {
   const { editedComment, resetEditedComment } = useStore()
   const update = useStore((state) => state.updateEditedComment)
   const { createCommentMutation, updateCommentMutation, deleteCommentMutation } = useMutateComment()
@@ -44,7 +44,7 @@ export default function InputComments({ ticker }) {
     // e.preventDefault()
 
     if(editedComment.memo === "" || editedComment.date === "") {
-      alert("データを入力してください")
+      alert(`${t.inputRequiredAlert}`)
       return 
     }
 
@@ -81,7 +81,7 @@ export default function InputComments({ ticker }) {
   }
 
   const deleteComment = (comment) => {
-    let confirmDelete = confirm("削除してよろしいですか?")
+    let confirmDelete = confirm(`${t.inputDeleteAlert}`)
     if(confirmDelete){
       deleteCommentMutation.mutate(comment.id)
     } else {
@@ -96,8 +96,8 @@ export default function InputComments({ ticker }) {
 
   return (
     <div className='w-full'>
-      <h4 className='mt-10 mb-2 font-bold font-xl'>株式メモ情報</h4>
-      <div>{canCommentInput ? <div>入力可</div> : <div>入力不可</div>}</div>
+      <h4 className='mt-10 mb-2 font-bold font-xl'>{t.inputCommentTitle}</h4>
+      <div>{canCommentInput ? <div>{t.inputCan}</div> : <div>{t.inputCannot}</div>}</div>
 
       <div className='flex gap-2 my-2 flex-wrap'>
         <input
@@ -110,7 +110,7 @@ export default function InputComments({ ticker }) {
         <input
           className='rounded w-full p-2 border border-black text-base'
           type='text'
-          placeholder='メモを入力してください'
+          placeholder={t.inputPlaceHolder}
           value={editedComment.memo}
           onChange={(e) => update({ ...editedComment, memo: e.target.value })}
           required
