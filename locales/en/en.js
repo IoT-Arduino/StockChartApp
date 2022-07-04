@@ -94,19 +94,28 @@ export default {
 
   pagingInform:"The TickerPaging button is a members-only feature.",
 
-    subtitle:
-      "Multilingual site template using NextJS and Strapi (HeadlessCMS). The menu bar, contents list, contents detail page, etc. are all multilingual.",
-    signin: "Sign In",
-    directory: "Directory",
-    hero: "Multilingual Site",
-    description: `We are developing an open source template to promote JamStack.`,
-    cookies: `This website uses cookies to ensure you get the best experience on our website`,
-    button: `Got it!`,
-    about: "About Us",
-    news: "News",
-    newsPickup: "Pickup News",
+  inputLimitAlert:"Cannot enter because the maximum number of registrations has been reached.",
+  inputRequiredAlert:"Please enter data",
+  inputDeleteAlert:"Are you sure you want to delete it??",
+  inputCan:"Inputtable",
+  inputCannot:"Input not allowed",
+  inputPlaceHolder:"Please enter a note",
+  inputCommentTitle:"Stock Memo Information",
+  inputMarkerTitle:"Marker Information",
+  
+    // subtitle:
+    //   "Multilingual site template using NextJS and Strapi (HeadlessCMS). The menu bar, contents list, contents detail page, etc. are all multilingual.",
+    // signin: "Sign In",
+    // directory: "Directory",
+    // hero: "Multilingual Site",
+    // description: `We are developing an open source template to promote JamStack.`,
+    // cookies: `This website uses cookies to ensure you get the best experience on our website`,
+    // button: `Got it!`,
+    // about: "About Us",
+    // news: "News",
+    // newsPickup: "Pickup News",
 
-    science: "Science",
-    research: "Research",
-    search: "Search",
+    // science: "Science",
+    // research: "Research",
+    // search: "Search",
   };
