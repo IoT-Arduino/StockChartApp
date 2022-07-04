@@ -437,8 +437,8 @@ const StockTabSection = ({
       </Tabs.Tab>
       <Tabs.Tab label={t.tab4Label} disabled={!editDataForMember}>
         <div className='my-3'>
-          <InputMarkerState ticker={ticker} />
-          <InputCommentsState ticker={ticker} />
+          <InputMarkerState ticker={ticker} t={t}/>
+          <InputCommentsState ticker={ticker}  t={t}/>
         </div>
       </Tabs.Tab>
     </Tabs>
