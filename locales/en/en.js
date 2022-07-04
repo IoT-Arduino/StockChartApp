@@ -103,6 +103,13 @@ export default {
   inputCommentTitle:"Stock Memo Information",
   inputMarkerTitle:"Marker Information",
   
+  pageTitleStockList:"米国主要株500社一覧ページ",
+  pageDescStockList:"米国主要株500社一覧ページ、リンクをクリックすると、株価と四半期決算業績の合成チャートが確認できます。",
+
+  pageTitleStockId:"Stock Price and Quarterly Performance Chart",
+  pageDescStockId:"Displays a composite chart of stock price candlesticks and quarterly earnings (BPS + PER 15x). Operating cash flow margin, dividends, and stock splits are also included.",
+
+
     // subtitle:
     //   "Multilingual site template using NextJS and Strapi (HeadlessCMS). The menu bar, contents list, contents detail page, etc. are all multilingual.",
     // signin: "Sign In",
