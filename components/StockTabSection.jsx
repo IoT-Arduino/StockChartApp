@@ -20,6 +20,7 @@ const StockTabSection = ({
   QtrCompanyDataForTable,
   priceData,
   ticker,
+  t
 }) => {
   const { user } = useContext(UserContext)
   const [editDataForMember, setEditDataForMember] = useState()
@@ -33,14 +34,14 @@ const StockTabSection = ({
   }, [user])
 
     // i18n 対応用
-    const router = useRouter()
-    const { locale } = router
-    let t
-    if (locale === 'ja-JP') {
-      t = ja
-    } else {
-      t = en
-    }
+    // const router = useRouter()
+    // const { locale } = router
+    // let t
+    // if (locale === 'ja-JP') {
+    //   t = ja
+    // } else {
+    //   t = en
+    // }
 
   // 株式分割の月を1か月加算してもとに戻す処理
   const splitFilteredData = priceData.filter((item) => {

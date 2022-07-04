@@ -372,7 +372,7 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo,prevTi
       <PagingTicker prevTicker={prevTicker} nextTicker={nextTicker} signIn={signIn} t={t}/>
       <p style={{ textAlign: 'right' }}>(Million)</p>
 
-      <StockTabSection companyInfo={companyInfo} fyCompanyDataForTable={fyCompanyDataForTable} isDividend={isDividend} isSplit={isSplit} QtrCompanyDataForTable={QtrCompanyDataForTable} priceData={priceData} ticker={id}/>
+      <StockTabSection companyInfo={companyInfo} fyCompanyDataForTable={fyCompanyDataForTable} isDividend={isDividend} isSplit={isSplit} QtrCompanyDataForTable={QtrCompanyDataForTable} priceData={priceData} ticker={id} t={t}/>
 
 
     </div>
