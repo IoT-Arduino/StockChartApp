@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Error from 'next/error'
 import { useContext } from 'react'
 import { GetServerSideProps, NextPage } from 'next'
+import { NextSeo } from 'next-seo'
 
 // import * as AiIcons from 'react-icons/ai'
 // import { google } from 'googleapis';
@@ -42,15 +43,14 @@ import { useRouter } from 'next/router'
 import { markerListJa } from '../../data/marker/markerJa'
 import { markerListEn } from '../../data/marker/markerEn'
 
-
 export async function getStaticPaths() {
-  const filePath = path.join(process.cwd(), `./data/stockCode/US-StockList.json`);
-  const jsonData = await fsPromises.readFile(filePath);
-  const objectData = JSON.parse(jsonData as any);
+  const filePath = path.join(process.cwd(), `./data/stockCode/US-StockList.json`)
+  const jsonData = await fsPromises.readFile(filePath)
+  const objectData = JSON.parse(jsonData as any)
 
-  const paths = objectData.map(item => {
+  const paths = objectData.map((item) => {
     return {
-      params: {id : "MSFT"}
+      params: { id: 'MSFT' },
     }
   })
 
@@ -59,16 +59,14 @@ export async function getStaticPaths() {
     // paths: [
     //   { params: { ... } }
     // ],
-    fallback: 'blocking' // false or 'blocking'
-  };
+    fallback: 'blocking', // false or 'blocking'
+  }
 }
 
-
-export const getStaticProps: GetServerSideProps = async ({ query,params }) => {
+export const getStaticProps: GetServerSideProps = async ({ query, params }) => {
   // const id = await query.id
   const id = await params.id
 
-  
   // const auth = await google.auth.getClient({ scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'] });
   // const sheets = google.sheets({ version: 'v4', auth });
   // const googleSheetRange = `ContentsList!A2:Q1000`;
@@ -287,10 +285,10 @@ const StockChart: NextPage<{
   const { locale } = router
   let t
   let sheetData
-  let markerList:any
+  let markerList: any
   if (locale === 'ja-JP') {
     t = ja
-    sheetData = filteredSheetData.newsDataFiltered ?  filteredSheetData.newsDataFiltered :null
+    sheetData = filteredSheetData.newsDataFiltered ? filteredSheetData.newsDataFiltered : null
     markerList = markerListJa
   } else {
     t = en
@@ -347,51 +345,55 @@ const StockChart: NextPage<{
   // }
 
   return (
-    <div className='mx-auto max-w-5xl'>
-      <div className='flex flex-wrap items-center justify-between'>
-        <h2>
-          {companyInfo.Name} [{id}]
-        </h2>
-        {companyInfo.Unlist ? <p className='font-bold text-red-600'>{t.stockIdIsEditing}</p> : null}
+    <>
+      <NextSeo title={companyInfo.Name+":"+t.pageTitleStockId} description={companyInfo.Name+":"+t.pageDescStockId} />
+      <div className='mx-auto max-w-5xl'>
+        <div className='flex flex-wrap items-center justify-between'>
+          <h2>
+            {companyInfo.Name} [{id}]
+          </h2>
+          {companyInfo.Unlist ? (
+            <p className='font-bold text-red-600'>{t.stockIdIsEditing}</p>
+          ) : null}
 
-        {!signIn ? (
-          <></>
-        ) : (
-          <div className='flex-none'>
-            <BookMarkState ticker={id} t={t}/>
-          </div>
-        )}
-      </div>
+          {!signIn ? (
+            <></>
+          ) : (
+            <div className='flex-none'>
+              <BookMarkState ticker={id} t={t} />
+            </div>
+          )}
+        </div>
 
-      <div>
-        {priceData ? (
-          <StockCandleChart
-            priceData={priceData}
-            edgarData={edgarData}
-            marker={marker}
-            id={id}
-            companyInfo={companyInfo}
-            prevTicker={prevTicker}
-            nextTicker={nextTicker}
-            signIn={signIn}
-            t={t}
-          />
-        ) : (
-          <p>{t.stockIdNoStockData}</p>
-        )}
-      </div>
+        <div>
+          {priceData ? (
+            <StockCandleChart
+              priceData={priceData}
+              edgarData={edgarData}
+              marker={marker}
+              id={id}
+              companyInfo={companyInfo}
+              prevTicker={prevTicker}
+              nextTicker={nextTicker}
+              signIn={signIn}
+              t={t}
+            />
+          ) : (
+            <p>{t.stockIdNoStockData}</p>
+          )}
+        </div>
 
-      <div className='mt-8 mb-6'>
-        <h4 className='text-sm font-bold'>{t.stockIdIsUnit}</h4>
-        <ul className='mx-8 text-xs'>
-          <li className='list-disc'>{t.stockIdIsUnit1}</li>
-          <li className='list-disc'>{t.stockIdIsUnit2}</li>
-          <li className='list-disc'>{t.stockIdIsUnit3}</li>
-          <li className='list-disc'>P{t.stockIdIsUnit4}</li>
-        </ul>
-      </div>
+        <div className='mt-8 mb-6'>
+          <h4 className='text-sm font-bold'>{t.stockIdIsUnit}</h4>
+          <ul className='mx-8 text-xs'>
+            <li className='list-disc'>{t.stockIdIsUnit1}</li>
+            <li className='list-disc'>{t.stockIdIsUnit2}</li>
+            <li className='list-disc'>{t.stockIdIsUnit3}</li>
+            <li className='list-disc'>P{t.stockIdIsUnit4}</li>
+          </ul>
+        </div>
 
-      {/*
+        {/*
           <div className="my-4">
             <h3 className="text-lg font-bold">株式ニュース</h3>
             {filteredSheetData[0] ? <>
@@ -401,51 +403,50 @@ const StockChart: NextPage<{
           </div>
         */}
 
-      {sheetData ? (
-        <div className='my-8'>
-          <h3 className='my-0 text-lg font-bold'>{t.stockIdStockInfoTitle}</h3>
-          <ul className='my-2'>
-            {sheetData?.map((item, i) => {
-              return (
-                <li key={i}>
-                  {item.date}
-                  {'  '}
-                  <span
-                    dangerouslySetInnerHTML={{
-                      __html: item.news,
-                    }}
-                  />
-                </li>
-              )
-            })}
-          </ul>
+        {sheetData ? (
+          <div className='my-8'>
+            <h3 className='my-0 text-lg font-bold'>{t.stockIdStockInfoTitle}</h3>
+            <ul className='my-2'>
+              {sheetData?.map((item, i) => {
+                return (
+                  <li key={i}>
+                    {item.date}
+                    {'  '}
+                    <span
+                      dangerouslySetInnerHTML={{
+                        __html: item.news,
+                      }}
+                    />
+                  </li>
+                )
+              })}
+            </ul>
+          </div>
+        ) : null}
+
+        <div className='my-12'>
+          <h3 className='text-lg font-bold'>{t.stockIdLinkInfoTitle}</h3>
+          <p className='mx-2'>
+            <a
+              href={`https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${priceData[0].CIK}&type=&dateb=&owner=exclude&count=40&search_text=`}
+              target='_blank'
+              rel='noreferrer'
+            >
+              EDGAR Web Site-{id}
+            </a>
+          </p>
+          <p className='mx-2'>
+            <a
+              href={`https://finance.yahoo.com/quote/${priceData[0].Ticker}/financials?p=${priceData[0].Ticker}`}
+              target='_blank'
+              rel='noreferrer'
+            >
+              YahooFinance US-{id}
+            </a>
+          </p>
         </div>
-      ) : null}
-
-    
-
-      <div className='my-12'>
-        <h3 className='text-lg font-bold'>{t.stockIdLinkInfoTitle}</h3>
-        <p className='mx-2'>
-          <a
-            href={`https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${priceData[0].CIK}&type=&dateb=&owner=exclude&count=40&search_text=`}
-            target='_blank'
-            rel='noreferrer'
-          >
-            EDGAR Web Site-{id}
-          </a>
-        </p>
-        <p className='mx-2'>
-          <a
-            href={`https://finance.yahoo.com/quote/${priceData[0].Ticker}/financials?p=${priceData[0].Ticker}`}
-            target='_blank'
-            rel='noreferrer'
-          >
-            YahooFinance US-{id}
-          </a>
-        </p>
       </div>
-    </div>
+    </>
   )
 }
 
