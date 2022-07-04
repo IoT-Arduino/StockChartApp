@@ -14,7 +14,7 @@ import { UserContext } from '../utils/UserContext'
 
 import { checkAllowanceBookMark } from '../functions/checkAllowanceBookMark'
 
-export default function BookMark({ ticker }) {
+export default function BookMark({ ticker,t }) {
   const { user, session, rank } = useContext(UserContext)
   const { createBookMarkMutation, deleteBookMarkMutation } = useMutateBookMark()
 
@@ -43,7 +43,7 @@ export default function BookMark({ ticker }) {
       })
       setStar(true)
     } else if (!star && canBookMarkInput === false) {
-      alert('登録数が上限に達しているので入力できません')
+      alert(`${t.inputLimitAlert}`)
       return
     } else {
       console.log(bookMarkData[0].id)
