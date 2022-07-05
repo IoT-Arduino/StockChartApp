@@ -52,6 +52,7 @@ const StockCandleChart = ({
   useEffect(() => {
     setIsDividend(someDividendResult)
     setIsSplit(someSplitResult)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // ----------------------------------------------

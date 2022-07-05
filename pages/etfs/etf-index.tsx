@@ -1,12 +1,15 @@
 import type { NextPage } from 'next'
+import { NextSeo } from 'next-seo'
 // import Link from 'next/link'
 // import EtfCandleChart from './../../components/EtfCandleChart'
 // import EtfCompareLineChart from './../../components/EtfCompareLineChart'
 
 // i18n
+import { useRouter } from 'next/router'
+import en from './../../locales/en/en'
+import ja from './../../locales/ja/ja'
 import EtfIndexEn from './../../locales/en/EtfIndex'
 import EtfIndexJa from './../../locales/ja/EtfIndex'
-import { useRouter } from 'next/router'
 
 export async function getServerSideProps() {
   try {
@@ -44,15 +47,24 @@ const Home: NextPage = ({ fundsData }: any) => {
   // i18n 対応用
   const router = useRouter()
   const { locale } = router
+  let t
+  if (locale === 'ja-JP') {
+    t = ja
+  } else {
+    t = en
+  }
 
   return (
-    <main className='mx-auto mt-6 mb-20 max-w-5xl'>
-      {locale === 'ja-JP' ? (
-        <EtfIndexJa fundsData={fundsData} />
-      ) : (
-        <EtfIndexEn fundsData={fundsData} />
-      )}
-    </main>
+    <>
+      <NextSeo title={t.pageTitleEtfIndex} description={t.pageDescEtfIndex} />
+      <main className='mx-auto mt-6 mb-20 max-w-5xl'>
+        {locale === 'ja-JP' ? (
+          <EtfIndexJa fundsData={fundsData} />
+        ) : (
+          <EtfIndexEn fundsData={fundsData} />
+        )}
+      </main>
+    </>
   )
 }
 
