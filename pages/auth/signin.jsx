@@ -17,7 +17,7 @@ const signin = () => {
   //   };
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const { replace,locale} = useRouter()
+  const { replace, locale } = useRouter()
 
   // i18n 対応用
   let t

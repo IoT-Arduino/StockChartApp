@@ -1,9 +1,9 @@
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import * as AiIcons from 'react-icons/ai'
-import React, { useState, useEffect } from 'react'
 import { useContext } from 'react'
 import { useRouter } from 'next/router'
 import { UserContext } from '../utils/UserContext'
+import * as AiIcons from 'react-icons/ai'
 
 // i18n
 import en from '../locales/en/en'
@@ -44,10 +44,10 @@ export const Footer = () => {
         <Link href='/rules/discraimer'>
           <a className='text-xs no-underline'>{t.disclaimer}</a>
         </Link>
-          <select onChange={changeLanguage} defaultValue={locale} className="ml-8">
-            <option value='en-US'>English</option>
-            <option value='ja-JP'>日本語</option>
-          </select>
+        <select onChange={changeLanguage} defaultValue={locale} className='ml-8'>
+          <option value='en-US'>English</option>
+          <option value='ja-JP'>日本語</option>
+        </select>
       </div>
       <div className='flex justify-around sm:hidden'>
         <div>

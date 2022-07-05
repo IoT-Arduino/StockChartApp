@@ -4,22 +4,14 @@ import { useContext } from 'react'
 import { GetServerSideProps, NextPage } from 'next'
 import { NextSeo } from 'next-seo'
 
-// import * as AiIcons from 'react-icons/ai'
-// import { google } from 'googleapis';
-
 // Supabase
-// import { supabase } from '../../utils/supabase'
 import { UserContext } from '../../utils/UserContext'
 
 // Components & Utils
 import BookMarkState from '../../components/BookMarkState'
-// import InputCommentsState from '../../components/InputCommentsState'
-// import InputMarkerState from '../../components/InputMarkerState'
 import StockCandleChart from '../../components/StockCandleChart'
-
 import { getMarkerData } from '../../functions/GetMarkerData'
-
-import { codeList } from '../../data/stockCode/US-StockList'
+// import { codeList } from '../../data/stockCode/US-StockList'
 
 // json fs
 import fsPromises from 'fs/promises'
@@ -56,9 +48,6 @@ export async function getStaticPaths() {
 
   return {
     paths,
-    // paths: [
-    //   { params: { ... } }
-    // ],
     fallback: 'blocking', // false or 'blocking'
   }
 }
@@ -66,10 +55,6 @@ export async function getStaticPaths() {
 export const getStaticProps: GetServerSideProps = async ({ query, params }) => {
   // const id = await query.id
   const id = await params.id
-
-  // const auth = await google.auth.getClient({ scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'] });
-  // const sheets = google.sheets({ version: 'v4', auth });
-  // const googleSheetRange = `ContentsList!A2:Q1000`;
 
   // Edgar データを追加したら、ここにも追加すること。
   const QTR = [
@@ -131,29 +116,10 @@ export const getStaticProps: GetServerSideProps = async ({ query, params }) => {
       }
     })
 
-    // Get Company Data
-    // const reqListCompany = await fetch(
-    //   `${process.env.NEXT_PUBLIC_API_ENDOPOINT}/stockCode/US-StockList.json`
-    // )
-    // const codeList:Company[] = await reqListCompany.json()
-
-    // const companyInfo = codeList.filter((item) => {
-    //   return item.Ticker === id
-    // })
-
-    // Get Marker Data
-    // const markerList = await fetch(`${process.env.NEXT_PUBLIC_API_ENDOPOINT}/marker/marker.json`)
-    // const errorCode1 = markerList.status==200 ?  200 : markerList.status
-    // const markerData = await markerList.json()
-
     // price data from json file
     const filePathPrice = path.join(process.cwd(), `./data/stock/${id}.json`)
     const jsonDataPrice = await fsPromises.readFile(filePathPrice)
     const priceData = JSON.parse(jsonDataPrice as any)
-
-    // Get Price Data
-    // const priceList = await fetch(`${process.env.NEXT_PUBLIC_API_ENDOPOINT}/stock/${id}.json`)
-    // const priceData = await priceList.json()
 
     // edgar from json file
     const edgarDataResponse = QTR.map(async (item) => {
@@ -185,48 +151,8 @@ export const getStaticProps: GetServerSideProps = async ({ query, params }) => {
       return tempResData
     })
 
-    // Get Edgar Data
-    // const edgarDataResponse = QTR.map(async (item) => {
-    //   let reqList = await fetch(`${process.env.NEXT_PUBLIC_API_ENDOPOINT}/edgar/${item}/${id}.json`)
-
-    //   let reqList2 = await fetch(
-    //     `${process.env.NEXT_PUBLIC_API_ENDOPOINT}/edgar/${item}/${id}_2.json`
-    //   )
-    //   // もし　reqList2があったら、仮配列にpush、...で展開したものをreturnする。
-    //   if (reqList.status == 404 && reqList2.status == 404) {
-    //     return null
-    //   } else if (reqList.status == 200 && reqList2.status == 404) {
-    //     const resData = await reqList.json()
-    //     return resData[0]
-    //   } else if (reqList.status == 200 && reqList2.status == 200) {
-    //     const resData = await reqList.json()
-    //     const resData2 = await reqList2.json()
-    //     const tempResData = [resData[0], resData2[0]]
-    //     return tempResData
-    //   } else {
-    //     return null
-    //   }
-    // })
-
     const edgarResData = await Promise.all(edgarDataResponse)
     const edgarRes = await edgarResData.filter((item) => item)
-
-    // const checkDate = edgarRes.map(item => {
-    //   return item.period
-    // })
-
-    // console.log(checkDate)
-
-    // GoogleSheet Data  Ticker == id の値をフィルタする。
-    // const response = await sheets.spreadsheets.values.get({
-    //   auth,
-    //   spreadsheetId: process.env.SHEET_ID,
-    //   range:googleSheetRange,
-    // });
-    // const googleSheetData = response.data.values;
-    // const filteredSheetData = googleSheetData.filter(item => {
-    //   return item[0] == id
-    // })
 
     // GoolgeSheet
     const filteredSheetDataTemp = await getStockInfo(id)
@@ -270,8 +196,6 @@ const StockChart: NextPage<{
   nextTicker,
 }) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  // const [marker, setMarker] = useState([])
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const { user, session } = useContext(UserContext)
   const [signIn, setSignIn] = useState(false)
 
@@ -296,16 +220,6 @@ const StockChart: NextPage<{
     markerList = markerListEn
   }
 
-  // useEffect(() => {
-  //   if (makersWithTicker?.length) {
-  //     const markerFetchedTemp = getMarkerData(makersWithTicker)
-  //     setMarker(markerFetchedTemp)
-  //     // fetchMarker()
-  //   } else {
-  //     setMarker(markerList as any)
-  //   }
-  // }, [id])
-
   const markerFunc = () => {
     if (makersWithTicker?.length) {
       const markerFetchedTemp = getMarkerData(makersWithTicker)
@@ -329,20 +243,6 @@ const StockChart: NextPage<{
     console.log(status)
     return <Error statusCode={404} />
   }
-
-  // const fetchMarker = async () => {
-  //   if (user) {
-  //     let { data: items, error } = await supabase
-  //       .from('marker')
-  //       .select('*')
-  //       .match({ ticker: id, user_id: user.id })
-  //     if (error) console.log('error', error)
-  //     else {
-  //       const markerFetchedTemp = getMarkerData(items)
-  //       setMarker(markerFetchedTemp)
-  //     }
-  //   }
-  // }
 
   return (
     <>
@@ -392,16 +292,6 @@ const StockChart: NextPage<{
             <li className='list-disc'>P{t.stockIdIsUnit4}</li>
           </ul>
         </div>
-
-        {/*
-          <div className="my-4">
-            <h3 className="text-lg font-bold">株式ニュース</h3>
-            {filteredSheetData[0] ? <>
-            <p className="mx-2">News:{filteredSheetData[0][1] ? filteredSheetData[0][1] : ""}</p>
-            <p className="mx-2">Info:{filteredSheetData[0][2] ? filteredSheetData[0][2] : ""}</p></>
-                : ""}
-          </div>
-        */}
 
         {sheetData ? (
           <div className='my-8'>

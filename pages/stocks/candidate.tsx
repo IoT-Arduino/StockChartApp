@@ -3,18 +3,12 @@ import Link from 'next/link'
 import { useContext } from 'react'
 import { UserContext } from '../../utils/UserContext'
 import { NextPage } from 'next'
-// import { NextSeo } from 'next-seo'
-
-// fs
-// import fsPromises from 'fs/promises';
-// import path from 'path'
 
 // Types
 import { Company } from '../../types/Company'
 // JSON data
-import {codeList} from '../../data/stockCode/US-StockList'
+import { codeList } from '../../data/stockCode/US-StockList'
 
- 
 const StockIndex: NextPage = () => {
   const { user, session } = useContext(UserContext)
   const [data, setData] = useState([])
@@ -29,23 +23,9 @@ const StockIndex: NextPage = () => {
     }
   }, [user])
 
-  // 他に使用されている箇所、全体Index,StockIndex,Navbar
-  // const codeListNotUnlist = codeList.filter((item) => {
-  //   return item.Unlist != 'unlist'
-  // })
-  
   const codeUnlist = codeList.filter((item) => {
     return item.Unlist == 'unlist'
   })
-  
-  // 以下使用していない。
-  // const codeListSP = codeList.filter((item) => {
-  //   return item.SP500 == 'SP500' && item.Unlist != 'unlist'
-  // })
-  // const codeListNSP = codeList.filter((item) => {
-  //   return item.SP500 != 'SP500'
-  // })
-
 
   const search = (rows: Company[]) => {
     return rows.filter(
@@ -74,8 +54,7 @@ const StockIndex: NextPage = () => {
                 )
               })}
             </ul>
-
-         </div>
+          </div>
         ) : null}
       </main>
     </>

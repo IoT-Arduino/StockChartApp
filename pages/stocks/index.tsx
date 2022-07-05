@@ -5,10 +5,6 @@ import { NextPage } from 'next'
 import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 
-// fs
-// import fsPromises from 'fs/promises';
-// import path from 'path'
-
 // Components
 import Datatable from '../../components/Datatable'
 
@@ -49,18 +45,6 @@ const StockIndex: NextPage = () => {
   } else {
     t = en
   }
-
-  // const codeUnlist = codeList.filter((item) => {
-  //   return item.Unlist == 'unlist'
-  // })
-
-  // 以下使用していない。
-  // const codeListSP = codeList.filter((item) => {
-  //   return item.SP500 == 'SP500' && item.Unlist != 'unlist'
-  // })
-  // const codeListNSP = codeList.filter((item) => {
-  //   return item.SP500 != 'SP500'
-  // })
 
   const search = (rows: Company[]) => {
     return rows.filter(
