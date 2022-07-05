@@ -1,10 +1,7 @@
-// import { useEffect } from 'react'
 import type { NextPage } from 'next'
-// import Head from 'next/head'
-// import Image from 'next/image'
-import Link from 'next/link'
-import EtfCandleChart from './../../components/EtfCandleChart'
-import EtfCompareLineChart from './../../components/EtfCompareLineChart'
+// import Link from 'next/link'
+// import EtfCandleChart from './../../components/EtfCandleChart'
+// import EtfCompareLineChart from './../../components/EtfCompareLineChart'
 
 // i18n
 import EtfIndexEn from './../../locales/en/EtfIndex'

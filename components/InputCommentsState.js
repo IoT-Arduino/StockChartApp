@@ -1,5 +1,5 @@
 // <!-- 必要なものをimport -->
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { supabase } from '../utils/supabase'
 
 import useStore from '../store/store'
@@ -13,9 +13,10 @@ import { checkAllowanceComment } from '../functions/checkAllowanceComment'
 
 import * as AiIcons from 'react-icons/ai'
 import { ActionIcon } from '@mantine/core';
-import { DatePicker } from '@mantine/dates';
+// import { DatePicker } from '@mantine/dates';
 
 export default function InputComments({ ticker,t }) {
+  const { user: contextUser, session: contextSession, rank } = useContext(UserContext)
   const { editedComment, resetEditedComment } = useStore()
   const update = useStore((state) => state.updateEditedComment)
   const { createCommentMutation, updateCommentMutation, deleteCommentMutation } = useMutateComment()
@@ -25,24 +26,15 @@ export default function InputComments({ ticker,t }) {
     return data.ticker === ticker
   })
 
-  const { user: contextUser, session: contextSession, rank } = useContext(UserContext)
-
-  //  <!-- comment -->
-  // const [comments, setComments] = useState([])
   const [editItem, setEditItem] = useState('')
-
   const { canCommentInput } = checkAllowanceComment(rank, commentData)
   
-  // console.log(canCommentInput)
-
   if (status === 'error') {
     return <div>Error</div>
   }
 
   //  <!-- commentの追加 -->
   const submitComment = async () => {
-    // e.preventDefault()
-
     if(editedComment.memo === "" || editedComment.date === "") {
       alert(`${t.inputRequiredAlert}`)
       return 

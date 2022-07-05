@@ -9,7 +9,17 @@ import PagingTicker from './PagingTicker'
 
 import { chartOption } from '../functions/chartOption'
 
-const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo,prevTicker,nextTicker,signIn,t }) => {
+const StockCandleChart = ({
+  priceData,
+  edgarData,
+  marker,
+  id,
+  companyInfo,
+  prevTicker,
+  nextTicker,
+  signIn,
+  t,
+}) => {
   // console.log(edgarData)
 
   // 画面表示State 管理==============================================================
@@ -79,11 +89,6 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo,prevTi
       ? item.commonStockDividendsPerShareDeclaredYear
       : Math.round((item.commonStockDividendsCashPaidYear / numberOfSharesOutstanding) * 100) / 100
 
-    // (Math.round(item.commonStockDividendsCashPaidYear /numberOfSharesOutstanding * 100)) / 100,
-
-    // commonStockDividendsPerShareDeclaredYear: item.commonStockDividendsPerShareDeclaredYear,
-    // commonStockDividendsCashPaidYear:item.commonStockDividendsCashPaidYear/numberOfSharesOutstanding,
-
     return {
       date: item.date,
       fp: item.fp,
@@ -121,15 +126,9 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo,prevTi
         Math.round(
           ((item.commonStockDividendsPerShareDeclaredDeducted * 100) / epsBasicAndDiluted) * 100
         ) / 100,
-      // dividendPayoutRatio: parseFloat(
-      //   (item.commonStockDividendsPerShareDeclaredDeducted * 100) / item.eps
-      // ).toFixed(1),
       // 配当性向　年間
       dividendPayoutRatioYear:
         Math.round(((comonStockDividendPerShareYear * 100) / epsBasicAndDilutedAccum) * 100) / 100,
-      // dividendPayoutRatioYear: parseFloat(
-      //   comonStockDividendPerShareYear * 100 / item.epsAccum
-      // ).toFixed(1),
     }
   })
 
@@ -369,12 +368,19 @@ const StockCandleChart = ({ priceData, edgarData, marker, id, companyInfo,prevTi
   return (
     <div>
       <ReactEcharts option={option} style={{ height: '600px', width: '100%' }} />
-      <PagingTicker prevTicker={prevTicker} nextTicker={nextTicker} signIn={signIn} t={t}/>
+      <PagingTicker prevTicker={prevTicker} nextTicker={nextTicker} signIn={signIn} t={t} />
       <p style={{ textAlign: 'right' }}>(Million)</p>
 
-      <StockTabSection companyInfo={companyInfo} fyCompanyDataForTable={fyCompanyDataForTable} isDividend={isDividend} isSplit={isSplit} QtrCompanyDataForTable={QtrCompanyDataForTable} priceData={priceData} ticker={id} t={t}/>
-
-
+      <StockTabSection
+        companyInfo={companyInfo}
+        fyCompanyDataForTable={fyCompanyDataForTable}
+        isDividend={isDividend}
+        isSplit={isSplit}
+        QtrCompanyDataForTable={QtrCompanyDataForTable}
+        priceData={priceData}
+        ticker={id}
+        t={t}
+      />
     </div>
   )
 }

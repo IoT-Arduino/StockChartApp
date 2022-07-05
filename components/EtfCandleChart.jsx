@@ -6,7 +6,6 @@ const EtfCandleChart = ({ etfData }) => {
 
     const dateArr = timestamp.map((time)=> {
         var date = new Date(time*1000)
-        // return date.getFullYear()+ "/" +(date.getMonth()+1)
         return date.getFullYear()+ "/" +(date.getMonth()+1)
     })
 
@@ -22,9 +21,7 @@ const EtfCandleChart = ({ etfData }) => {
     }
     return num
   })
-
-  // 数値表示用、現在の価額と2014年末からの変化率計算
-   
+ 
 　// Chart Option
   const option = {
     xAxis: [

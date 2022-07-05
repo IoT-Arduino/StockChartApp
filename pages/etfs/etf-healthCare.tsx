@@ -1,9 +1,9 @@
-import { useEffect } from 'react'
 import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import Link from 'next/link'
-import EtfCandleChart from './../../components/EtfCandleChart'
+// import { useEffect } from 'react'
+// import Head from 'next/head'
+// import Image from 'next/image'
+// import Link from 'next/link'
+// import EtfCandleChart from './../../components/EtfCandleChart'
 
 // i18n
 import EtfHealthCareEn from './../../locales/en/EtfHealthCare'
@@ -30,7 +30,7 @@ export async function getServerSideProps() {
     return {
       props: {
         fundsData: {
-          vhtData: etfResponseData[0]
+          vhtData: etfResponseData[0],
         },
       },
     }
@@ -40,19 +40,17 @@ export async function getServerSideProps() {
 }
 
 const Home: NextPage = ({ fundsData }: any) => {
-    // i18n 対応用
-    const router = useRouter()
-    const { locale } = router
+  // i18n 対応用
+  const router = useRouter()
+  const { locale } = router
 
   return (
-    <main className="max-w-5xl mx-auto mt-6 mb-20">
-            {locale === 'ja-JP' ? (
+    <main className='mx-auto mt-6 mb-20 max-w-5xl'>
+      {locale === 'ja-JP' ? (
         <EtfHealthCareJa fundsData={fundsData} />
       ) : (
         <EtfHealthCareEn fundsData={fundsData} />
       )}
-   
-
     </main>
   )
 }

@@ -3,7 +3,7 @@ import { useForm, Controller } from 'react-hook-form'
 import { Input } from '@supabase/ui'
 import { supabase } from '../../utils/supabase'
 import { useRef } from 'react'
-import Link from 'next/link'
+// import Link from 'next/link'
 import { useRouter } from 'next/router'
 import style from './auth.module.css'
 
