@@ -1,5 +1,5 @@
-// <!-- 必要なものをimport -->
-import { useState, useEffect } from 'react'
+
+import { useState } from 'react'
 import { supabase } from '../utils/supabase'
 
 import useStore from '../store/store'
@@ -15,6 +15,7 @@ import * as AiIcons from 'react-icons/ai'
 import { ActionIcon } from '@mantine/core';
 
 export default function InputMarker({ ticker,t }) {
+  const { user: contextUser, session: contextSession, rank } = useContext(UserContext)
   const { editedMarker, resetEditedMarker } = useStore()
   const update = useStore((state) => state.updateEditedMarker)
   const { createMarkerMutation, updateMarkerMutation, deleteMarkerMutation } = useMutateMarker()
@@ -24,22 +25,16 @@ export default function InputMarker({ ticker,t }) {
     return data.ticker === ticker
   })
 
-  const { user: contextUser, session: contextSession, rank } = useContext(UserContext)
-
   //  <!-- marker -->
-  // const [markers, setMarkers] = useState([])
   const [editItem, setEditItem] = useState('')
-
   const { canMarkerInput } = checkAllowanceMarker(rank, markerData)
   
-
   if (status === 'error') {
     return <div>Error</div>
   }
 
   //  <!-- markerの追加 -->
   const submitMarker = async () => {
-    // e.preventDefault()
     if(editedMarker.memo === "" || editedMarker.date === "") {
       alert(`${t.inputRequiredAlert}`)
       return 

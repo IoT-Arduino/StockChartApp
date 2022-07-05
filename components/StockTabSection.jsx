@@ -8,9 +8,9 @@ import InputMarkerState from './InputMarkerState'
 import dayjs from 'dayjs'
 
 // i18n
-import en from '../locales/en/en'
-import ja from '../locales/ja/ja'
-import { useRouter } from 'next/router';
+// import en from '../locales/en/en'
+// import ja from '../locales/ja/ja'
+// import { useRouter } from 'next/router';
 
 const StockTabSection = ({
   companyInfo,
@@ -20,7 +20,7 @@ const StockTabSection = ({
   QtrCompanyDataForTable,
   priceData,
   ticker,
-  t
+  t,
 }) => {
   const { user } = useContext(UserContext)
   const [editDataForMember, setEditDataForMember] = useState()
@@ -32,16 +32,6 @@ const StockTabSection = ({
       setEditDataForMember(false)
     }
   }, [user])
-
-    // i18n 対応用
-    // const router = useRouter()
-    // const { locale } = router
-    // let t
-    // if (locale === 'ja-JP') {
-    //   t = ja
-    // } else {
-    //   t = en
-    // }
 
   // 株式分割の月を1か月加算してもとに戻す処理
   const splitFilteredData = priceData.filter((item) => {
@@ -74,16 +64,16 @@ const StockTabSection = ({
                   </th>
                 )}
                 <th scope='col' className='px-4 py-2'>
-                {t.tabTableFsNetIncome}
+                  {t.tabTableFsNetIncome}
                 </th>
                 <th scope='col' className='px-4 py-2'>
-                {t.tabTableFsOpeCf}
+                  {t.tabTableFsOpeCf}
                 </th>
                 <th scope='col' className='px-4 py-2'>
-                {t.tabTableFsAsset}
+                  {t.tabTableFsAsset}
                 </th>
                 <th scope='col' className='px-4 py-2'>
-                {t.tabTableFsEquity}
+                  {t.tabTableFsEquity}
                 </th>
               </tr>
             </thead>
@@ -99,20 +89,28 @@ const StockTabSection = ({
                         <td className='px-4 py-2'>{item.date}</td>
                         <td className='px-4 py-2'>
                           {item.NetIncomeLossAccum
-                            ? Number((item.NetIncomeLossAccum / 1000000).toFixed(2)).toLocaleString()
+                            ? Number(
+                                (item.NetIncomeLossAccum / 1000000).toFixed(2)
+                              ).toLocaleString()
                             : '-'}
                         </td>
                         <td className='px-4 py-2'>
                           {item.operatingCashFlowAccum
-                            ? Number((item.operatingCashFlowAccum / 1000000).toFixed(2)).toLocaleString()
+                            ? Number(
+                                (item.operatingCashFlowAccum / 1000000).toFixed(2)
+                              ).toLocaleString()
                             : '-'}
                         </td>
                         <td className='px-4 py-2'>
-                          {item.assets ? Number((item.assets / 1000000).toFixed(2)).toLocaleString() : '-'}
+                          {item.assets
+                            ? Number((item.assets / 1000000).toFixed(2)).toLocaleString()
+                            : '-'}
                         </td>
                         <td className='px-4 py-2'>
                           {item.stockHoldersEquity
-                            ? Number((item.stockHoldersEquity / 1000000).toFixed(2)).toLocaleString()
+                            ? Number(
+                                (item.stockHoldersEquity / 1000000).toFixed(2)
+                              ).toLocaleString()
                             : '-'}
                         </td>
                       </tr>
@@ -131,20 +129,28 @@ const StockTabSection = ({
                         </td>
                         <td className='px-4 py-2'>
                           {item.NetIncomeLossAccum
-                            ? Number((item.NetIncomeLossAccum / 1000000).toFixed(2)).toLocaleString()
+                            ? Number(
+                                (item.NetIncomeLossAccum / 1000000).toFixed(2)
+                              ).toLocaleString()
                             : '-'}
                         </td>
                         <td className='px-4 py-2'>
                           {item.operatingCashFlowAccum
-                            ? Number((item.operatingCashFlowAccum / 1000000).toFixed(2)).toLocaleString()
+                            ? Number(
+                                (item.operatingCashFlowAccum / 1000000).toFixed(2)
+                              ).toLocaleString()
                             : '-'}
                         </td>
                         <td className='px-4 py-2'>
-                          {item.assets ? Number((item.assets / 1000000).toFixed(2)).toLocaleString() : '-'}
+                          {item.assets
+                            ? Number((item.assets / 1000000).toFixed(2)).toLocaleString()
+                            : '-'}
                         </td>
                         <td className='px-4 py-2'>
                           {item.stockHoldersEquity
-                            ? Number((item.stockHoldersEquity / 1000000).toFixed(2)).toLocaleString()
+                            ? Number(
+                                (item.stockHoldersEquity / 1000000).toFixed(2)
+                              ).toLocaleString()
                             : '-'}
                         </td>
                       </tr>
@@ -161,7 +167,7 @@ const StockTabSection = ({
             <thead className='bg-gray-50 text-xs text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
               <tr>
                 <th scope='col' className='px-4 py-2'>
-                {t.tabTableDate}
+                  {t.tabTableDate}
                 </th>
                 <th scope='col' className='px-4 py-2'>
                   {t.tabIndicatorPrice}
@@ -217,7 +223,7 @@ const StockTabSection = ({
                     {t.tabTableDate}
                   </th>
                   <th scope='col' className='px-4 py-2'>
-                   {t.tabIndicatorDps}
+                    {t.tabIndicatorDps}
                   </th>
                   <th scope='col' className='px-4 py-2'>
                     {t.tabIndicatorDividendYield}
@@ -265,7 +271,8 @@ const StockTabSection = ({
                   if (item.splitCategory) {
                     return (
                       <li key={i}>
-                        {item.date} / {t.tabSplitCate}: {item.splitCategory} / {t.tabSplitRatio}:{item.splitRatio} /
+                        {item.date} / {t.tabSplitCate}: {item.splitCategory} / {t.tabSplitRatio}:
+                        {item.splitRatio} /
                       </li>
                     )
                   }
@@ -327,11 +334,15 @@ const StockTabSection = ({
                             : '-'}
                         </td>
                         <td className='px-4 py-2'>
-                          {item.assets ? Number((item.assets / 1000000).toFixed(2)).toLocaleString() : '-'}
+                          {item.assets
+                            ? Number((item.assets / 1000000).toFixed(2)).toLocaleString()
+                            : '-'}
                         </td>
                         <td className='px-4 py-2'>
                           {item.stockHoldersEquity
-                            ? Number((item.stockHoldersEquity / 1000000).toFixed(2)).toLocaleString()
+                            ? Number(
+                                (item.stockHoldersEquity / 1000000).toFixed(2)
+                              ).toLocaleString()
                             : '-'}
                         </td>
                       </tr>
@@ -344,7 +355,9 @@ const StockTabSection = ({
                       >
                         <td className='px-4 py-2'>{item.date}</td>
                         <td className='px-4 py-2'>
-                          {item.revenue ? Number((item.revenue / 1000000).toFixed(2)).toLocaleString() : '-'}
+                          {item.revenue
+                            ? Number((item.revenue / 1000000).toFixed(2)).toLocaleString()
+                            : '-'}
                         </td>
                         <td className='px-4 py-2'>
                           {item.NetIncomeLoss
@@ -367,7 +380,9 @@ const StockTabSection = ({
                         </td>
                         <td className='px-4 py-2'>
                           {item.stockHoldersEquity
-                            ? Number((item.stockHoldersEquity / 1000000).toFixed(2)).toLocaleString()
+                            ? Number(
+                                (item.stockHoldersEquity / 1000000).toFixed(2)
+                              ).toLocaleString()
                             : '-'}
                         </td>
                       </tr>
@@ -438,8 +453,8 @@ const StockTabSection = ({
       </Tabs.Tab>
       <Tabs.Tab label={t.tab4Label} disabled={!editDataForMember}>
         <div className='my-3'>
-          <InputMarkerState ticker={ticker} t={t}/>
-          <InputCommentsState ticker={ticker}  t={t}/>
+          <InputMarkerState ticker={ticker} t={t} />
+          <InputCommentsState ticker={ticker} t={t} />
         </div>
       </Tabs.Tab>
     </Tabs>

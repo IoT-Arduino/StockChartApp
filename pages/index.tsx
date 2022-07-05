@@ -1,9 +1,9 @@
-import { useEffect } from 'react'
+// import { useEffect } from 'react'
 import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import Link from 'next/link'
-import { useRouter } from "next/router";
+// import Head from 'next/head'
+// import Image from 'next/image'
+// import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 // Component
 import HeroSlider from '../components/HeroSlider'
@@ -23,35 +23,27 @@ const codeListNotUnlist = codeList.filter((item) => {
 })
 
 // i18n
-import en from "../locales/en/en"
-import ja from "../locales/ja/ja"
-import enTop from "../locales/en/top"
-import jaTop from "../locales/ja/top"
-import {TopComponentE} from "../locales/en/TopComponent"
-import {TopComponentJ} from "../locales/ja/TopComponent"
+import en from '../locales/en/en'
+import ja from '../locales/ja/ja'
+import { TopComponentE } from '../locales/en/TopComponent'
+import { TopComponentJ } from '../locales/ja/TopComponent'
 
 const Home: NextPage = () => {
-
   // i18n
   const router = useRouter()
-  const {locale} = router;
-  
-  let t;
-  let tTop;
-  if (locale === "ja-JP") {
-    t = ja;
+  const { locale } = router
+
+  let t
+  if (locale === 'ja-JP') {
+    t = ja
   } else {
-    t = en;
+    t = en
   }
 
   return (
     <main>
       <HeroSlider codeList={codeListNotUnlist} />
-
-      <div className="m-8">
-       {t == ja ? <TopComponentJ /> : <TopComponentE />}
-      </div>
-
+      <div className='m-8'>{t == ja ? <TopComponentJ /> : <TopComponentE />}</div>
     </main>
   )
 }

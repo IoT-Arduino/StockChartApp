@@ -1,31 +1,33 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-
-import { LayoutWrapper } from '../components/LayoutWrapper'
-import { DefaultSeo } from 'next-seo'
-import SeoJa from '../locales/ja/next-seo.js'
-import SeoEn from '../locales/en/next-seo.js'
-
-import { QueryClient, QueryClientProvider } from 'react-query'
-import { ReactQueryDevtools } from 'react-query/devtools'
-
-import axios from 'axios'
-
-// import { Session, User } from '@supabase/supabase-js'
 import { useEffect, useState } from 'react'
+import { DefaultSeo } from 'next-seo'
+
+// supabase
 import { supabase } from '../utils/supabase'
 import { UserContext } from '../utils/UserContext'
+import axios from 'axios'
 
+// css libs
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
-
 import { MantineProvider } from '@mantine/core'
+
+// components
+import { LayoutWrapper } from '../components/LayoutWrapper'
+
+// i18n
+import SeoJa from '../locales/ja/next-seo.js'
+import SeoEn from '../locales/en/next-seo.js'
 
 // for GTM
 import Script from 'next/script'
 import { GTM_ID, pageview } from '../utils/gtm'
 import { useRouter } from 'next/router';
 
+// React Query
+import { QueryClient, QueryClientProvider } from 'react-query'
+// import { ReactQueryDevtools } from 'react-query/devtools'
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -51,9 +53,6 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, [user])
 
   useEffect(() => {
-    // const session = supabase.auth.session()
-    // setSession(session)
-    // setUser(session?.user ?? null)
     const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
       setSession(session)
       setUser(session?.user ?? null)
@@ -82,14 +81,6 @@ function MyApp({ Component, pageProps }: AppProps) {
     } else {
       SEO = SeoEn
     }
-
-  // const router = useRouter()
-  // useEffect(() => {
-  //   router.events.on('routeChangeComplete', pageview)
-  //   return () => {
-  //     router.events.off('routeChangeComplete', pageview)
-  //   }
-  // }, [router.events])
 
   return (
     <QueryClientProvider client={queryClient}>

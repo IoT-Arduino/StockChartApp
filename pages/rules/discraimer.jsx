@@ -1,4 +1,3 @@
-import React from 'react'
 // i18n
 import en from './../../locales/en/en'
 import ja from './../../locales/ja/ja'
