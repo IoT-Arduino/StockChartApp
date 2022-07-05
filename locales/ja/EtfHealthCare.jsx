@@ -9,7 +9,7 @@ const EtfHealthCare = ({ fundsData }) => {
         <EtfCandleChart etfData={fundsData.vhtData} />
         <div className='mx-auto md:w-4/5'>
           <p>
-            VVHTはアメリカの資産運用会社・バンガード社が提供するETFで、「医薬品や医療機器などを含むヘルスケアセクターの企業（約450社）」を投資対象とするETFです。
+            VHTはアメリカの資産運用会社・バンガード社が提供するETFで、「医薬品や医療機器などを含むヘルスケアセクターの企業（約450社）」を投資対象とするETFです。
           </p>
           <p className='text-bold mt-3 mb-2 text-xl'>上位構成銘柄</p>
 
