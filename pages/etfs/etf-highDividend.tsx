@@ -1,9 +1,9 @@
-import { useEffect } from 'react'
 import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import Link from 'next/link'
-import EtfCandleChart from './../../components/EtfCandleChart'
+// import { useEffect } from 'react'
+// import Head from 'next/head'
+// import Image from 'next/image'
+// import Link from 'next/link'
+// import EtfCandleChart from './../../components/EtfCandleChart'
 
 // i18n
 import EtfHighDividendEn from './../../locales/en/EtfHighDividend'
@@ -26,11 +26,6 @@ export async function getServerSideProps() {
       return etfPriceList.chart.result[0]
     })
     const etfResponseData = await Promise.all(etfResponse)
-
-    // console.log(etfResponseData[3].meta)
-    // console.log(etfResponseData[4].meta)
-    // console.log(etfResponseData[5].meta)
-    // console.log(priceList.chart.result[0].indicators.adjclose)
 
     return {
       props: {

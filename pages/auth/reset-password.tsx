@@ -58,7 +58,7 @@ const ResetPassword: NextPage = () => {
           value={password}
           type='password'
           onChange={handleSetPassword}
-          placeholder="password"
+          placeholder='password'
           required
         />
         <button type='submit'>{t.authResetPwd5}</button>

@@ -1,17 +1,10 @@
-// <!-- 必要なものをimport -->
 import { useState, useEffect } from 'react'
-import { supabase } from '../utils/supabase'
-
-// import { Button } from '@mantine/core'
-// import { useToggle } from '@mantine/hooks'
-import * as AiIcons from 'react-icons/ai'
-
-import { useMutateBookMark } from '../hooks/useMutateBookMark'
-import { useQueryBookMark } from '../hooks/useQueryBookMark'
-
 import { useContext } from 'react'
 import { UserContext } from '../utils/UserContext'
-
+import { supabase } from '../utils/supabase'
+import { useMutateBookMark } from '../hooks/useMutateBookMark'
+import { useQueryBookMark } from '../hooks/useQueryBookMark'
+import * as AiIcons from 'react-icons/ai'
 import { checkAllowanceBookMark } from '../functions/checkAllowanceBookMark'
 
 export default function BookMark({ ticker,t }) {
@@ -52,12 +45,8 @@ export default function BookMark({ ticker,t }) {
     }
   }
 
-  // console.log(star)
-
   return (
     <div>
-      {/* {!!errorText && <Alert text={errorText} />} */}
-
       <div
         onClick={(e) => {
           e.preventDefault()

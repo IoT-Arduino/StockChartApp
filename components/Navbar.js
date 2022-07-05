@@ -10,7 +10,7 @@ import { IconContext } from 'react-icons'
 import * as FaIcons from 'react-icons/fa'
 import * as AiIcons from 'react-icons/ai'
 // import * as IoIcons from 'react-icons/io'
-import {IoDocumentTextOutline} from 'react-icons/io5'
+import { IoDocumentTextOutline } from 'react-icons/io5'
 import logo from '../public/logo.png'
 import { Modal } from '@mantine/core'
 
@@ -32,7 +32,6 @@ import ja from '../locales/ja/ja'
 const codeListNotUnlist = codeList.filter((item) => {
   return item.Unlist != 'unlist'
 })
-
 
 const Navbar = () => {
   const [sidebar, setSidebar] = useState(false)
@@ -70,8 +69,6 @@ const Navbar = () => {
     t = en
   }
 
-
-
   return (
     <IconContext.Provider value={{ color: '#48bb78' }}>
       <nav>
@@ -85,60 +82,54 @@ const Navbar = () => {
             </Link>
             <div className='m-5 hidden flex-initial font-bold text-[#abc5c5] md:flex '>
               <ul className='text-left md:flex'>
-
-
-
-
                 <li className='list-none p-4'>
-                <Link href='/'>
-                  <a className='font-bold text-green-500 no-underline hover:text-green-200'>
-                    Home
-                  </a>
-                </Link>
-              </li>
-
-
+                  <Link href='/'>
+                    <a className='font-bold text-green-500 no-underline hover:text-green-200'>
+                      Home
+                    </a>
+                  </Link>
+                </li>
                 <li className='list-none p-4'>
-                <Link href='/stocks'>
-                  <a className='font-bold text-green-500 no-underline hover:text-green-200'>
-                    {t.stockList}
-                  </a>
-                </Link>
-              </li>
+                  <Link href='/stocks'>
+                    <a className='font-bold text-green-500 no-underline hover:text-green-200'>
+                      {t.stockList}
+                    </a>
+                  </Link>
+                </li>
 
                 {!signIn ? (
                   <>
-                  <li className='list-none p-4'>
-                    <Link href='/auth/signin'>
-                      <a className='font-bold text-green-500 no-underline hover:text-green-200'>
-                        {t.login}
-                      </a>
-                    </Link>
-                  </li>
-                  <li className='list-none p-4'>
-                  <Link href='/auth/signup'>
-                    <a className='font-bold text-green-500 no-underline hover:text-green-200'>
-                      {t.signup}
-                    </a>
-                  </Link>
-                </li>
+                    <li className='list-none p-4'>
+                      <Link href='/auth/signin'>
+                        <a className='font-bold text-green-500 no-underline hover:text-green-200'>
+                          {t.login}
+                        </a>
+                      </Link>
+                    </li>
+                    <li className='list-none p-4'>
+                      <Link href='/auth/signup'>
+                        <a className='font-bold text-green-500 no-underline hover:text-green-200'>
+                          {t.signup}
+                        </a>
+                      </Link>
+                    </li>
                   </>
                 ) : (
                   <>
-                  <li className='list-none p-4'>
-                  <Link href='/member'>
-                    <a className='font-bold text-green-500 no-underline hover:text-green-200'>
-                      {t.member}
-                    </a>
-                  </Link>
-                </li>
-                  <li className='list-none p-4'>
-                    <div onClick={signOut}>
-                      <a className='font-bold text-green-500 no-underline hover:text-green-200'>
-                        {t.logout}
-                      </a>
-                    </div>
-                  </li>
+                    <li className='list-none p-4'>
+                      <Link href='/member'>
+                        <a className='font-bold text-green-500 no-underline hover:text-green-200'>
+                          {t.member}
+                        </a>
+                      </Link>
+                    </li>
+                    <li className='list-none p-4'>
+                      <div onClick={signOut}>
+                        <a className='font-bold text-green-500 no-underline hover:text-green-200'>
+                          {t.logout}
+                        </a>
+                      </div>
+                    </li>
                   </>
                 )}
 
@@ -203,39 +194,38 @@ const Navbar = () => {
               </Link>
             </li>
 
+            <li className='list-none'>
+              <div className={styles.navText}>
+                <Link href='/'>
+                  <a>
+                    <AiIcons.AiOutlineHome />
+                    <span className='ml-2'>Home</span>
+                  </a>
+                </Link>
+              </div>
+            </li>
 
             <li className='list-none'>
-            <div className={styles.navText}>
-              <Link href='/'>
-                <a>
-                <AiIcons.AiOutlineHome />
-                  <span className='ml-2'>Home</span>
-                </a>
-              </Link>
-            </div>
-          </li>
+              <div className={styles.navText}>
+                <Link href='/stocks'>
+                  <a>
+                    <AiIcons.AiOutlineUnorderedList />
+                    <span className='ml-2'>{t.stockList}</span>
+                  </a>
+                </Link>
+              </div>
+            </li>
 
             <li className='list-none'>
-            <div className={styles.navText}>
-              <Link href='/stocks'>
-                <a>
-                <AiIcons.AiOutlineUnorderedList />
-                  <span className='ml-2'>{t.stockList}</span>
-                </a>
-              </Link>
-            </div>
-          </li>
-
-            <li className='list-none'>
-            <div className={styles.navText}>
-              <Link href='/rules/discraimer'>
-                <a>
-                  <IoDocumentTextOutline />
-                  <span className='ml-2'>{t.disclaimer}</span>
-                </a>
-              </Link>
-            </div>
-          </li>
+              <div className={styles.navText}>
+                <Link href='/rules/discraimer'>
+                  <a>
+                    <IoDocumentTextOutline />
+                    <span className='ml-2'>{t.disclaimer}</span>
+                  </a>
+                </Link>
+              </div>
+            </li>
 
             {!signIn ? (
               <li className='list-none'>
