@@ -92,26 +92,26 @@ const StockTabSection = ({
                             ? Number(
                                 (item.NetIncomeLossAccum / 1000000).toFixed(2)
                               ).toLocaleString()
-                            : '-'}
+                            : '--'}
                         </td>
                         <td className='px-4 py-2'>
                           {item.operatingCashFlowAccum
                             ? Number(
                                 (item.operatingCashFlowAccum / 1000000).toFixed(2)
                               ).toLocaleString()
-                            : '-'}
+                            : '--'}
                         </td>
                         <td className='px-4 py-2'>
                           {item.assets
                             ? Number((item.assets / 1000000).toFixed(2)).toLocaleString()
-                            : '-'}
+                            : '--'}
                         </td>
                         <td className='px-4 py-2'>
                           {item.stockHoldersEquity
                             ? Number(
                                 (item.stockHoldersEquity / 1000000).toFixed(2)
                               ).toLocaleString()
-                            : '-'}
+                            : '--'}
                         </td>
                       </tr>
                     )
@@ -125,33 +125,33 @@ const StockTabSection = ({
                         <td className='px-4 py-2'>
                           {item.revenueAccum
                             ? Number((item.revenueAccum / 1000000).toFixed(2)).toLocaleString()
-                            : '-'}
+                            : '--'}
                         </td>
                         <td className='px-4 py-2'>
                           {item.NetIncomeLossAccum
                             ? Number(
                                 (item.NetIncomeLossAccum / 1000000).toFixed(2)
                               ).toLocaleString()
-                            : '-'}
+                            : '--'}
                         </td>
                         <td className='px-4 py-2'>
                           {item.operatingCashFlowAccum
                             ? Number(
                                 (item.operatingCashFlowAccum / 1000000).toFixed(2)
                               ).toLocaleString()
-                            : '-'}
+                            : '--'}
                         </td>
                         <td className='px-4 py-2'>
                           {item.assets
                             ? Number((item.assets / 1000000).toFixed(2)).toLocaleString()
-                            : '-'}
+                            : '--'}
                         </td>
                         <td className='px-4 py-2'>
                           {item.stockHoldersEquity
                             ? Number(
                                 (item.stockHoldersEquity / 1000000).toFixed(2)
                               ).toLocaleString()
-                            : '-'}
+                            : '--'}
                         </td>
                       </tr>
                     )
@@ -196,15 +196,15 @@ const StockTabSection = ({
                     >
                       <td className='px-4 py-2'>{item.date}</td>
                       <td className='px-4 py-2'>{item.close} </td>
-                      <td className='px-4 py-2'>{item.bps != 'NaN' ? item.bps : '-'} </td>
-                      <td className='px-4 py-2'>{item.pbr != 'NaN' ? item.pbr : '-'}</td>
-                      <td className='px-4 py-2'>{item.epsAccum !== 'NaN' ? item.epsAccum : '-'}</td>
+                      <td className='px-4 py-2'>{item.bps != 'NaN' ? item.bps : '--'} </td>
+                      <td className='px-4 py-2'>{item.pbr != 'NaN' ? item.pbr : '--'}</td>
+                      <td className='px-4 py-2'>{item.epsAccum !== 'NaN' ? item.epsAccum : '--'}</td>
                       <td className='px-4 py-2'>
                         {item.perAccum !== NaN
                           ? item.perAccum > 0
                             ? item.perAccum.toFixed(2)
                             : 'minus'
-                          : '-'}
+                          : '--'}
                       </td>
                     </tr>
                   )
@@ -245,15 +245,15 @@ const StockTabSection = ({
                         <td className='px-4 py-2'>
                           {item.commonStockDividendsPerShareDeclaredYear != 'NaN'
                             ? item.commonStockDividendsPerShareDeclaredYear
-                            : '-'}
+                            : '--'}
                         </td>
                         <td className='px-4 py-2'>
-                          {item.dividendYieldYear != 'NaN%' ? item.dividendYieldYear : '-'}
+                          {item.dividendYieldYear != 'NaN%' ? item.dividendYieldYear : '--'}
                         </td>
                         <td className='px-4 py-2'>
                           {item.dividendPayoutRatioYear != 'NaN%'
-                            ? item.dividendPayoutRatioYear
-                            : '-'}
+                            ? (item.dividendPayoutRatioYear >= 0 ? item.dividendPayoutRatioYear : 'minus')
+                            : '--'}
                         </td>
                       </tr>
                     )
@@ -325,25 +325,25 @@ const StockTabSection = ({
                         <td className='px-4 py-2'>
                           {item.NetIncomeLoss
                             ? Number((item.NetIncomeLoss / 1000000).toFixed(2)).toLocaleString()
-                            : '-'}{' '}
+                            : '--'}{' '}
                         </td>
                         <td className='px-4 py-2'>
                           {' '}
                           {item.operatingCashFlow
                             ? Number((item.operatingCashFlow / 1000000).toFixed(2)).toLocaleString()
-                            : '-'}
+                            : '--'}
                         </td>
                         <td className='px-4 py-2'>
                           {item.assets
                             ? Number((item.assets / 1000000).toFixed(2)).toLocaleString()
-                            : '-'}
+                            : '--'}
                         </td>
                         <td className='px-4 py-2'>
                           {item.stockHoldersEquity
                             ? Number(
                                 (item.stockHoldersEquity / 1000000).toFixed(2)
                               ).toLocaleString()
-                            : '-'}
+                            : '--'}
                         </td>
                       </tr>
                     )
@@ -357,25 +357,25 @@ const StockTabSection = ({
                         <td className='px-4 py-2'>
                           {item.revenue
                             ? Number((item.revenue / 1000000).toFixed(2)).toLocaleString()
-                            : '-'}
+                            : '--'}
                         </td>
                         <td className='px-4 py-2'>
                           {item.NetIncomeLoss
                             ? Number((item.NetIncomeLoss / 1000000).toFixed(2)).toLocaleString()
-                            : '-'}{' '}
+                            : '--'}{' '}
                         </td>
                         <td className='px-4 py-2'>
                           {' '}
                           {item.operatingCashFlow
                             ? Number((item.operatingCashFlow / 1000000).toFixed(2)).toLocaleString()
-                            : '-'}
+                            : '--'}
                         </td>
                         <td className='px-4 py-2'>
                           {item.operatingCashFlowMargin
                             ? item.operatingCashFlowMargin >= 0
                               ? (item.operatingCashFlowMargin * 100).toFixed(1)
-                              : '-'
-                            : '-'}
+                              : '--'
+                            : '--'}
                           %
                         </td>
                         <td className='px-4 py-2'>
@@ -383,7 +383,7 @@ const StockTabSection = ({
                             ? Number(
                                 (item.stockHoldersEquity / 1000000).toFixed(2)
                               ).toLocaleString()
-                            : '-'}
+                            : '--'}
                         </td>
                       </tr>
                     )
@@ -433,15 +433,15 @@ const StockTabSection = ({
                     >
                       <td className='px-4 py-2'>{item.date}</td>
                       <td className='px-4 py-2'>{item.close}</td>
-                      <td className='px-4 py-2'>{item.bps != 'NaN' ? item.bps : '-'} </td>
-                      <td className='px-4 py-2'>{item.pbr != 'NaN' ? item.pbr : '-'} </td>
-                      <td className='px-4 py-2'>{item.eps != 'NaN' ? item.eps : '-'}</td>
+                      <td className='px-4 py-2'>{item.bps != 'NaN' ? item.bps : '--'} </td>
+                      <td className='px-4 py-2'>{item.pbr != 'NaN' ? item.pbr : '--'} </td>
+                      <td className='px-4 py-2'>{item.eps != 'NaN' ? item.eps : '--'}</td>
                       <td className='px-4 py-2'>
-                        {item.per !== NaN ? (item.per >= 0 ? item.per.toFixed(2) : 'minus') : '-'}
+                        {item.per !== NaN ? (item.per >= 0 ? item.per.toFixed(2) : 'minus') : '--'}
                       </td>
                       <td className='px-4 py-2'>
                         {Number.isNaN(item.numberOfSharesOutstanding)
-                          ? '-'
+                          ? '--'
                           : parseInt(item.numberOfSharesOutstanding / 1000000).toLocaleString()}
                       </td>
                     </tr>

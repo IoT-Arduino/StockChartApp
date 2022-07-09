@@ -371,7 +371,7 @@ const StockCandleChart = ({
       <ReactEcharts option={option} style={{ height: '600px', width: '100%' }} />
       <PagingTicker prevTicker={prevTicker} nextTicker={nextTicker} signIn={signIn} t={t} />
       <p style={{ textAlign: 'right' }}>(Million)</p>
-
+      <div id="tabSection">
       <StockTabSection
         companyInfo={companyInfo}
         fyCompanyDataForTable={fyCompanyDataForTable}
@@ -381,7 +381,9 @@ const StockCandleChart = ({
         priceData={priceData}
         ticker={id}
         t={t}
+        
       />
+      </div>
     </div>
   )
 }
