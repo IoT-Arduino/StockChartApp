@@ -38,6 +38,7 @@
     "zustand": "^4.0.0-rc.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.23.2",
     "@types/node": "17.0.23",
     "@types/react": "17.0.43",
     "@types/react-dom": "17.0.14",
