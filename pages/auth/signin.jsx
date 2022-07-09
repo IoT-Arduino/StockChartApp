@@ -101,7 +101,7 @@ const signin = () => {
             }}
           />
           <div className='h-4' />
-          <Button block style={{ fontSize: '16px !important' }}>
+          <Button block style={{ fontSize: '16px !important' }} id="submit">
             {t.signInSubmit}
           </Button>
           <div className='h-4' />

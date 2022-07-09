@@ -91,7 +91,7 @@ export default function InputMarker({ ticker,t }) {
   return (
     <div className='w-full'>
       <h4 className='mt-10 mb-2 font-bold font-xl'>{t.inputMarkerTitle}</h4>
-      <div>{canMarkerInput ? <div>{t.inputCan}</div> : <div>{t.inputCannot}</div>}</div>
+      <div id="inputMarkerStatus">{canMarkerInput ? <div>{t.inputCan}</div> : <div>{t.inputCannot}</div>}</div>
 
       <div className='flex gap-2 my-2 flex-wrap'>
         <input
@@ -100,6 +100,7 @@ export default function InputMarker({ ticker,t }) {
           value={editedMarker.date}
           onChange={(e) => update({ ...editedMarker, date: e.target.value })}
           required
+          id="markerDateInput"
         />
         <input
           className='rounded w-full p-2 border border-black text-base'
@@ -108,6 +109,7 @@ export default function InputMarker({ ticker,t }) {
           value={editedMarker.memo}
           onChange={(e) => update({ ...editedMarker, memo: e.target.value })}
           required
+          id="markerMemoInput"
         />
 
         {editItem != '' ? (
@@ -124,6 +126,7 @@ export default function InputMarker({ ticker,t }) {
             className='btn-black p-2 border border-black rounded'
             onClick={() => submitMarker()}
             disabled={!canMarkerInput}
+            id="addMarker"
           >
             Add
           </button>
@@ -156,6 +159,7 @@ export default function InputMarker({ ticker,t }) {
                       e.stopPropagation()
                       deleteMarker(marker)
                     }}
+                    id="markerDelete"
                     >
                   <AiIcons.AiFillDelete />
                 </ActionIcon>
