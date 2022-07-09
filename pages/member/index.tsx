@@ -84,7 +84,7 @@ const Home: NextPage = () => {
     <div className='mx-auto max-w-2xl px-2 py-4 sm:px-4'>
       {user && isDisplay ? (
         <p className='font-xl mt-3 mb-8 text-center font-bold'>
-          {user.email}　{t.memberUserTop}
+          {user.email}{t.memberUserTop}
         </p>
       ) : null}
       {user && rank ? (
@@ -93,35 +93,49 @@ const Home: NextPage = () => {
           {rank}
         </p>
       ) : null}
+
       {isDisplay && <p className='font-xl mt-8 mb-2 font-bold'>{t.memberShipSecTitle1}</p>}
       {canBookMarkInput ? (
-        <span>{t.memberShipCanInput}</span>
+        <span id='canBookMarkInput'>{t.memberShipCanInput}</span>
       ) : (
-        <span>{t.memberShipCanNotInput}</span>
+        <span id='canBookMarkInput'>{t.memberShipCanNotInput}</span>
       )}
-      {bookmark &&
-        bookmark.map((mark, i) => {
-          return (
-            <div key={i} className='ml-8'>
-              <li>
-                <Link href={`/stocks/${mark.ticker}`}>
-                  <a>{mark.ticker}</a>
-                </Link>
-              </li>
-            </div>
-          )
-        })}
+
+      {bookmark && (
+        <table className='my-4 mx-auto w-full shadow-md sm:w-2/3 sm:rounded-lg'>
+          <thead className='bg-gray-50 text-xs text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
+            <tr>
+              <th scope='col' className='px-4 py-2'>
+                Ticker
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {bookmark.map((mark, i) => {
+              return (
+                <tr key={mark.ticker} className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
+                  <td className='px-4 py-2 text-center'>
+                  <Link href={`/stocks/${mark.ticker}`} >
+                    <a>{mark.ticker}</a>
+                  </Link>
+                  </td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
+      )}
 
       {isDisplay && <p className='font-xl mt-8 mb-2 font-bold'>{t.memberShipSecTitle2}</p>}
       {canMarkerInput ? (
-        <span>{t.memberShipCanInput}</span>
+        <span id='canMarkerInput'>{t.memberShipCanInput}</span>
       ) : (
-        <span>{t.memberShipCanNotInput}</span>
+        <span id='canMarkerInput'>{t.memberShipCanNotInput}</span>
       )}
       {markers && (
         <div className='my-4 mx-auto w-full shadow-md sm:w-2/3 sm:rounded-lg'>
           <table className='w-full text-sm text-gray-500 dark:text-gray-400'>
-            <thead className='bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
+            <thead className='bg-gray-50 text-xs text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
               <tr>
                 <th scope='col' className='px-4 py-2'>
                   {t.memberShipTableTicker}
@@ -158,15 +172,15 @@ const Home: NextPage = () => {
 
       {isDisplay && <p className='font-xl mt-8 mb-2 font-bold'>{t.memberShipSecTitle3}</p>}
       {canCommentInput ? (
-        <span>{t.memberShipCanInput}</span>
+        <span id='canCommentInput'>{t.memberShipCanInput}</span>
       ) : (
-        <span>{t.memberShipCanNotInput}</span>
+        <span id='canCommentInput'>{t.memberShipCanNotInput}</span>
       )}
 
       {comments && (
         <div className='my-4 mx-auto w-full shadow-md sm:w-2/3 sm:rounded-lg'>
           <table className='w-full text-sm text-gray-500 dark:text-gray-400'>
-            <thead className='bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
+            <thead className='bg-gray-50 text-xs text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
               <tr>
                 <th scope='col' className='px-4 py-2'>
                   {t.memberShipTableTicker}
