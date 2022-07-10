@@ -40,7 +40,7 @@ export async function getStaticPaths() {
   const jsonData = await fsPromises.readFile(filePath)
   const objectData = JSON.parse(jsonData as any)
 
-  const paths = objectData.map((item) => {
+  const paths = objectData.map(() => {
     return {
       params: { id: 'MSFT' },
     }
@@ -52,9 +52,10 @@ export async function getStaticPaths() {
   }
 }
 
-export const getStaticProps: GetServerSideProps = async ({ query, params }) => {
+
+export const getStaticProps: GetServerSideProps = async ({ params }) => {
   // const id = await query.id
-  const id = await params.id
+  const id = await params?.id
 
   // Edgar データを追加したら、ここにも追加すること。
   const QTR = [
@@ -84,24 +85,41 @@ export const getStaticProps: GetServerSideProps = async ({ query, params }) => {
     // '2022_05',
   ]
 
+  type stockListType =   {
+    PagingNum: number,
+    Ticker: string,
+    Name:  string,
+    ShortName:  string,
+    Country:  string| null,
+    'IPO Year': number | null,
+    Sector:  string| null,
+    Industry:  string| null,
+    Market: string| null,
+    'Market Cap': number| null,
+    CIK: number,
+    ADR: string | null,
+    Unlist: string | null,
+    SP500: string | null
+  }
+
   try {
     // stockList data from json file
     const filePathStockList = path.join(process.cwd(), `./data/stockCode/US-StockList.json`)
     const jsonDataStockList = await fsPromises.readFile(filePathStockList)
-    const objectDataStockList = JSON.parse(jsonDataStockList as any)
+    const objectDataStockList:stockListType[] = JSON.parse(jsonDataStockList as any)
 
-    const companyInfo = objectDataStockList.filter((item) => {
+    const companyInfo = objectDataStockList.filter((item:stockListType) => {
       return item.Ticker === id
     })
 
     // Paging処理 prev が1以下およびnext がmax時の対応
-    const listedStockList = objectDataStockList.filter((item) => {
+    const listedStockList = objectDataStockList.filter((item:stockListType) => {
       return item.Unlist === null
     })
     const maxPagingNum = listedStockList.length
     const currentPageNum = companyInfo[0].PagingNum
 
-    const prevCompany = objectDataStockList.filter((item) => {
+    const prevCompany = objectDataStockList.filter((item:stockListType) => {
       if (companyInfo[0].PagingNum === 1) {
         return item.PagingNum === maxPagingNum
       } else {
@@ -109,7 +127,7 @@ export const getStaticProps: GetServerSideProps = async ({ query, params }) => {
       }
     })
 
-    const nextCompany = objectDataStockList.filter((item) => {
+    const nextCompany = objectDataStockList.filter((item:stockListType) => {
       if (currentPageNum === maxPagingNum) {
         return item.PagingNum === 1
       } else {
