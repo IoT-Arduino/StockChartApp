@@ -7,9 +7,13 @@ import Link from 'next/link'
 // Style & Images
 import styles from './Navbar.module.css'
 import { IconContext } from 'react-icons'
-import * as FaIcons from 'react-icons/fa'
-import * as AiIcons from 'react-icons/ai'
-// import * as IoIcons from 'react-icons/io'
+// import * as FaIcons from 'react-icons/fa'
+import {FaBars,FaRegStickyNote} from 'react-icons/fa'
+
+// import * as AiIcons from 'react-icons/ai'
+
+import { AiOutlineHome, AiOutlineUnorderedList, AiOutlineLogin,AiOutlineLogout,AiOutlineSearch,AiOutlineClose,AiOutlineTwitter,AiFillMediumSquare } from 'react-icons/ai'
+
 import { IoDocumentTextOutline } from 'react-icons/io5'
 import logo from '../public/logo.png'
 import { Modal } from '@mantine/core'
@@ -136,7 +140,7 @@ const Navbar = () => {
                 {/* Search Icon and ( Modal )*/}
                 <div>
                   <p>
-                    <AiIcons.AiOutlineSearch
+                    <AiOutlineSearch
                       className='cursor-pointer text-3xl'
                       onClick={() => setOpened(true)}
                     />
@@ -151,7 +155,7 @@ const Navbar = () => {
         <div className={styles.navbar}>
           <div className='flex w-full items-center justify-between pr-6 md:hidden'>
             <div className={styles.menuBars}>
-              <FaIcons.FaBars onClick={showSidebar} className='cursor-pointer' />
+              <FaBars onClick={showSidebar} className='cursor-pointer' />
             </div>
             <Link href='/' passHref>
               <div className='ml-3 cursor-pointer text-2xl font-extrabold text-green-500'>
@@ -161,7 +165,7 @@ const Navbar = () => {
             {/* Search Icon and Modal */}
             <div>
               <p>
-                <AiIcons.AiOutlineSearch
+                <AiOutlineSearch
                   className='cursor-pointer text-3xl'
                   onClick={() => setOpened(true)}
                 />
@@ -188,7 +192,7 @@ const Navbar = () => {
               <Link href='/' passHref>
                 <div className={styles.menuBars}>
                   <a>
-                    <AiIcons.AiOutlineClose />
+                    <AiOutlineClose />
                   </a>
                 </div>
               </Link>
@@ -198,7 +202,7 @@ const Navbar = () => {
               <div className={styles.navText}>
                 <Link href='/'>
                   <a>
-                    <AiIcons.AiOutlineHome />
+                    <AiOutlineHome />
                     <span className='ml-2'>Home</span>
                   </a>
                 </Link>
@@ -209,31 +213,73 @@ const Navbar = () => {
               <div className={styles.navText}>
                 <Link href='/stocks'>
                   <a>
-                    <AiIcons.AiOutlineUnorderedList />
+                    <AiOutlineUnorderedList />
                     <span className='ml-2'>{t.stockList}</span>
                   </a>
                 </Link>
               </div>
             </li>
 
+
+
             <li className='list-none'>
-              <div className={styles.navText}>
-                <Link href='/rules/discraimer'>
-                  <a>
-                    <IoDocumentTextOutline />
-                    <span className='ml-2'>{t.disclaimer}</span>
-                  </a>
-                </Link>
-              </div>
-            </li>
+            <div className={styles.navText}>
+              <Link href='https://twitter.com/Sa10shitoushi'  
+              rel="noopener noreferrer">
+                <a>
+                  <AiOutlineTwitter />
+                  <span className='ml-2'>Twitter</span>
+                </a>
+              </Link>
+            </div>
+          </li>
+
+
+       
+            <li className='list-none'>
+            <div className={styles.navText}>
+              <Link href='https://note.com/satoshi_toushi'  
+              rel="noopener noreferrer">
+                <a>
+                  <FaRegStickyNote />
+                  <span className='ml-2'>note</span>
+                </a>
+              </Link>
+            </div>
+          </li>
+    
+            <li className='list-none'>
+            <div className={styles.navText}>
+              <Link href='https://medium.com/@tenq'  
+              rel="noopener noreferrer">
+                <a>
+                  <AiFillMediumSquare />
+                  <span className='ml-2'>medium</span>
+                </a>
+              </Link>
+            </div>
+          </li>
+       
+
+          <li className='list-none'>
+          <div className={styles.navText}>
+            <Link href='/rules/discraimer'>
+              <a>
+                <IoDocumentTextOutline />
+                <span className='ml-2'>{t.disclaimer}</span>
+              </a>
+            </Link>
+          </div>
+        </li>
+
 
             {!signIn ? (
               <li className='list-none'>
                 <div className={styles.navText}>
                   <Link href='/auth/signin'>
                     <a>
-                      <AiIcons.AiOutlineLogin />
-                      <span className='ml-2'>{t.signin}</span>
+                      <AiOutlineLogin />
+                      <span className='ml-2'>{t.login}</span>
                     </a>
                   </Link>
                 </div>
@@ -243,13 +289,17 @@ const Navbar = () => {
                 <div className={styles.navText}>
                   <div onClick={signOut} className='w-full'>
                     <a>
-                      <AiIcons.AiOutlineLogout />
-                      <span className='ml-2'>{t.signout}</span>
+                      <AiOutlineLogout />
+                      <span className='ml-2'>{t.logout}</span>
                     </a>
                   </div>
                 </div>
               </li>
             )}
+
+
+
+
           </ul>
         </div>
       </nav>

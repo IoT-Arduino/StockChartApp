@@ -15,7 +15,7 @@ export const useQueryBookMark = () => {
   return useQuery({
     queryKey: 'bookmark',
     queryFn: getBookMark,
-    staleTime: 500, //[ms]
+    staleTime: Infinity, //[ms]
     refetchOnWindowFocus: true,
   })
 }

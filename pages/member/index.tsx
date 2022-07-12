@@ -81,148 +81,156 @@ const Home: NextPage = () => {
   }
 
   return (
-    <div className='mx-auto max-w-2xl px-2 py-4 sm:px-4'>
-      {user && isDisplay ? (
-        <p className='font-xl mt-3 mb-8 text-center font-bold'>
-          {user.email}{t.memberUserTop}
-        </p>
-      ) : null}
-      {user && rank ? (
-        <p>
-          {t.memberShipRankLabel}
-          {rank}
-        </p>
-      ) : null}
+    <div>
+      {user ? (
+        <div className='mx-auto max-w-2xl px-2 py-4 sm:px-4'>
+          {isDisplay ? (
+            <p className='font-xl mt-3 mb-8 text-center font-bold'>
+              {user.email}
+              {t.memberUserTop}
+            </p>
+          ) : null}
+          {rank ? (
+            <p>
+              {t.memberShipRankLabel}
+              {rank}
+            </p>
+          ) : null}
 
-      {isDisplay && <p className='font-xl mt-8 mb-2 font-bold'>{t.memberShipSecTitle1}</p>}
-      {canBookMarkInput ? (
-        <span id='canBookMarkInput'>{t.memberShipCanInput}</span>
-      ) : (
-        <span id='canBookMarkInput'>{t.memberShipCanNotInput}</span>
-      )}
+          {isDisplay && <p className='font-xl mt-8 mb-2 font-bold'>{t.memberShipSecTitle1}</p>}
+          {canBookMarkInput ? (
+            <span id='canBookMarkInput'>{t.memberShipCanInput}</span>
+          ) : (
+            <span id='canBookMarkInput'>{t.memberShipCanNotInput}</span>
+          )}
 
-      {bookmark && (
-        <table className='my-4 mx-auto w-full shadow-md sm:w-2/3 sm:rounded-lg'>
-          <thead className='bg-gray-50 text-xs text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
-            <tr>
-              <th scope='col' className='px-4 py-2'>
-                Ticker
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {bookmark.map((mark, i) => {
-              return (
-                <tr key={mark.ticker} className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'>
-                  <td className='px-4 py-2 text-center'>
-                  <Link href={`/stocks/${mark.ticker}`} >
-                    <a>{mark.ticker}</a>
-                  </Link>
-                  </td>
+          {bookmark && (
+            <table className='my-4 mx-auto w-full shadow-md sm:w-2/3 sm:rounded-lg'>
+              <thead className='bg-gray-50 text-xs text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
+                <tr>
+                  <th scope='col' className='px-4 py-2'>
+                    Ticker
+                  </th>
                 </tr>
-              )
-            })}
-          </tbody>
-        </table>
-      )}
+              </thead>
+              <tbody>
+                {bookmark.map((mark, i) => {
+                  return (
+                    <tr
+                      key={mark.ticker}
+                      className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'
+                    >
+                      <td className='px-4 py-2 text-center'>
+                        <Link href={`/stocks/${mark.ticker}`}>
+                          <a>{mark.ticker}</a>
+                        </Link>
+                      </td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+          )}
 
-      {isDisplay && <p className='font-xl mt-8 mb-2 font-bold'>{t.memberShipSecTitle2}</p>}
-      {canMarkerInput ? (
-        <span id='canMarkerInput'>{t.memberShipCanInput}</span>
-      ) : (
-        <span id='canMarkerInput'>{t.memberShipCanNotInput}</span>
-      )}
-      {markers && (
-        <div className='my-4 mx-auto w-full shadow-md sm:w-2/3 sm:rounded-lg'>
-          <table className='w-full text-sm text-gray-500 dark:text-gray-400'>
-            <thead className='bg-gray-50 text-xs text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
-              <tr>
-                <th scope='col' className='px-4 py-2'>
-                  {t.memberShipTableTicker}
-                </th>
-                <th scope='col' className='px-4 py-2'>
-                  {t.memberShipTableDate}
-                </th>
-                <th scope='col' className='px-4 py-2'>
-                  {t.memberShipTableMemo}
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {markers.map((marker, i) => {
-                return (
-                  <tr
-                    key={i}
-                    className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'
-                  >
-                    <td className='px-4 py-2'>
-                      <Link href={`/stocks/${marker.ticker}`}>
-                        <a>{marker.ticker}</a>
-                      </Link>
-                    </td>
-                    <td className='px-4 py-2'>{marker.date}</td>
-                    <td className='px-4 py-2'>{marker.memo}</td>
+          {isDisplay && <p className='font-xl mt-8 mb-2 font-bold'>{t.memberShipSecTitle2}</p>}
+          {canMarkerInput ? (
+            <span id='canMarkerInput'>{t.memberShipCanInput}</span>
+          ) : (
+            <span id='canMarkerInput'>{t.memberShipCanNotInput}</span>
+          )}
+          {markers && (
+            <div className='my-4 mx-auto w-full shadow-md sm:w-2/3 sm:rounded-lg'>
+              <table className='w-full text-sm text-gray-500 dark:text-gray-400'>
+                <thead className='bg-gray-50 text-xs text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
+                  <tr>
+                    <th scope='col' className='px-4 py-2'>
+                      {t.memberShipTableTicker}
+                    </th>
+                    <th scope='col' className='px-4 py-2'>
+                      {t.memberShipTableDate}
+                    </th>
+                    <th scope='col' className='px-4 py-2'>
+                      {t.memberShipTableMemo}
+                    </th>
                   </tr>
-                )
-              })}
-            </tbody>
-          </table>
-        </div>
-      )}
+                </thead>
+                <tbody>
+                  {markers.map((marker, i) => {
+                    return (
+                      <tr
+                        key={i}
+                        className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'
+                      >
+                        <td className='px-4 py-2'>
+                          <Link href={`/stocks/${marker.ticker}`}>
+                            <a>{marker.ticker}</a>
+                          </Link>
+                        </td>
+                        <td className='px-4 py-2'>{marker.date}</td>
+                        <td className='px-4 py-2'>{marker.memo}</td>
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </table>
+            </div>
+          )}
 
-      {isDisplay && <p className='font-xl mt-8 mb-2 font-bold'>{t.memberShipSecTitle3}</p>}
-      {canCommentInput ? (
-        <span id='canCommentInput'>{t.memberShipCanInput}</span>
-      ) : (
-        <span id='canCommentInput'>{t.memberShipCanNotInput}</span>
-      )}
+          {isDisplay && <p className='font-xl mt-8 mb-2 font-bold'>{t.memberShipSecTitle3}</p>}
+          {canCommentInput ? (
+            <span id='canCommentInput'>{t.memberShipCanInput}</span>
+          ) : (
+            <span id='canCommentInput'>{t.memberShipCanNotInput}</span>
+          )}
 
-      {comments && (
-        <div className='my-4 mx-auto w-full shadow-md sm:w-2/3 sm:rounded-lg'>
-          <table className='w-full text-sm text-gray-500 dark:text-gray-400'>
-            <thead className='bg-gray-50 text-xs text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
-              <tr>
-                <th scope='col' className='px-4 py-2'>
-                  {t.memberShipTableTicker}
-                </th>
-                <th scope='col' className='px-4 py-2'>
-                  {t.memberShipTableDate}
-                </th>
-                <th scope='col' className='px-4 py-2'>
-                  {t.memberShipTableMemo}
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {comments.map((comment, i) => {
-                return (
-                  <tr
-                    key={i}
-                    className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'
-                  >
-                    <td className='px-4 py-2'>
-                      <Link href={`/stocks/${comment.ticker}`}>
-                        <a>{comment.ticker}</a>
-                      </Link>
-                    </td>
-                    <td className='px-4 py-2'>{comment.date}</td>
-                    <td className='px-4 py-2'>{comment.memo}</td>
+          {comments && (
+            <div className='my-4 mx-auto w-full shadow-md sm:w-2/3 sm:rounded-lg'>
+              <table className='w-full text-sm text-gray-500 dark:text-gray-400'>
+                <thead className='bg-gray-50 text-xs text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
+                  <tr>
+                    <th scope='col' className='px-4 py-2'>
+                      {t.memberShipTableTicker}
+                    </th>
+                    <th scope='col' className='px-4 py-2'>
+                      {t.memberShipTableDate}
+                    </th>
+                    <th scope='col' className='px-4 py-2'>
+                      {t.memberShipTableMemo}
+                    </th>
                   </tr>
-                )
-              })}
-            </tbody>
-          </table>
-        </div>
-      )}
+                </thead>
+                <tbody>
+                  {comments.map((comment, i) => {
+                    return (
+                      <tr
+                        key={i}
+                        className='border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700'
+                      >
+                        <td className='px-4 py-2'>
+                          <Link href={`/stocks/${comment.ticker}`}>
+                            <a>{comment.ticker}</a>
+                          </Link>
+                        </td>
+                        <td className='px-4 py-2'>{comment.date}</td>
+                        <td className='px-4 py-2'>{comment.memo}</td>
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </table>
+            </div>
+          )}
 
-      <RegisterLimit rank={rank} t={t} />
-      <div className='my-16 border-2 bg-slate-100 px-4 py-1 text-sm'>
-        <h5>{t.memberShipUnsub}</h5>
-        <span>{t.memberShipUnsubWarning}</span>
-        <button className='mb-4 ml-4 text-xs' onClick={deleteUser}>
-          {t.memberShipUnsubButton}
-        </button>
-      </div>
+          <RegisterLimit rank={rank} t={t} />
+          <div className='my-16 border-2 bg-slate-100 px-4 py-1 text-sm'>
+            <h5>{t.memberShipUnsub}</h5>
+            <span>{t.memberShipUnsubWarning}</span>
+            <button className='mb-4 ml-4 text-xs' onClick={deleteUser}>
+              {t.memberShipUnsubButton}
+            </button>
+          </div>
+        </div>
+      ) : <div>Member's only page</div>}
     </div>
   )
 }

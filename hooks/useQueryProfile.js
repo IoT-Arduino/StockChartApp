@@ -15,7 +15,7 @@ export const useQueryProfile = () => {
   return useQuery({
     queryKey: 'profile',
     queryFn: getProfile,
-    staleTime: 500, //[ms]
+    staleTime: Infinity, //[ms]
     refetchOnWindowFocus: true,
   })
 }
