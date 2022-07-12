@@ -14,10 +14,11 @@ export const useQueryMarker = () => {
     }
     return data
   }
+  // useQuery<Task[], Error>
   return useQuery({
     queryKey: 'marker',
     queryFn: getMarker,
-    staleTime: 500, //[ms]
+    staleTime: Infinity, //[ms]
     refetchOnWindowFocus: true,
     // refetchOnMount:"always",
     // notifyOnChangeProps:"tracked",
