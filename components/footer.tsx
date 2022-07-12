@@ -3,7 +3,10 @@ import Link from 'next/link'
 import { useContext } from 'react'
 import { useRouter } from 'next/router'
 import { UserContext } from '../utils/UserContext'
-import * as AiIcons from 'react-icons/ai'
+
+
+import {FaRegStickyNote} from 'react-icons/fa'
+import { AiOutlineHome, AiOutlineUnorderedList, AiOutlineLogin,AiOutlineTwitter,AiFillMediumSquare } from 'react-icons/ai'
 
 // i18n
 import en from '../locales/en/en'
@@ -38,9 +41,34 @@ export const Footer = () => {
   }
 
   return (
-    <footer className='bg-gray-200 p-2 text-center text-gray-600'>
-      <div className='hidden sm:block'>
+    <footer className='bg-gray-200 p-2 text-center text-gray-600 '>
+      <div className='hidden sm:flex justify-around items-center'>
         <small className='text-l mr-5 inline-block'>&copy; 2022 TenQ.cc US-Stock Chart</small>
+
+        <div>
+          <a href='https://twitter.com/Sa10shitoushi'  
+          rel="noopener noreferrer" className='text-xs no-underline'>
+              <AiOutlineTwitter />
+              <span className='ml-2'>Twitter</span>
+          </a>
+        </div>
+ 
+        <div>
+          <a href='https://note.com/satoshi_toushi'  
+          rel="noopener noreferrer" className='text-xs no-underline'>
+              <FaRegStickyNote />
+              <span className='ml-2'>note</span>
+          </a>
+        </div>
+
+        <div>
+          <a href='https://medium.com/@tenq'  
+          rel="noopener noreferrer" className='text-xs no-underline'>
+              <AiFillMediumSquare />
+              <span className='ml-2'>medium</span>
+          </a>
+        </div>
+
         <Link href='/rules/discraimer'>
           <a className='text-xs no-underline'>{t.disclaimer}</a>
         </Link>
@@ -49,11 +77,13 @@ export const Footer = () => {
           <option value='ja-JP'>日本語</option>
         </select>
       </div>
+
+      {/* Mobile Footer  */}
       <div className='flex justify-around sm:hidden'>
         <div>
           <Link href='/'>
             <a className='text-xs no-underline'>
-              <AiIcons.AiOutlineHome />
+              <AiOutlineHome />
               <span className='block'>Home</span>
             </a>
           </Link>
@@ -61,7 +91,7 @@ export const Footer = () => {
         <div>
           <Link href='/stocks'>
             <a className='text-xs no-underline'>
-              <AiIcons.AiOutlineUnorderedList />
+              <AiOutlineUnorderedList />
               <span className='block'>{t.stockList}</span>
             </a>
           </Link>
@@ -71,7 +101,7 @@ export const Footer = () => {
           <div>
             <Link href='/auth/signin'>
               <a className='text-xs no-underline'>
-                <AiIcons.AiOutlineLogin />
+                <AiOutlineLogin />
                 <span className='block'>Login</span>
               </a>
             </Link>
@@ -80,7 +110,7 @@ export const Footer = () => {
           <div>
             <Link href='/member'>
               <a className='text-xs no-underline'>
-                <AiIcons.AiOutlineLogin />
+                <AiOutlineLogin />
                 <span className='block'>{t.member}</span>
               </a>
             </Link>
