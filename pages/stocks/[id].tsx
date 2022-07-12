@@ -339,7 +339,7 @@ const StockChart: NextPage<{
             <a
               href={`https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${priceData[0].CIK}&type=&dateb=&owner=exclude&count=40&search_text=`}
               target='_blank'
-              rel='noreferrer'
+              rel="noopener noreferrer"
             >
               EDGAR Web Site-{id}
             </a>
@@ -348,7 +348,7 @@ const StockChart: NextPage<{
             <a
               href={`https://finance.yahoo.com/quote/${priceData[0].Ticker}/financials?p=${priceData[0].Ticker}`}
               target='_blank'
-              rel='noreferrer'
+              rel="noopener noreferrer"
             >
               YahooFinance US-{id}
             </a>
