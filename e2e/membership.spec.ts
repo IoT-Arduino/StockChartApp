@@ -54,12 +54,12 @@ test.describe.only('Ck Membership', () => {
 
     await page.goto('auth/signin')
 
-    await page.type("input[type='email']", 'bunkajin@icloud.com')
+    await page.type("input[type='email']", 'taketoshi.sakayama+test@gmail.com')
     await page.type("input[type='password']", 'abcd1234')
     await page.click('#submit')
 
     // 会員ページに自動遷移
-    await expect(page.locator('body')).toContainText('bunkajin@icloud.com')
+    await expect(page.locator('body')).toContainText('taketoshi.sakayama+test@gmail.com')
   })
 
   //　データ入力（9個入力）
@@ -76,7 +76,7 @@ test.describe.only('Ck Membership', () => {
 
       // Login
       await page.goto('auth/signin')
-      await page.type("input[type='email']", 'bunkajin@icloud.com')
+      await page.type("input[type='email']", 'taketoshi.sakayama+test@gmail.com')
       await page.type("input[type='password']", 'abcd1234')
       await page.click('#submit')
 
@@ -119,12 +119,12 @@ test.describe.only('Ck Membership', () => {
 
     await page.goto('auth/signin')
 
-    await page.type("input[type='email']", 'bunkajin@icloud.com')
+    await page.type("input[type='email']", 'taketoshi.sakayama+test@gmail.com')
     await page.type("input[type='password']", 'abcd1234')
     await page.click('#submit')
 
     // 会員ページに自動遷移
-    await expect(page.locator('body')).toContainText('bunkajin@icloud.com')
+    await expect(page.locator('body')).toContainText('taketoshi.sakayama+test@gmail.com')
 
     // 会員ページで入力不可確認
     await expect(page.locator('#canBookMarkInput')).toContainText(
@@ -182,12 +182,12 @@ test.describe.only('Ck Membership', () => {
 
       // Login
       await page.goto('auth/signin')
-      await page.type("input[type='email']", 'bunkajin@icloud.com')
+      await page.type("input[type='email']", 'taketoshi.sakayama+test@gmail.com')
       await page.type("input[type='password']", 'abcd1234')
       await page.click('#submit')
 
       // 会員ページに自動遷移
-      await expect(page.locator('body')).toContainText('bunkajin@icloud.com')
+      await expect(page.locator('body')).toContainText('taketoshi.sakayama+test@gmail.com')
 
       // i = 0 だったら、スキップする。i=1以降処理する。
       if (i == 0) {
@@ -233,11 +233,11 @@ test.describe.only('Ck Membership', () => {
 
     await page.goto('auth/signin')
 
-    await page.type("input[type='email']", 'bunkajin@icloud.com')
+    await page.type("input[type='email']", 'taketoshi.sakayama+test@gmail.com')
     await page.type("input[type='password']", 'abcd1234')
     await page.click('#submit')
 
-    await expect(page.locator('body')).toContainText('bunkajin@icloud.com')
+    await expect(page.locator('body')).toContainText('taketoshi.sakayama+test@gmail.com')
 
     // データ登録が0であることを確認する。
     await expect(page.locator('td')).not.toBeVisible()
