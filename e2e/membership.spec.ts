@@ -1,5 +1,8 @@
 import { test, expect, chromium } from '@playwright/test'
 
+// const { NEXT_PUBLIC_API_ENDOPOINT } = process.env;
+
+
 // const { stockList } = require('../data/stockCode/US-StockListForTest');
 
 const stockList = [
@@ -41,7 +44,7 @@ const stockList = [
   },
 ]
 
-test.describe.only('Ck Membership', () => {
+test.describe.skip('Ck Membership', () => {
   test('Login', async () => {
     const browser = await chromium.launch()
     const context = await browser.newContext({
