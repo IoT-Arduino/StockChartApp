@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "eslint --ext .js,jsx,.ts,.tsx --fix",
-    "format": "prettier --write ./*/*.{js,jsx,ts,tsx,json,css}"
+    "format": "prettier --write ./*/*.{js,jsx,ts,tsx,json,css}",
+    "test":"playwright test"
   },
   "dependencies": {
     "@mantine/core": "^4.2.7",
