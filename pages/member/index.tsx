@@ -99,9 +99,9 @@ const Home: NextPage = () => {
 
           {isDisplay && <p className='font-xl mt-8 mb-2 font-bold'>{t.memberShipSecTitle1}</p>}
           {canBookMarkInput ? (
-            <span id='canBookMarkInput'>{t.memberShipCanInput}</span>
+            <span data-testid='canBookMarkInput'>{t.memberShipCanInput}</span>
           ) : (
-            <span id='canBookMarkInput'>{t.memberShipCanNotInput}</span>
+            <span data-testid='canBookMarkInput'>{t.memberShipCanNotInput}</span>
           )}
 
           {bookmark && (
@@ -134,9 +134,9 @@ const Home: NextPage = () => {
 
           {isDisplay && <p className='font-xl mt-8 mb-2 font-bold'>{t.memberShipSecTitle2}</p>}
           {canMarkerInput ? (
-            <span id='canMarkerInput'>{t.memberShipCanInput}</span>
+            <span data-testid='canMarkerInput'>{t.memberShipCanInput}</span>
           ) : (
-            <span id='canMarkerInput'>{t.memberShipCanNotInput}</span>
+            <span data-testid='canMarkerInput'>{t.memberShipCanNotInput}</span>
           )}
           {markers && (
             <div className='my-4 mx-auto w-full shadow-md sm:w-2/3 sm:rounded-lg'>
@@ -178,9 +178,9 @@ const Home: NextPage = () => {
 
           {isDisplay && <p className='font-xl mt-8 mb-2 font-bold'>{t.memberShipSecTitle3}</p>}
           {canCommentInput ? (
-            <span id='canCommentInput'>{t.memberShipCanInput}</span>
+            <span data-testid='canCommentInput'>{t.memberShipCanInput}</span>
           ) : (
-            <span id='canCommentInput'>{t.memberShipCanNotInput}</span>
+            <span data-testid='canCommentInput'>{t.memberShipCanNotInput}</span>
           )}
 
           {comments && (

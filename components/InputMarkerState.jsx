@@ -91,7 +91,7 @@ export default function InputMarker({ ticker,t }) {
   return (
     <div className='w-full'>
       <h4 className='mt-10 mb-2 font-bold font-xl'>{t.inputMarkerTitle}</h4>
-      <div id="inputMarkerStatus">{canMarkerInput ? <div>{t.inputCan}</div> : <div>{t.inputCannot}</div>}</div>
+      <div data-testid="inputMarkerStatus">{canMarkerInput ? <div>{t.inputCan}</div> : <div>{t.inputCannot}</div>}</div>
 
       <div className='flex gap-2 my-2 flex-wrap'>
         <input
@@ -100,7 +100,7 @@ export default function InputMarker({ ticker,t }) {
           value={editedMarker.date}
           onChange={(e) => update({ ...editedMarker, date: e.target.value })}
           required
-          id="markerDateInput"
+          data-testid="markerDateInput"
         />
         <input
           className='rounded w-full p-2 border border-black text-base'
@@ -109,7 +109,7 @@ export default function InputMarker({ ticker,t }) {
           value={editedMarker.memo}
           onChange={(e) => update({ ...editedMarker, memo: e.target.value })}
           required
-          id="markerMemoInput"
+          data-testid="markerMemoInput"
         />
 
         {editItem != '' ? (
@@ -126,7 +126,7 @@ export default function InputMarker({ ticker,t }) {
             className='btn-black p-2 border border-black rounded'
             onClick={() => submitMarker()}
             disabled={!canMarkerInput}
-            id="addMarker"
+            data-testid="addMarker"
           >
             Add
           </button>
@@ -159,7 +159,7 @@ export default function InputMarker({ ticker,t }) {
                       e.stopPropagation()
                       deleteMarker(marker)
                     }}
-                    id="markerDelete"
+                    data-testid="markerDelete"
                     >
                   <AiIcons.AiFillDelete />
                 </ActionIcon>
