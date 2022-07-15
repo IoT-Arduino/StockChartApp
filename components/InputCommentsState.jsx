@@ -89,7 +89,7 @@ export default function InputComments({ ticker,t }) {
   return (
     <div className='w-full'>
       <h4 className='mt-10 mb-2 font-bold font-xl'>{t.inputCommentTitle}</h4>
-      <div id="inputCommentStatus">{canCommentInput ? <div>{t.inputCan}</div> : <div>{t.inputCannot}</div>}</div>
+      <div data-testid="inputCommentStatus">{canCommentInput ? <div>{t.inputCan}</div> : <div>{t.inputCannot}</div>}</div>
 
       <div className='flex gap-2 my-2 flex-wrap'>
         <input
@@ -98,7 +98,7 @@ export default function InputComments({ ticker,t }) {
           value={editedComment.date}
           onChange={(e) => update({ ...editedComment, date: e.target.value })}
           required
-          id="commentDateInput"
+          data-testid="commentDateInput"
         />
         <input
           className='rounded w-full p-2 border border-black text-base'
@@ -107,7 +107,7 @@ export default function InputComments({ ticker,t }) {
           value={editedComment.memo}
           onChange={(e) => update({ ...editedComment, memo: e.target.value })}
           required
-          id="commentMemoInput"
+          data-testid="commentMemoInput"
         />
 
         {editItem != '' ? (
@@ -124,7 +124,7 @@ export default function InputComments({ ticker,t }) {
             className='btn-black p-2 border border-black rounded'
             onClick={() => submitComment()}
             disabled={!canCommentInput}
-            id="addComment"
+            data-testid="addComment"
           >
             Add
           </button>
@@ -158,7 +158,7 @@ export default function InputComments({ ticker,t }) {
                     e.stopPropagation()
                     deleteComment(comment)
                   }}
-                  id="commentDelete"
+                  data-testid="commentDelete"
                   className='p-1 ml-2'
                 >
                 <AiIcons.AiFillDelete />
