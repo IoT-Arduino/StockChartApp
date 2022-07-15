@@ -1,14 +1,12 @@
 import { test, chromium, expect } from '@playwright/test'
 
 test.describe('Ck i19n', () => {
-  test.only('App should be displayed in English if the locale is en', async () => {
+  test.skip('App should be displayed in English if the locale is en', async () => {
 
+    // FOO and BAR properties are populated. from global-setup.js
     const { FOO, BAR } = process.env;
-
-    // FOO and BAR properties are populated.
     expect(FOO).toEqual('some data');
-
-    console.log(FOO)
+    // console.log(FOO)
 
 
     const browser = await chromium.launch()
