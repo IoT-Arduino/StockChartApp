@@ -1,4 +1,5 @@
 import { test, expect, chromium } from '@playwright/test'
+import { LoginPage } from './page-objects/LoginPage';
 
 const stockList = [
   {
@@ -13,10 +14,6 @@ const stockList = [
     Ticker: 'AAL',
     Name: 'American Airlines Group Inc. Common Stock',
   },
-  // {
-  //   Ticker: 'AAP',
-  //   Name: 'Advance Auto Parts Inc.',
-  // },
   {
     Ticker: 'AAPL',
     Name: 'Apple Inc. Common Stock',
@@ -44,23 +41,30 @@ const stockList = [
 ]
 
 test.describe('Ck Membership', () => {
+  let loginPage: LoginPage
+
+  // test.beforeEach(async ({ page }) => {
+
+  // });
+
   //  データ入力
-  test('Input Data', async () => {
+  test.skip('Input Data', async () => {
     const { BASE_URL } = process.env
     const browser = await chromium.launch()
     const context = await browser.newContext({
       locale: 'en-US',
     })
     const page = await context.newPage()
+    loginPage = new LoginPage(page)
 
-    //
     await page.goto(`${BASE_URL}`)
-
     await page.goto('auth/signin')
 
-    await page.type("input[type='email']", 'taketoshi.sakayama+test@gmail.com') // dummy email
-    await page.type("input[type='password']", 'abcd1234')
-    await page.click('data-testid=login-submit')
+    await loginPage.login('taketoshi.sakayama+test@gmail.com','abcd1234')   
+
+    // await page.type("input[type='email']", 'taketoshi.sakayama+test@gmail.com') // dummy email
+    // await page.type("input[type='password']", 'abcd1234')
+    // await page.click('data-testid=login-submit')
 
     // 会員ページに自動遷移
     await expect(page.locator('body')).toContainText('taketoshi.sakayama+test@gmail.com') // dummy email
@@ -100,15 +104,17 @@ test.describe('Ck Membership', () => {
       locale: 'en-US',
     })
     const page = await context.newPage()
+    loginPage = new LoginPage(page)
 
     // TestEndPointにする必要あり。
     await page.goto(`${BASE_URL}`)
 
     await page.goto('auth/signin')
 
-    await page.type("input[type='email']", 'taketoshi.sakayama+test@gmail.com') // dummy email
-    await page.type("input[type='password']", 'abcd1234') 
-    await page.click('data-testid=login-submit')
+    await loginPage.login('taketoshi.sakayama+test@gmail.com','abcd1234')   
+    // await page.type("input[type='email']", 'taketoshi.sakayama+test@gmail.com') // dummy email
+    // await page.type("input[type='password']", 'abcd1234') 
+    // await page.click('data-testid=login-submit')
 
     // 会員ページに自動遷移
     await expect(page.locator('body')).toContainText('taketoshi.sakayama+test@gmail.com')
@@ -169,13 +175,17 @@ test.describe('Ck Membership', () => {
     })
 
     const page = await context.newPage()
+    loginPage = new LoginPage(page)
     await page.goto(`${BASE_URL}`)
 
     // Login
     await page.goto('auth/signin')
-    await page.type("input[type='email']", 'taketoshi.sakayama+test@gmail.com') // dummy email
-    await page.type("input[type='password']", 'abcd1234') 
-    await page.click('data-testid=login-submit')
+
+    await loginPage.login('taketoshi.sakayama+test@gmail.com','abcd1234')   
+
+    // await page.type("input[type='email']", 'taketoshi.sakayama+test@gmail.com') // dummy email
+    // await page.type("input[type='password']", 'abcd1234') 
+    // await page.click('data-testid=login-submit')
 
     // 会員ページに自動遷移
     await expect(page.locator('body')).toContainText('taketoshi.sakayama+test@gmail.com') // dummy email
@@ -222,14 +232,17 @@ test.describe('Ck Membership', () => {
       locale: 'en-US',
     })
     const page = await context.newPage()
+    loginPage = new LoginPage(page)
 
     await page.goto(`${BASE_URL}`)
 
     await page.goto('auth/signin')
+    await loginPage.login('taketoshi.sakayama+test@gmail.com','abcd1234')   
 
-    await page.type("input[type='email']", 'taketoshi.sakayama+test@gmail.com') // dummy email
-    await page.type("input[type='password']", 'abcd1234') 
-    await page.click('data-testid=login-submit')
+
+    // await page.type("input[type='email']", 'taketoshi.sakayama+test@gmail.com') // dummy email
+    // await page.type("input[type='password']", 'abcd1234') 
+    // await page.click('data-testid=login-submit')
 
     await expect(page.locator('body')).toContainText('taketoshi.sakayama+test@gmail.com') // dummy email
 
