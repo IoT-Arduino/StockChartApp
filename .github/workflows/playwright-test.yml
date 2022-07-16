@@ -14,6 +14,7 @@ jobs:
     env:
         NEXT_PUBLIC_SUPABASE_URL: ${{secrets.SUPABASE_URL}}
         NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{secrets.SUPABASE_ANON_KEY}}
+        NEXT_PUBLIC_API_ENDOPOINT: ${{secrets.API_ENDOPOINT}}
 
     strategy:
       matrix:

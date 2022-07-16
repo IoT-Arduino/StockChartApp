@@ -62,7 +62,7 @@ const StockIndex: NextPage = () => {
       />
 
       <main className='mx-auto max-w-5xl'>
-        <h2 className='my-8 text-2xl'>{t.stock500List}</h2>
+        <h2 className='my-8 text-2xl' data-testid="stock-list-title" >{t.stock500List}</h2>
         <div className='my-4 flex w-full items-center sm:justify-end'>
           <input
             className='rounded border border-black p-2 sm:w-1/4'

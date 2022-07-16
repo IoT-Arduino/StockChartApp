@@ -1,32 +1,34 @@
 import { test, chromium, expect } from '@playwright/test'
 
-test.describe('Ck i19n', () => {
-  test.skip('App should be displayed in English if the locale is en', async () => {
+test.describe('Ck i18n', () => {
+  test('Stock List page should be displayed in English if the locale is en', async () => {
 
-    // FOO and BAR properties are populated. from global-setup.js
-    const { FOO, BAR } = process.env;
-    expect(FOO).toEqual('some data');
-    // console.log(FOO)
-
+    const { BASE_URL } = process.env;
 
     const browser = await chromium.launch()
     const context = await browser.newContext({
       locale: 'en-US',
     })
     const page = await context.newPage()
-    await page.goto('http://localhost:3000/en-US')
-    const login = page.locator('h3')
-    expect(login).toHaveText('marumaru')
+    await page.goto(`${BASE_URL}/stocks`)
+    const listTitle = page.locator('h2')
+    await expect(listTitle).toHaveText('US Stock500 List')
+    await context.close()
+    await browser.close()
   })
 
-  test('App should be displayed in Japanese if the locale is ja', async () => {
+  test('Stock List page should be displayed in Japanese if the locale is ja', async () => {
+    const { BASE_URL } = process.env;
+
     const browser = await chromium.launch()
     const context = await browser.newContext({
       locale: 'ja-JP',
     })
     const page = await context.newPage()
-    await page.goto('http://localhost:3000/ja-JP')
-    const login = page.locator('h3')
-    expect(login).toHaveText('多言語サイト')
+    await page.goto(`${BASE_URL}/ja-JP/stocks`)
+    const listTitle = page.locator('h2')
+    await expect(listTitle).toContainText('米国代表500株式一覧')
+    await context.close()
+    await browser.close()
   })
 })
