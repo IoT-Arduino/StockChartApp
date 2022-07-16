@@ -1,9 +1,5 @@
 import { test, expect, chromium } from '@playwright/test'
 
-// const { NEXT_PUBLIC_API_ENDOPOINT } = process.env;
-
-// const { stockList } = require('../data/stockCode/US-StockListForTest');
-
 const stockList = [
   {
     Ticker: 'A',
@@ -44,7 +40,8 @@ const stockList = [
 ]
 
 test.describe('Ck Membership', () => {
-  test('Login', async () => {
+  //  データ入力
+  test('Input Data', async () => {
     const { BASE_URL } = process.env
     const browser = await chromium.launch({ headless: false })
     const context = await browser.newContext({
@@ -57,44 +54,24 @@ test.describe('Ck Membership', () => {
 
     await page.goto('auth/signin')
 
-    await page.type("input[type='email']", 'taketoshi.sakayama+test@gmail.com') // name change
+    await page.type("input[type='email']", 'taketoshi.sakayama+test@gmail.com') // dummy email
     await page.type("input[type='password']", 'abcd1234')
     await page.click('data-testid=login-submit')
 
     // 会員ページに自動遷移
-    await expect(page.locator('body')).toContainText('taketoshi.sakayama+test@gmail.com') // name change
+    await expect(page.locator('body')).toContainText('taketoshi.sakayama+test@gmail.com') // dummy email
 
-    await context.close()
-    await browser.close()
-  })
-
-  //　データ入力（9個入力）
-  stockList.forEach((data) => {
-    test(`InputData ${data.Ticker}`, async () => {
-      const { BASE_URL } = process.env
-
-      const browser = await chromium.launch({ headless: false, slowMo: 5 })
-      const context = await browser.newContext({
-        locale: 'en-US',
-      })
-      const page = await context.newPage()
-
-      await page.goto(`${BASE_URL}`)
-
-      // Login
-      await page.goto('auth/signin')
-      await page.type("input[type='email']", 'taketoshi.sakayama+test@gmail.com') // name change
-      await page.type("input[type='password']", 'abcd1234')
-      await page.click('data-testid=login-submit')
-
-      // 会員ページに自動遷移
-      await expect(page.locator('body')).toContainText('taketoshi.sakayama+test@gmail.com') // name change
-      // 個別株ページに遷移
+    for (const data of stockList) {
       await page.goto(`/stocks/${data.Ticker}`)
-      await expect(page.locator('h2')).toContainText(data.Ticker)
+      console.log(data.Ticker)
+      // Comment入力
+      await page.click('text=Data Input（Members Only）')
+      await page.type('data-testid=commentMemoInput', 'comment情報メモ')
+      await page.fill('data-testid=commentDateInput', '2022-05-27')
+      await page.click('data-testid=addComment')
+      await expect(page.locator('data-testid=tabSection')).toContainText('2022-05-27')
 
       // Bookmark
-      // await page.click('data-testid=bookmarkCheck')
       await page.click('text=BookMark')
 
       // Marker入力
@@ -104,16 +81,11 @@ test.describe('Ck Membership', () => {
       await page.click('data-testid=addMarker')
       await expect(page.locator('data-testid=tabSection')).toContainText('2022-05-26')
 
-      // Comment入力
-      await page.click('text=Data Input（Members Only）')
-      await page.type('data-testid=commentMemoInput', 'comment情報メモ')
-      await page.fill('data-testid=commentDateInput', '2022-05-27')
-      await page.click('data-testid=addComment')
-      await expect(page.locator('data-testid=tabSection')).toContainText('2022-05-27')
+      // await page.screenshot({ path: `e2e/images/${data.Ticker}.png` })
+    }
 
-      await context.close()
-      await browser.close()
-    })
+    await context.close()
+    await browser.close()
   })
 
   // 入力不可ステイタス確認、1個削除後、入力可ステイタス確認
@@ -130,8 +102,8 @@ test.describe('Ck Membership', () => {
 
     await page.goto('auth/signin')
 
-    await page.type("input[type='email']", 'taketoshi.sakayama+test@gmail.com') // name change
-    await page.type("input[type='password']", 'abcd1234') // name change
+    await page.type("input[type='email']", 'taketoshi.sakayama+test@gmail.com') // dummy email
+    await page.type("input[type='password']", 'abcd1234') 
     await page.click('data-testid=login-submit')
 
     // 会員ページに自動遷移
@@ -148,7 +120,6 @@ test.describe('Ck Membership', () => {
     await expect(page.locator('data-testid=inputMarkerStatus')).toContainText('Input not allowed')
 
     // 個別ページで　1個データ削除
-
     //　Bookmark削除
     await page.click('text=BookMark')
 
@@ -185,56 +156,60 @@ test.describe('Ck Membership', () => {
   })
 
   // 後処理　データ削除　残り8個
-  stockList.forEach((data, i) => {
-    test(`Clean up ${data.Ticker}`, async () => {
-      const { BASE_URL } = process.env
+  test(`Clean up Data`, async () => {
+    const { BASE_URL } = process.env
 
-      const browser = await chromium.launch({ headless: false, slowMo: 5 })
-      const context = await browser.newContext({
-        locale: 'en-US',
-      })
+    const browser = await chromium.launch({ headless: false, slowMo: 5 })
+    const context = await browser.newContext({
+      locale: 'en-US',
+    })
 
-      const page = await context.newPage()
-      await page.goto(`${BASE_URL}`)
+    const page = await context.newPage()
+    await page.goto(`${BASE_URL}`)
 
+    // Login
+    await page.goto('auth/signin')
+    await page.type("input[type='email']", 'taketoshi.sakayama+test@gmail.com') // dummy email
+    await page.type("input[type='password']", 'abcd1234') 
+    await page.click('data-testid=login-submit')
+
+    // 会員ページに自動遷移
+    await expect(page.locator('body')).toContainText('taketoshi.sakayama+test@gmail.com') // dummy email
+
+    page.on('dialog', async (dialog) => {
+      await dialog.accept()
+    })
+
+    for (let i = 0; i < stockList.length; i++) {
       // i = 0 だったら、スキップする。i=1以降処理する。
       if (i == 0) {
-        await context.close()
-        await browser.close()
+        continue
       } else {
-        // Login
-        await page.goto('auth/signin')
-        await page.type("input[type='email']", 'taketoshi.sakayama+test@gmail.com') // name change
-        await page.type("input[type='password']", 'abcd1234') // name change
-        await page.click('data-testid=login-submit')
+        await page.goto(`/stocks/${stockList[i].Ticker}`)
+        await expect(page.locator('h2')).toContainText(stockList[i].Ticker)
 
-        // 会員ページに自動遷移
-        await expect(page.locator('body')).toContainText('taketoshi.sakayama+test@gmail.com') // name change
-
-        await page.goto(`/stocks/${data.Ticker}`)
-        await expect(page.locator('h2')).toContainText(data.Ticker)
+        await page.click('text=Data Input（Members Only）')
+        // Marker削除
+        await page.click('data-testid=markerDelete')
+        await page.keyboard.press('Enter')
+        // await page.click('text=OK')
+        await expect(page.locator('data-testid=tabSection')).not.toContainText('2022-05-26')
 
         // Bookmark　削除
         await page.click('text=BookMark')
 
-        await page.click('text=Data Input（Members Only）')
-        page.on('dialog', async (dialog) => {
-          await dialog.accept()
-        })
-        // Marker削除
-        await page.click('data-testid=markerDelete')
-        await page.click('text=OK')
         //　Comment削除
         await page.click('data-testid=commentDelete')
-        // await page.keyboard.press('Enter')
-        await page.click('text=OK')
-
-        await context.close()
-        await browser.close()
+        await page.keyboard.press('Enter')
+        // await page.click('text=OK')
+        await expect(page.locator('data-testid=tabSection')).not.toContainText('2022-05-27')
       }
-    })
-  })
+    }
 
+    await context.close()
+    await browser.close()
+  })
+ 
   // 会員ページで、データ登録が0であることを確認する。
   test('Logout', async () => {
     const { BASE_URL } = process.env
@@ -244,16 +219,15 @@ test.describe('Ck Membership', () => {
     })
     const page = await context.newPage()
 
-    //
     await page.goto(`${BASE_URL}`)
 
     await page.goto('auth/signin')
 
-    await page.type("input[type='email']", 'taketoshi.sakayama+test@gmail.com') // name change
-    await page.type("input[type='password']", 'abcd1234') // name change
+    await page.type("input[type='email']", 'taketoshi.sakayama+test@gmail.com') // dummy email
+    await page.type("input[type='password']", 'abcd1234') 
     await page.click('data-testid=login-submit')
 
-    await expect(page.locator('body')).toContainText('taketoshi.sakayama+test@gmail.com') // name change
+    await expect(page.locator('body')).toContainText('taketoshi.sakayama+test@gmail.com') // dummy email
 
     // データ登録が0であることを確認する。
     await expect(page.locator('td')).not.toBeVisible()
