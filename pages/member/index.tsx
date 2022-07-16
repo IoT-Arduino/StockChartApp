@@ -85,7 +85,7 @@ const Home: NextPage = () => {
       {user ? (
         <div className='mx-auto max-w-2xl px-2 py-4 sm:px-4'>
           {isDisplay ? (
-            <p className='font-xl mt-3 mb-8 text-center font-bold'>
+            <p className='font-xl mt-3 mb-8 text-center font-bold' data-testid="memberEmail">
               {user.email}
               {t.memberUserTop}
             </p>
