@@ -43,7 +43,7 @@ test.describe('Ck Membership', () => {
   //  データ入力
   test('Input Data', async () => {
     const { BASE_URL } = process.env
-    const browser = await chromium.launch({ headless: false })
+    const browser = await chromium.launch()
     const context = await browser.newContext({
       locale: 'en-US',
     })
@@ -91,7 +91,7 @@ test.describe('Ck Membership', () => {
   // 入力不可ステイタス確認、1個削除後、入力可ステイタス確認
   test('Check 入力不可ステイタス', async () => {
     const { BASE_URL } = process.env
-    const browser = await chromium.launch({ headless: false, slowMo: 5 })
+    const browser = await chromium.launch() // ブラウザで経過を見たいとき。　{ headless: false, slowMo: 5 }
     const context = await browser.newContext({
       locale: 'en-US',
     })
@@ -159,7 +159,7 @@ test.describe('Ck Membership', () => {
   test(`Clean up Data`, async () => {
     const { BASE_URL } = process.env
 
-    const browser = await chromium.launch({ headless: false, slowMo: 5 })
+    const browser = await chromium.launch()
     const context = await browser.newContext({
       locale: 'en-US',
     })
@@ -213,7 +213,7 @@ test.describe('Ck Membership', () => {
   // 会員ページで、データ登録が0であることを確認する。
   test('Logout', async () => {
     const { BASE_URL } = process.env
-    const browser = await chromium.launch({ headless: false, slowMo: 5 })
+    const browser = await chromium.launch()
     const context = await browser.newContext({
       locale: 'en-US',
     })
