@@ -43,6 +43,8 @@ const stockList = [
 test.describe('Ck Membership', () => {
   let loginPage: LoginPage
 
+  // [id] と　member ページのPageオブジェクトを作成する。
+
   // test.beforeEach(async ({ page }) => {
 
   // });
@@ -118,6 +120,7 @@ test.describe('Ck Membership', () => {
 
     // 会員ページに自動遷移
     await expect(page.locator('body')).toContainText('taketoshi.sakayama+test@gmail.com')
+    // await expect(page.locator('data-testid=memberEmail')).toContainText('taketoshi.sakayama+test@gmail.com')
 
     // 会員ページで入力不可確認
     await expect(page.locator('data-testid=canBookMarkInput')).toContainText(
