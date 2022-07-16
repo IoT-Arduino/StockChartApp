@@ -87,6 +87,7 @@ test.describe('Ck Membership', async () => {
 
   // 入力不可ステイタス確認、1個削除後、入力可ステイタス確認
   test('Check 入力不可ステイタス', async ({ page }) => {
+    console.log("Check 入力不可ステイタス Start")
     loginPage = new LoginPage(page)
     memberPage = new MemberPage(page)
     stockIdPage = new StockIdPage(page)
@@ -132,6 +133,7 @@ test.describe('Ck Membership', async () => {
     await stockIdPage.checkCanInput()
     // 会員ページで　可確認 bookmark,marker,comment
     await memberPage.assertCanDataInput()
+    console.log("Check 入力不可ステイタス End")
   })
 
   // 後処理　データ削除　残り8個
@@ -157,6 +159,7 @@ test.describe('Ck Membership', async () => {
         continue
       } else {
         await page.goto(`/stocks/${stockList[i].Ticker}`)
+        console.log(stockList[i].Ticker)
         await expect(page.locator('h2')).toContainText(stockList[i].Ticker)
 
         await stockIdPage.inputMembersOnly.click()
@@ -172,7 +175,7 @@ test.describe('Ck Membership', async () => {
   })
 
   // 会員ページで、データ登録が0であることを確認する。
-  test('Logout', async ({ page }) => {
+  test.only('Logout', async ({ page }) => {
     loginPage = new LoginPage(page)
     memberPage = new MemberPage(page)
     stockIdPage = new StockIdPage(page)
