@@ -175,7 +175,7 @@ test.describe('Ck Membership', async () => {
   })
 
   // 会員ページで、データ登録が0であることを確認する。
-  test.only('Logout', async ({ page }) => {
+  test('Logout', async ({ page }) => {
     loginPage = new LoginPage(page)
     memberPage = new MemberPage(page)
     stockIdPage = new StockIdPage(page)
