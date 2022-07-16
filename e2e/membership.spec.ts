@@ -1,5 +1,7 @@
 import { test, expect, chromium } from '@playwright/test'
-import { LoginPage } from './page-objects/LoginPage';
+import { LoginPage } from './page-objects/LoginPage'
+import { MemberPage } from './page-objects/MemberPage'
+import { StockIdPage } from './page-objects/StockIdPage'
 
 const stockList = [
   {
@@ -40,163 +42,115 @@ const stockList = [
   },
 ]
 
-test.describe('Ck Membership', () => {
+test.describe('Ck Membership', async () => {
   let loginPage: LoginPage
+  let memberPage: MemberPage
+  let stockIdPage: StockIdPage
+  const { BASE_URL } = process.env
 
-  // [id] と　member ページのPageオブジェクトを作成する。
-
-  // test.beforeEach(async ({ page }) => {
-
+  // test.beforeEach(async () => {
+  //   const browser = await chromium.launch() // { headless: false, slowMo: 5 }
+  //   const context = await browser.newContext({
+  //     locale: 'en-US',
+  //   })
   // });
 
   //  データ入力
-  test.skip('Input Data', async () => {
-    const { BASE_URL } = process.env
-    const browser = await chromium.launch()
-    const context = await browser.newContext({
-      locale: 'en-US',
-    })
-    const page = await context.newPage()
+  test('Input Data', async ({ page }) => {
     loginPage = new LoginPage(page)
+    memberPage = new MemberPage(page)
+    stockIdPage = new StockIdPage(page)
 
     await page.goto(`${BASE_URL}`)
     await page.goto('auth/signin')
 
-    await loginPage.login('taketoshi.sakayama+test@gmail.com','abcd1234')   
-
-    // await page.type("input[type='email']", 'taketoshi.sakayama+test@gmail.com') // dummy email
-    // await page.type("input[type='password']", 'abcd1234')
-    // await page.click('data-testid=login-submit')
+    await loginPage.login()
 
     // 会員ページに自動遷移
-    await expect(page.locator('body')).toContainText('taketoshi.sakayama+test@gmail.com') // dummy email
+    await memberPage.assertLoginEmail()
 
     for (const data of stockList) {
       await page.goto(`/stocks/${data.Ticker}`)
       console.log(data.Ticker)
+
       // Comment入力
-      await page.click('text=Data Input（Members Only）')
-      await page.type('data-testid=commentMemoInput', 'comment情報メモ')
-      await page.fill('data-testid=commentDateInput', '2022-05-27')
-      await page.click('data-testid=addComment')
-      await expect(page.locator('data-testid=tabSection')).toContainText('2022-05-27')
-
+      await stockIdPage.inputComment()
       // Bookmark
-      await page.click('text=BookMark')
-
+      // await page.click('text=BookMark')
+      await stockIdPage.clickBookMark()
       // Marker入力
-      await page.click('text=Data Input（Members Only）')
-      await page.type('data-testid=markerMemoInput', 'Marker情報メモ')
-      await page.fill('data-testid=markerDateInput', '2022-05-26')
-      await page.click('data-testid=addMarker')
-      await expect(page.locator('data-testid=tabSection')).toContainText('2022-05-26')
+      await stockIdPage.inputMarker()
 
       // await page.screenshot({ path: `e2e/images/${data.Ticker}.png` })
     }
-
-    await context.close()
-    await browser.close()
   })
 
   // 入力不可ステイタス確認、1個削除後、入力可ステイタス確認
-  test('Check 入力不可ステイタス', async () => {
-    const { BASE_URL } = process.env
-    const browser = await chromium.launch() // ブラウザで経過を見たいとき。　{ headless: false, slowMo: 5 }
-    const context = await browser.newContext({
-      locale: 'en-US',
-    })
-    const page = await context.newPage()
+  test('Check 入力不可ステイタス', async ({ page }) => {
     loginPage = new LoginPage(page)
+    memberPage = new MemberPage(page)
+    stockIdPage = new StockIdPage(page)
 
-    // TestEndPointにする必要あり。
     await page.goto(`${BASE_URL}`)
 
     await page.goto('auth/signin')
 
-    await loginPage.login('taketoshi.sakayama+test@gmail.com','abcd1234')   
-    // await page.type("input[type='email']", 'taketoshi.sakayama+test@gmail.com') // dummy email
-    // await page.type("input[type='password']", 'abcd1234') 
-    // await page.click('data-testid=login-submit')
+    await loginPage.login()
 
     // 会員ページに自動遷移
-    await expect(page.locator('body')).toContainText('taketoshi.sakayama+test@gmail.com')
-    // await expect(page.locator('data-testid=memberEmail')).toContainText('taketoshi.sakayama+test@gmail.com')
+    await memberPage.assertLoginEmail()
 
     // 会員ページで入力不可確認
-    await expect(page.locator('data-testid=canBookMarkInput')).toContainText(
-      'Registration limit has been reached'
-    )
+    await memberPage.assertCanNotAddBookMark()
+    // await expect(page.locator('data-testid=canBookMarkInput')).toContainText(
+    //   'Registration limit has been reached'
+    // )
 
     // 個別ページで入力不可確認　/stocks/A   stockList 0番目  marker & comment
     await page.goto(`/stocks/${stockList[0].Ticker}`)
-    await page.click('text=Data Input（Members Only）')
-    await expect(page.locator('data-testid=inputMarkerStatus')).toContainText('Input not allowed')
+
+    // await page.click('text=Data Input（Members Only）')
+    // await stockIdPage.inputMembersOnly.click()
+    // await expect(page.locator('data-testid=inputMarkerStatus')).toContainText('Input not allowed')
+    await stockIdPage.checkCanNotInput()
 
     // 個別ページで　1個データ削除
     //　Bookmark削除
-    await page.click('text=BookMark')
+    await stockIdPage.clickBookMark()
 
-    await page.click('text=Data Input（Members Only）')
+    // await page.click('text=Data Input（Members Only）')
+    await stockIdPage.inputMembersOnly.click()
+
     page.on('dialog', async (dialog) => {
       await dialog.accept()
     })
     //　Marker削除
-    await page.click('data-testid=markerDelete')
-    await page.click('text=OK')
+    await stockIdPage.deleteMarker()
     //　Comment削除
-    await page.click('data-testid=commentDelete')
-    await page.click('text=OK')
-
+    await stockIdPage.deleteComment()
     // 個別ページで入力可確認　/stocks/A   marker & comment
-    await page.click('text=Data Input（Members Only）')
-    await expect(page.locator('data-testid=inputMarkerStatus')).toContainText('Inputtable')
-    await expect(page.locator('data-testid=inputCommentStatus')).toContainText('Inputtable')
-
+    await stockIdPage.checkCanInput()
     // 会員ページで　可確認 bookmark,marker,comment
-    await page.goto(`/member`)
-    await expect(page.locator('data-testid=canBookMarkInput')).toContainText(
-      'Registration is available.'
-    )
-    await expect(page.locator('data-testid=canMarkerInput')).toContainText(
-      'Registration is available.'
-    )
-    await expect(page.locator('data-testid=canCommentInput')).toContainText(
-      'Registration is available.'
-    )
-
-    await context.close()
-    await browser.close()
+    await memberPage.assertCanDataInput()
   })
 
   // 後処理　データ削除　残り8個
-  test(`Clean up Data`, async () => {
-    const { BASE_URL } = process.env
-
-    const browser = await chromium.launch()
-    const context = await browser.newContext({
-      locale: 'en-US',
-    })
-
-    const page = await context.newPage()
+  test(`Clean up Data`, async ({ page }) => {
     loginPage = new LoginPage(page)
+    memberPage = new MemberPage(page)
+    stockIdPage = new StockIdPage(page)
     await page.goto(`${BASE_URL}`)
 
     // Login
     await page.goto('auth/signin')
-
-    await loginPage.login('taketoshi.sakayama+test@gmail.com','abcd1234')   
-
-    // await page.type("input[type='email']", 'taketoshi.sakayama+test@gmail.com') // dummy email
-    // await page.type("input[type='password']", 'abcd1234') 
-    // await page.click('data-testid=login-submit')
+    await loginPage.login()
 
     // 会員ページに自動遷移
-    await expect(page.locator('body')).toContainText('taketoshi.sakayama+test@gmail.com') // dummy email
+    await memberPage.assertLoginEmail()
 
     page.on('dialog', async (dialog) => {
       await dialog.accept()
     })
-
     for (let i = 0; i < stockList.length; i++) {
       // i = 0 だったら、スキップする。i=1以降処理する。
       if (i == 0) {
@@ -205,54 +159,27 @@ test.describe('Ck Membership', () => {
         await page.goto(`/stocks/${stockList[i].Ticker}`)
         await expect(page.locator('h2')).toContainText(stockList[i].Ticker)
 
-        await page.click('text=Data Input（Members Only）')
+        await stockIdPage.inputMembersOnly.click()
         // Marker削除
-        await page.click('data-testid=markerDelete')
-        await page.keyboard.press('Enter')
-        // await page.click('text=OK')
-        await expect(page.locator('data-testid=tabSection')).not.toContainText('2022-05-26')
-
+        await stockIdPage.deleteMarkerWithConfirm()
         // Bookmark　削除
-        await page.click('text=BookMark')
-
+        // await page.click('text=BookMark')
+        await stockIdPage.clickBookMark()
         //　Comment削除
-        await page.click('data-testid=commentDelete')
-        await page.keyboard.press('Enter')
-        // await page.click('text=OK')
-        await expect(page.locator('data-testid=tabSection')).not.toContainText('2022-05-27')
+        await stockIdPage.deleteCommentWithConfirm()
       }
     }
-
-    await context.close()
-    await browser.close()
   })
- 
+
   // 会員ページで、データ登録が0であることを確認する。
-  test('Logout', async () => {
-    const { BASE_URL } = process.env
-    const browser = await chromium.launch()
-    const context = await browser.newContext({
-      locale: 'en-US',
-    })
-    const page = await context.newPage()
+  test('Logout', async ({ page }) => {
     loginPage = new LoginPage(page)
-
+    memberPage = new MemberPage(page)
+    stockIdPage = new StockIdPage(page)
     await page.goto(`${BASE_URL}`)
-
     await page.goto('auth/signin')
-    await loginPage.login('taketoshi.sakayama+test@gmail.com','abcd1234')   
-
-
-    // await page.type("input[type='email']", 'taketoshi.sakayama+test@gmail.com') // dummy email
-    // await page.type("input[type='password']", 'abcd1234') 
-    // await page.click('data-testid=login-submit')
-
-    await expect(page.locator('body')).toContainText('taketoshi.sakayama+test@gmail.com') // dummy email
-
-    // データ登録が0であることを確認する。
-    await expect(page.locator('td')).not.toBeVisible()
-
-    await context.close()
-    await browser.close()
+    await loginPage.login()
+    await memberPage.assertLoginEmail()
+    await memberPage.assertNoDataRegistered()
   })
 })
