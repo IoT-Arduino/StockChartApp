@@ -58,7 +58,8 @@ export default function BookMark({ ticker,t }) {
           toggleStar(e)
         }}
         className='ml-2 cursor-pointer rounded border-2 p-2 text-green-600 hover:border-black'
-      >
+        data-testid="bookmarkCheck"
+        >
         {star ? (
           <AiIcons.AiTwotoneStar size={16} className='align-middle text-green-600' />
         ) : (
