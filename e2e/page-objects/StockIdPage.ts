@@ -3,6 +3,7 @@ import { expect, Locator, Page } from '@playwright/test'
 export class StockIdPage {
   // Define Selectors
   readonly page: Page
+  readonly tickerTitle : Locator
   readonly bookMark: Locator
   readonly markerDelete: Locator
   readonly commentDelete: Locator
@@ -21,6 +22,7 @@ export class StockIdPage {
   // Init Selectors
   constructor(page: Page) {
     this.page = page
+    this.tickerTitle = page.locator('h2')
     this.bookMark = page.locator('text=BookMark')
     this.markerDelete = page.locator('data-testid=markerDelete')
     this.commentDelete = page.locator('data-testid=commentDelete')
@@ -76,6 +78,10 @@ export class StockIdPage {
     // await this.dialogOk.click()
     await this.page.keyboard.press('Enter')
     await expect(this.tabSection).not.toContainText('2022-05-26')
+  }
+
+  async checkTickerTitle(ticker:string){
+    await expect(this.tickerTitle).toContainText(ticker)
   }
 
   async clickBookMark(){
