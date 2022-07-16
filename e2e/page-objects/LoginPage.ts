@@ -18,9 +18,9 @@ export class LoginPage  {
   }
 
   // Define login page methods
-  async login(email: string, password: string) {
-    await this.emailInput.type(email)
-    await this.passwordInput.type(password)
+  async login() {
+    await this.emailInput.type('taketoshi.sakayama+test@gmail.com')
+    await this.passwordInput.type('abcd1234')
     await this.submitButton.click()
   }
 

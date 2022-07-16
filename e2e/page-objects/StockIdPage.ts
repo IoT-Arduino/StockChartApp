@@ -1,5 +1,4 @@
 import { expect, Locator, Page } from '@playwright/test'
-import InputMarker from './../../components/InputMarkerState'
 
 export class StockIdPage {
   // Define Selectors
@@ -15,8 +14,9 @@ export class StockIdPage {
   readonly addMarker: Locator
   readonly tabSection: Locator
   readonly inputMembersOnly: Locator
-
   readonly dialogOk: Locator
+  readonly inputMarkerStatus:Locator
+  readonly inputCommentStatus:Locator
 
   // Init Selectors
   constructor(page: Page) {
@@ -33,20 +33,22 @@ export class StockIdPage {
     this.addMarker = page.locator('data-testid=addMarker')
     this.tabSection = page.locator('data-testid=tabSection')
     this.inputMembersOnly = page.locator('text=Data Input（Members Only）')
+    this.inputMarkerStatus = page.locator('data-testid=inputMarkerStatus')
+    this.inputCommentStatus = page.locator('data-testid=inputCommentStatus')
   }
 
   async inputComment() {
     await this.inputMembersOnly.click()
     await this.inputCommentMemo.type('comment情報メモ')
-    await this.inputCommentDate.type('2022-05-27')
+    await this.inputCommentDate.fill('2022-05-27')
     await this.addComment.click()
     await expect(this.tabSection).toContainText('2022-05-27')
   }
 
-  async InputMarker() {
+  async inputMarker() {
     await this.inputMembersOnly.click()
     await this.inputMarkerMemo.type('Marker情報メモ')
-    await this.inputMarkerDate.type('2022-05-26')
+    await this.inputMarkerDate.fill('2022-05-26')
     await this.addMarker.click()
     await expect(this.tabSection).toContainText('2022-05-26')
   }
@@ -56,8 +58,39 @@ export class StockIdPage {
     await this.dialogOk.click()
   }
 
+  async deleteCommentWithConfirm(){
+    await this.commentDelete.click()
+    // await this.dialogOk.click()
+    await this.page.keyboard.press('Enter')
+    await expect(this.tabSection).not.toContainText('2022-05-27')
+  }
+
+
   async deleteMarker() {
     await this.markerDelete.click()
     await this.dialogOk.click()
+  }
+
+  async deleteMarkerWithConfirm(){
+    await this.markerDelete.click()
+    // await this.dialogOk.click()
+    await this.page.keyboard.press('Enter')
+    await expect(this.tabSection).not.toContainText('2022-05-26')
+  }
+
+  async clickBookMark(){
+    await this.bookMark.click()
+  }
+
+  async checkCanInput(){
+    await this.inputMembersOnly.click()
+    await expect(this.inputMarkerStatus).toContainText('Inputtable')
+    await expect(this.inputCommentStatus).toContainText('Inputtable')
+  }
+
+  async checkCanNotInput(){
+    await this.inputMembersOnly.click()
+    await expect(this.inputMarkerStatus).toContainText('Input not allowed')
+    await expect(this.inputCommentStatus).toContainText('Input not allowed')
   }
 }
