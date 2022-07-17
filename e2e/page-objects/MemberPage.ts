@@ -41,8 +41,8 @@ export class MemberPage {
   }
 
   async assertLoginEmail() {
-    await expect(this.body).toContainText('taketoshi.sakayama+test@gmail.com')
-    // await expect(page.locator('data-testid=memberEmail')).toContainText('taketoshi.sakayama+test@gmail.com')
+    // await expect(this.body).toContainText('taketoshi.sakayama+test@gmail.com')
+    await expect(this.page.locator('data-testid=memberEmail')).toContainText('taketoshi.sakayama+test@gmail.com')
   }
 
   async assertNoDataRegistered() {

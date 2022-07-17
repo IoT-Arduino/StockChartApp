@@ -9,4 +9,4 @@ stockList.forEach((data:any) => {
   })
 })
 
-// Localで動かすことを前提。
+// Localで動かすことを前提のテスト。通常はskip、動かすときはonly

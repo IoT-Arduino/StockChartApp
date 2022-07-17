@@ -36,22 +36,20 @@ import { markerListJa } from '../../data/marker/markerJa'
 import { markerListEn } from '../../data/marker/markerEn'
 
 export async function getStaticPaths() {
-  const filePath = path.join(process.cwd(), `./data/stockCode/US-StockList.json`)
-  const jsonData = await fsPromises.readFile(filePath)
-  const objectData = JSON.parse(jsonData as any)
-
-  const paths = objectData.map(() => {
-    return {
-      params: { id: 'MSFT' },
-    }
-  })
+  // const filePath = path.join(process.cwd(), `./data/stockCode/US-StockList.json`)
+  // const jsonData = await fsPromises.readFile(filePath)
+  // const objectData = JSON.parse(jsonData as any)
+  // const pathsFromObject = objectData.map(() => {
+  //   return {
+  //     params: { id: 'MSFT' },
+  //   }
+  // })
 
   return {
-    paths,
+    paths: [{ params: { id: 'MSFT' } }, { params: { id: 'AAPL' } }],
     fallback: 'blocking', // false or 'blocking'
   }
 }
-
 
 export const getStaticProps: GetServerSideProps = async ({ params }) => {
   // const id = await query.id
@@ -85,20 +83,20 @@ export const getStaticProps: GetServerSideProps = async ({ params }) => {
     // '2022_05',
   ]
 
-  type stockListType =   {
-    PagingNum: number,
-    Ticker: string,
-    Name:  string,
-    ShortName:  string,
-    Country:  string| null,
-    'IPO Year': number | null,
-    Sector:  string| null,
-    Industry:  string| null,
-    Market: string| null,
-    'Market Cap': number| null,
-    CIK: number,
-    ADR: string | null,
-    Unlist: string | null,
+  type stockListType = {
+    PagingNum: number
+    Ticker: string
+    Name: string
+    ShortName: string
+    Country: string | null
+    'IPO Year': number | null
+    Sector: string | null
+    Industry: string | null
+    Market: string | null
+    'Market Cap': number | null
+    CIK: number
+    ADR: string | null
+    Unlist: string | null
     SP500: string | null
   }
 
@@ -106,20 +104,20 @@ export const getStaticProps: GetServerSideProps = async ({ params }) => {
     // stockList data from json file
     const filePathStockList = path.join(process.cwd(), `./data/stockCode/US-StockList.json`)
     const jsonDataStockList = await fsPromises.readFile(filePathStockList)
-    const objectDataStockList:stockListType[] = JSON.parse(jsonDataStockList as any)
+    const objectDataStockList: stockListType[] = JSON.parse(jsonDataStockList as any)
 
-    const companyInfo = objectDataStockList.filter((item:stockListType) => {
+    const companyInfo = objectDataStockList.filter((item: stockListType) => {
       return item.Ticker === id
     })
 
     // Paging処理 prev が1以下およびnext がmax時の対応
-    const listedStockList = objectDataStockList.filter((item:stockListType) => {
+    const listedStockList = objectDataStockList.filter((item: stockListType) => {
       return item.Unlist === null
     })
     const maxPagingNum = listedStockList.length
     const currentPageNum = companyInfo[0].PagingNum
 
-    const prevCompany = objectDataStockList.filter((item:stockListType) => {
+    const prevCompany = objectDataStockList.filter((item: stockListType) => {
       if (companyInfo[0].PagingNum === 1) {
         return item.PagingNum === maxPagingNum
       } else {
@@ -127,7 +125,7 @@ export const getStaticProps: GetServerSideProps = async ({ params }) => {
       }
     })
 
-    const nextCompany = objectDataStockList.filter((item:stockListType) => {
+    const nextCompany = objectDataStockList.filter((item: stockListType) => {
       if (currentPageNum === maxPagingNum) {
         return item.PagingNum === 1
       } else {
@@ -265,7 +263,10 @@ const StockChart: NextPage<{
 
   return (
     <>
-      <NextSeo title={companyInfo.Name+":"+t.pageTitleStockId} description={companyInfo.Name+":"+t.pageDescStockId} />
+      <NextSeo
+        title={companyInfo.Name + ':' + t.pageTitleStockId}
+        description={companyInfo.Name + ':' + t.pageDescStockId}
+      />
       <div className='mx-auto max-w-5xl'>
         <div className='flex flex-wrap items-center justify-between'>
           <h2>
@@ -339,7 +340,7 @@ const StockChart: NextPage<{
             <a
               href={`https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${priceData[0].CIK}&type=&dateb=&owner=exclude&count=40&search_text=`}
               target='_blank'
-              rel="noopener noreferrer"
+              rel='noopener noreferrer'
             >
               EDGAR Web Site-{id}
             </a>
@@ -348,7 +349,7 @@ const StockChart: NextPage<{
             <a
               href={`https://finance.yahoo.com/quote/${priceData[0].Ticker}/financials?p=${priceData[0].Ticker}`}
               target='_blank'
-              rel="noopener noreferrer"
+              rel='noopener noreferrer'
             >
               YahooFinance US-{id}
             </a>
