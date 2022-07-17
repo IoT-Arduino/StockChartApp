@@ -1,4 +1,4 @@
-import { test, expect, chromium } from '@playwright/test'
+import { test } from '@playwright/test'
 import { LoginPage } from './page-objects/LoginPage'
 import { MemberPage } from './page-objects/MemberPage'
 import { StockIdPage } from './page-objects/StockIdPage'
@@ -42,7 +42,7 @@ const stockList = [
   },
 ]
 
-test.describe.only('Ck Membership', async () => {
+test.describe('Ck Membership', async () => {
   let loginPage: LoginPage
   let memberPage: MemberPage
   let stockIdPage: StockIdPage
@@ -104,7 +104,7 @@ test.describe.only('Ck Membership', async () => {
     await stockIdPage.deleteMarker()
     await stockIdPage.deleteComment()
     await stockIdPage.checkCanInput()
-    // 会員ページで　可確認 bookmark,marker,comment
+    // 会員ページで　入力可確認 bookmark,marker,comment
     await memberPage.assertCanDataInput()
     console.log('Check 入力不可ステイタス End')
   })

@@ -23,7 +23,8 @@ export class StockIdPage {
   constructor(page: Page) {
     this.page = page
     this.tickerTitle = page.locator('h2')
-    this.bookMark = page.locator('text=BookMark')
+    // this.bookMark = page.locator('text=BookMark')
+    this.bookMark = page.locator('data-testid=bookmarkCheck')
     this.markerDelete = page.locator('data-testid=markerDelete')
     this.commentDelete = page.locator('data-testid=commentDelete')
     this.dialogOk = page.locator('text=OK')
@@ -66,7 +67,6 @@ export class StockIdPage {
     await this.page.keyboard.press('Enter')
     await expect(this.tabSection).not.toContainText('2022-05-27')
   }
-
 
   async deleteMarker() {
     await this.markerDelete.click()
