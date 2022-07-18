@@ -2,12 +2,14 @@ import React, { useState } from 'react'
 import styles from './HeroSearchBar.module.css'
 import Link from 'next/link'
 import * as AiIcons from 'react-icons/ai'
+// Types
+import { Company } from '../types/Company'
 
-function SearchBar({ placeholder, data, setOpened }) {
-  const [filteredData, setFilteredData] = useState([])
+function SearchBar({ placeholder, data, setOpened }:{placeholder:string, data:Company[], setOpened:React.Dispatch<React.SetStateAction<boolean>>}) {
+  const [filteredData, setFilteredData] = useState<Company[]>([])
   const [wordEntered, setWordEntered] = useState('')
 
-  const handleFilter = (event) => {
+  const handleFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
     const searchWord = event.target.value
     setWordEntered(searchWord)
     const newFilter = data.filter((value) => {
