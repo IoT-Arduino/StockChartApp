@@ -1,41 +1,39 @@
 import { useQueryClient, useMutation } from 'react-query'
-import useStore from './../store/store'
+import useStore from '../store/store'
 
-import { supabase } from './../utils/supabase'
+import { supabase } from '../utils/supabase'
+
+// types
+import { EditedMarker, Marker } from '../types/StoreTypes'
+
 
 export const useMutateMarker = () => {
   const queryClient = useQueryClient()
   const reset = useStore((state) => state.resetEditedMarker)
 
-  // const user = supabase.auth.user()
-
   const createMarkerMutation = useMutation(
 
-    // for TypeScript : async(task: Omit<Task, 'id' | 'created_at' >) => {
-    async (marker) => {
+    async (marker:Omit<Marker, 'user_id' | 'created_at'>) => {
       const { data, error } = await supabase.from('marker').insert(marker)
       if (error) throw new Error(error.message)
       return data
     },
     {
       onSuccess: (res) => {
-        // for TypeScript : 
-        // const previousMarkers = queryClient.getQueryData<Task[]>('marker')
-        const previousMarkers = queryClient.getQueryData('marker')
+        const previousMarkers = queryClient.getQueryData<Omit<Marker, 'user_id' | 'created_at'>[]>('marker')
         if (previousMarkers) {
           queryClient.setQueryData('marker', [...previousMarkers, res[0]])
         }
         reset()
       },
-      onError: (err) => {
+      onError: (err:any) => {
         alert(err.message)
         reset()
       },
     }
   )
   const updateMarkerMutation = useMutation(
-    // for TypeScript : async(task: EditedTask) => {
-    async (marker) => {
+    async (marker: EditedMarker) => {
       console.log(marker)
       const { data, error } = await supabase
         .from('marker')
@@ -46,9 +44,9 @@ export const useMutateMarker = () => {
     },
     {
       onSuccess: (res, variables) => {
-        const previousMarkers = queryClient.getQueryData('marker')
+        const previousMarkers = queryClient.getQueryData<Omit<Marker, 'user_id' | 'created_at'>[]>('marker')
         if (previousMarkers) {
-          queryClient.setQueryData(
+          queryClient.setQueryData<Omit<Marker, 'user_id' | 'created_at'>[]>(
             'marker',
             previousMarkers.map((marker) =>
               marker.id === variables.id ? res[0] : marker
@@ -57,15 +55,14 @@ export const useMutateMarker = () => {
         }
         reset()
       },
-      onError: (err) => {
+      onError: (err:any) => {
         alert(err.message)
         reset()
       },
     }
   )
   const deleteMarkerMutation = useMutation(
-    // for TypeScript : async(id:string) -> {
-    async (id) => {
+    async (id:number) => {
       const { data, error } = await supabase.from('marker').delete().eq('id', id)
       if (error) throw new Error(error.message)
       return data
@@ -73,8 +70,7 @@ export const useMutateMarker = () => {
     {
       onSuccess: (_, variables) => {
         // for TypeScript : 
-        // const previousMarkers = queryClient.getQueryData<Task[]>('todos')
-        const previousMarkers = queryClient.getQueryData('marker')
+        const previousMarkers = queryClient.getQueryData<Omit<Marker, 'user_id' | 'created_at'>[]>('marker')
         if (previousMarkers) {
           queryClient.setQueryData(
             'marker',
@@ -83,7 +79,7 @@ export const useMutateMarker = () => {
         }
         reset()
       },
-      onError: (err) => {
+      onError: (err:any) => {
         alert(err.message)
         reset()
       },
