@@ -17,9 +17,6 @@ export default function BookMark({ ticker,t }) {
     return data.ticker === ticker
   })
 
-  console.log(bookMarkData)
-
-
 
   const { canBookMarkInput } = checkAllowanceBookMark(rank, bookMarkList)
 
