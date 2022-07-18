@@ -19,11 +19,11 @@ const PagingTicker = ({prevTicker,nextTicker,signIn,t}) => {
     <div>
     <div className="flex justify-center mt-4 sm:mt-8">
       {/* Paging */}
-      <Button variant="outline" color="teal" compact disabled={!signIn} onClick={handlePrev} className="mr-8">
+      <Button variant="outline" color="teal" compact disabled={!signIn} onClick={handlePrev} className="mr-8" data-testid="prevTicker">
         Prev Ticker
       </Button>
    
-      <Button variant="outline" color="teal" compact disabled={!signIn} onClick={handleNext}>
+      <Button variant="outline" color="teal" compact disabled={!signIn} onClick={handleNext} data-testid="nextTicker">
         Next Ticker
       </Button>
     </div>
