@@ -11,6 +11,7 @@ const config: PlaywrightTestConfig = {
     //   },
     use: {
         baseURL: 'https://stock-chart-app-git-develop-sa10shi.vercel.app',
+        // baseURL: 'http://localhost:3000',
         headless: true,
         ignoreHTTPSErrors: true,
         actionTimeout: 10_000
