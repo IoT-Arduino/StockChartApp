@@ -4,6 +4,8 @@ export class StockIdPage {
   // Define Selectors
   readonly page: Page
   readonly tickerTitle : Locator
+  readonly prevTicker: Locator
+  readonly nextTicker: Locator
   readonly bookMark: Locator
   readonly markerDelete: Locator
   readonly commentDelete: Locator
@@ -23,6 +25,8 @@ export class StockIdPage {
   constructor(page: Page) {
     this.page = page
     this.tickerTitle = page.locator('h2')
+    this.prevTicker = page.locator('data-testid=prevTicker')
+    this.nextTicker = page.locator('data-testid=nextTicker')
     // this.bookMark = page.locator('text=BookMark')
     this.bookMark = page.locator('data-testid=bookmarkCheck')
     this.markerDelete = page.locator('data-testid=markerDelete')
