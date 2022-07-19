@@ -50,14 +50,15 @@ const EtfHealthCare = ({ fundsData }) => {
       <div className='mx-2 mt-8'>
         <p className='text-bold text-2xl'>{fundsData.vhtData.meta.symbol} Asset Value Trends and Top Component Stocks Charts</p>
         <EtfCompareToSP500 fundsData={fundsData} />
-        <div>
+        <p className="text-center">VOO,VHT Comparison Chart(Red line : VOO , Green Line : VHT)</p>
+        <div className="mt-16">
           <p>
             VHT is an ETF offered by Vanguard, an American asset management company, which invests
             in "approximately 450 companies in the healthcare sector, including pharmaceuticals and
             medical devices.
           </p>
           <h3 className='text-bold mt-3 mb-2 text-xl'>Top component stocks</h3>
-          <p>Chart is as of July 2022.(Red line : VOO , Green Line : VHT)</p>
+          <p>Chart is as of July 2022.</p>
           <p>Please click on the company name link for the latest information.</p>
 
           <Grid>
