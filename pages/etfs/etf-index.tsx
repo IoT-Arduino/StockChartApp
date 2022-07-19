@@ -1,8 +1,5 @@
 import type { NextPage } from 'next'
 import { NextSeo } from 'next-seo'
-// import Link from 'next/link'
-// import EtfCandleChart from './../../components/EtfCandleChart'
-// import EtfCompareLineChart from './../../components/EtfCompareLineChart'
 
 // i18n
 import { useRouter } from 'next/router'
