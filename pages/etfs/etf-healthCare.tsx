@@ -1,10 +1,5 @@
 import type { NextPage } from 'next'
 import { NextSeo } from 'next-seo'
-// import { useEffect } from 'react'
-// import Head from 'next/head'
-// import Image from 'next/image'
-// import Link from 'next/link'
-// import EtfCandleChart from './../../components/EtfCandleChart'
 
 // i18n
 import { useRouter } from 'next/router'
@@ -19,7 +14,7 @@ export async function getServerSideProps() {
     const p2 = 9999999999
     const range = '5d' // week "5d" , month "1mo"
 
-    const symbols = ['VHT']
+    const symbols = ['VHT',"VOO"]
 
     const etfResponse = symbols.map(async (symbol) => {
       let reqList = await fetch(
@@ -34,6 +29,7 @@ export async function getServerSideProps() {
       props: {
         fundsData: {
           vhtData: etfResponseData[0],
+          vooData: etfResponseData[1],
         },
       },
     }
