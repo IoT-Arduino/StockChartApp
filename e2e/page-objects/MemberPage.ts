@@ -8,6 +8,7 @@ export class MemberPage {
   readonly canMarkerInput: Locator
   readonly canCommentInput: Locator
   readonly tableRowData: Locator
+  readonly memberEmail: Locator
 
   // Init Selectors
   constructor(page: Page) {
@@ -17,6 +18,7 @@ export class MemberPage {
     this.canMarkerInput = page.locator('data-testid=canMarkerInput')
     this.canCommentInput = page.locator('data-testid=canCommentInput')
     this.tableRowData = page.locator('td')
+    this.memberEmail = page.locator('data-testid=memberEmail')
   }
 
   async assertCanBookMarkInput() {
@@ -42,7 +44,7 @@ export class MemberPage {
 
   async assertLoginEmail() {
     // await expect(this.body).toContainText('taketoshi.sakayama+test@gmail.com')
-    await expect(this.page.locator('data-testid=memberEmail')).toContainText('taketoshi.sakayama+test@gmail.com')
+    await expect(this.memberEmail).toContainText('taketoshi.sakayama+test@gmail.com')
   }
 
   async assertNoDataRegistered() {
