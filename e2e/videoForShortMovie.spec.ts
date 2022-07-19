@@ -44,7 +44,7 @@ const stockList = [
 
 // Localで動かすことを前提のテスト。通常はskip、動かすときはonly
 
-test.describe.only(`Recording Short Video`, () => {
+test.describe.skip(`Recording Short Video`, () => {
   let loginPage: LoginPage
   let memberPage: MemberPage
   let stockIdPage: StockIdPage
