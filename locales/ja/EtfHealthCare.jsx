@@ -48,12 +48,13 @@ const EtfHealthCare = ({ fundsData }) => {
       <div className='mx-2 mt-8'>
         <p className='text-bold text-2xl'>{fundsData.vhtData.meta.symbol}の資産価値推移と構成銘柄チャート一覧</p>
         <EtfCompareToSP500 fundsData={fundsData} />
-        <div>
+        <p className="text-center">VOO,VHT比較チャート(Red line : VOO , Green Line : VHT)</p>
+        <div className="mt-16">
           <p>
             VHTはアメリカの資産運用会社・バンガード社が提供するETFで、「医薬品や医療機器などを含むヘルスケアセクターの企業（約450社）」を投資対象とするETFです。
           </p>
           <h3 className='text-bold mt-3 mb-2 text-xl'>上位構成銘柄</h3>
-          <p>チャートは2022年7月現在のもの(赤線：VOO,緑線：VHT)</p>
+          <p>チャートは2022年7月現在のもの</p>
           <p>最新情報は会社名のリンクをクリックして参照してください。</p>
 
           <Grid>
