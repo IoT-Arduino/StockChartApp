@@ -1,6 +1,6 @@
 import ReactEcharts from 'echarts-for-react'
 
-const EtfCompareLineChart = ({ fundsData }) => {
+const EtfCompareToSP500 = ({ fundsData }) => {
   const timestamp = fundsData.vooData.timestamp
 
   const dateArr = timestamp.map((time) => {
@@ -9,8 +9,8 @@ const EtfCompareLineChart = ({ fundsData }) => {
   })
 
   const adjcloseVoo = fundsData.vooData.indicators.adjclose[0].adjclose
-  const adjcloseVti = fundsData.vtiData.indicators.adjclose[0].adjclose
-  const adjcloseVt = fundsData.vtData.indicators.adjclose[0].adjclose
+  const adjcloseVht = fundsData.vhtData.indicators.adjclose[0].adjclose
+  // const adjcloseVt = fundsData.vtData.indicators.adjclose[0].adjclose
 
   // 開始点からの変化率で比較する処理。
   const changeRatioVoo = adjcloseVoo.map((close, i) => {
@@ -23,26 +23,28 @@ const EtfCompareLineChart = ({ fundsData }) => {
     return num
   })
 
-  const changeRatioVti = adjcloseVti.map((close, i) => {
+  const changeRatioVht = adjcloseVht.map((close, i) => {
     let num = null
     if (i == 0) {
       num = 100
     } else {
-      num = parseFloat((close * 100) / adjcloseVti[0])
+      num = parseFloat((close * 100) / adjcloseVht[0])
     }
     return num
   })
 
-  const changeRatioVt = adjcloseVt.map((close, i) => {
-    let num = null
-    if (i == 0) {
-      num = 100
-    } else {
-      num = parseFloat((close * 100) / adjcloseVt[0])
-    }
-    return num
-  }) // Chart Option
-
+  // const changeRatioVt = adjcloseVt.map((close, i) => {
+  //   let num = null
+  //   if (i == 0) {
+  //     num = 100
+  //   } else {
+  //     num = parseFloat((close * 100) / adjcloseVt[0])
+  //   }
+  //   return num
+  // }) 
+  
+  
+  // Chart Option
   const option = {
     xAxis: [
       {
@@ -100,23 +102,23 @@ const EtfCompareLineChart = ({ fundsData }) => {
         emphasis: {
           focus: 'series',
         },
-        data: changeRatioVti,
+        data: changeRatioVht,
         smooth: false,
       },
-      {
-        name: '資産価格',
-        type: 'line',
-        xAxisIndex: 0,
-        yAxisIndex: 0,
-        itemStyle: {
-          color: '#4B68B8',
-        },
-        emphasis: {
-          focus: 'series',
-        },
-        data: changeRatioVt,
-        smooth: false,
-      },
+      // {
+      //   name: '資産価格',
+      //   type: 'line',
+      //   xAxisIndex: 0,
+      //   yAxisIndex: 0,
+      //   itemStyle: {
+      //     color: '#4B68B8',
+      //   },
+      //   emphasis: {
+      //     focus: 'series',
+      //   },
+      //   data: changeRatioVt,
+      //   smooth: false,
+      // },
     ],
   }
 
@@ -127,4 +129,4 @@ const EtfCompareLineChart = ({ fundsData }) => {
   )
 }
 
-export default EtfCompareLineChart
+export default EtfCompareToSP500
