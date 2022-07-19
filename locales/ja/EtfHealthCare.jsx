@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import EtfCandleChart from './../../components/EtfCandleChart'
+// import EtfCandleChart from './../../components/EtfCandleChart'
 import EtfCompareToSP500 from './../../components/EtfCompareToSP500';
 import { Card, Image,  Button, Grid } from '@mantine/core'
 
@@ -44,16 +44,16 @@ const stockList = [
 
 const EtfHealthCare = ({ fundsData }) => {
   return (
-    <div>
+    <div className='mx-auto md:w-4/5'>
       <div className='mx-2 mt-8'>
         <p className='text-bold text-2xl'>{fundsData.vhtData.meta.symbol}の資産価値推移と構成銘柄チャート一覧</p>
         <EtfCompareToSP500 fundsData={fundsData} />
-        <div className='mx-auto md:w-4/5'>
+        <div>
           <p>
             VHTはアメリカの資産運用会社・バンガード社が提供するETFで、「医薬品や医療機器などを含むヘルスケアセクターの企業（約450社）」を投資対象とするETFです。
           </p>
           <h3 className='text-bold mt-3 mb-2 text-xl'>上位構成銘柄</h3>
-          <p>チャートは2022年7月現在のもの</p>
+          <p>チャートは2022年7月現在のもの(赤線：VOO,緑線：VHT)</p>
           <p>最新情報は会社名のリンクをクリックして参照してください。</p>
 
           <Grid>
