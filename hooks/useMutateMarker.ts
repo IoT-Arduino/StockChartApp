@@ -34,7 +34,6 @@ export const useMutateMarker = () => {
   )
   const updateMarkerMutation = useMutation(
     async (marker: EditedMarker) => {
-      console.log(marker)
       const { data, error } = await supabase
         .from('marker')
         .update({ memo: marker.memo,date:marker.date })
