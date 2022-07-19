@@ -5,46 +5,46 @@ import { StockIdPage } from './page-objects/StockIdPage'
 
 const stockList = [
   {
-    Ticker: 'A',
-    Name: 'Agilent Technologies Inc. Common Stock',
+    Ticker: 'UNH',
+    Name: 'UnitedHealth Group',
   },
   {
-    Ticker: 'AA',
-    Name: 'Alcoa Corporation Common Stock ',
+    Ticker: 'JNJ',
+    Name: 'JNJ:Johnson & Johnson(J&J)',
   },
   {
-    Ticker: 'AAL',
-    Name: 'American Airlines Group Inc. Common Stock',
-  },
-  {
-    Ticker: 'AAPL',
-    Name: 'Apple Inc. Common Stock',
+    Ticker: 'PFE',
+    Name: 'Pfizer',
   },
   {
     Ticker: 'ABBV',
     Name: 'AbbVie Inc. Common Stock',
   },
   {
-    Ticker: 'ABC',
-    Name: 'AmerisourceBergen Corporation Common Stock',
+    Ticker: 'LLY',
+    Name: 'Eli Lilly and Company',
   },
   {
-    Ticker: 'ABMD',
-    Name: 'ABIOMED Inc. Common Stock',
-  },
-  {
-    Ticker: 'ABNB',
-    Name: 'Airbnb Inc. Class A Common Stock',
+    Ticker: 'TMO',
+    Name: 'Thermo Fisher Scientific',
   },
   {
     Ticker: 'ABT',
     Name: 'Abbott Laboratories Common Stock',
   },
+  {
+    Ticker: 'BMY',
+    Name: 'Bristol-Myers Squibb',
+  },
+  {
+    Ticker: 'DHR',
+    Name: 'Danaher',
+  },
 ]
 
 // Localで動かすことを前提のテスト。通常はskip、動かすときはonly
 
-test.describe.skip(`Recording Short Video`, () => {
+test.describe.only(`Recording Short Video`, () => {
   let loginPage: LoginPage
   let memberPage: MemberPage
   let stockIdPage: StockIdPage
@@ -78,17 +78,14 @@ test.describe.skip(`Recording Short Video`, () => {
     for (let i = 0; i < stockList.length; i++) {
       if (i == 0) {
         await page.goto(`/stocks/${stockList[i].Ticker}`)
-        await page.waitForTimeout(3000)
+        await page.waitForTimeout(2000)
         console.log(stockList[i].Ticker)
         // continue
       } else {
         // await page.screenshot({ path: `e2e/images/${stockList[i].Ticker}.png` })
-        // deploy 後　消去。
-        await page.locator('text=Next Ticker').click()
-        // deploy 後　動作させる。
-        //   await stockIdPage.nextTicker.click()
+        await page.goto(`/stocks/${stockList[i].Ticker}`)
         console.log(stockList[i].Ticker)
-        await page.waitForTimeout(3000)
+        await page.waitForTimeout(2000)
       }
     }
     await context.close()
