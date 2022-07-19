@@ -51,7 +51,7 @@ test.describe.only(`Recording Short Video`, () => {
   const { BASE_URL } = process.env
 
   test(`Recording Short Video Loop`, async () => {
-    const browser = await firefox.launch({ headless: false, slowMo: 1 }) // { headless: false, slowMo: 1 }
+    const browser = await firefox.launch({ headless: true }) // { headless: false, slowMo: 1 } -> 必ず　{ headless: true }に戻す。
     const context = await browser.newContext({
       locale: 'en-US',
       recordVideo: {
