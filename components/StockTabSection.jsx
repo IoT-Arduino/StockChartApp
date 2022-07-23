@@ -252,7 +252,7 @@ const StockTabSection = ({
                         </td>
                         <td className='px-4 py-2'>
                           {item.dividendPayoutRatioYear != 'NaN%'
-                            ? (item.dividendPayoutRatioYear >= 0 ? item.dividendPayoutRatioYear : 'minus')
+                            ? item.dividendPayoutRatioYear
                             : '--'}
                         </td>
                       </tr>
