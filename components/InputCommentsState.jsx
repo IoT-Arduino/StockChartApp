@@ -12,10 +12,12 @@ import { UserContext } from '../utils/UserContext'
 import { checkAllowanceComment } from '../functions/checkAllowanceComment'
 
 import * as AiIcons from 'react-icons/ai'
-import { ActionIcon } from '@mantine/core';
+import { ActionIcon } from '@mantine/core'
 // import { DatePicker } from '@mantine/dates';
 
-export default function InputComments({ ticker,t }) {
+import InputCommentSingle from './InputCommentSingle';
+
+export default function InputComments({ ticker, t }) {
   const { user: contextUser, session: contextSession, rank } = useContext(UserContext)
   const { editedComment, resetEditedComment } = useStore()
   const update = useStore((state) => state.updateEditedComment)
@@ -27,17 +29,18 @@ export default function InputComments({ ticker,t }) {
   })
 
   const [editItem, setEditItem] = useState('')
+  const { editStatus, setEditStatus } = useState(false)
   const { canCommentInput } = checkAllowanceComment(rank, commentData)
-  
+
   if (status === 'error') {
     return <div>Error</div>
   }
 
   //  <!-- commentの追加 -->
   const submitComment = async () => {
-    if(editedComment.memo === "" || editedComment.date === "") {
+    if (editedComment.memo === '' || editedComment.date === '') {
       alert(`${t.inputRequiredAlert}`)
-      return 
+      return
     }
 
     if (editItem != '') {
@@ -48,6 +51,7 @@ export default function InputComments({ ticker,t }) {
           date: editedComment.date,
         })
         setEditItem('')
+        setEditStatus(false)
       } catch (error) {
         console.log('error', error)
       }
@@ -63,6 +67,7 @@ export default function InputComments({ ticker,t }) {
 
   //  <!-- Update comment-->
   const updateComment = async (comment) => {
+    // setEditStatus(true)
     setEditItem(comment.id)
     update({
       id: comment.id,
@@ -74,7 +79,7 @@ export default function InputComments({ ticker,t }) {
 
   const deleteComment = (comment) => {
     let confirmDelete = confirm(`${t.inputDeleteAlert}`)
-    if(confirmDelete){
+    if (confirmDelete) {
       deleteCommentMutation.mutate(comment.id)
     } else {
       return
@@ -88,26 +93,28 @@ export default function InputComments({ ticker,t }) {
 
   return (
     <div className='w-full'>
-      <h4 className='mt-10 mb-2 font-bold font-xl'>{t.inputCommentTitle}</h4>
-      <div data-testid="inputCommentStatus">{canCommentInput ? <div>{t.inputCan}</div> : <div>{t.inputCannot}</div>}</div>
+      <h4 className='font-xl mt-10 mb-2 font-bold'>{t.inputCommentTitle}</h4>
+      <div data-testid='inputCommentStatus'>
+        {canCommentInput ? <div>{t.inputCan}</div> : <div>{t.inputCannot}</div>}
+      </div>
 
-      <div className='flex gap-2 my-2 flex-wrap'>
+      <div className='my-2 flex flex-wrap gap-2'>
         <input
-          className='rounded p-2 border border-black text-base'
+          className='rounded border border-black p-2 text-base'
           type='date'
           value={editedComment.date}
           onChange={(e) => update({ ...editedComment, date: e.target.value })}
           required
-          data-testid="commentDateInput"
+          data-testid='commentDateInput'
         />
         <input
-          className='rounded w-full p-2 border border-black text-base'
+          className='w-full rounded border border-black p-2 text-base'
           type='text'
           placeholder={t.inputPlaceHolder}
           value={editedComment.memo}
           onChange={(e) => update({ ...editedComment, memo: e.target.value })}
           required
-          data-testid="commentMemoInput"
+          data-testid='commentMemoInput'
         />
 
         {editItem != '' ? (
@@ -121,53 +128,62 @@ export default function InputComments({ ticker,t }) {
           </div>
         ) : (
           <button
-            className='btn-black p-2 border border-black rounded'
+            className='btn-black rounded border border-black p-2'
             onClick={() => submitComment()}
             disabled={!canCommentInput}
-            data-testid="addComment"
+            data-testid='addComment'
           >
             Add
           </button>
         )}
       </div>
 
-      <div className='bg-white shadow overflow-hidden rounded-md'>
+      <div className='overflow-hidden rounded-md bg-white shadow'>
         <ul>
           {commentList?.map((comment) => (
-            <li className='w-full block border-2 border-gray-300' key={comment.id}>
+            <li className='block w-full border-2 border-gray-300' key={comment.id}>
               <div className='flex items-center px-4 py-2 sm:px-6'>
-                <div className='min-w-0 flex-1 flex items-center'>
-                  <div className='text-sm leading-5 font-medium truncate'>
+                <div className='flex min-w-0 flex-1 items-center'>
+                  <div className='truncate text-sm font-medium leading-5'>
                     {comment.date}/{comment.memo}
                   </div>
                 </div>
+
                 <ActionIcon
                   onClick={(e) => {
                     e.preventDefault()
                     e.stopPropagation()
                     updateComment(comment)
                   }}
-                  className='p-1 ml-2'
+                  className='ml-2 p-1'
                 >
-                <AiIcons.AiFillEdit />
+                  <AiIcons.AiFillEdit />
                 </ActionIcon>
-
                 <ActionIcon
                   onClick={(e) => {
                     e.preventDefault()
                     e.stopPropagation()
                     deleteComment(comment)
                   }}
-                  data-testid="commentDelete"
-                  className='p-1 ml-2'
+                  data-testid='commentDelete'
+                  className='ml-2 p-1'
                 >
-                <AiIcons.AiFillDelete />
+                  <AiIcons.AiFillDelete />
                 </ActionIcon>
               </div>
             </li>
           ))}
         </ul>
       </div>
+
+      <hr />
+
+      {commentList?.map(comment=>{
+        return <InputCommentSingle t={t} key={comment.id} comment={comment} ticker={ticker}/>
+      })}
+      
+
+
     </div>
   )
 }
