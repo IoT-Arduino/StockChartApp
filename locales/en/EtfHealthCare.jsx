@@ -70,6 +70,8 @@ const EtfHealthCare = ({ fundsData }) => {
                       <Image
                         src={`/images/etfHealthCare/${item.Ticker}.png`}
                         alt='Chart'
+                        width={300}
+                        height={196}
                       />
                     </Card.Section>
 
