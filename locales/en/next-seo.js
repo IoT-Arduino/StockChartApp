@@ -2,6 +2,7 @@
 export default {
   titleTemplate: '%s | U.S. Stock Quarterly Earnings Chart',
   defaultTitle: 'U.S. Stock Quarterly Earnings Chart',
+  description:'U.S. Stock Quarterly Earnings Chart',
   additionalMetaTags: [
     {
       property: 'dc:creator',
