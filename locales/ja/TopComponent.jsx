@@ -47,12 +47,14 @@ export const TopComponentJ = () => {
 
       <section className='body-font text-gray-600'>
         <div className='mx-auto max-w-5xl'>
-          <div className='mx-auto flex max-w-5xl flex-col md:flex-row items-center px-3 py-8'>
+          <div className='mx-auto flex max-w-5xl flex-col items-center px-3 py-8 md:flex-row'>
             <div className='w-5/6 md:w-1/2 lg:w-full lg:max-w-lg'>
               <Image
                 className='rounded object-cover object-center'
                 alt='hero'
                 src={AAPLCandleChart}
+                width={512}
+                height={192}
               />
             </div>
             <div className='mt-8 flex flex-col items-center text-center md:mb-0 md:w-1/2 md:items-start md:pl-8 md:text-left lg:flex-grow'>
@@ -74,7 +76,13 @@ export const TopComponentJ = () => {
         <div className='mx-auto max-w-5xl'>
           <div className='mx-auto flex max-w-5xl flex-col items-center px-3 py-8 md:flex-row'>
             <div className='w-5/6 md:w-1/2 lg:w-full lg:max-w-lg'>
-              <Image className='rounded object-cover object-center' alt='hero' src={AAPLCashFlow} />
+              <Image
+                className='rounded object-cover object-center'
+                alt='hero'
+                src={AAPLCashFlow}
+                width={512}
+                height={144}
+              />
             </div>
             <div className='mt-8 flex flex-col items-center text-center md:mb-0 md:w-1/2 md:items-start md:pl-8 md:text-left lg:flex-grow'>
               <h2 className='title-font mb-4 text-xl font-medium text-gray-900 sm:text-2xl'>
@@ -113,7 +121,13 @@ export const TopComponentJ = () => {
         <div className='mx-auto max-w-5xl'>
           <div className='mx-auto flex max-w-5xl flex-col items-center px-2 py-8 md:flex-row'>
             <div className='w-5/6 md:w-1/2 lg:w-full lg:max-w-lg'>
-              <Image className='rounded object-cover object-center' alt='hero' src={TSLAChart} />
+              <Image
+                className='rounded object-cover object-center'
+                alt='hero'
+                src={TSLAChart}
+                width={512}
+                height={367}
+              />
             </div>
             <div className='mt-8 flex flex-col items-center text-center md:mb-0 md:w-1/2 md:items-start md:pl-8 md:text-left lg:flex-grow'>
               <h2 className='title-font mb-4 text-xl font-medium text-gray-900 sm:text-2xl'>
@@ -136,7 +150,13 @@ export const TopComponentJ = () => {
         <div className='mx-auto max-w-5xl'>
           <div className='mx-auto flex max-w-5xl flex-col items-center px-2 py-8 md:flex-row'>
             <div className='w-5/6 md:w-1/2 lg:w-full lg:max-w-lg'>
-              <Image className='rounded object-cover object-center' alt='hero' src={UNHChart} />
+              <Image
+                className='rounded object-cover object-center'
+                alt='hero'
+                src={UNHChart}
+                width={512}
+                height={274}
+              />
             </div>
             <div className='mt-8 flex flex-col items-center text-center md:mb-0 md:w-1/2 md:items-start md:pl-8 md:text-left lg:flex-grow'>
               <h2 className='title-font mb-4 text-xl font-medium text-gray-900 sm:text-2xl'>
@@ -194,7 +214,7 @@ export const TopComponentJ = () => {
                 </p>
                 <Link href={`/etfs/etf-index`}>
                   <a className='mt-3 inline-flex items-center text-green-500'>
-                    Read More
+                    Go to Index ETF
                     <svg
                       fill='none'
                       stroke='currentColor'
@@ -233,7 +253,7 @@ export const TopComponentJ = () => {
                 </p>
                 <Link href={`/etfs/etf-highDividend`}>
                   <a className='mt-3 inline-flex items-center text-green-500'>
-                    Read More
+                    Go to Highdividend ETF
                     <svg
                       fill='none'
                       stroke='currentColor'
@@ -272,7 +292,7 @@ export const TopComponentJ = () => {
                 </p>
                 <Link href={`/etfs/etf-healthCare`}>
                   <a className='mt-3 inline-flex items-center text-green-500'>
-                    Read More
+                    Go to Health Care ETF
                     <svg
                       fill='none'
                       stroke='currentColor'
@@ -291,7 +311,6 @@ export const TopComponentJ = () => {
           </div>
         </div>
       </section>
-
     </div>
   )
 }

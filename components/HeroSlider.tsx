@@ -45,13 +45,13 @@ export default function HeroSlider({ codeList }: { codeList: Company[] }) {
       <div className='mx-auto max-w-3xl'>
         <Slider {...settings}>
           <div>
-            <Image priority src={Topimage1} alt='image' />
+            <Image priority src={Topimage1} alt='image' width={768} height={545}/>
           </div>
           <div>
-            <Image priority src={Topimage2} alt='image' />
+            <Image priority src={Topimage2} alt='image'  width={768} height={545}/>
           </div>
           <div>
-            <Image priority src={Topimage3} alt='image' />
+            <Image priority src={Topimage3} alt='image'  width={768} height={545}/>
           </div>
         </Slider>
       </div>

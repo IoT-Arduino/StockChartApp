@@ -2,6 +2,7 @@
 export default {
   titleTemplate: '%s | 米国株四半期業績チャート',
   defaultTitle: '米国株四半期業績チャート',
+  description:'米国株四半期業績チャートWebアプリ',
   additionalMetaTags: [
     {
       property: 'dc:creator',
