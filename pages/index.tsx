@@ -43,7 +43,7 @@ const Home: NextPage = () => {
   return (
     <main>
       <HeroSlider codeList={codeListNotUnlist} />
-      <div className='m-8'>{t == ja ? <TopComponentJ /> : <TopComponentE />}</div>
+      <div>{t == ja ? <TopComponentJ /> : <TopComponentE />}</div>
     </main>
   )
 }
