@@ -12,7 +12,7 @@ export const LayoutWrapper = (props: Props) => {
     <>
       <div className='flex min-h-screen flex-col'>
         <Navbar />
-        <div className='flex-1 px-4 pt-16 pb-16 text-gray-600'>
+        <div className='flex-1 px-2 sm:px-4 pt-16 sm:pb-16 text-gray-600'>
           <div>{props.children}</div>
         </div>
         <div className={styles.footer}>
