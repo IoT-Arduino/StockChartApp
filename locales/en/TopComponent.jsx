@@ -13,7 +13,7 @@ export const TopComponentE = () => {
   return (
     <div>
       <section className='body-font text-gray-600'>
-        <div className='mx-auto w-full px-3 pt-10 md:max-w-5xl'>
+        <div className='mx-auto w-full px-3 pt-2 sm:pt-10 md:max-w-5xl'>
           <div className='mb-8'>
             <h2 className='title-font mb-4 text-center text-xl font-medium text-gray-900 sm:text-3xl md:text-left'>
               An intuitive bird's eye view of the stock prices and quarterly performance of the 500
@@ -59,7 +59,7 @@ export const TopComponentE = () => {
                 height={192}
               />
             </div>
-            <div className='mt-8 flex flex-col items-center text-center md:mb-0 md:w-1/2 md:items-start md:pl-8 md:text-left lg:flex-grow'>
+            <div className='mt-8 flex flex-col text-center md:mb-0 md:w-1/2 md:items-start md:pl-8 md:text-left lg:flex-grow'>
               <h2 className='title-font mb-4 text-xl font-medium text-gray-900 sm:text-2xl'>
                 Check the correlation between BPS, EPS and stock price in time series.
                 <br className='hidden lg:inline-block' />
@@ -94,7 +94,7 @@ export const TopComponentE = () => {
                 height={144}
               />
             </div>
-            <div className='mt-8 flex flex-col items-center text-center md:mb-0 md:w-1/2 md:items-start md:pl-8 md:text-left lg:flex-grow'>
+            <div className='mt-8 flex flex-col items-center md:mb-0 md:w-1/2 md:items-start md:pl-8 md:text-left lg:flex-grow'>
               <h2 className='title-font mb-4 text-xl font-medium text-gray-900 sm:text-2xl'>
                 Operating cash flow margin, operating cash flow and net income in chronological
                 order.
@@ -116,8 +116,8 @@ export const TopComponentE = () => {
 
       <section>
         <div className='mb-2'>
-          <div className='mx-auto w-full rounded-xl bg-yellow-100 bg-opacity-80 p-4 text-center text-gray-800 shadow-xl sm:w-2/3 md:w-1/2 '>
-            <h2 className='mb-4 text-xl font-extrabold sm:text-2xl md:text-4xl'>TenQ Chart</h2>
+          <div className='mx-auto w-full max-w-xl rounded-xl bg-yellow-100 bg-opacity-80 pt-1 pb-4 px-4 text-center text-gray-800 shadow-xl sm:w-2/3'>
+            <h2 className='text-xl font-extrabold sm:text-2xl md:text-4xl'>TenQ Chart</h2>
             <p className='mx-auto mb-2 font-sans font-extrabold sm:mb-4 sm:w-full sm:px-2 md:text-xl'>
               Intuitive confirmation of quarterly earnings and stock prices of U.S. companies
             </p>
@@ -144,7 +144,7 @@ export const TopComponentE = () => {
                 height={367}
               />
             </div>
-            <div className='mt-8 flex flex-col items-center text-center md:mb-0 md:w-1/2 md:items-start md:pl-8 md:text-left lg:flex-grow'>
+            <div className='mt-8 flex flex-col items-center md:mb-0 md:w-1/2 md:items-start md:pl-8 md:text-left lg:flex-grow'>
               <h2 className='title-font mb-4 text-xl font-medium text-gray-900 sm:text-2xl'>
                 Stock Analysis: Growth Stocks
                 <br className='hidden lg:inline-block' />
@@ -178,7 +178,7 @@ export const TopComponentE = () => {
                 height={274}
               />
             </div>
-            <div className='mt-8 flex flex-col items-center text-center md:mb-0 md:w-1/2 md:items-start md:pl-8 md:text-left lg:flex-grow'>
+            <div className='mt-8 flex flex-col items-center md:mb-0 md:w-1/2 md:items-start md:pl-8 md:text-left lg:flex-grow'>
               <h2 className='title-font mb-4 text-xl font-medium text-gray-900 sm:text-2xl'>
                 Stock Analysis : High Dividend value stock
                 <br className='hidden lg:inline-block' />
