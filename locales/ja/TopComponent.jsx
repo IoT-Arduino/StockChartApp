@@ -13,7 +13,7 @@ export const TopComponentJ = () => {
   return (
     <div>
       <section className='body-font text-gray-600'>
-        <div className='mx-auto w-full px-3 pt-10 md:max-w-5xl'>
+        <div className='mx-auto w-full px-3 pt-2 sm:pt-10 md:max-w-5xl'>
           <div className='mb-8'>
             <h2 className='title-font mb-4 text-center text-xl font-medium text-gray-900 sm:text-3xl md:text-left'>
               米国代表500社の株価、四半期業績を直感的に俯瞰できる！
@@ -57,7 +57,7 @@ export const TopComponentJ = () => {
                 height={192}
               />
             </div>
-            <div className='mt-8 flex flex-col items-center text-center md:mb-0 md:w-1/2 md:items-start md:pl-8 md:text-left lg:flex-grow'>
+            <div className='mt-8 flex flex-col items-center md:mb-0 md:w-1/2 md:items-start md:pl-8 md:text-left lg:flex-grow'>
               <h2 className='title-font mb-4 text-xl font-medium text-gray-900 sm:text-2xl'>
                 BPS,EPSと株価の相関を時系列で確認。
                 <br className='hidden lg:inline-block' />
@@ -84,7 +84,7 @@ export const TopComponentJ = () => {
                 height={144}
               />
             </div>
-            <div className='mt-8 flex flex-col items-center text-center md:mb-0 md:w-1/2 md:items-start md:pl-8 md:text-left lg:flex-grow'>
+            <div className='mt-8 flex flex-col items-center md:mb-0 md:w-1/2 md:items-start md:pl-8 md:text-left lg:flex-grow'>
               <h2 className='title-font mb-4 text-xl font-medium text-gray-900 sm:text-2xl'>
                 営業ＣＦマージン、営業ＣＦと純利益を時系列で確認。
                 <br className='hidden lg:inline-block' />
@@ -101,9 +101,9 @@ export const TopComponentJ = () => {
 
       <section>
         <div className='mb-2'>
-          <div className='mx-auto w-full rounded-xl bg-yellow-100 bg-opacity-80 p-4 text-center text-gray-800 shadow-xl sm:w-2/3 md:w-1/2 '>
-            <h2 className='mb-4 text-xl font-extrabold sm:text-2xl md:text-4xl'>TenQチャート</h2>
-            <p className='mx-auto mb-2 font-sans font-extrabold sm:mb-4 sm:w-full sm:px-2 md:text-xl'>
+          <div className='mx-auto w-full max-w-xl rounded-xl bg-yellow-100 bg-opacity-80 pt-1 pb-4 px-4 text-center text-gray-800 shadow-xl sm:w-2/3'>
+            <h2 className='text-xl font-extrabold sm:text-2xl md:text-4xl'>TenQチャート</h2>
+            <p className='mx-auto mb-2 font-sans font-extrabold sm:mb-4 sm:px-2 md:text-xl'>
               米国企業の四半期業績と株価を一発確認
             </p>
             <div className='mb-2'>
@@ -129,7 +129,7 @@ export const TopComponentJ = () => {
                 height={367}
               />
             </div>
-            <div className='mt-8 flex flex-col items-center text-center md:mb-0 md:w-1/2 md:items-start md:pl-8 md:text-left lg:flex-grow'>
+            <div className='mt-8 flex flex-col items-center md:mb-0 md:w-1/2 md:items-start md:pl-8 md:text-left lg:flex-grow'>
               <h2 className='title-font mb-4 text-xl font-medium text-gray-900 sm:text-2xl'>
                 銘柄分析：グロース株
                 <br className='hidden lg:inline-block' />
@@ -158,7 +158,7 @@ export const TopComponentJ = () => {
                 height={274}
               />
             </div>
-            <div className='mt-8 flex flex-col items-center text-center md:mb-0 md:w-1/2 md:items-start md:pl-8 md:text-left lg:flex-grow'>
+            <div className='mt-8 flex flex-col items-center md:mb-0 md:w-1/2 md:items-start md:pl-8 md:text-left lg:flex-grow'>
               <h2 className='title-font mb-4 text-xl font-medium text-gray-900 sm:text-2xl'>
                 銘柄分析：高配当バリュー株
                 <br className='hidden lg:inline-block' />
