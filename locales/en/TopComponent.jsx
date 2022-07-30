@@ -12,8 +12,8 @@ import AAPLCashFlow from './../../public/images/AAPLCashFlowEn.png'
 export const TopComponentE = () => {
   return (
     <div>
-      <section className='body-font text-gray-600'>
-        <div className='mx-auto w-full px-3 pt-2 sm:pt-10 md:max-w-5xl'>
+      <section className='text-gray-600'>
+        <div className='mx-auto w-full px-3 pt-2 sm:pt-10 md:max-w-2xl'>
           <div className='mb-8'>
             <div className='px-2 text-xl lg:px-10'>
               <p>
@@ -34,7 +34,7 @@ export const TopComponentE = () => {
               </p>
             </div>
 
-            <div className='mt-8 flex justify-center'>
+            <div className='my-8 md:my-12 flex justify-center'>
               <div className='inline-flex h-1 w-16 rounded-full bg-green-500'></div>
             </div>
           </div>
@@ -43,8 +43,11 @@ export const TopComponentE = () => {
 
       <section className='body-font text-gray-600'>
         <div className='mx-auto max-w-5xl'>
-          <div className='mx-auto flex max-w-5xl flex-col items-center px-3 py-8 md:flex-row'>
-            <div className='w-5/6 md:w-1/2 lg:w-full lg:max-w-lg'>
+          <h2 className='mx-auto mt-0 mb-4 w-4/5 text-gray-600 md:mt-4 md:mb-0'>
+            Check the correlation between BPS, EPS and stock price in time series.
+          </h2>
+          <div className='mx-auto flex max-w-5xl flex-col items-center px-3 py-4 md:flex-row'>
+            <div className='md:w-1/2 lg:w-full lg:max-w-lg'>
               <Image
                 className='rounded object-cover object-center'
                 alt='hero'
@@ -53,13 +56,8 @@ export const TopComponentE = () => {
                 height={192}
               />
             </div>
-            <div className='mt-8 flex flex-col md:mb-0 md:w-1/2 md:items-start md:pl-8 md:text-left lg:flex-grow'>
-              <h2 className='title-font mb-4 text-xl font-medium text-gray-900 sm:text-2xl'>
-                Check the correlation between BPS, EPS and stock price in time series.
-                <br className='hidden lg:inline-block' />
-                Determine the optimal investment timing.
-              </h2>
-              <p className='mb-8 leading-relaxed'>
+            <div className='mt-4 flex flex-col items-center md:mt-0 md:mb-0 md:w-1/2 md:items-start md:pl-8 md:text-left lg:flex-grow'>
+              <p className='leading-relaxed'>
                 The relationship between BPS, PBR, EPS, PER, and stock price, which are considered
                 important in verifying a company's business performance, are listed in chronological
                 order in an easy-to-understand manner. By comparing the stock price to the "TenQ
@@ -78,6 +76,9 @@ export const TopComponentE = () => {
 
       <section className='body-font text-gray-600'>
         <div className='mx-auto max-w-5xl'>
+          <h2 className='mt-0 mb-4 md:mt-4 md:mb-0 mx-auto w-4/5 text-gray-600'>
+            Operating cash flow margin, operating cash flow and net income in chronological order.
+          </h2>
           <div className='mx-auto flex max-w-5xl flex-col items-center px-3 py-8 md:flex-row'>
             <div className='w-5/6 md:w-1/2 lg:w-full lg:max-w-lg'>
               <Image
@@ -89,12 +90,6 @@ export const TopComponentE = () => {
               />
             </div>
             <div className='mt-8 flex flex-col items-center md:mb-0 md:w-1/2 md:items-start md:pl-8 md:text-left lg:flex-grow'>
-              <h2 className='title-font mb-4 text-xl font-medium text-gray-900 sm:text-2xl'>
-                Operating cash flow margin, operating cash flow and net income in chronological
-                order.
-                <br className='hidden lg:inline-block' />
-                Determine a company's earning power in its core business over time.
-              </h2>
               <p className='mb-8 leading-relaxed'>
                 The report provides an easy-to-understand overview of operating cash flow, operating
                 cash flow margin (operating cash flow/sales), and operating cash flow vs. net
@@ -110,7 +105,7 @@ export const TopComponentE = () => {
 
       <section>
         <div className='mb-2'>
-          <div className='mx-auto w-full max-w-xl rounded-xl bg-yellow-100 bg-opacity-80 pt-1 pb-4 px-4 text-center text-gray-800 shadow-xl sm:w-2/3'>
+          <div className='mx-auto w-full max-w-xl rounded-xl bg-yellow-100 bg-opacity-80 px-4 pt-1 pb-4 text-center text-gray-800 shadow-xl sm:w-2/3'>
             <h2 className='text-xl font-extrabold sm:text-2xl md:text-4xl'>TenQ Chart</h2>
             <p className='mx-auto mb-2 font-sans font-extrabold sm:mb-4 sm:w-full sm:px-2 md:text-xl'>
               Intuitive confirmation of quarterly earnings and stock prices of U.S. companies
