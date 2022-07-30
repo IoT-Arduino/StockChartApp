@@ -15,15 +15,7 @@ export const TopComponentJ = () => {
       <section className='body-font text-gray-600'>
         <div className='mx-auto w-full px-3 pt-2 sm:pt-10 md:max-w-5xl'>
           <div className='mb-8'>
-            <h2 className='title-font mb-4 text-center text-xl font-medium text-gray-900 sm:text-3xl md:text-left'>
-              米国代表500社の株価、四半期業績を直感的に俯瞰できる！
-              <br />
-              TenQチャートとは
-            </h2>
-            <div className='px-2 text-xl lg:px-10'>
-              <p className='mb-4'>株式投資の為の分析には二つの方法があります。</p>
-              <p>一つはチャート分析、移動平均線、RSI、MACD等のテクニカル指標を使うもの。</p>
-              <p>もう一つは、ファンダメンタル分析といい、財務諸表分析等を行うもの。</p>
+            <div className='px-2 lg:px-10'>
               <p>
                 <span className='font-bold'>
                   TenQチャートは、株価ローソク足と財務データ時系列チャートを組み合わせて、直感的に、企業の業績と株価を俯瞰してビッグピクチャを得るものです。
@@ -74,8 +66,11 @@ export const TopComponentJ = () => {
 
       <section className='body-font text-gray-600'>
         <div className='mx-auto max-w-5xl'>
-          <div className='mx-auto flex max-w-5xl flex-col items-center px-3 py-8 md:flex-row'>
-            <div className='w-5/6 md:w-1/2 lg:w-full lg:max-w-lg'>
+          <div className='mx-auto flex max-w-5xl flex-col items-center px-3 py-4 md:flex-row'>
+            <div className='md:w-1/2 lg:w-full lg:max-w-lg'>
+              <h2 className='mb-4 text-gray-600 m-0'>
+                営業ＣＦマージン、営業ＣＦと純利益を時系列で確認。企業の本業での稼ぐ力を時系列で見極める。
+              </h2>
               <Image
                 className='rounded object-cover object-center'
                 alt='hero'
@@ -84,13 +79,8 @@ export const TopComponentJ = () => {
                 height={144}
               />
             </div>
-            <div className='mt-8 flex flex-col items-center md:mb-0 md:w-1/2 md:items-start md:pl-8 md:text-left lg:flex-grow'>
-              <h2 className='title-font mb-4 text-xl font-medium text-gray-900 sm:text-2xl'>
-                営業ＣＦマージン、営業ＣＦと純利益を時系列で確認。
-                <br className='hidden lg:inline-block' />
-                企業の本業での稼ぐ力を時系列で見極める。
-              </h2>
-              <p className='mb-8 leading-relaxed'>
+            <div className='mt-8 md:mt-0 flex flex-col items-center md:mb-0 md:w-1/2 md:items-start md:pl-8 md:text-left lg:flex-grow'>
+              <p className='leading-relaxed'>
                 企業の業績を確認する上で、重要視される、
                 営業CF、営業CFマージン（営業CF/売上高）、そして営業ＣＦと純利益比較について、わかりやすく一覧できるようになっています。これにより、企業の四半期毎の純利益またそれに伴うEPSが本業から生み出されたものか、あるいは一時的な事象によるものなのかが一目で把握することができます。また株価と同じ画面に時系列でデータを確認できるので、株式の投資価値について直感的に判断することができます。
               </p>
@@ -101,7 +91,7 @@ export const TopComponentJ = () => {
 
       <section>
         <div className='mb-2'>
-          <div className='mx-auto w-full max-w-xl rounded-xl bg-yellow-100 bg-opacity-80 pt-1 pb-4 px-4 text-center text-gray-800 shadow-xl sm:w-2/3'>
+          <div className='mx-auto w-full max-w-xl rounded-xl bg-yellow-100 bg-opacity-80 px-4 pt-1 pb-4 text-center text-gray-800 shadow-xl sm:w-2/3'>
             <h2 className='text-xl font-extrabold sm:text-2xl md:text-4xl'>TenQチャート</h2>
             <p className='mx-auto mb-2 font-sans font-extrabold sm:mb-4 sm:px-2 md:text-xl'>
               米国企業の四半期業績と株価を一発確認
@@ -129,7 +119,7 @@ export const TopComponentJ = () => {
                 height={367}
               />
             </div>
-            <div className='mt-8 flex flex-col items-center md:mb-0 md:w-1/2 md:items-start md:pl-8 md:text-left lg:flex-grow'>
+            <div className='mt-8 flex flex-col items-center text-left md:mb-0 md:w-1/2 md:items-start md:pl-8 lg:flex-grow'>
               <h2 className='title-font mb-4 text-xl font-medium text-gray-900 sm:text-2xl'>
                 銘柄分析：グロース株
                 <br className='hidden lg:inline-block' />

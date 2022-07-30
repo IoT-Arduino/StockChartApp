@@ -15,12 +15,6 @@ export const TopComponentE = () => {
       <section className='body-font text-gray-600'>
         <div className='mx-auto w-full px-3 pt-2 sm:pt-10 md:max-w-5xl'>
           <div className='mb-8'>
-            <h2 className='title-font mb-4 text-center text-xl font-medium text-gray-900 sm:text-3xl md:text-left'>
-              An intuitive bird's eye view of the stock prices and quarterly performance of the 500
-              leading U.S. companies!
-              <br />
-              TenQ Chart
-            </h2>
             <div className='px-2 text-xl lg:px-10'>
               <p>
                 <span className='font-bold'>
@@ -59,7 +53,7 @@ export const TopComponentE = () => {
                 height={192}
               />
             </div>
-            <div className='mt-8 flex flex-col text-center md:mb-0 md:w-1/2 md:items-start md:pl-8 md:text-left lg:flex-grow'>
+            <div className='mt-8 flex flex-col md:mb-0 md:w-1/2 md:items-start md:pl-8 md:text-left lg:flex-grow'>
               <h2 className='title-font mb-4 text-xl font-medium text-gray-900 sm:text-2xl'>
                 Check the correlation between BPS, EPS and stock price in time series.
                 <br className='hidden lg:inline-block' />
