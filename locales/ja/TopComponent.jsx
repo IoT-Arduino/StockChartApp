@@ -13,7 +13,7 @@ export const TopComponentJ = () => {
   return (
     <div>
       <section className='body-font text-gray-600'>
-        <div className='mx-auto w-full px-3 pt-2 sm:pt-10 md:max-w-5xl'>
+        <div className='mx-auto w-full px-3 pt-2 sm:pt-10 md:max-w-2xl'>
           <div className='mb-8'>
             <div className='px-2 lg:px-10'>
               <p>
@@ -30,7 +30,7 @@ export const TopComponentJ = () => {
               </p>
             </div>
 
-            <div className='mt-8 flex justify-center'>
+            <div className='my-8 md:my-12 flex justify-center'>
               <div className='inline-flex h-1 w-16 rounded-full bg-green-500'></div>
             </div>
           </div>
@@ -39,8 +39,11 @@ export const TopComponentJ = () => {
 
       <section className='body-font text-gray-600'>
         <div className='mx-auto max-w-5xl'>
-          <div className='mx-auto flex max-w-5xl flex-col items-center px-3 py-8 md:flex-row'>
-            <div className='w-5/6 md:w-1/2 lg:w-full lg:max-w-lg'>
+          <h2 className='mt-0 mb-4 md:mt-4 md:mb-0 mx-auto w-4/5 text-gray-600'>
+            BPS,EPSと株価の相関を時系列で確認。最適な投資タイミングを見極める。
+          </h2>
+          <div className='mx-auto flex max-w-5xl flex-col items-center px-3 py-4 md:flex-row'>
+            <div className='md:w-1/2 lg:w-full lg:max-w-lg'>
               <Image
                 className='rounded object-cover object-center'
                 alt='hero'
@@ -49,13 +52,8 @@ export const TopComponentJ = () => {
                 height={192}
               />
             </div>
-            <div className='mt-8 flex flex-col items-center md:mb-0 md:w-1/2 md:items-start md:pl-8 md:text-left lg:flex-grow'>
-              <h2 className='title-font mb-4 text-xl font-medium text-gray-900 sm:text-2xl'>
-                BPS,EPSと株価の相関を時系列で確認。
-                <br className='hidden lg:inline-block' />
-                最適な投資タイミングを見極める。
-              </h2>
-              <p className='mb-8 leading-relaxed'>
+            <div className='mt-4 flex flex-col items-center md:mt-0 md:mb-0 md:w-1/2 md:items-start md:pl-8 md:text-left lg:flex-grow'>
+              <p className='leading-relaxed'>
                 企業の業績を確認する上で、重要視される、
                 BPS,PBR,EPS,PERと株価の関係を時系列でわかりやすく一覧できるようになっています。BPSとEPSの15倍（PER15倍）の合算値の水準「TenQチャートライン」と株価を比較することにより、現在の株価と企業の事業価値、資産価値との乖離を直感的に把握することができます。さらに、コロナショック等重要な社会事象を株価チャート上に吹き出し表示を追加しています。これにより、企業の業績と社会事象との関係を踏まえた株価トレンドについて正確に把握することができ、最適な投資判断の為の良質な情報をわかりやすく提供します。
               </p>
@@ -66,11 +64,12 @@ export const TopComponentJ = () => {
 
       <section className='body-font text-gray-600'>
         <div className='mx-auto max-w-5xl'>
+          <h2 className='mt-0 mb-4 md:mt-4 md:mb-0 mx-auto w-4/5 text-gray-600'>
+            営業キャッシュフローと純利益を時系列で確認。企業の本業での稼ぐ力を時系列で見極める。
+          </h2>
+
           <div className='mx-auto flex max-w-5xl flex-col items-center px-3 py-4 md:flex-row'>
             <div className='md:w-1/2 lg:w-full lg:max-w-lg'>
-              <h2 className='mb-4 text-gray-600 m-0'>
-                営業ＣＦマージン、営業ＣＦと純利益を時系列で確認。企業の本業での稼ぐ力を時系列で見極める。
-              </h2>
               <Image
                 className='rounded object-cover object-center'
                 alt='hero'
@@ -79,7 +78,7 @@ export const TopComponentJ = () => {
                 height={144}
               />
             </div>
-            <div className='mt-8 md:mt-0 flex flex-col items-center md:mb-0 md:w-1/2 md:items-start md:pl-8 md:text-left lg:flex-grow'>
+            <div className='mt-4 flex flex-col items-center md:mt-0 md:mb-0 md:w-1/2 md:items-start md:pl-8 md:text-left lg:flex-grow'>
               <p className='leading-relaxed'>
                 企業の業績を確認する上で、重要視される、
                 営業CF、営業CFマージン（営業CF/売上高）、そして営業ＣＦと純利益比較について、わかりやすく一覧できるようになっています。これにより、企業の四半期毎の純利益またそれに伴うEPSが本業から生み出されたものか、あるいは一時的な事象によるものなのかが一目で把握することができます。また株価と同じ画面に時系列でデータを確認できるので、株式の投資価値について直感的に判断することができます。
