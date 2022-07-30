@@ -8,11 +8,20 @@ import Link from 'next/link'
 import styles from './Navbar.module.css'
 import { IconContext } from 'react-icons'
 // import * as FaIcons from 'react-icons/fa'
-import {FaBars,FaRegStickyNote} from 'react-icons/fa'
+import { FaBars, FaRegStickyNote } from 'react-icons/fa'
 
 // import * as AiIcons from 'react-icons/ai'
 
-import { AiOutlineHome, AiOutlineUnorderedList, AiOutlineLogin,AiOutlineLogout,AiOutlineSearch,AiOutlineClose,AiOutlineTwitter,AiFillMediumSquare } from 'react-icons/ai'
+import {
+  AiOutlineHome,
+  AiOutlineUnorderedList,
+  AiOutlineLogin,
+  AiOutlineLogout,
+  AiOutlineSearch,
+  AiOutlineClose,
+  AiOutlineTwitter,
+  AiFillMediumSquare,
+} from 'react-icons/ai'
 
 import { IoDocumentTextOutline } from 'react-icons/io5'
 import logo from '../public/logo.png'
@@ -77,25 +86,25 @@ const Navbar = () => {
     <IconContext.Provider value={{ color: '#48bb78' }}>
       <nav>
         {/* PC Nav Menu */}
-        <div className={styles.navbar}>
+        <div className={styles.navbarPc}>
           <div className='mx-auto hidden h-16 max-w-5xl items-center justify-between md:flex'>
             <Link href='/'>
-              <a>
-                <Image src={logo} alt='logo' width={75} height={75} />
+              <a className={styles.logoPc}>
+                <Image src={logo} alt='logo' width={60} height={60}/>
               </a>
             </Link>
-            <div className='m-5 hidden flex-initial font-bold text-[#abc5c5] md:flex '>
-              <ul className='text-left md:flex'>
+            <div className='mx-5 hidden flex-initial font-bold text-[#abc5c5] md:flex '>
+              <ul className='m-0 text-left md:flex'>
                 <li className='list-none p-4'>
                   <Link href='/'>
-                    <a className='font-bold text-green-500 no-underline hover:text-green-200'>
+                    <a className='font-bold leading-8 text-green-500 no-underline hover:text-green-200'>
                       Home
                     </a>
                   </Link>
                 </li>
                 <li className='list-none p-4'>
                   <Link href='/stocks'>
-                    <a className='font-bold text-green-500 no-underline hover:text-green-200'>
+                    <a className='font-bold leading-8 text-green-500 no-underline hover:text-green-200'>
                       {t.stockList}
                     </a>
                   </Link>
@@ -105,14 +114,14 @@ const Navbar = () => {
                   <>
                     <li className='list-none p-4'>
                       <Link href='/auth/signin'>
-                        <a className='font-bold text-green-500 no-underline hover:text-green-200'>
+                        <a className='font-bold leading-8 text-green-500 no-underline hover:text-green-200'>
                           {t.login}
                         </a>
                       </Link>
                     </li>
                     <li className='list-none p-4'>
                       <Link href='/auth/signup'>
-                        <a className='font-bold text-green-500 no-underline hover:text-green-200'>
+                        <a className='font-bold leading-8 text-green-500 no-underline hover:text-green-200'>
                           {t.signup}
                         </a>
                       </Link>
@@ -122,14 +131,14 @@ const Navbar = () => {
                   <>
                     <li className='list-none p-4'>
                       <Link href='/member'>
-                        <a className='font-bold text-green-500 no-underline hover:text-green-200'>
+                        <a className='font-bold leading-8 text-green-500 no-underline hover:text-green-200'>
                           {t.member}
                         </a>
                       </Link>
                     </li>
                     <li className='list-none p-4'>
                       <div onClick={signOut}>
-                        <a className='font-bold text-green-500 no-underline hover:text-green-200'>
+                        <a className='font-bold leading-8 text-green-500 no-underline hover:text-green-200'>
                           {t.logout}
                         </a>
                       </div>
@@ -138,13 +147,11 @@ const Navbar = () => {
                 )}
 
                 {/* Search Icon and ( Modal )*/}
-                <div>
-                  <p>
-                    <AiOutlineSearch
-                      className='cursor-pointer text-3xl'
-                      onClick={() => setOpened(true)}
-                    />
-                  </p>
+                <div className='m-0 pt-5 pb-2 px-4 items-center'>
+                  <AiOutlineSearch
+                    className='cursor-pointer text-3xl'
+                    onClick={() => setOpened(true)}
+                  />
                 </div>
               </ul>
             </div>
@@ -152,7 +159,7 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Top Menu with Hamburger */}
-        <div className={styles.navbar}>
+        <div className={styles.navbarMobile}>
           <div className='flex w-full items-center justify-between pr-6 md:hidden'>
             <div className={styles.menuBars}>
               <FaBars onClick={showSidebar} className='cursor-pointer' />
@@ -220,58 +227,49 @@ const Navbar = () => {
               </div>
             </li>
 
-
+            <li className='list-none'>
+              <div className={styles.navText}>
+                <Link href='https://twitter.com/Sa10shitoushi' rel='noopener noreferrer'>
+                  <a>
+                    <AiOutlineTwitter />
+                    <span className='ml-2'>Twitter</span>
+                  </a>
+                </Link>
+              </div>
+            </li>
 
             <li className='list-none'>
-            <div className={styles.navText}>
-              <Link href='https://twitter.com/Sa10shitoushi'  
-              rel="noopener noreferrer">
-                <a>
-                  <AiOutlineTwitter />
-                  <span className='ml-2'>Twitter</span>
-                </a>
-              </Link>
-            </div>
-          </li>
+              <div className={styles.navText}>
+                <Link href='https://note.com/satoshi_toushi' rel='noopener noreferrer'>
+                  <a>
+                    <FaRegStickyNote />
+                    <span className='ml-2'>note</span>
+                  </a>
+                </Link>
+              </div>
+            </li>
 
-
-       
             <li className='list-none'>
-            <div className={styles.navText}>
-              <Link href='https://note.com/satoshi_toushi'  
-              rel="noopener noreferrer">
-                <a>
-                  <FaRegStickyNote />
-                  <span className='ml-2'>note</span>
-                </a>
-              </Link>
-            </div>
-          </li>
-    
+              <div className={styles.navText}>
+                <Link href='https://medium.com/@tenq' rel='noopener noreferrer'>
+                  <a>
+                    <AiFillMediumSquare />
+                    <span className='ml-2'>medium</span>
+                  </a>
+                </Link>
+              </div>
+            </li>
+
             <li className='list-none'>
-            <div className={styles.navText}>
-              <Link href='https://medium.com/@tenq'  
-              rel="noopener noreferrer">
-                <a>
-                  <AiFillMediumSquare />
-                  <span className='ml-2'>medium</span>
-                </a>
-              </Link>
-            </div>
-          </li>
-       
-
-          <li className='list-none'>
-          <div className={styles.navText}>
-            <Link href='/rules/discraimer'>
-              <a>
-                <IoDocumentTextOutline />
-                <span className='ml-2'>{t.disclaimer}</span>
-              </a>
-            </Link>
-          </div>
-        </li>
-
+              <div className={styles.navText}>
+                <Link href='/rules/discraimer'>
+                  <a>
+                    <IoDocumentTextOutline />
+                    <span className='ml-2'>{t.disclaimer}</span>
+                  </a>
+                </Link>
+              </div>
+            </li>
 
             {!signIn ? (
               <li className='list-none'>
@@ -296,10 +294,6 @@ const Navbar = () => {
                 </div>
               </li>
             )}
-
-
-
-
           </ul>
         </div>
       </nav>
