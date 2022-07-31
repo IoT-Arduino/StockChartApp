@@ -178,7 +178,7 @@ export const TopComponentJ = () => {
               </div>
               <div className='flex-grow'>
                 <h3 className='title-font mb-3 text-center text-lg font-medium text-gray-900'>
-                  インデックスファンド（米国株・世界株）
+                  インデックスファンド<br/>（米国株・世界株）
                 </h3>
                 <p className='m-4 text-left'>
                   VOO,VTI,VTの2014年末を起点とした成長率を比較分析します。上位構成銘柄のリストアップも行います。
@@ -217,7 +217,7 @@ export const TopComponentJ = () => {
               </div>
               <div className='flex-grow'>
                 <h3 className='title-font mb-3 text-lg font-medium text-gray-900'>
-                  高配当株ファンド
+                  高配当株<br/>ファンド
                 </h3>
                 <p className='m-4 text-left'>
                   VYG,VYMの2014年末を起点とした成長率を比較分析します。上位構成銘柄のリストアップも行います。
@@ -256,10 +256,10 @@ export const TopComponentJ = () => {
               </div>
               <div className='flex-grow'>
                 <h3 className='title-font mb-3 text-lg font-medium text-gray-900'>
-                  ヘルスケアセクター比較と分析
+                  ヘルスケアセクター<br/>比較と分析
                 </h3>
                 <p className='m-4 text-left'>
-                  ヘルスケアセクターファンドと市場インデックスの比較を行います。上位構成銘柄のリストアップも行います。
+                  ヘルスケアセクターETFと市場インデックスの比較を行います。上位構成銘柄のリストアップも行います。
                 </p>
                 <Link href={`/etfs/etf-healthCare`}>
                   <a className='mt-3 inline-flex items-center text-green-500'>

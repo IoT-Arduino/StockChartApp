@@ -204,7 +204,7 @@ export const TopComponentE = () => {
               </div>
               <div className='flex-grow'>
                 <h3 className='title-font mb-3 text-lg font-medium text-gray-900'>
-                  Index Funds (U.S. & World Stocks)
+                  Index Funds<br/> (U.S. & World Stocks)
                 </h3>
                 <p className='m-4 text-left'>
                   Comparative analysis of the growth rates of VOO, VTI, and VT starting at the end
@@ -244,7 +244,7 @@ export const TopComponentE = () => {
               </div>
               <div className='flex-grow'>
                 <h3 className='title-font mb-3 text-lg font-medium text-gray-900'>
-                  High Dividend stock fund
+                  High Dividend<br/>stock fund
                 </h3>
                 <p className='m-4 text-left'>
                   Comparative analysis of the growth rates of VYG and VYM starting from the end of
@@ -284,10 +284,10 @@ export const TopComponentE = () => {
               </div>
               <div className='flex-grow'>
                 <h3 className='title-font mb-3 text-lg font-medium text-gray-900'>
-                  Healthcare Sector Comparison and Analysis
+                  Healthcare Sector<br/>Comparison and Analysis
                 </h3>
                 <p className='m-4 text-left'>
-                  We will compare the Health Care Sector Fund to a market index. It will also list
+                  We will compare the Health Care Sector Fund and ETF to a market index. It will also list
                   the top constituent stocks.
                 </p>
                 <Link href={`/etfs/etf-healthCare`}>
