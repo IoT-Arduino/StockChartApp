@@ -1,8 +1,22 @@
-.navbar {
+
+.navbarPc {
+  background-color: #fff;
+  position:fixed;
+  z-index:900;
+  width:100%;
+  box-shadow: 0 2px 3px -2px gray;
+} 
+
+.logoPc{
+  height:60px;
+}
+
+.navbarMobile {
     background-color: #fff;
     position:fixed;
     z-index:900;
     width:100%;
+    box-shadow: 0 2px 3px -2px gray;
 } 
 
 /* Mobile Top Nav */
@@ -53,7 +67,7 @@
   justify-content: flex-start;
   align-items: center;
   padding: 8px 0px 8px 16px;
-  height: 60px;
+  /* height: 60px; */
   color: #48bb78;
 }
 
