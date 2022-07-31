@@ -46,7 +46,7 @@ export async function getStaticPaths() {
   // })
 
   return {
-    paths: [{ params: { id: 'MSFT' } }, { params: { id: 'AAPL' } }],
+    paths: [{ params: { id: 'AMZN' } },{ params: { id: 'NVDA' } },{ params: { id: 'TSLA' } },{ params: { id: 'MSFT' } }, { params: { id: 'AAPL' } }],
     fallback: 'blocking', // false or 'blocking'
   }
 }
