@@ -4,9 +4,16 @@ import { useContext } from 'react'
 import { useRouter } from 'next/router'
 import { UserContext } from '../utils/UserContext'
 
+import { FaRegStickyNote } from 'react-icons/fa'
+import {
+  AiOutlineHome,
+  AiOutlineUnorderedList,
+  AiOutlineLogin,
+  AiOutlineTwitter,
+  AiFillMediumSquare,
+} from 'react-icons/ai'
 
-import {FaRegStickyNote} from 'react-icons/fa'
-import { AiOutlineHome, AiOutlineUnorderedList, AiOutlineLogin,AiOutlineTwitter,AiFillMediumSquare } from 'react-icons/ai'
+import { Select } from '@mantine/core'
 
 // i18n
 import en from '../locales/en/en'
@@ -29,7 +36,7 @@ export const Footer = () => {
   const { locale } = router
 
   const changeLanguage = (e: any) => {
-    const locale = e.target.value
+    const locale = e
     router.push(`${router.asPath}`, `${router.asPath}`, { locale })
   }
 
@@ -41,41 +48,64 @@ export const Footer = () => {
   }
 
   return (
-    <footer className='bg-gray-200 p-2 text-center text-gray-600 '>
-      <div className='hidden sm:flex justify-around items-center'>
+    <footer className='bg-gray-200 p-4 text-center text-gray-600'>
+      <div className='mx-auto hidden max-w-5xl items-center justify-around sm:flex'>
         <small className='text-l mr-5 inline-block'>&copy; 2022 TenQ.cc US-Stock Chart</small>
 
         <div>
-          <a href='https://twitter.com/Sa10shitoushi'  
-          rel="noopener noreferrer" className='text-xs no-underline'>
-              <AiOutlineTwitter />
-              <span className='ml-2'>Twitter</span>
-          </a>
-        </div>
- 
-        <div>
-          <a href='https://note.com/satoshi_toushi'  
-          rel="noopener noreferrer" className='text-xs no-underline'>
-              <FaRegStickyNote />
-              <span className='ml-2'>note</span>
+          <a
+            href='https://twitter.com/Sa10shitoushi'
+            rel='noopener noreferrer'
+            className='text-xs no-underline'
+          >
+            <AiOutlineTwitter />
+            <span className='ml-2'>Twitter</span>
           </a>
         </div>
 
         <div>
-          <a href='https://medium.com/@tenq'  
-          rel="noopener noreferrer" className='text-xs no-underline'>
-              <AiFillMediumSquare />
-              <span className='ml-2'>medium</span>
+          <a
+            href='https://note.com/satoshi_toushi'
+            rel='noopener noreferrer'
+            className='text-xs no-underline'
+          >
+            <FaRegStickyNote />
+            <span className='ml-2'>note</span>
+          </a>
+        </div>
+
+        <div>
+          <a
+            href='https://medium.com/@tenq'
+            rel='noopener noreferrer'
+            className='text-xs no-underline'
+          >
+            <AiFillMediumSquare />
+            <span className='ml-2'>medium</span>
           </a>
         </div>
 
         <Link href='/rules/discraimer'>
           <a className='text-xs no-underline'>{t.disclaimer}</a>
         </Link>
-        <select onChange={changeLanguage} defaultValue={locale} className='ml-8'>
+
+        {/*<select onChange={changeLanguage} defaultValue={locale} className='ml-8'>
           <option value='en-US'>English</option>
           <option value='ja-JP'>日本語</option>
-        </select>
+        </select>  */}
+
+        <Select
+          onChange={changeLanguage}
+          data={[
+            { value: 'en-US', label: 'English' },
+            { value: 'ja-JP', label: '日本語' },
+          ]}
+          className='h-8 w-24'
+          value={locale}
+          classNames={{
+            input:"bg-gray-100"
+          }}
+        />
       </div>
 
       {/* Mobile Footer  */}
