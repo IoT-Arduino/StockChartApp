@@ -46,7 +46,13 @@ export async function getStaticPaths() {
   // })
 
   return {
-    paths: [{ params: { id: 'AMZN' } },{ params: { id: 'NVDA' } },{ params: { id: 'TSLA' } },{ params: { id: 'MSFT' } }, { params: { id: 'AAPL' } }],
+    paths: [
+      { params: { id: 'AMZN' } },
+      { params: { id: 'NVDA' } },
+      { params: { id: 'TSLA' } },
+      { params: { id: 'MSFT' } },
+      { params: { id: 'AAPL' } },
+    ],
     fallback: 'blocking', // false or 'blocking'
   }
 }
@@ -192,6 +198,11 @@ export const getStaticProps: GetServerSideProps = async ({ params }) => {
   }
 }
 
+type SheetDataType = {
+  date: string
+  news: string
+} 
+
 const StockChart: NextPage<{
   priceData: StockPrice
   markerData: any
@@ -225,7 +236,7 @@ const StockChart: NextPage<{
   const router = useRouter()
   const { locale } = router
   let t
-  let sheetData
+  let sheetData: SheetDataType[]
   let markerList: any
   if (locale === 'ja-JP') {
     t = ja
@@ -320,7 +331,7 @@ const StockChart: NextPage<{
               {sheetData?.map((item, i) => {
                 return (
                   <li key={i}>
-                    {item.date}
+                    {item?.date}
                     {'  '}
                     <span
                       dangerouslySetInnerHTML={{
