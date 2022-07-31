@@ -102,6 +102,9 @@ export const Footer = () => {
           ]}
           className='h-8 w-24'
           value={locale}
+          classNames={{
+            input:"bg-gray-100"
+          }}
         />
       </div>
 
