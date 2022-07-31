@@ -182,6 +182,10 @@ const Navbar = () => {
               opened={opened}
               onClose={() => setOpened(false)}
               title='Input Ticker or CompanyName'
+              centered
+              classNames={{
+                modal:"bg-yellow-100"
+              }}
             >
               <SearchBar
                 placeholder='Ticker or Company'
