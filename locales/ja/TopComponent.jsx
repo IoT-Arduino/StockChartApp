@@ -178,7 +178,7 @@ export const TopComponentJ = () => {
               </div>
               <div className='flex-grow'>
                 <h3 className='title-font mb-3 text-center text-lg font-medium text-gray-900'>
-                  インデックスファンド（米国株・世界株）
+                  インデックスファンド<br/>（米国株・世界株）
                 </h3>
                 <p className='m-4 text-left'>
                   VOO,VTI,VTの2014年末を起点とした成長率を比較分析します。上位構成銘柄のリストアップも行います。

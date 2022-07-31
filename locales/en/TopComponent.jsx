@@ -204,7 +204,7 @@ export const TopComponentE = () => {
               </div>
               <div className='flex-grow'>
                 <h3 className='title-font mb-3 text-lg font-medium text-gray-900'>
-                  Index Funds (U.S. & World Stocks)
+                  Index Funds<br/> (U.S. & World Stocks)
                 </h3>
                 <p className='m-4 text-left'>
                   Comparative analysis of the growth rates of VOO, VTI, and VT starting at the end
