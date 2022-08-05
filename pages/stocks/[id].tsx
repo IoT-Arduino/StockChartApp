@@ -85,6 +85,7 @@ export const getStaticProps: GetServerSideProps = async ({ params }) => {
     '2021q4',
     '2022q1',
     '2022q2',
+    '2022_07'
     // '2022_04',
     // '2022_05',
   ]

@@ -9598,21 +9598,5 @@
     "ADR": null,
     "Unlist": "unlist",
     "SP500": null
-  },
-  {
-    "PagingNum": 601,
-    "Ticker": "ZNGA",
-    "Name": "Zynga Inc. Class A Common Stock",
-    "ShortName": "Zynga",
-    "Country": "United States",
-    "IPO Year": 2011.0,
-    "Sector": "Technology",
-    "Industry": "EDP Services",
-    "Market": "NASDAQ",
-    "Market Cap": 10303719283.0,
-    "CIK": 1439404,
-    "ADR": null,
-    "Unlist": "unlist",
-    "SP500": null
   }
 ]
