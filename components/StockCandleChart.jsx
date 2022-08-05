@@ -20,7 +20,7 @@ const StockCandleChart = ({
   signIn,
   t,
 }) => {
-  console.log(edgarData)
+  // console.log(edgarData)
 
   // 画面表示State 管理==============================================================
   const [isDividend, setIsDividend] = useState(false)
