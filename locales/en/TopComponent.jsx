@@ -39,7 +39,7 @@ export const TopComponentE = () => {
           Check the correlation between BPS, EPS and stock price in time series.
         </h2>
         <div className='mx-auto flex max-w-5xl flex-col items-center px-3 py-4 md:flex-row'>
-          <div className='md:w-1/2 lg:w-full lg:max-w-lg'>
+          <div className='md:w-1/2 lg:w-full lg:max-w-lg' data-aos='fade-up'>
             <Image
               className='rounded object-cover object-center'
               alt='hero'
@@ -71,7 +71,7 @@ export const TopComponentE = () => {
             Operating cash flow margin, operating cash flow and net income in chronological order.
           </h2>
           <div className='mx-auto flex max-w-5xl flex-col items-center px-3 py-4 md:flex-row'>
-            <div className='w-5/6 md:w-1/2 lg:w-full lg:max-w-lg'>
+            <div className='w-5/6 md:w-1/2 lg:w-full lg:max-w-lg' data-aos='fade-up'>
               <Image
                 className='rounded object-cover object-center'
                 alt='hero'
@@ -116,7 +116,7 @@ export const TopComponentE = () => {
             </p>
           </div>
 
-          <div className='mt-8 w-5/6 md:mt-0 md:w-1/2 lg:w-full lg:max-w-lg'>
+          <div className='mt-8 w-5/6 md:mt-0 md:w-1/2 lg:w-full lg:max-w-lg' data-aos='fade-up'>
             <Image
               className='rounded object-cover object-center'
               alt='hero'
@@ -151,7 +151,7 @@ export const TopComponentE = () => {
               company with very stable earning power in its core business.
             </p>
           </div>
-          <div className='w-5/6 md:w-1/2 lg:w-full lg:max-w-lg'>
+          <div className='w-5/6 md:w-1/2 lg:w-full lg:max-w-lg' data-aos='fade-up'>
             <Image
               className='rounded object-cover object-center'
               alt='hero'
@@ -188,7 +188,7 @@ export const TopComponentE = () => {
             </p>
           </div>
           <div className='mb-10 mt-4 flex flex-wrap space-y-6 sm:m-4 md:space-y-0'>
-            <div className='flex flex-col items-center p-2 text-center md:w-1/3'>
+            <div className='flex flex-col items-center p-2 text-center md:w-1/3' data-aos='fade-up'>
               <div className='mb-5 inline-flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-full bg-green-100 text-green-500'>
                 <svg
                   fill='none'
@@ -228,7 +228,7 @@ export const TopComponentE = () => {
                 </Link>
               </div>
             </div>
-            <div className='flex flex-col items-center p-2 text-center md:w-1/3'>
+            <div className='flex flex-col items-center p-2 text-center md:w-1/3' data-aos='fade-up' data-aos-delay="200" >
               <div className='mb-5 inline-flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-full bg-green-100 text-green-500'>
                 <svg
                   fill='none'
@@ -268,7 +268,7 @@ export const TopComponentE = () => {
                 </Link>
               </div>
             </div>
-            <div className='flex flex-col items-center p-2 text-center md:w-1/3'>
+            <div className='flex flex-col items-center p-2 text-center md:w-1/3' data-aos='fade-up' data-aos-delay="400" >
               <div className='mb-5 inline-flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-full bg-green-100 text-green-500'>
                 <svg
                   fill='none'
