@@ -20,10 +20,14 @@ import { LayoutWrapper } from '../components/LayoutWrapper'
 import SeoJa from '../locales/ja/next-seo.js'
 import SeoEn from '../locales/en/next-seo.js'
 
+// aos
+import AOS from 'aos'
+import 'aos/dist/aos.css'
+
 // for GTM
 import Script from 'next/script'
 import { GTM_ID, pageview } from '../utils/gtm'
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/router'
 
 // React Query
 import { QueryClient, QueryClientProvider } from 'react-query'
@@ -41,6 +45,14 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [user, setUser] = useState(supabase.auth.user())
   const [session, setSession] = useState(supabase.auth.session())
   const [rank, setRank] = useState('')
+
+  useEffect(() => {
+    AOS.init({
+      once: true,
+      easing: 'linear',
+      duration: 400,
+    })
+  }, [])
 
   useEffect(() => {
     axios.post('/api/setSupabaseCookie', {
@@ -71,16 +83,16 @@ function MyApp({ Component, pageProps }: AppProps) {
     return data
   }
 
-    // i18n 対応用
-    const router = useRouter()
-    const { locale } = router
+  // i18n 対応用
+  const router = useRouter()
+  const { locale } = router
 
-    let SEO
-    if (locale === 'ja-JP') {
-      SEO = SeoJa
-    } else {
-      SEO = SeoEn
-    }
+  let SEO
+  if (locale === 'ja-JP') {
+    SEO = SeoJa
+  } else {
+    SEO = SeoEn
+  }
 
   return (
     <QueryClientProvider client={queryClient}>
