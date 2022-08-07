@@ -25,7 +25,7 @@ import {
 
 import { IoDocumentTextOutline } from 'react-icons/io5'
 import logo from '../public/logo.png'
-import { Modal } from '@mantine/core'
+import { Modal, Select } from '@mantine/core'
 
 // Supabase
 import { supabase } from '../utils/supabase'
@@ -75,6 +75,12 @@ const Navbar = () => {
   // i18n 対応用
   const router = useRouter()
   const { locale } = router
+
+  const changeLanguage = (e) => {
+    const locale = e
+    router.push(`${router.asPath}`, `${router.asPath}`, { locale })
+  }
+
   let t
   if (locale === 'ja-JP') {
     t = ja
@@ -90,7 +96,7 @@ const Navbar = () => {
           <div className='mx-auto hidden h-16 max-w-5xl items-center justify-between md:flex'>
             <Link href='/'>
               <a className={styles.logoPc}>
-                <Image src={logo} alt='logo' width={60} height={60}/>
+                <Image src={logo} alt='logo' width={60} height={60} />
               </a>
             </Link>
             <div className='mx-5 hidden flex-initial font-bold text-[#abc5c5] md:flex '>
@@ -147,7 +153,7 @@ const Navbar = () => {
                 )}
 
                 {/* Search Icon and ( Modal )*/}
-                <div className='m-0 pt-5 pb-2 px-4 items-center'>
+                <div className='m-0 items-center px-4 pt-5 pb-2'>
                   <AiOutlineSearch
                     className='cursor-pointer text-3xl'
                     onClick={() => setOpened(true)}
@@ -298,6 +304,13 @@ const Navbar = () => {
                 </div>
               </li>
             )}
+
+            {/* Toggle処理が必要 */}
+            {/* <select onChange={changeLanguage} defaultValue={locale} className='ml-8'>
+              <option value='en-US'>English</option>
+              <option value='ja-JP'>日本語</option>
+            </select> */}
+
           </ul>
         </div>
       </nav>
