@@ -89,10 +89,7 @@ export const Footer = () => {
           <a className='text-xs no-underline'>{t.disclaimer}</a>
         </Link>
 
-        {/*<select onChange={changeLanguage} defaultValue={locale} className='ml-8'>
-          <option value='en-US'>English</option>
-          <option value='ja-JP'>日本語</option>
-        </select>  */}
+
 
         <Select
           onChange={changeLanguage}
