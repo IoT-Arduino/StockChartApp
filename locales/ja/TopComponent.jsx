@@ -36,7 +36,7 @@ export const TopComponentJ = () => {
           BPS,EPSと株価の相関を時系列で確認。最適な投資タイミングを見極める。
         </h2>
         <div className='mx-auto flex max-w-5xl flex-col items-center px-3 py-4 md:flex-row'>
-          <div className='md:w-1/2 lg:w-full lg:max-w-lg'>
+          <div className='md:w-1/2 lg:w-full lg:max-w-lg' data-aos='fade-up'>
             <Image
               className='rounded object-cover object-center'
               alt='hero'
@@ -61,7 +61,7 @@ export const TopComponentJ = () => {
           </h2>
 
           <div className='mx-auto flex max-w-5xl flex-col items-center px-3 py-4 md:flex-row'>
-            <div className='md:w-1/2 lg:w-full lg:max-w-lg'>
+            <div className='md:w-1/2 lg:w-full lg:max-w-lg' data-aos='fade-up'>
               <Image
                 className='rounded object-cover object-center'
                 alt='hero'
@@ -97,7 +97,7 @@ export const TopComponentJ = () => {
             </p>
           </div>
 
-          <div className='mt-8 w-5/6 md:mt-0 md:w-1/2 lg:w-full lg:max-w-lg'>
+          <div className='mt-8 w-5/6 md:mt-0 md:w-1/2 lg:w-full lg:max-w-lg' data-aos='fade-up'>
             <Image
               className='rounded object-cover object-center'
               alt='hero'
@@ -128,7 +128,7 @@ export const TopComponentJ = () => {
               好不況の影響に大きく左右されず、順調に利益（緑色の領域）と純資産（青色の領域）を積み上げていく、非常に堅実なヘルスセクターの代表的企業になります。また、営業活動CF（棒グラフ緑色）については、CFマージンが若干低いことが気になりますが、純利益（棒グラフ黄色）との関係は非常に良好で、本業での稼ぐ力が非常に安定した優良企業であるといえます。
             </p>
           </div>
-          <div className='w-5/6 md:w-1/2 lg:w-full lg:max-w-lg'>
+          <div className='w-5/6 md:w-1/2 lg:w-full lg:max-w-lg' data-aos='fade-up'>
             <Image
               className='rounded object-cover object-center'
               alt='hero'
@@ -153,7 +153,7 @@ export const TopComponentJ = () => {
 
       <section className='body-font text-gray-600'>
         <div className='mx-auto w-full px-2 py-4 md:max-w-5xl'>
-          <div className='mb-12 '>
+          <div className='mb-12'>
             <h2 className='mt-0 mb-4 text-center text-2xl font-medium text-gray-900'>
               インデックスファンド（ETF）、セクター別ファンド（ETF）比較と分析
             </h2>
@@ -162,7 +162,7 @@ export const TopComponentJ = () => {
             </p>
           </div>
           <div className='mb-10 mt-4 flex flex-wrap space-y-6 sm:m-4 md:space-y-0'>
-            <div className='flex flex-col items-center p-2 text-center md:w-1/3'>
+            <div className='flex flex-col items-center p-2 text-center md:w-1/3' data-aos='fade-up'>
               <div className='mb-5 inline-flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-full bg-green-100 text-green-500'>
                 <svg
                   fill='none'
@@ -201,7 +201,7 @@ export const TopComponentJ = () => {
                 </Link>
               </div>
             </div>
-            <div className='flex flex-col items-center p-2 text-center md:w-1/3'>
+            <div className='flex flex-col items-center p-2 text-center md:w-1/3' data-aos='fade-up' data-aos-delay="200" >
               <div className='mb-5 inline-flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-full bg-green-100 text-green-500'>
                 <svg
                   fill='none'
@@ -240,7 +240,7 @@ export const TopComponentJ = () => {
                 </Link>
               </div>
             </div>
-            <div className='flex flex-col items-center p-2 text-center md:w-1/3'>
+            <div className='flex flex-col items-center p-2 text-center md:w-1/3' data-aos='fade-up' data-aos-delay="400" >
               <div className='mb-5 inline-flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-full bg-green-100 text-green-500'>
                 <svg
                   fill='none'
