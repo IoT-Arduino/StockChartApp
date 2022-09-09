@@ -203,7 +203,7 @@ export const getStaticProps: GetServerSideProps = async ({ params }) => {
 type SheetDataType = {
   date: string
   news: string
-} 
+}
 
 const StockChart: NextPage<{
   priceData: StockPrice
@@ -242,7 +242,7 @@ const StockChart: NextPage<{
   let markerList: any
   if (locale === 'ja-JP') {
     t = ja
-    sheetData = filteredSheetData.newsDataFiltered ? filteredSheetData.newsDataFiltered : null
+      sheetData = filteredSheetData.newsDataFiltered ? filteredSheetData.newsDataFiltered : null
     markerList = markerListJa
   } else {
     t = en
