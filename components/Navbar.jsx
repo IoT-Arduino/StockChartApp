@@ -76,11 +76,6 @@ const Navbar = () => {
   const router = useRouter()
   const { locale } = router
 
-  const changeLanguage = (e) => {
-    const locale = e
-    router.push(`${router.asPath}`, `${router.asPath}`, { locale })
-  }
-
   let t
   if (locale === 'ja-JP') {
     t = ja
@@ -190,7 +185,7 @@ const Navbar = () => {
               title='Input Ticker or CompanyName'
               centered
               classNames={{
-                modal:"bg-yellow-100"
+                modal: 'bg-yellow-100',
               }}
             >
               <SearchBar
@@ -204,8 +199,8 @@ const Navbar = () => {
 
         {/* Mobile SideMenu */}
         <div className={sidebar ? styles.navMenuActive : styles.navMenu}>
-          <ul className={styles.navMenuItems} onClick={showSidebar}>
-            <li className={styles.navBarToggle}>
+          <ul className={styles.navMenuItems}>
+            <li className={styles.navBarToggle} onClick={showSidebar}>
               <Link href='/' passHref>
                 <div className={styles.menuBars}>
                   <a>
@@ -304,13 +299,6 @@ const Navbar = () => {
                 </div>
               </li>
             )}
-
-            {/* Toggle処理が必要 */}
-            {/* <select onChange={changeLanguage} defaultValue={locale} className='ml-8'>
-              <option value='en-US'>English</option>
-              <option value='ja-JP'>日本語</option>
-            </select> */}
-
           </ul>
         </div>
       </nav>
