@@ -178,9 +178,9 @@ export default function InputComments({ ticker, t }) {
 
       <hr />
 
-      {commentList?.map(comment=>{
+      {/* {commentList?.map(comment=>{
         return <InputCommentSingle t={t} key={comment.id} comment={comment} ticker={ticker}/>
-      })}
+      })} */}
       
 
 
