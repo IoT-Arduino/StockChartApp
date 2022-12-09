@@ -838,22 +838,6 @@ module.exports = {
     },
     {
       PagingNum: 53,
-      Ticker: 'AVLR',
-      Name: 'Avalara Inc. Common Stock',
-      ShortName: 'Avalara',
-      Country: 'United States',
-      'IPO Year': 2018.0,
-      Sector: 'Technology',
-      Industry: 'EDP Services',
-      Market: 'NYSE',
-      'Market Cap': 7963027874.0,
-      CIK: 1348036,
-      ADR: null,
-      Unlist: null,
-      SP500: null,
-    },
-    {
-      PagingNum: 54,
       Ticker: 'AVTR',
       Name: 'Avantor Inc. Common Stock',
       ShortName: 'Avantor',
@@ -869,7 +853,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 55,
+      PagingNum: 54,
       Ticker: 'AVY',
       Name: 'Avery Dennison Corporation Common Stock',
       ShortName: 'Avery Dennison',
@@ -885,7 +869,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 56,
+      PagingNum: 55,
       Ticker: 'AWK',
       Name: 'American Water Works Company Inc. Common Stock',
       ShortName: 'American Water',
@@ -901,7 +885,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 57,
+      PagingNum: 56,
       Ticker: 'AXP',
       Name: 'American Express Company Common Stock',
       ShortName: 'American Express',
@@ -917,7 +901,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 58,
+      PagingNum: 57,
       Ticker: 'BA',
       Name: 'Boeing Company (The) Common Stock',
       ShortName: 'Boeing',
@@ -933,7 +917,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 59,
+      PagingNum: 58,
       Ticker: 'BAC',
       Name: 'Bank of America Corporation Common Stock',
       ShortName: 'Bank of America',
@@ -949,7 +933,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 60,
+      PagingNum: 59,
       Ticker: 'BAH',
       Name: 'Booz Allen Hamilton Holding Corporation Common Stock',
       ShortName: 'Booz Allen Hamilton',
@@ -965,7 +949,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 61,
+      PagingNum: 60,
       Ticker: 'BALL',
       Name: 'Ball Corporation Common Stock',
       ShortName: 'Ball',
@@ -981,7 +965,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 62,
+      PagingNum: 61,
       Ticker: 'BAX',
       Name: 'Baxter International Inc. Common Stock',
       ShortName: 'Baxter',
@@ -997,7 +981,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 63,
+      PagingNum: 62,
       Ticker: 'BBY',
       Name: 'Best Buy Co. Inc. Common Stock',
       ShortName: 'Best Buy',
@@ -1013,7 +997,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 64,
+      PagingNum: 63,
       Ticker: 'BDX',
       Name: 'Becton Dickinson and Company Common Stock',
       ShortName: 'Becton Dickinson',
@@ -1029,7 +1013,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 65,
+      PagingNum: 64,
       Ticker: 'BEN',
       Name: 'Franklin Resources Inc. Common Stock',
       ShortName: 'Franklin Templeton',
@@ -1045,7 +1029,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 66,
+      PagingNum: 65,
       Ticker: 'BHC',
       Name: 'Bausch Health Companies Inc. Common Stock',
       ShortName: 'Bausch Health',
@@ -1061,7 +1045,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 67,
+      PagingNum: 66,
       Ticker: 'BIIB',
       Name: 'Biogen Inc. Common Stock',
       ShortName: 'Biogen',
@@ -1077,7 +1061,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 68,
+      PagingNum: 67,
       Ticker: 'BIO',
       Name: 'Bio-Rad Laboratories Inc. Class A Common Stock',
       ShortName: 'Bio-Rad',
@@ -1093,7 +1077,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 69,
+      PagingNum: 68,
       Ticker: 'BK',
       Name: 'The Bank of New York Mellon Corporation Common Stock',
       ShortName: 'BNY Mellon',
@@ -1109,7 +1093,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 70,
+      PagingNum: 69,
       Ticker: 'BKNG',
       Name: 'Booking Holdings Inc. Common Stock',
       ShortName: 'Booking Holdings',
@@ -1125,7 +1109,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 71,
+      PagingNum: 70,
       Ticker: 'BLK',
       Name: 'BlackRock Inc. Common Stock',
       ShortName: 'BlackRock',
@@ -1141,7 +1125,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 72,
+      PagingNum: 71,
       Ticker: 'BLUE',
       Name: 'bluebird bio Inc. Common Stock',
       ShortName: 'bluebird',
@@ -1157,7 +1141,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 73,
+      PagingNum: 72,
       Ticker: 'BMRN',
       Name: 'BioMarin Pharmaceutical Inc. Common Stock',
       ShortName: 'BioMarin Pharmaceutical',
@@ -1173,7 +1157,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 74,
+      PagingNum: 73,
       Ticker: 'BMY',
       Name: 'Bristol-Myers Squibb Company Common Stock',
       ShortName: 'Bristol Myers Squibb',
@@ -1189,7 +1173,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 75,
+      PagingNum: 74,
       Ticker: 'BOX',
       Name: 'Box Inc. Class A Common Stock',
       ShortName: 'Box',
@@ -1205,7 +1189,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 76,
+      PagingNum: 75,
       Ticker: 'BR',
       Name: 'Broadridge Financial Solutions Inc. Common Stock',
       ShortName: 'Broadridge',
@@ -1221,7 +1205,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 77,
+      PagingNum: 76,
       Ticker: 'BSX',
       Name: 'Boston Scientific Corporation Common Stock',
       ShortName: 'Boston Scientific',
@@ -1237,7 +1221,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 78,
+      PagingNum: 77,
       Ticker: 'BSY',
       Name: 'Bentley Systems Incorporated Class B Common Stock',
       ShortName: 'Bentley Systems',
@@ -1253,7 +1237,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 79,
+      PagingNum: 78,
       Ticker: 'BWA',
       Name: 'BorgWarner Inc. Common Stock',
       ShortName: 'BorgWarner',
@@ -1269,7 +1253,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 80,
+      PagingNum: 79,
       Ticker: 'BYND',
       Name: 'Beyond Meat Inc. Common Stock',
       ShortName: 'Beyond Meat',
@@ -1285,7 +1269,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 81,
+      PagingNum: 80,
       Ticker: 'C',
       Name: 'Citigroup Inc. Common Stock',
       ShortName: 'Citigroup',
@@ -1301,7 +1285,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 82,
+      PagingNum: 81,
       Ticker: 'CAG',
       Name: 'ConAgra Brands Inc. Common Stock',
       ShortName: 'Conagra Brands',
@@ -1317,7 +1301,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 83,
+      PagingNum: 82,
       Ticker: 'CAH',
       Name: 'Cardinal Health Inc. Common Stock',
       ShortName: 'Cardinal Health',
@@ -1333,7 +1317,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 84,
+      PagingNum: 83,
       Ticker: 'CARR',
       Name: 'Carrier Global Corporation Common Stock ',
       ShortName: 'Carrier',
@@ -1349,7 +1333,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 85,
+      PagingNum: 84,
       Ticker: 'CAT',
       Name: 'Caterpillar Inc. Common Stock',
       ShortName: 'Caterpillar',
@@ -1365,7 +1349,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 86,
+      PagingNum: 85,
       Ticker: 'CB',
       Name: 'Chubb Limited  Common Stock',
       ShortName: 'Chubb',
@@ -1381,7 +1365,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 87,
+      PagingNum: 86,
       Ticker: 'CBRE',
       Name: 'CBRE Group Inc Common Stock Class A',
       ShortName: 'CBRE',
@@ -1397,7 +1381,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 88,
+      PagingNum: 87,
       Ticker: 'CC',
       Name: 'Chemours Company (The) Common Stock',
       ShortName: 'Chemours',
@@ -1413,7 +1397,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 89,
+      PagingNum: 88,
       Ticker: 'CDAY',
       Name: 'Ceridian HCM Holding Inc. Common Stock',
       ShortName: 'Ceridian',
@@ -1429,7 +1413,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 90,
+      PagingNum: 89,
       Ticker: 'CDNS',
       Name: 'Cadence Design Systems Inc. Common Stock',
       ShortName: 'Cadence',
@@ -1445,7 +1429,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 91,
+      PagingNum: 90,
       Ticker: 'CDW',
       Name: 'CDW Corporation Common Stock',
       ShortName: 'CDW',
@@ -1461,7 +1445,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 92,
+      PagingNum: 91,
       Ticker: 'CE',
       Name: 'Celanese Corporation Celanese Corporation Common Stock',
       ShortName: 'Celanese',
@@ -1477,7 +1461,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 93,
+      PagingNum: 92,
       Ticker: 'CF',
       Name: 'CF Industries Holdings Inc. Common Stock',
       ShortName: 'CF Industries',
@@ -1493,7 +1477,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 94,
+      PagingNum: 93,
       Ticker: 'CFG',
       Name: 'Citizens Financial Group Inc. Common Stock',
       ShortName: 'Citizens',
@@ -1509,7 +1493,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 95,
+      PagingNum: 94,
       Ticker: 'CGNX',
       Name: 'Cognex Corporation Common Stock',
       ShortName: 'Cognex',
@@ -1525,7 +1509,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 96,
+      PagingNum: 95,
       Ticker: 'CHD',
       Name: 'Church & Dwight Company Inc. Common Stock',
       ShortName: 'Church & Dwight',
@@ -1541,7 +1525,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 97,
+      PagingNum: 96,
       Ticker: 'CHGG',
       Name: 'Chegg Inc. Common Stock',
       ShortName: 'Chegg',
@@ -1557,7 +1541,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 98,
+      PagingNum: 97,
       Ticker: 'CHRW',
       Name: 'C.H. Robinson Worldwide Inc. Common Stock',
       ShortName: 'C.H. Robinson',
@@ -1573,7 +1557,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 99,
+      PagingNum: 98,
       Ticker: 'CHTR',
       Name: 'Charter Communications Inc. Class A Common Stock New',
       ShortName: 'Charter Communications',
@@ -1589,7 +1573,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 100,
+      PagingNum: 99,
       Ticker: 'CHWY',
       Name: 'Chewy Inc. Class A Common Stock',
       ShortName: 'Chewy',
@@ -1605,7 +1589,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 101,
+      PagingNum: 100,
       Ticker: 'CI',
       Name: 'Cigna Corporation Common Stock',
       ShortName: 'Cigna',
@@ -1621,7 +1605,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 102,
+      PagingNum: 101,
       Ticker: 'CINF',
       Name: 'Cincinnati Financial Corporation Common Stock',
       ShortName: 'Cincinnati Financial',
@@ -1637,7 +1621,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 103,
+      PagingNum: 102,
       Ticker: 'CL',
       Name: 'Colgate-Palmolive Company Common Stock',
       ShortName: 'Colgate-Palmolive',
@@ -1653,7 +1637,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 104,
+      PagingNum: 103,
       Ticker: 'CLX',
       Name: 'Clorox Company (The) Common Stock',
       ShortName: 'Clorox',
@@ -1669,7 +1653,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 105,
+      PagingNum: 104,
       Ticker: 'CMA',
       Name: 'Comerica Incorporated Common Stock',
       ShortName: 'Comerica',
@@ -1685,7 +1669,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 106,
+      PagingNum: 105,
       Ticker: 'CMCSA',
       Name: 'Comcast Corporation Class A Common Stock',
       ShortName: 'Comcast',
@@ -1701,7 +1685,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 107,
+      PagingNum: 106,
       Ticker: 'CME',
       Name: 'CME Group Inc. Class A Common Stock',
       ShortName: 'CME Group',
@@ -1717,7 +1701,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 108,
+      PagingNum: 107,
       Ticker: 'CMG',
       Name: 'Chipotle Mexican Grill Inc. Common Stock',
       ShortName: 'Chipotle Mexican Grill',
@@ -1733,7 +1717,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 109,
+      PagingNum: 108,
       Ticker: 'CMI',
       Name: 'Cummins Inc. Common Stock',
       ShortName: 'Cummins',
@@ -1749,7 +1733,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 110,
+      PagingNum: 109,
       Ticker: 'CMS',
       Name: 'CMS Energy Corporation Common Stock',
       ShortName: 'CMS Energy',
@@ -1765,7 +1749,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 111,
+      PagingNum: 110,
       Ticker: 'CNC',
       Name: 'Centene Corporation Common Stock',
       ShortName: 'Centene',
@@ -1781,7 +1765,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 112,
+      PagingNum: 111,
       Ticker: 'CNP',
       Name: 'CenterPoint Energy Inc (Holding Co) Common Stock',
       ShortName: 'CenterPoint Energy',
@@ -1797,7 +1781,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 113,
+      PagingNum: 112,
       Ticker: 'CNX',
       Name: 'CNX Resources Corporation Common Stock',
       ShortName: 'CNX Resources',
@@ -1813,7 +1797,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 114,
+      PagingNum: 113,
       Ticker: 'COF',
       Name: 'Capital One Financial Corporation Common Stock',
       ShortName: 'Capital One',
@@ -1829,7 +1813,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 115,
+      PagingNum: 114,
       Ticker: 'COST',
       Name: 'Costco Wholesale Corporation Common Stock',
       ShortName: 'Costco',
@@ -1845,7 +1829,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 116,
+      PagingNum: 115,
       Ticker: 'COTY',
       Name: 'Coty Inc. Class A Common Stock',
       ShortName: 'Coty ',
@@ -1861,7 +1845,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 117,
+      PagingNum: 116,
       Ticker: 'CPB',
       Name: 'Campbell Soup Company Common Stock',
       ShortName: "Campbell's",
@@ -1877,7 +1861,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 118,
+      PagingNum: 117,
       Ticker: 'CPRI',
       Name: 'Capri Holdings Limited Ordinary Shares',
       ShortName: 'Capri',
@@ -1893,7 +1877,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 119,
+      PagingNum: 118,
       Ticker: 'CPRT',
       Name: 'Copart Inc. (DE) Common Stock',
       ShortName: 'Copart',
@@ -1909,7 +1893,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 120,
+      PagingNum: 119,
       Ticker: 'CRM',
       Name: 'Salesforce Inc. Common Stock',
       ShortName: 'Salesforce',
@@ -1925,7 +1909,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 121,
+      PagingNum: 120,
       Ticker: 'CSCO',
       Name: 'Cisco Systems Inc. Common Stock (DE)',
       ShortName: 'Cisco',
@@ -1941,7 +1925,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 122,
+      PagingNum: 121,
       Ticker: 'CSX',
       Name: 'CSX Corporation Common Stock',
       ShortName: 'CSX',
@@ -1957,7 +1941,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 123,
+      PagingNum: 122,
       Ticker: 'CTAS',
       Name: 'Cintas Corporation Common Stock',
       ShortName: 'Cintas',
@@ -1973,7 +1957,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 124,
+      PagingNum: 123,
       Ticker: 'CTLT',
       Name: 'Catalent Inc. Common Stock',
       ShortName: 'Catalent',
@@ -1989,7 +1973,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 125,
+      PagingNum: 124,
       Ticker: 'CTSH',
       Name: 'Cognizant Technology Solutions Corporation Class A Common Stock',
       ShortName: 'Cognizant',
@@ -2005,7 +1989,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 126,
+      PagingNum: 125,
       Ticker: 'CTVA',
       Name: 'Corteva Inc. Common Stock ',
       ShortName: 'Corteva',
@@ -2021,23 +2005,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 127,
-      Ticker: 'CTXS',
-      Name: 'Citrix Systems Inc. Common Stock',
-      ShortName: 'Citrix',
-      Country: 'United States',
-      'IPO Year': 1995.0,
-      Sector: 'Technology',
-      Industry: 'Computer Software: Prepackaged Software',
-      Market: 'NASDAQ',
-      'Market Cap': 12835586715.0,
-      CIK: 877890,
-      ADR: null,
-      Unlist: null,
-      SP500: 'SP500',
-    },
-    {
-      PagingNum: 128,
+      PagingNum: 126,
       Ticker: 'CVS',
       Name: 'CVS Health Corporation Common Stock',
       ShortName: 'CVS Health',
@@ -2053,7 +2021,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 129,
+      PagingNum: 127,
       Ticker: 'CVX',
       Name: 'Chevron Corporation Common Stock',
       ShortName: 'Chevron',
@@ -2069,7 +2037,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 130,
+      PagingNum: 128,
       Ticker: 'D',
       Name: 'Dominion Energy Inc. Common Stock',
       ShortName: 'Dominion Energy',
@@ -2085,7 +2053,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 131,
+      PagingNum: 129,
       Ticker: 'DAL',
       Name: 'Delta Air Lines Inc. Common Stock',
       ShortName: 'Delta Air Lines',
@@ -2101,7 +2069,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 132,
+      PagingNum: 130,
       Ticker: 'DASH',
       Name: 'DoorDash Inc. Class A Common Stock',
       ShortName: 'DoorDash',
@@ -2117,7 +2085,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 133,
+      PagingNum: 131,
       Ticker: 'DBX',
       Name: 'Dropbox Inc. Class A Common Stock',
       ShortName: 'Dropbox',
@@ -2133,7 +2101,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 134,
+      PagingNum: 132,
       Ticker: 'DCI',
       Name: 'Donaldson Company Inc. Common Stock',
       ShortName: 'Donaldson',
@@ -2149,7 +2117,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 135,
+      PagingNum: 133,
       Ticker: 'DDD',
       Name: '3D Systems Corporation Common Stock',
       ShortName: '3D Systems',
@@ -2165,7 +2133,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 136,
+      PagingNum: 134,
       Ticker: 'DE',
       Name: 'Deere & Company Common Stock',
       ShortName: 'Deere & Co.',
@@ -2181,7 +2149,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 137,
+      PagingNum: 135,
       Ticker: 'DECK',
       Name: 'Deckers Outdoor Corporation Common Stock',
       ShortName: 'Deckers',
@@ -2197,7 +2165,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 138,
+      PagingNum: 136,
       Ticker: 'DFS',
       Name: 'Discover Financial Services Common Stock',
       ShortName: 'Discover',
@@ -2213,7 +2181,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 139,
+      PagingNum: 137,
       Ticker: 'DG',
       Name: 'Dollar General Corporation Common Stock',
       ShortName: 'Dollar General',
@@ -2229,7 +2197,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 140,
+      PagingNum: 138,
       Ticker: 'DGX',
       Name: 'Quest Diagnostics Incorporated Common Stock',
       ShortName: 'Quest Diagnostics',
@@ -2245,7 +2213,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 141,
+      PagingNum: 139,
       Ticker: 'DHI',
       Name: 'D.R. Horton Inc. Common Stock',
       ShortName: 'D.R. Horton',
@@ -2261,7 +2229,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 142,
+      PagingNum: 140,
       Ticker: 'DHR',
       Name: 'Danaher Corporation Common Stock',
       ShortName: 'Danaher',
@@ -2277,7 +2245,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 143,
+      PagingNum: 141,
       Ticker: 'DIS',
       Name: 'Walt Disney Company (The) Common Stock',
       ShortName: 'Disney',
@@ -2293,7 +2261,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 144,
+      PagingNum: 142,
       Ticker: 'DISH',
       Name: 'DISH Network Corporation Class A Common Stock',
       ShortName: 'Dish',
@@ -2309,7 +2277,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 145,
+      PagingNum: 143,
       Ticker: 'DKS',
       Name: "Dick's Sporting Goods Inc Common Stock",
       ShortName: "Dick's Sporting Goods",
@@ -2325,7 +2293,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 146,
+      PagingNum: 144,
       Ticker: 'DLTR',
       Name: 'Dollar Tree Inc. Common Stock',
       ShortName: 'Dollar Tree',
@@ -2341,7 +2309,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 147,
+      PagingNum: 145,
       Ticker: 'DNB',
       Name: 'Dun & Bradstreet Holdings Inc. Common Stock',
       ShortName: 'Dun & Bradstreet ',
@@ -2357,7 +2325,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 148,
+      PagingNum: 146,
       Ticker: 'DOCU',
       Name: 'DocuSign Inc. Common Stock',
       ShortName: 'DocuSign',
@@ -2373,7 +2341,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 149,
+      PagingNum: 147,
       Ticker: 'DOV',
       Name: 'Dover Corporation Common Stock',
       ShortName: 'Dover',
@@ -2389,7 +2357,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 150,
+      PagingNum: 148,
       Ticker: 'DOW',
       Name: 'Dow Inc. Common Stock ',
       ShortName: 'Dow',
@@ -2405,7 +2373,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 151,
+      PagingNum: 149,
       Ticker: 'DPZ',
       Name: "Domino's Pizza Inc Common Stock",
       ShortName: "Domino's",
@@ -2421,7 +2389,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 152,
+      PagingNum: 150,
       Ticker: 'DRI',
       Name: 'Darden Restaurants Inc. Common Stock',
       ShortName: 'Darden',
@@ -2437,7 +2405,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 153,
+      PagingNum: 151,
       Ticker: 'DT',
       Name: 'Dynatrace Inc. Common Stock',
       ShortName: 'Dynatrace',
@@ -2453,7 +2421,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 154,
+      PagingNum: 152,
       Ticker: 'DTE',
       Name: 'DTE Energy Company Common Stock',
       ShortName: 'DTE',
@@ -2469,7 +2437,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 155,
+      PagingNum: 153,
       Ticker: 'DUK',
       Name: 'Duke Energy Corporation (Holding Company) Common Stock',
       ShortName: 'Duke Energy',
@@ -2485,7 +2453,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 156,
+      PagingNum: 154,
       Ticker: 'DVA',
       Name: 'DaVita Inc. Common Stock',
       ShortName: 'DaVita',
@@ -2501,7 +2469,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 157,
+      PagingNum: 155,
       Ticker: 'DVN',
       Name: 'Devon Energy Corporation Common Stock',
       ShortName: 'Devon',
@@ -2517,7 +2485,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 158,
+      PagingNum: 156,
       Ticker: 'DXC',
       Name: 'DXC Technology Company Common Stock ',
       ShortName: 'DXC Technology',
@@ -2533,7 +2501,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 159,
+      PagingNum: 157,
       Ticker: 'DXCM',
       Name: 'DexCom Inc. Common Stock',
       ShortName: 'DexCom',
@@ -2549,7 +2517,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 160,
+      PagingNum: 158,
       Ticker: 'EA',
       Name: 'Electronic Arts Inc. Common Stock',
       ShortName: 'Electronic Arts',
@@ -2565,7 +2533,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 161,
+      PagingNum: 159,
       Ticker: 'EBAY',
       Name: 'eBay Inc. Common Stock',
       ShortName: 'eBay',
@@ -2581,7 +2549,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 162,
+      PagingNum: 160,
       Ticker: 'ECL',
       Name: 'Ecolab Inc. Common Stock',
       ShortName: 'Ecolab',
@@ -2597,7 +2565,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 163,
+      PagingNum: 161,
       Ticker: 'ED',
       Name: 'Consolidated Edison Inc. Common Stock',
       ShortName: 'Con Edison',
@@ -2613,7 +2581,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 164,
+      PagingNum: 162,
       Ticker: 'EFX',
       Name: 'Equifax Inc. Common Stock',
       ShortName: 'Equifax',
@@ -2629,7 +2597,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 165,
+      PagingNum: 163,
       Ticker: 'EIX',
       Name: 'Edison International Common Stock',
       ShortName: 'Edison',
@@ -2645,7 +2613,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 166,
+      PagingNum: 164,
       Ticker: 'EL',
       Name: 'Estee Lauder Companies Inc. (The) Common Stock',
       ShortName: 'Estee Lauder',
@@ -2661,7 +2629,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 167,
+      PagingNum: 165,
       Ticker: 'ELAN',
       Name: 'Elanco Animal Health Incorporated Common Stock',
       ShortName: 'Elanco Animal Health',
@@ -2677,7 +2645,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 168,
+      PagingNum: 166,
       Ticker: 'ELV',
       Name: 'Anthem Inc. Common Stock',
       ShortName: 'Elevance Health',
@@ -2693,7 +2661,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 169,
+      PagingNum: 167,
       Ticker: 'EMN',
       Name: 'Eastman Chemical Company Common Stock',
       ShortName: 'Eastman',
@@ -2709,7 +2677,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 170,
+      PagingNum: 168,
       Ticker: 'EMR',
       Name: 'Emerson Electric Company Common Stock',
       ShortName: 'Emerson',
@@ -2725,7 +2693,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 171,
+      PagingNum: 169,
       Ticker: 'ENDP',
       Name: 'Endo International plc Ordinary Shares',
       ShortName: 'Endo International plc',
@@ -2741,7 +2709,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 172,
+      PagingNum: 170,
       Ticker: 'EOG',
       Name: 'EOG Resources Inc. Common Stock',
       ShortName: 'EOG Resources',
@@ -2757,7 +2725,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 173,
+      PagingNum: 171,
       Ticker: 'ES',
       Name: 'Eversource Energy (D/B/A) Common Stock',
       ShortName: 'Eversource',
@@ -2773,7 +2741,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 174,
+      PagingNum: 172,
       Ticker: 'ETN',
       Name: 'Eaton Corporation PLC Ordinary Shares',
       ShortName: 'Eaton',
@@ -2789,7 +2757,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 175,
+      PagingNum: 173,
       Ticker: 'ETR',
       Name: 'Entergy Corporation Common Stock',
       ShortName: 'Entergy',
@@ -2805,7 +2773,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 176,
+      PagingNum: 174,
       Ticker: 'ETSY',
       Name: 'Etsy Inc. Common Stock',
       ShortName: 'Etsy',
@@ -2821,7 +2789,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 177,
+      PagingNum: 175,
       Ticker: 'EVRG',
       Name: 'Evergy Inc. Common Stock',
       ShortName: 'Evergy',
@@ -2837,7 +2805,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 178,
+      PagingNum: 176,
       Ticker: 'EW',
       Name: 'Edwards Lifesciences Corporation Common Stock',
       ShortName: 'Edwards Lifesciences',
@@ -2853,7 +2821,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 179,
+      PagingNum: 177,
       Ticker: 'EXC',
       Name: 'Exelon Corporation Common Stock',
       ShortName: 'Exelon',
@@ -2869,7 +2837,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 180,
+      PagingNum: 178,
       Ticker: 'EXPD',
       Name: 'Expeditors International of Washington Inc. Common Stock',
       ShortName: 'Expeditors',
@@ -2885,7 +2853,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 181,
+      PagingNum: 179,
       Ticker: 'EXPE',
       Name: 'Expedia Group Inc. Common Stock',
       ShortName: 'Expedia Group',
@@ -2901,7 +2869,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 182,
+      PagingNum: 180,
       Ticker: 'F',
       Name: 'Ford Motor Company Common Stock',
       ShortName: 'Ford',
@@ -2917,7 +2885,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 183,
+      PagingNum: 181,
       Ticker: 'FAST',
       Name: 'Fastenal Company Common Stock',
       ShortName: 'Fastenal',
@@ -2933,7 +2901,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 184,
+      PagingNum: 182,
       Ticker: 'FBHS',
       Name: 'Fortune Brands Home & Security Inc. Common Stock',
       ShortName: 'Fortune Brands',
@@ -2949,7 +2917,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 185,
+      PagingNum: 183,
       Ticker: 'FCX',
       Name: 'Freeport-McMoRan Inc. Common Stock',
       ShortName: 'Freeport-McMoRan',
@@ -2965,7 +2933,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 186,
+      PagingNum: 184,
       Ticker: 'FE',
       Name: 'FirstEnergy Corp. Common Stock',
       ShortName: 'FirstEnergy',
@@ -2981,7 +2949,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 187,
+      PagingNum: 185,
       Ticker: 'FFIV',
       Name: 'F5 Inc. Common Stock',
       ShortName: 'F5',
@@ -2997,7 +2965,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 188,
+      PagingNum: 186,
       Ticker: 'FIS',
       Name: 'Fidelity National Information Services Inc. Common Stock',
       ShortName: 'FIS',
@@ -3013,7 +2981,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 189,
+      PagingNum: 187,
       Ticker: 'FISV',
       Name: 'Fiserv Inc. Common Stock',
       ShortName: 'Fiserv',
@@ -3029,7 +2997,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 190,
+      PagingNum: 188,
       Ticker: 'FITB',
       Name: 'Fifth Third Bancorp Common Stock',
       ShortName: 'Fifth Third Bank',
@@ -3045,7 +3013,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 191,
+      PagingNum: 189,
       Ticker: 'FL',
       Name: 'Foot Locker Inc.',
       ShortName: 'Foot Locker',
@@ -3061,7 +3029,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 192,
+      PagingNum: 190,
       Ticker: 'FLR',
       Name: 'Fluor Corporation Common Stock',
       ShortName: 'Fluor',
@@ -3077,7 +3045,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 193,
+      PagingNum: 191,
       Ticker: 'FLS',
       Name: 'Flowserve Corporation Common Stock',
       ShortName: 'Flowserve',
@@ -3093,7 +3061,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 194,
+      PagingNum: 192,
       Ticker: 'FLT',
       Name: 'FleetCor Technologies Inc. Common Stock',
       ShortName: 'Fleetcor',
@@ -3109,7 +3077,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 195,
+      PagingNum: 193,
       Ticker: 'FMC',
       Name: 'FMC Corporation Common Stock',
       ShortName: 'FMC',
@@ -3125,7 +3093,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 196,
+      PagingNum: 194,
       Ticker: 'FOSL',
       Name: 'Fossil Group Inc. Common Stock',
       ShortName: 'Fossil Group',
@@ -3141,7 +3109,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 197,
+      PagingNum: 195,
       Ticker: 'FOXA',
       Name: 'Fox Corporation Class A Common Stock',
       ShortName: 'Fox',
@@ -3157,7 +3125,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 198,
+      PagingNum: 196,
       Ticker: 'FSLR',
       Name: 'First Solar Inc. Common Stock',
       ShortName: 'First Solar',
@@ -3173,7 +3141,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 199,
+      PagingNum: 197,
       Ticker: 'FSLY',
       Name: 'Fastly Inc. Class A Common Stock',
       ShortName: 'Fastly',
@@ -3189,7 +3157,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 200,
+      PagingNum: 198,
       Ticker: 'FTI',
       Name: 'TechnipFMC plc Ordinary Share',
       ShortName: 'TechnipFMC plc',
@@ -3205,7 +3173,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 201,
+      PagingNum: 199,
       Ticker: 'FTNT',
       Name: 'Fortinet Inc. Common Stock',
       ShortName: 'Fortinet',
@@ -3221,7 +3189,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 202,
+      PagingNum: 200,
       Ticker: 'FTV',
       Name: 'Fortive Corporation Common Stock ',
       ShortName: 'Fortive',
@@ -3237,7 +3205,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 203,
+      PagingNum: 201,
       Ticker: 'GD',
       Name: 'General Dynamics Corporation Common Stock',
       ShortName: 'General Dynamics',
@@ -3253,7 +3221,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 204,
+      PagingNum: 202,
       Ticker: 'GDRX',
       Name: 'GoodRx Holdings Inc. Class A Common Stock',
       ShortName: 'GoodRx',
@@ -3269,7 +3237,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 205,
+      PagingNum: 203,
       Ticker: 'GH',
       Name: 'Guardant Health Inc. Common Stock',
       ShortName: 'Guardant Health',
@@ -3285,7 +3253,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 206,
+      PagingNum: 204,
       Ticker: 'GILD',
       Name: 'Gilead Sciences Inc. Common Stock',
       ShortName: 'Gilead',
@@ -3301,7 +3269,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 207,
+      PagingNum: 205,
       Ticker: 'GIS',
       Name: 'General Mills Inc. Common Stock',
       ShortName: 'General Mills',
@@ -3317,7 +3285,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 208,
+      PagingNum: 206,
       Ticker: 'GL',
       Name: 'Globe Life Inc. Common Stock',
       ShortName: 'Globe Life',
@@ -3333,7 +3301,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 209,
+      PagingNum: 207,
       Ticker: 'GLW',
       Name: 'Corning Incorporated Common Stock',
       ShortName: 'Corning',
@@ -3349,7 +3317,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 210,
+      PagingNum: 208,
       Ticker: 'GM',
       Name: 'General Motors Company Common Stock',
       ShortName: 'GM',
@@ -3365,7 +3333,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 211,
+      PagingNum: 209,
       Ticker: 'GME',
       Name: 'GameStop Corporation Common Stock',
       ShortName: 'GameStop',
@@ -3381,7 +3349,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 212,
+      PagingNum: 210,
       Ticker: 'GO',
       Name: 'Grocery Outlet Holding Corp. Common Stock',
       ShortName: 'Grocery Outlet',
@@ -3397,7 +3365,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 213,
+      PagingNum: 211,
       Ticker: 'GOOGL',
       Name: 'Alphabet Inc. Class A Common Stock',
       ShortName: 'Alphabet',
@@ -3413,7 +3381,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 214,
+      PagingNum: 212,
       Ticker: 'GPC',
       Name: 'Genuine Parts Company Common Stock',
       ShortName: 'Genuine Parts',
@@ -3429,7 +3397,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 215,
+      PagingNum: 213,
       Ticker: 'GPN',
       Name: 'Global Payments Inc. Common Stock',
       ShortName: 'Global Payments',
@@ -3445,7 +3413,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 216,
+      PagingNum: 214,
       Ticker: 'GPRO',
       Name: 'GoPro Inc. Class A Common Stock',
       ShortName: 'GoPro',
@@ -3461,7 +3429,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 217,
+      PagingNum: 215,
       Ticker: 'GPS',
       Name: 'Gap Inc. (The) Common Stock',
       ShortName: 'Gap',
@@ -3477,7 +3445,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 218,
+      PagingNum: 216,
       Ticker: 'GS',
       Name: 'Goldman Sachs Group Inc. (The) Common Stock',
       ShortName: 'Goldman Sachs',
@@ -3493,7 +3461,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 219,
+      PagingNum: 217,
       Ticker: 'GT',
       Name: 'The Goodyear Tire & Rubber Company Common Stock',
       ShortName: 'The Goodyear Tire & Rubber',
@@ -3509,7 +3477,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 220,
+      PagingNum: 218,
       Ticker: 'GWW',
       Name: 'W.W. Grainger Inc. Common Stock',
       ShortName: 'Grainger',
@@ -3525,7 +3493,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 221,
+      PagingNum: 219,
       Ticker: 'HAS',
       Name: 'Hasbro Inc. Common Stock',
       ShortName: 'Hasbro',
@@ -3541,7 +3509,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 222,
+      PagingNum: 220,
       Ticker: 'HBAN',
       Name: 'Huntington Bancshares Incorporated Common Stock',
       ShortName: 'Huntington National Bank',
@@ -3557,7 +3525,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 223,
+      PagingNum: 221,
       Ticker: 'HBI',
       Name: 'Hanesbrands Inc. Common Stock',
       ShortName: 'Hanesbrands',
@@ -3573,7 +3541,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 224,
+      PagingNum: 222,
       Ticker: 'HCAT',
       Name: 'Health Catalyst Inc Common Stock',
       ShortName: 'Health Catalyst',
@@ -3589,7 +3557,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 225,
+      PagingNum: 223,
       Ticker: 'HD',
       Name: 'Home Depot Inc. (The) Common Stock',
       ShortName: 'Home Depot',
@@ -3605,7 +3573,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 226,
+      PagingNum: 224,
       Ticker: 'HEES',
       Name: 'H&E Equipment Services Inc. Common Stock',
       ShortName: 'H&E Equipment Services',
@@ -3621,7 +3589,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 227,
+      PagingNum: 225,
       Ticker: 'HES',
       Name: 'Hess Corporation Common Stock',
       ShortName: 'Hess',
@@ -3637,7 +3605,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 228,
+      PagingNum: 226,
       Ticker: 'HGV',
       Name: 'Hilton Grand Vacations Inc. Common Stock ',
       ShortName: 'Hilton Grand Vacations',
@@ -3653,7 +3621,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 229,
+      PagingNum: 227,
       Ticker: 'HIG',
       Name: 'Hartford Financial Services Group Inc. (The) Common Stock',
       ShortName: 'Hartford',
@@ -3669,7 +3637,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 230,
+      PagingNum: 228,
       Ticker: 'HII',
       Name: 'Huntington Ingalls Industries Inc. Common Stock',
       ShortName: 'Huntington Ingalls Industries',
@@ -3685,7 +3653,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 231,
+      PagingNum: 229,
       Ticker: 'HLT',
       Name: 'Hilton Worldwide Holdings Inc. Common Stock ',
       ShortName: 'Hilton',
@@ -3701,7 +3669,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 232,
+      PagingNum: 230,
       Ticker: 'HOG',
       Name: 'Harley-Davidson Inc. Common Stock',
       ShortName: 'Harley-Davidson',
@@ -3717,7 +3685,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 233,
+      PagingNum: 231,
       Ticker: 'HOLX',
       Name: 'Hologic Inc. Common Stock',
       ShortName: 'Hologic',
@@ -3733,7 +3701,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 234,
+      PagingNum: 232,
       Ticker: 'HPE',
       Name: 'Hewlett Packard Enterprise Company Common Stock',
       ShortName: 'Hewlett Packard',
@@ -3749,7 +3717,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 235,
+      PagingNum: 233,
       Ticker: 'HPQ',
       Name: 'HP Inc. Common Stock',
       ShortName: 'HP',
@@ -3765,7 +3733,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 236,
+      PagingNum: 234,
       Ticker: 'HRL',
       Name: 'Hormel Foods Corporation Common Stock',
       ShortName: 'Hormel',
@@ -3781,7 +3749,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 237,
+      PagingNum: 235,
       Ticker: 'HSIC',
       Name: 'Henry Schein Inc. Common Stock',
       ShortName: 'Henry Schein',
@@ -3797,7 +3765,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 238,
+      PagingNum: 236,
       Ticker: 'HUM',
       Name: 'Humana Inc. Common Stock',
       ShortName: 'Humana',
@@ -3813,7 +3781,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 239,
+      PagingNum: 237,
       Ticker: 'HWM',
       Name: 'Howmet Aerospace Inc. Common Stock',
       ShortName: 'Howmet Aerospace',
@@ -3829,7 +3797,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 240,
+      PagingNum: 238,
       Ticker: 'IBM',
       Name: 'International Business Machines Corporation Common Stock',
       ShortName: 'IBM',
@@ -3845,7 +3813,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 241,
+      PagingNum: 239,
       Ticker: 'IDXX',
       Name: 'IDEXX Laboratories Inc. Common Stock',
       ShortName: 'Idexx Laboratories',
@@ -3861,7 +3829,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 242,
+      PagingNum: 240,
       Ticker: 'IEX',
       Name: 'IDEX Corporation Common Stock',
       ShortName: 'IDEX',
@@ -3877,7 +3845,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 243,
+      PagingNum: 241,
       Ticker: 'IFF',
       Name: 'International Flavors & Fragrances Inc. Common Stock',
       ShortName: 'International Flavors & Fragrances',
@@ -3893,7 +3861,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 244,
+      PagingNum: 242,
       Ticker: 'ILMN',
       Name: 'Illumina Inc. Common Stock',
       ShortName: 'Illumina',
@@ -3909,7 +3877,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 245,
+      PagingNum: 243,
       Ticker: 'INCY',
       Name: 'Incyte Corp. Common Stock',
       ShortName: 'Incyte',
@@ -3925,7 +3893,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 246,
+      PagingNum: 244,
       Ticker: 'INTC',
       Name: 'Intel Corporation Common Stock',
       ShortName: 'Intel',
@@ -3941,7 +3909,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 247,
+      PagingNum: 245,
       Ticker: 'INTU',
       Name: 'Intuit Inc. Common Stock',
       ShortName: 'Intuit',
@@ -3957,7 +3925,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 248,
+      PagingNum: 246,
       Ticker: 'IP',
       Name: 'International Paper Company Common Stock',
       ShortName: 'International Paper',
@@ -3973,7 +3941,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 249,
+      PagingNum: 247,
       Ticker: 'IPG',
       Name: 'Interpublic Group of Companies Inc. (The) Common Stock',
       ShortName: 'Interpublic',
@@ -3989,7 +3957,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 250,
+      PagingNum: 248,
       Ticker: 'IPGP',
       Name: 'IPG Photonics Corporation Common Stock',
       ShortName: 'IPG Photonics',
@@ -4005,7 +3973,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 251,
+      PagingNum: 249,
       Ticker: 'IQV',
       Name: 'IQVIA Holdings Inc. Common Stock',
       ShortName: 'IQVIA',
@@ -4021,7 +3989,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 252,
+      PagingNum: 250,
       Ticker: 'IR',
       Name: 'Ingersoll Rand Inc. Common Stock',
       ShortName: 'Ingersoll Rand',
@@ -4037,7 +4005,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 253,
+      PagingNum: 251,
       Ticker: 'IRBT',
       Name: 'iRobot Corporation Common Stock',
       ShortName: 'iRobot',
@@ -4053,7 +4021,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 254,
+      PagingNum: 252,
       Ticker: 'ISRG',
       Name: 'Intuitive Surgical Inc. Common Stock',
       ShortName: 'Intuitive Surgical',
@@ -4069,7 +4037,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 255,
+      PagingNum: 253,
       Ticker: 'IT',
       Name: 'Gartner Inc. Common Stock',
       ShortName: 'Gartner',
@@ -4085,7 +4053,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 256,
+      PagingNum: 254,
       Ticker: 'ITW',
       Name: 'Illinois Tool Works Inc. Common Stock',
       ShortName: 'Illinois Tool Works',
@@ -4101,7 +4069,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 257,
+      PagingNum: 255,
       Ticker: 'IVZ',
       Name: 'Invesco Ltd Common Stock',
       ShortName: 'Invesco',
@@ -4117,7 +4085,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 258,
+      PagingNum: 256,
       Ticker: 'J',
       Name: 'Jacobs Engineering Group Inc. Common Stock',
       ShortName: 'Jacobs',
@@ -4133,7 +4101,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 259,
+      PagingNum: 257,
       Ticker: 'JBHT',
       Name: 'J.B. Hunt Transport Services Inc. Common Stock',
       ShortName: 'J.B. Hunt',
@@ -4149,7 +4117,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 260,
+      PagingNum: 258,
       Ticker: 'JCI',
       Name: 'Johnson Controls International plc Ordinary Share',
       ShortName: 'Johnson Controls',
@@ -4165,7 +4133,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 261,
+      PagingNum: 259,
       Ticker: 'JKHY',
       Name: 'Jack Henry & Associates Inc. Common Stock',
       ShortName: 'Jack Henry & Associates',
@@ -4181,7 +4149,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 262,
+      PagingNum: 260,
       Ticker: 'JNJ',
       Name: 'Johnson & Johnson Common Stock',
       ShortName: 'Johnson & Johnson',
@@ -4197,7 +4165,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 263,
+      PagingNum: 261,
       Ticker: 'JNPR',
       Name: 'Juniper Networks Inc. Common Stock',
       ShortName: 'Juniper Networks',
@@ -4213,7 +4181,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 264,
+      PagingNum: 262,
       Ticker: 'JPM',
       Name: 'JP Morgan Chase & Co. Common Stock',
       ShortName: 'JPMorgan Chase',
@@ -4229,7 +4197,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 265,
+      PagingNum: 263,
       Ticker: 'JWN',
       Name: 'Nordstrom Inc. Common Stock',
       ShortName: 'Nordstrom',
@@ -4245,7 +4213,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 266,
+      PagingNum: 264,
       Ticker: 'K',
       Name: 'Kellogg Company Common Stock',
       ShortName: "Kellogg's",
@@ -4261,7 +4229,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 267,
+      PagingNum: 265,
       Ticker: 'KBH',
       Name: 'KB Home Common Stock',
       ShortName: 'KB Home ',
@@ -4277,7 +4245,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 268,
+      PagingNum: 266,
       Ticker: 'KBR',
       Name: 'KBR Inc. Common Stock',
       ShortName: 'KBR',
@@ -4293,7 +4261,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 269,
+      PagingNum: 267,
       Ticker: 'KDP',
       Name: 'Keurig Dr Pepper Inc. Common Stock',
       ShortName: 'Keurig Dr Pepper',
@@ -4309,7 +4277,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 270,
+      PagingNum: 268,
       Ticker: 'KEY',
       Name: 'KeyCorp Common Stock',
       ShortName: 'KeyCorp',
@@ -4325,7 +4293,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 271,
+      PagingNum: 269,
       Ticker: 'KEYS',
       Name: 'Keysight Technologies Inc. Common Stock',
       ShortName: 'Keysight',
@@ -4341,7 +4309,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 272,
+      PagingNum: 270,
       Ticker: 'KFY',
       Name: 'Korn Ferry Common Stock',
       ShortName: 'Korn Ferry',
@@ -4357,7 +4325,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 273,
+      PagingNum: 271,
       Ticker: 'KLAC',
       Name: 'KLA Corporation Common Stock',
       ShortName: 'KLA',
@@ -4373,7 +4341,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 274,
+      PagingNum: 272,
       Ticker: 'KMB',
       Name: 'Kimberly-Clark Corporation Common Stock',
       ShortName: 'Kimberly-Clark',
@@ -4389,7 +4357,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 275,
+      PagingNum: 273,
       Ticker: 'KMI',
       Name: 'Kinder Morgan Inc. Common Stock',
       ShortName: 'Kinder Morgan',
@@ -4405,7 +4373,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 276,
+      PagingNum: 274,
       Ticker: 'KMX',
       Name: 'CarMax Inc',
       ShortName: 'CarMax',
@@ -4421,7 +4389,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 277,
+      PagingNum: 275,
       Ticker: 'KTOS',
       Name: 'Kratos Defense & Security Solutions Inc. Common Stock',
       ShortName: 'Kratos Defense & Security Solutions',
@@ -4437,7 +4405,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 278,
+      PagingNum: 276,
       Ticker: 'L',
       Name: 'Loews Corporation Common Stock',
       ShortName: 'Loews Corporation',
@@ -4453,7 +4421,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 279,
+      PagingNum: 277,
       Ticker: 'LASR',
       Name: 'nLIGHT Inc. Common Stock',
       ShortName: 'nLIGHT',
@@ -4469,7 +4437,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 280,
+      PagingNum: 278,
       Ticker: 'LDOS',
       Name: 'Leidos Holdings Inc. Common Stock',
       ShortName: 'Leidos',
@@ -4485,7 +4453,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 281,
+      PagingNum: 279,
       Ticker: 'LEG',
       Name: 'Leggett & Platt Incorporated Common Stock',
       ShortName: 'Leggett & Platt',
@@ -4501,7 +4469,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 282,
+      PagingNum: 280,
       Ticker: 'LEN',
       Name: 'Lennar Corporation Class A Common Stock',
       ShortName: 'Lennar',
@@ -4517,7 +4485,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 283,
+      PagingNum: 281,
       Ticker: 'LEVI',
       Name: 'Levi Strauss & Co Class A Common Stock',
       ShortName: 'Levi Strauss & Co',
@@ -4533,7 +4501,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 284,
+      PagingNum: 282,
       Ticker: 'LH',
       Name: 'Laboratory Corporation of America Holdings Common Stock',
       ShortName: 'LabCorp',
@@ -4549,7 +4517,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 285,
+      PagingNum: 283,
       Ticker: 'LKQ',
       Name: 'LKQ Corporation Common Stock',
       ShortName: 'LKQ Corporation',
@@ -4565,7 +4533,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 286,
+      PagingNum: 284,
       Ticker: 'LLY',
       Name: 'Eli Lilly and Company Common Stock',
       ShortName: 'Lilly',
@@ -4581,7 +4549,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 287,
+      PagingNum: 285,
       Ticker: 'LMT',
       Name: 'Lockheed Martin Corporation Common Stock',
       ShortName: 'Lockheed Martin',
@@ -4597,7 +4565,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 288,
+      PagingNum: 286,
       Ticker: 'LNC',
       Name: 'Lincoln National Corporation Common Stock',
       ShortName: 'Lincoln Financial',
@@ -4613,7 +4581,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 289,
+      PagingNum: 287,
       Ticker: 'LNT',
       Name: 'Alliant Energy Corporation Common Stock',
       ShortName: 'Alliant Energy',
@@ -4629,7 +4597,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 290,
+      PagingNum: 288,
       Ticker: 'LOW',
       Name: "Lowe's Companies Inc. Common Stock",
       ShortName: "Lowe's",
@@ -4645,7 +4613,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 291,
+      PagingNum: 289,
       Ticker: 'LRCX',
       Name: 'Lam Research Corporation Common Stock',
       ShortName: 'Lam Research',
@@ -4661,7 +4629,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 292,
+      PagingNum: 290,
       Ticker: 'LULU',
       Name: 'lululemon athletica inc. Common Stock',
       ShortName: 'lululemon athletica',
@@ -4677,7 +4645,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 293,
+      PagingNum: 291,
       Ticker: 'LUMN',
       Name: 'Lumen Technologies Inc. Common Stock',
       ShortName: 'Lumen',
@@ -4693,7 +4661,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 294,
+      PagingNum: 292,
       Ticker: 'LUV',
       Name: 'Southwest Airlines Company Common Stock',
       ShortName: 'Southwest Airlines',
@@ -4709,7 +4677,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 295,
+      PagingNum: 293,
       Ticker: 'LVS',
       Name: 'Las Vegas Sands Corp. Common Stock',
       ShortName: 'Las Vegas Sands',
@@ -4725,7 +4693,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 296,
+      PagingNum: 294,
       Ticker: 'LW',
       Name: 'Lamb Weston Holdings Inc. Common Stock ',
       ShortName: 'Lamb Weston',
@@ -4741,7 +4709,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 297,
+      PagingNum: 295,
       Ticker: 'LYB',
       Name: 'LyondellBasell Industries NV Ordinary Shares Class A (Netherlands)',
       ShortName: 'LyondellBasell',
@@ -4757,7 +4725,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 298,
+      PagingNum: 296,
       Ticker: 'LYV',
       Name: 'Live Nation Entertainment Inc. Common Stock',
       ShortName: 'Live Nation Entertainment',
@@ -4773,7 +4741,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 299,
+      PagingNum: 297,
       Ticker: 'M',
       Name: "Macy's Inc Common Stock",
       ShortName: "Macy's",
@@ -4789,7 +4757,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 300,
+      PagingNum: 298,
       Ticker: 'MA',
       Name: 'Mastercard Incorporated Common Stock',
       ShortName: 'Mastercard',
@@ -4805,7 +4773,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 301,
+      PagingNum: 299,
       Ticker: 'MAR',
       Name: 'Marriott International Class A Common Stock',
       ShortName: 'Marriott',
@@ -4821,7 +4789,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 302,
+      PagingNum: 300,
       Ticker: 'MAS',
       Name: 'Masco Corporation Common Stock',
       ShortName: 'Masco',
@@ -4837,7 +4805,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 303,
+      PagingNum: 301,
       Ticker: 'MAT',
       Name: 'Mattel Inc. Common Stock',
       ShortName: 'Mattel Inc.',
@@ -4853,7 +4821,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 304,
+      PagingNum: 302,
       Ticker: 'MCD',
       Name: "McDonald's Corporation Common Stock",
       ShortName: "McDonald's",
@@ -4869,7 +4837,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 305,
+      PagingNum: 303,
       Ticker: 'MCHP',
       Name: 'Microchip Technology Incorporated Common Stock',
       ShortName: 'Microchip',
@@ -4885,7 +4853,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 306,
+      PagingNum: 304,
       Ticker: 'MCK',
       Name: 'McKesson Corporation Common Stock',
       ShortName: 'McKesson',
@@ -4901,7 +4869,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 307,
+      PagingNum: 305,
       Ticker: 'MCO',
       Name: "Moody's Corporation Common Stock",
       ShortName: "Moody's",
@@ -4917,7 +4885,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 308,
+      PagingNum: 306,
       Ticker: 'MDB',
       Name: 'MongoDB Inc. Class A Common Stock',
       ShortName: 'MongoDB',
@@ -4933,7 +4901,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 309,
+      PagingNum: 307,
       Ticker: 'MDLZ',
       Name: 'Mondelez International Inc. Class A Common Stock',
       ShortName: 'Mondelez',
@@ -4949,7 +4917,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 310,
+      PagingNum: 308,
       Ticker: 'MDT',
       Name: 'Medtronic plc. Ordinary Shares',
       ShortName: 'Medtronic',
@@ -4965,7 +4933,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 311,
+      PagingNum: 309,
       Ticker: 'MELI',
       Name: 'MercadoLibre Inc. Common Stock',
       ShortName: 'MercadoLibre',
@@ -4981,7 +4949,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 312,
+      PagingNum: 310,
       Ticker: 'MET',
       Name: 'MetLife Inc. Common Stock',
       ShortName: 'MetLife',
@@ -4997,7 +4965,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 313,
+      PagingNum: 311,
       Ticker: 'META',
       Name: 'Meta Platforms Inc. Class A Common Stock',
       ShortName: 'Meta',
@@ -5013,7 +4981,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 314,
+      PagingNum: 312,
       Ticker: 'MGM',
       Name: 'MGM Resorts International Common Stock',
       ShortName: 'MGM Resorts',
@@ -5029,7 +4997,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 315,
+      PagingNum: 313,
       Ticker: 'MHK',
       Name: 'Mohawk Industries Inc. Common Stock',
       ShortName: 'Mohawk Industries',
@@ -5045,7 +5013,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 316,
+      PagingNum: 314,
       Ticker: 'MKTX',
       Name: 'MarketAxess Holdings Inc. Common Stock',
       ShortName: 'MarketAxess',
@@ -5061,7 +5029,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 317,
+      PagingNum: 315,
       Ticker: 'MLM',
       Name: 'Martin Marietta Materials Inc. Common Stock',
       ShortName: 'Martin Marietta',
@@ -5077,7 +5045,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 318,
+      PagingNum: 316,
       Ticker: 'MMC',
       Name: 'Marsh & McLennan Companies Inc. Common Stock',
       ShortName: 'Marsh & McLennan',
@@ -5093,7 +5061,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 319,
+      PagingNum: 317,
       Ticker: 'MMM',
       Name: '3M Company Common Stock',
       ShortName: '3M',
@@ -5109,7 +5077,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 320,
+      PagingNum: 318,
       Ticker: 'MNST',
       Name: 'Monster Beverage Corporation',
       ShortName: 'Monster Beverage',
@@ -5125,7 +5093,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 321,
+      PagingNum: 319,
       Ticker: 'MO',
       Name: 'Altria Group Inc.',
       ShortName: 'Altria',
@@ -5141,7 +5109,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 322,
+      PagingNum: 320,
       Ticker: 'MRK',
       Name: 'Merck & Company Inc. Common Stock (new)',
       ShortName: 'Merck',
@@ -5157,7 +5125,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 323,
+      PagingNum: 321,
       Ticker: 'MRNA',
       Name: 'Moderna Inc. Common Stock',
       ShortName: 'Moderna',
@@ -5173,7 +5141,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 324,
+      PagingNum: 322,
       Ticker: 'MRO',
       Name: 'Marathon Oil Corporation Common Stock',
       ShortName: 'Marathon Oil',
@@ -5189,7 +5157,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 325,
+      PagingNum: 323,
       Ticker: 'MS',
       Name: 'Morgan Stanley Common Stock',
       ShortName: 'Morgan Stanley',
@@ -5205,7 +5173,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 326,
+      PagingNum: 324,
       Ticker: 'MSCI',
       Name: 'MSCI Inc Common Stock',
       ShortName: 'MSCI',
@@ -5221,7 +5189,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 327,
+      PagingNum: 325,
       Ticker: 'MSFT',
       Name: 'Microsoft Corporation Common Stock',
       ShortName: 'Microsoft',
@@ -5237,7 +5205,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 328,
+      PagingNum: 326,
       Ticker: 'MSI',
       Name: 'Motorola Solutions Inc. Common Stock',
       ShortName: 'Motorola Solutions',
@@ -5253,7 +5221,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 329,
+      PagingNum: 327,
       Ticker: 'MTB',
       Name: 'M&T Bank Corporation Common Stock',
       ShortName: 'M&T Bank',
@@ -5269,7 +5237,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 330,
+      PagingNum: 328,
       Ticker: 'MTD',
       Name: 'Mettler-Toledo International Inc. Common Stock',
       ShortName: 'Mettler Toledo',
@@ -5285,7 +5253,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 331,
+      PagingNum: 329,
       Ticker: 'MTZ',
       Name: 'MasTec Inc. Common Stock',
       ShortName: 'MasTec',
@@ -5301,7 +5269,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 332,
+      PagingNum: 330,
       Ticker: 'MUR',
       Name: 'Murphy Oil Corporation Common Stock',
       ShortName: 'Murphy Oil',
@@ -5317,7 +5285,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 333,
+      PagingNum: 331,
       Ticker: 'MYGN',
       Name: 'Myriad Genetics Inc. Common Stock',
       ShortName: 'Myriad Genetics',
@@ -5333,7 +5301,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 334,
+      PagingNum: 332,
       Ticker: 'NCLH',
       Name: 'Norwegian Cruise Line Holdings Ltd. Ordinary Shares',
       ShortName: 'Norwegian Cruise Line',
@@ -5349,7 +5317,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 335,
+      PagingNum: 333,
       Ticker: 'NCR',
       Name: 'NCR Corporation Common Stock',
       ShortName: 'NCR',
@@ -5365,7 +5333,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 336,
+      PagingNum: 334,
       Ticker: 'NDAQ',
       Name: 'Nasdaq Inc. Common Stock',
       ShortName: 'Nasdaq',
@@ -5381,7 +5349,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 337,
+      PagingNum: 335,
       Ticker: 'NEE',
       Name: 'NextEra Energy Inc. Common Stock',
       ShortName: 'NextEra Energy',
@@ -5397,7 +5365,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 338,
+      PagingNum: 336,
       Ticker: 'NET',
       Name: 'Cloudflare Inc. Class A Common Stock',
       ShortName: 'Cloudflare',
@@ -5413,7 +5381,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 339,
+      PagingNum: 337,
       Ticker: 'NFLX',
       Name: 'Netflix Inc. Common Stock',
       ShortName: 'Netflix',
@@ -5429,7 +5397,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 340,
+      PagingNum: 338,
       Ticker: 'NI',
       Name: 'NiSource Inc Common Stock',
       ShortName: 'NiSource',
@@ -5445,7 +5413,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 341,
+      PagingNum: 339,
       Ticker: 'NKE',
       Name: 'Nike Inc. Common Stock',
       ShortName: 'Nike',
@@ -5461,23 +5429,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 342,
-      Ticker: 'NLSN',
-      Name: 'Nielsen N.V. Ordinary Shares',
-      ShortName: 'Nielsen',
-      Country: 'Netherlands',
-      'IPO Year': 2011.0,
-      Sector: 'Miscellaneous',
-      Industry: 'Business Services',
-      Market: 'NYSE',
-      'Market Cap': 9729703819.0,
-      CIK: 1492633,
-      ADR: null,
-      Unlist: null,
-      SP500: 'SP500',
-    },
-    {
-      PagingNum: 343,
+      PagingNum: 340,
       Ticker: 'NOC',
       Name: 'Northrop Grumman Corporation Common Stock',
       ShortName: 'Northrop Grumman',
@@ -5493,7 +5445,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 344,
+      PagingNum: 341,
       Ticker: 'NOV',
       Name: 'NOV Inc. Common Stock',
       ShortName: 'NOV',
@@ -5509,7 +5461,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 345,
+      PagingNum: 342,
       Ticker: 'NOW',
       Name: 'ServiceNow Inc. Common Stock',
       ShortName: 'ServiceNow',
@@ -5525,7 +5477,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 346,
+      PagingNum: 343,
       Ticker: 'NRG',
       Name: 'NRG Energy Inc. Common Stock',
       ShortName: 'NRG Energy',
@@ -5541,7 +5493,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 347,
+      PagingNum: 344,
       Ticker: 'NSC',
       Name: 'Norfolk Southern Corporation Common Stock',
       ShortName: 'Norfolk Southern',
@@ -5557,7 +5509,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 348,
+      PagingNum: 345,
       Ticker: 'NTAP',
       Name: 'NetApp Inc. Common Stock',
       ShortName: 'NetApp',
@@ -5573,7 +5525,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 349,
+      PagingNum: 346,
       Ticker: 'NTRS',
       Name: 'Northern Trust Corporation Common Stock',
       ShortName: 'Northern Trust',
@@ -5589,7 +5541,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 350,
+      PagingNum: 347,
       Ticker: 'NUE',
       Name: 'Nucor Corporation Common Stock',
       ShortName: 'Nucor',
@@ -5605,7 +5557,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 351,
+      PagingNum: 348,
       Ticker: 'NVDA',
       Name: 'NVIDIA Corporation Common Stock',
       ShortName: 'Nvidia',
@@ -5621,7 +5573,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 352,
+      PagingNum: 349,
       Ticker: 'NVR',
       Name: 'NVR Inc. Common Stock',
       ShortName: 'NVR',
@@ -5637,7 +5589,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 353,
+      PagingNum: 350,
       Ticker: 'NVST',
       Name: 'Envista Holdings Corporation Common Stock',
       ShortName: 'Envista',
@@ -5653,7 +5605,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 354,
+      PagingNum: 351,
       Ticker: 'NWL',
       Name: 'Newell Brands Inc. Common Stock',
       ShortName: 'Newell Brands',
@@ -5669,7 +5621,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 355,
+      PagingNum: 352,
       Ticker: 'NWSA',
       Name: 'News Corporation Class A Common Stock',
       ShortName: 'News Corp',
@@ -5685,7 +5637,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 356,
+      PagingNum: 353,
       Ticker: 'NYT',
       Name: 'New York Times Company (The) Common Stock',
       ShortName: 'New York Times',
@@ -5701,7 +5653,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 357,
+      PagingNum: 354,
       Ticker: 'ODFL',
       Name: 'Old Dominion Freight Line Inc. Common Stock',
       ShortName: 'Old Dominion',
@@ -5717,7 +5669,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 358,
+      PagingNum: 355,
       Ticker: 'ODP',
       Name: 'The ODP Corporation Common Stock',
       ShortName: 'The ODP',
@@ -5733,7 +5685,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 359,
+      PagingNum: 356,
       Ticker: 'OI',
       Name: 'O-I Glass Inc. Common Stock',
       ShortName: 'O-I Glass',
@@ -5749,7 +5701,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 360,
+      PagingNum: 357,
       Ticker: 'OKE',
       Name: 'ONEOK Inc. Common Stock',
       ShortName: 'Oneok',
@@ -5765,7 +5717,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 361,
+      PagingNum: 358,
       Ticker: 'OMC',
       Name: 'Omnicom Group Inc. Common Stock',
       ShortName: 'Omnicom Group',
@@ -5781,7 +5733,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 362,
+      PagingNum: 359,
       Ticker: 'ON',
       Name: 'ON Semiconductor Corporation Common Stock',
       ShortName: 'ON Semiconductor',
@@ -5797,7 +5749,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 363,
+      PagingNum: 360,
       Ticker: 'ONEM',
       Name: '1Life Healthcare Inc. Common Stock',
       ShortName: '1Life Healthcare',
@@ -5813,7 +5765,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 364,
+      PagingNum: 361,
       Ticker: 'ORCL',
       Name: 'Oracle Corporation Common Stock',
       ShortName: 'Oracle',
@@ -5829,7 +5781,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 365,
+      PagingNum: 362,
       Ticker: 'ORLY',
       Name: "O'Reilly Automotive Inc. Common Stock",
       ShortName: "O'Reilly Automotive",
@@ -5845,7 +5797,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 366,
+      PagingNum: 363,
       Ticker: 'OTIS',
       Name: 'Otis Worldwide Corporation Common Stock ',
       ShortName: 'Otis',
@@ -5861,7 +5813,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 367,
+      PagingNum: 364,
       Ticker: 'OXY',
       Name: 'Occidental Petroleum Corporation Common Stock',
       ShortName: 'Occidental Petroleum',
@@ -5877,7 +5829,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 368,
+      PagingNum: 365,
       Ticker: 'PANW',
       Name: 'Palo Alto Networks Inc. Common Stock',
       ShortName: 'Palo Alto Networks',
@@ -5893,7 +5845,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 369,
+      PagingNum: 366,
       Ticker: 'PAYC',
       Name: 'Paycom Software Inc. Common Stock',
       ShortName: 'Paycom',
@@ -5909,7 +5861,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 370,
+      PagingNum: 367,
       Ticker: 'PD',
       Name: 'PagerDuty Inc. Common Stock',
       ShortName: 'PagerDuty',
@@ -5925,7 +5877,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 371,
+      PagingNum: 368,
       Ticker: 'PEGA',
       Name: 'Pegasystems Inc. Common Stock',
       ShortName: 'Pegasystems',
@@ -5941,7 +5893,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 372,
+      PagingNum: 369,
       Ticker: 'PEP',
       Name: 'PepsiCo Inc. Common Stock',
       ShortName: 'PepsiCo',
@@ -5957,7 +5909,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 373,
+      PagingNum: 370,
       Ticker: 'PFE',
       Name: 'Pfizer Inc. Common Stock',
       ShortName: 'Pfizer',
@@ -5973,7 +5925,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 374,
+      PagingNum: 371,
       Ticker: 'PFG',
       Name: 'Principal Financial Group Inc Common Stock',
       ShortName: 'Principal',
@@ -5989,7 +5941,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 375,
+      PagingNum: 372,
       Ticker: 'PG',
       Name: 'Procter & Gamble Company (The) Common Stock',
       ShortName: 'Procter & Gamble',
@@ -6005,7 +5957,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 376,
+      PagingNum: 373,
       Ticker: 'PGNY',
       Name: 'Progyny Inc. Common Stock',
       ShortName: 'Progyny',
@@ -6021,7 +5973,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 377,
+      PagingNum: 374,
       Ticker: 'PGR',
       Name: 'Progressive Corporation (The) Common Stock',
       ShortName: 'Progressive',
@@ -6037,7 +5989,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 378,
+      PagingNum: 375,
       Ticker: 'PH',
       Name: 'Parker-Hannifin Corporation Common Stock',
       ShortName: 'Parker',
@@ -6053,7 +6005,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 379,
+      PagingNum: 376,
       Ticker: 'PHR',
       Name: 'Phreesia Inc. Common Stock',
       ShortName: 'Phreesia',
@@ -6069,23 +6021,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 380,
-      Ticker: 'PING',
-      Name: 'Ping Identity Holding Corp. Common Stock',
-      ShortName: 'Ping Identity',
-      Country: 'United States',
-      'IPO Year': 2019.0,
-      Sector: 'Technology',
-      Industry: 'EDP Services',
-      Market: 'NYSE',
-      'Market Cap': 2433862709.0,
-      CIK: 1679826,
-      ADR: null,
-      Unlist: null,
-      SP500: null,
-    },
-    {
-      PagingNum: 381,
+      PagingNum: 377,
       Ticker: 'PKG',
       Name: 'Packaging Corporation of America Common Stock',
       ShortName: 'Packaging Corporation of America',
@@ -6101,7 +6037,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 382,
+      PagingNum: 378,
       Ticker: 'PKI',
       Name: 'PerkinElmer Inc. Common Stock',
       ShortName: 'PerkinElmer',
@@ -6117,7 +6053,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 383,
+      PagingNum: 379,
       Ticker: 'PM',
       Name: 'Philip Morris International Inc Common Stock',
       ShortName: 'Philip Morris',
@@ -6133,7 +6069,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 384,
+      PagingNum: 380,
       Ticker: 'PNC',
       Name: 'PNC Financial Services Group Inc. (The) Common Stock',
       ShortName: 'PNC Financial Services',
@@ -6149,7 +6085,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 385,
+      PagingNum: 381,
       Ticker: 'PNR',
       Name: 'Pentair plc. Ordinary Share',
       ShortName: 'Pentair',
@@ -6165,7 +6101,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 386,
+      PagingNum: 382,
       Ticker: 'PNW',
       Name: 'Pinnacle West Capital Corporation Common Stock',
       ShortName: 'Pinnacle West',
@@ -6181,7 +6117,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 387,
+      PagingNum: 383,
       Ticker: 'POOL',
       Name: 'Pool Corporation Common Stock',
       ShortName: 'Pool',
@@ -6197,7 +6133,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 388,
+      PagingNum: 384,
       Ticker: 'PPG',
       Name: 'PPG Industries Inc. Common Stock',
       ShortName: 'PPG Industries',
@@ -6213,7 +6149,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 389,
+      PagingNum: 385,
       Ticker: 'PRGO',
       Name: 'Perrigo Company plc Ordinary Shares',
       ShortName: 'Perrigo',
@@ -6229,7 +6165,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 390,
+      PagingNum: 386,
       Ticker: 'PRLB',
       Name: 'Proto Labs Inc. Common stock',
       ShortName: 'Proto Labs',
@@ -6245,7 +6181,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 391,
+      PagingNum: 387,
       Ticker: 'PRU',
       Name: 'Prudential Financial Inc. Common Stock',
       ShortName: 'Prudential',
@@ -6261,7 +6197,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 392,
+      PagingNum: 388,
       Ticker: 'PSX',
       Name: 'Phillips 66 Common Stock',
       ShortName: 'Phillips 66',
@@ -6277,7 +6213,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 393,
+      PagingNum: 389,
       Ticker: 'PTON',
       Name: 'Peloton Interactive Inc. Class A Common Stock',
       ShortName: 'Peloton Interactive',
@@ -6293,7 +6229,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 394,
+      PagingNum: 390,
       Ticker: 'PVH',
       Name: 'PVH Corp. Common Stock',
       ShortName: 'PVH',
@@ -6309,7 +6245,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 395,
+      PagingNum: 391,
       Ticker: 'PWR',
       Name: 'Quanta Services Inc. Common Stock',
       ShortName: 'Quanta',
@@ -6325,7 +6261,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 396,
+      PagingNum: 392,
       Ticker: 'PYPL',
       Name: 'PayPal Holdings Inc. Common Stock',
       ShortName: 'PayPal',
@@ -6341,7 +6277,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 397,
+      PagingNum: 393,
       Ticker: 'QCOM',
       Name: 'QUALCOMM Incorporated Common Stock',
       ShortName: 'Qualcomm',
@@ -6357,7 +6293,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 398,
+      PagingNum: 394,
       Ticker: 'QSR',
       Name: 'Restaurant Brands International Inc. Common Shares',
       ShortName: 'Restaurant Brands',
@@ -6373,7 +6309,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 399,
+      PagingNum: 395,
       Ticker: 'R',
       Name: 'Ryder System Inc. Common Stock',
       ShortName: 'Ryder System',
@@ -6389,7 +6325,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 400,
+      PagingNum: 396,
       Ticker: 'RCL',
       Name: 'D/B/A Royal Caribbean Cruises Ltd. Common Stock',
       ShortName: 'Royal Caribbean Group',
@@ -6405,7 +6341,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 401,
+      PagingNum: 397,
       Ticker: 'RE',
       Name: 'Everest Re Group Ltd. Common Stock',
       ShortName: 'Everest',
@@ -6421,7 +6357,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 402,
+      PagingNum: 398,
       Ticker: 'REAL',
       Name: 'The RealReal Inc. Common Stock',
       ShortName: 'The RealReal',
@@ -6437,7 +6373,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 403,
+      PagingNum: 399,
       Ticker: 'REGN',
       Name: 'Regeneron Pharmaceuticals Inc. Common Stock',
       ShortName: 'Regeneron',
@@ -6453,7 +6389,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 404,
+      PagingNum: 400,
       Ticker: 'REYN',
       Name: 'Reynolds Consumer Products Inc. Common Stock',
       ShortName: 'Reynolds Consumer Products',
@@ -6469,7 +6405,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 405,
+      PagingNum: 401,
       Ticker: 'RF',
       Name: 'Regions Financial Corporation Common Stock',
       ShortName: 'Regions',
@@ -6485,7 +6421,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 406,
+      PagingNum: 402,
       Ticker: 'RH',
       Name: 'RH Common Stock',
       ShortName: 'RH',
@@ -6501,7 +6437,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 407,
+      PagingNum: 403,
       Ticker: 'RHI',
       Name: 'Robert Half International Inc. Common Stock',
       ShortName: 'Robert Half',
@@ -6517,7 +6453,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 408,
+      PagingNum: 404,
       Ticker: 'RIG',
       Name: 'Transocean Ltd (Switzerland) Common Stock',
       ShortName: 'Transocean',
@@ -6533,7 +6469,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 409,
+      PagingNum: 405,
       Ticker: 'RJF',
       Name: 'Raymond James Financial Inc. Common Stock',
       ShortName: 'Raymond James',
@@ -6549,7 +6485,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 410,
+      PagingNum: 406,
       Ticker: 'RL',
       Name: 'Ralph Lauren Corporation Common Stock',
       ShortName: 'Ralph Lauren',
@@ -6565,7 +6501,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 411,
+      PagingNum: 407,
       Ticker: 'RMD',
       Name: 'ResMed Inc. Common Stock',
       ShortName: 'ResMed',
@@ -6581,7 +6517,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 412,
+      PagingNum: 408,
       Ticker: 'ROK',
       Name: 'Rockwell Automation Inc. Common Stock',
       ShortName: 'Rockwell Automation',
@@ -6597,7 +6533,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 413,
+      PagingNum: 409,
       Ticker: 'ROKU',
       Name: 'Roku Inc. Class A Common Stock',
       ShortName: 'Roku ',
@@ -6613,7 +6549,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 414,
+      PagingNum: 410,
       Ticker: 'ROL',
       Name: 'Rollins Inc. Common Stock',
       ShortName: 'Rollins',
@@ -6629,7 +6565,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 415,
+      PagingNum: 411,
       Ticker: 'ROP',
       Name: 'Roper Technologies Inc. Common Stock',
       ShortName: 'Roper',
@@ -6645,7 +6581,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 416,
+      PagingNum: 412,
       Ticker: 'ROST',
       Name: 'Ross Stores Inc. Common Stock',
       ShortName: 'Ross',
@@ -6661,7 +6597,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 417,
+      PagingNum: 413,
       Ticker: 'RSG',
       Name: 'Republic Services Inc. Common Stock',
       ShortName: 'Republic Services',
@@ -6677,7 +6613,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 418,
+      PagingNum: 414,
       Ticker: 'RTX',
       Name: 'Raytheon Technologies Corporation Common Stock',
       ShortName: 'Raytheon Technologies',
@@ -6693,7 +6629,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 419,
+      PagingNum: 415,
       Ticker: 'RVLV',
       Name: 'Revolve Group Inc. Class A Common Stock',
       ShortName: 'Revolve',
@@ -6709,7 +6645,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 420,
+      PagingNum: 416,
       Ticker: 'RVMD',
       Name: 'Revolution Medicines Inc. Common Stock',
       ShortName: 'Revolution Medicines',
@@ -6725,7 +6661,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 421,
+      PagingNum: 417,
       Ticker: 'SBH',
       Name: 'Sally Beauty Holdings Inc. (Name to be changed from Sally Holdings Inc.) Common Stock',
       ShortName: 'Sally Beauty',
@@ -6741,7 +6677,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 422,
+      PagingNum: 418,
       Ticker: 'SBUX',
       Name: 'Starbucks Corporation Common Stock',
       ShortName: 'Starbucks',
@@ -6757,7 +6693,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 423,
+      PagingNum: 419,
       Ticker: 'SCHW',
       Name: 'Charles Schwab Corporation (The) Common Stock',
       ShortName: 'Charles Schwab',
@@ -6773,7 +6709,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 424,
+      PagingNum: 420,
       Ticker: 'SCI',
       Name: 'Service Corporation International Common Stock',
       ShortName: 'Service Corporation International',
@@ -6789,7 +6725,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 425,
+      PagingNum: 421,
       Ticker: 'SDGR',
       Name: 'Schrodinger Inc. Common Stock',
       ShortName: 'Schrodinger ',
@@ -6805,7 +6741,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 426,
+      PagingNum: 422,
       Ticker: 'SEE',
       Name: 'Sealed Air Corporation Common Stock',
       ShortName: 'Sealed Air',
@@ -6821,7 +6757,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 427,
+      PagingNum: 423,
       Ticker: 'SEIC',
       Name: 'SEI Investments Company Common Stock',
       ShortName: 'SEI Investments',
@@ -6837,7 +6773,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 428,
+      PagingNum: 424,
       Ticker: 'SHAK',
       Name: 'Shake Shack Inc. Class A Common Stock',
       ShortName: 'Shake Shack',
@@ -6853,7 +6789,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 429,
+      PagingNum: 425,
       Ticker: 'SHW',
       Name: 'Sherwin-Williams Company (The) Common Stock',
       ShortName: 'Sherwin-Williams',
@@ -6869,7 +6805,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 430,
+      PagingNum: 426,
       Ticker: 'SILK',
       Name: 'Silk Road Medical Inc. Common Stock',
       ShortName: 'Silk Road Medical',
@@ -6885,7 +6821,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 431,
+      PagingNum: 427,
       Ticker: 'SIRI',
       Name: 'Sirius XM Holdings Inc. Common Stock',
       ShortName: 'Sirius XM',
@@ -6901,7 +6837,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 432,
+      PagingNum: 428,
       Ticker: 'SIVB',
       Name: 'SVB Financial Group Common Stock',
       ShortName: 'SVB Financial',
@@ -6917,7 +6853,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 433,
+      PagingNum: 429,
       Ticker: 'SJM',
       Name: 'J.M. Smucker Company (The) New Common Stock',
       ShortName: 'Smucker',
@@ -6933,7 +6869,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 434,
+      PagingNum: 430,
       Ticker: 'SKX',
       Name: 'Skechers U.S.A. Inc. Common Stock',
       ShortName: 'Skechers U.S.A.',
@@ -6949,7 +6885,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 435,
+      PagingNum: 431,
       Ticker: 'SLB',
       Name: 'Schlumberger N.V. Common Stock',
       ShortName: 'Schlumberger',
@@ -6965,7 +6901,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 436,
+      PagingNum: 432,
       Ticker: 'SLM',
       Name: 'SLM Corporation Common Stock',
       ShortName: 'SLM',
@@ -6981,7 +6917,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 437,
+      PagingNum: 433,
       Ticker: 'SNA',
       Name: 'Snap-On Incorporated Common Stock',
       ShortName: 'Snap-on',
@@ -6997,7 +6933,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 438,
+      PagingNum: 434,
       Ticker: 'SNOW',
       Name: 'Snowflake Inc. Class A Common Stock',
       ShortName: 'Snowflake',
@@ -7013,7 +6949,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 439,
+      PagingNum: 435,
       Ticker: 'SNPS',
       Name: 'Synopsys Inc. Common Stock',
       ShortName: 'Synopsys',
@@ -7029,7 +6965,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 440,
+      PagingNum: 436,
       Ticker: 'SO',
       Name: 'Southern Company (The) Common Stock',
       ShortName: 'Southern',
@@ -7045,7 +6981,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 441,
+      PagingNum: 437,
       Ticker: 'SPGI',
       Name: 'S&P Global Inc. Common Stock',
       ShortName: 'S&P Global',
@@ -7061,7 +6997,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 442,
+      PagingNum: 438,
       Ticker: 'SPLK',
       Name: 'Splunk Inc. Common Stock',
       ShortName: 'Splunk',
@@ -7077,7 +7013,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 443,
+      PagingNum: 439,
       Ticker: 'SQ',
       Name: 'Block Inc. Class A Common Stock',
       ShortName: 'Block ',
@@ -7093,7 +7029,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 444,
+      PagingNum: 440,
       Ticker: 'SRCL',
       Name: 'Stericycle Inc. Common Stock',
       ShortName: 'Stericycle',
@@ -7109,7 +7045,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 445,
+      PagingNum: 441,
       Ticker: 'SRE',
       Name: 'DBA Sempra Common Stock',
       ShortName: 'Sempra Energy',
@@ -7125,7 +7061,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 446,
+      PagingNum: 442,
       Ticker: 'STE',
       Name: 'STERIS plc (Ireland) Ordinary Shares',
       ShortName: 'Steris',
@@ -7141,7 +7077,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 447,
+      PagingNum: 443,
       Ticker: 'STT',
       Name: 'State Street Corporation Common Stock',
       ShortName: 'State Street',
@@ -7157,7 +7093,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 448,
+      PagingNum: 444,
       Ticker: 'STX',
       Name: 'Seagate Technology Holdings PLC Ordinary Shares (Ireland)',
       ShortName: 'Seagate',
@@ -7173,7 +7109,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 449,
+      PagingNum: 445,
       Ticker: 'SWAV',
       Name: 'ShockWave Medical Inc. Common Stock',
       ShortName: 'ShockWave Medical',
@@ -7189,7 +7125,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 450,
+      PagingNum: 446,
       Ticker: 'SWK',
       Name: 'Stanley Black & Decker Inc. Common Stock',
       ShortName: 'Stanley Black & Decker',
@@ -7205,7 +7141,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 451,
+      PagingNum: 447,
       Ticker: 'SWN',
       Name: 'Southwestern Energy Company Common Stock',
       ShortName: 'Southwestern Energy',
@@ -7221,7 +7157,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 452,
+      PagingNum: 448,
       Ticker: 'SYF',
       Name: 'Synchrony Financial Common Stock',
       ShortName: 'Synchrony',
@@ -7237,7 +7173,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 453,
+      PagingNum: 449,
       Ticker: 'SYK',
       Name: 'Stryker Corporation Common Stock',
       ShortName: 'Stryker',
@@ -7253,7 +7189,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 454,
+      PagingNum: 450,
       Ticker: 'SYY',
       Name: 'Sysco Corporation Common Stock',
       ShortName: 'Sysco',
@@ -7269,7 +7205,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 455,
+      PagingNum: 451,
       Ticker: 'TAP',
       Name: 'Molson Coors Beverage Company Class B Common Stock',
       ShortName: 'Molson Coors',
@@ -7285,7 +7221,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 456,
+      PagingNum: 452,
       Ticker: 'TDC',
       Name: 'Teradata Corporation Common Stock',
       ShortName: 'Teradata',
@@ -7301,7 +7237,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 457,
+      PagingNum: 453,
       Ticker: 'TDG',
       Name: 'Transdigm Group Incorporated Common Stock',
       ShortName: 'TransDigm',
@@ -7317,7 +7253,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 458,
+      PagingNum: 454,
       Ticker: 'TDY',
       Name: 'Teledyne Technologies Incorporated Common Stock',
       ShortName: 'Teledyne',
@@ -7333,7 +7269,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 459,
+      PagingNum: 455,
       Ticker: 'TEL',
       Name: 'TE Connectivity Ltd. New Switzerland Registered Shares',
       ShortName: 'TE Connectivity',
@@ -7349,7 +7285,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 460,
+      PagingNum: 456,
       Ticker: 'TFC',
       Name: 'Truist Financial Corporation Common Stock',
       ShortName: 'Truist',
@@ -7365,7 +7301,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 461,
+      PagingNum: 457,
       Ticker: 'TFX',
       Name: 'Teleflex Incorporated Common Stock',
       ShortName: 'Teleflex',
@@ -7381,7 +7317,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 462,
+      PagingNum: 458,
       Ticker: 'TGNA',
       Name: 'TEGNA Inc',
       ShortName: 'TEGNA',
@@ -7397,7 +7333,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 463,
+      PagingNum: 459,
       Ticker: 'TGT',
       Name: 'Target Corporation Common Stock',
       ShortName: 'Target',
@@ -7413,7 +7349,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 464,
+      PagingNum: 460,
       Ticker: 'THC',
       Name: 'Tenet Healthcare Corporation Common Stock',
       ShortName: 'Tenet Healthcare',
@@ -7429,7 +7365,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 465,
+      PagingNum: 461,
       Ticker: 'TJX',
       Name: 'TJX Companies Inc. (The) Common Stock',
       ShortName: 'TJX Companies',
@@ -7445,7 +7381,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 466,
+      PagingNum: 462,
       Ticker: 'TMO',
       Name: 'Thermo Fisher Scientific Inc Common Stock',
       ShortName: 'Thermo Fisher Scientific',
@@ -7461,7 +7397,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 467,
+      PagingNum: 463,
       Ticker: 'TMUS',
       Name: 'T-Mobile US Inc. Common Stock',
       ShortName: 'T-Mobile',
@@ -7477,7 +7413,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 468,
+      PagingNum: 464,
       Ticker: 'TOL',
       Name: 'Toll Brothers Inc. Common Stock',
       ShortName: 'Toll Brothers',
@@ -7493,7 +7429,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 469,
+      PagingNum: 465,
       Ticker: 'TPC',
       Name: 'Tutor Perini Corporation Common Stock',
       ShortName: 'Tutor Perini',
@@ -7509,7 +7445,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 470,
+      PagingNum: 466,
       Ticker: 'TPR',
       Name: 'Tapestry Inc. Common Stock',
       ShortName: 'Tapestry',
@@ -7525,7 +7461,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 471,
+      PagingNum: 467,
       Ticker: 'TPX',
       Name: 'Tempur Sealy International Inc. Common Stock',
       ShortName: 'Tempur Sealy',
@@ -7541,7 +7477,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 472,
+      PagingNum: 468,
       Ticker: 'TRIP',
       Name: 'TripAdvisor Inc. Common Stock',
       ShortName: 'TripAdvisor ',
@@ -7557,7 +7493,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 473,
+      PagingNum: 469,
       Ticker: 'TRMB',
       Name: 'Trimble Inc. Common Stock',
       ShortName: 'Trimble',
@@ -7573,7 +7509,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 474,
+      PagingNum: 470,
       Ticker: 'TROW',
       Name: 'T. Rowe Price Group Inc. Common Stock',
       ShortName: 'T. Rowe Price',
@@ -7589,7 +7525,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 475,
+      PagingNum: 471,
       Ticker: 'TRV',
       Name: 'The Travelers Companies Inc. Common Stock',
       ShortName: 'Travelers',
@@ -7605,7 +7541,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 476,
+      PagingNum: 472,
       Ticker: 'TSCO',
       Name: 'Tractor Supply Company Common Stock',
       ShortName: 'Tractor Supply',
@@ -7621,7 +7557,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 477,
+      PagingNum: 473,
       Ticker: 'TSLA',
       Name: 'Tesla Inc. Common Stock',
       ShortName: 'Tesla',
@@ -7637,7 +7573,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 478,
+      PagingNum: 474,
       Ticker: 'TSN',
       Name: 'Tyson Foods Inc. Common Stock',
       ShortName: 'Tyson',
@@ -7653,7 +7589,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 479,
+      PagingNum: 475,
       Ticker: 'TT',
       Name: 'Trane Technologies plc',
       ShortName: 'Trane Technologies',
@@ -7669,7 +7605,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 480,
+      PagingNum: 476,
       Ticker: 'TTWO',
       Name: 'Take-Two Interactive Software Inc. Common Stock',
       ShortName: 'Take-Two Interactive',
@@ -7685,7 +7621,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 481,
+      PagingNum: 477,
       Ticker: 'TUP',
       Name: 'Tupperware Brands Corporation Common Stock',
       ShortName: 'Tupperware',
@@ -7701,7 +7637,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 482,
+      PagingNum: 478,
       Ticker: 'TWLO',
       Name: 'Twilio Inc. Class A Common Stock',
       ShortName: 'Twilio',
@@ -7717,23 +7653,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 483,
-      Ticker: 'TWTR',
-      Name: 'Twitter Inc. Common Stock',
-      ShortName: 'Twitter',
-      Country: null,
-      'IPO Year': 2013.0,
-      Sector: 'Technology',
-      Industry: 'EDP Services',
-      Market: 'NYSE',
-      'Market Cap': 35246738923.0,
-      CIK: 1418091,
-      ADR: null,
-      Unlist: null,
-      SP500: 'SP500',
-    },
-    {
-      PagingNum: 484,
+      PagingNum: 479,
       Ticker: 'TXG',
       Name: '10x Genomics Inc. Class A Common Stock',
       ShortName: '10x Genomics',
@@ -7749,7 +7669,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 485,
+      PagingNum: 480,
       Ticker: 'TXN',
       Name: 'Texas Instruments Incorporated Common Stock',
       ShortName: 'Texas Instruments',
@@ -7765,7 +7685,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 486,
+      PagingNum: 481,
       Ticker: 'TXT',
       Name: 'Textron Inc. Common Stock',
       ShortName: 'Textron',
@@ -7781,7 +7701,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 487,
+      PagingNum: 482,
       Ticker: 'TYL',
       Name: 'Tyler Technologies Inc. Common Stock',
       ShortName: 'Tyler Technologies',
@@ -7797,7 +7717,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 488,
+      PagingNum: 483,
       Ticker: 'U',
       Name: 'Unity Software Inc. Common Stock',
       ShortName: 'Unity Software',
@@ -7813,7 +7733,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 489,
+      PagingNum: 484,
       Ticker: 'UAL',
       Name: 'United Airlines Holdings Inc. Common Stock',
       ShortName: 'United Airlines',
@@ -7829,7 +7749,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 490,
+      PagingNum: 485,
       Ticker: 'UBER',
       Name: 'Uber Technologies Inc. Common Stock',
       ShortName: 'Uber Technologies',
@@ -7845,7 +7765,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 491,
+      PagingNum: 486,
       Ticker: 'UHS',
       Name: 'Universal Health Services Inc. Common Stock',
       ShortName: 'Universal Health Services',
@@ -7861,7 +7781,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 492,
+      PagingNum: 487,
       Ticker: 'ULTA',
       Name: 'Ulta Beauty Inc. Common Stock',
       ShortName: 'Ulta Beauty',
@@ -7877,7 +7797,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 493,
+      PagingNum: 488,
       Ticker: 'UNH',
       Name: 'UnitedHealth Group Incorporated Common Stock (DE)',
       ShortName: 'UnitedHealth Group',
@@ -7893,7 +7813,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 494,
+      PagingNum: 489,
       Ticker: 'UNM',
       Name: 'Unum Group Common Stock',
       ShortName: 'Unum',
@@ -7909,7 +7829,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 495,
+      PagingNum: 490,
       Ticker: 'UNP',
       Name: 'Union Pacific Corporation Common Stock',
       ShortName: 'Union Pacific',
@@ -7925,7 +7845,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 496,
+      PagingNum: 491,
       Ticker: 'UPS',
       Name: 'United Parcel Service Inc. Common Stock',
       ShortName: 'United Parcel Service',
@@ -7941,7 +7861,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 497,
+      PagingNum: 492,
       Ticker: 'URBN',
       Name: 'Urban Outfitters Inc. Common Stock',
       ShortName: 'Urban Outfitters',
@@ -7957,7 +7877,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 498,
+      PagingNum: 493,
       Ticker: 'URI',
       Name: 'United Rentals Inc. Common Stock',
       ShortName: 'United Rentals',
@@ -7973,7 +7893,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 499,
+      PagingNum: 494,
       Ticker: 'USB',
       Name: 'U.S. Bancorp Common Stock',
       ShortName: 'U.S. Bank',
@@ -7989,7 +7909,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 500,
+      PagingNum: 495,
       Ticker: 'VFC',
       Name: 'V.F. Corporation Common Stock',
       ShortName: 'VF Corporation',
@@ -8005,7 +7925,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 501,
+      PagingNum: 496,
       Ticker: 'VIR',
       Name: 'Vir Biotechnology Inc. Common Stock',
       ShortName: 'Vir Biotechnology',
@@ -8021,7 +7941,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 502,
+      PagingNum: 497,
       Ticker: 'VIRT',
       Name: 'Virtu Financial Inc. Class A Common Stock',
       ShortName: 'Virtu Financial',
@@ -8037,7 +7957,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 503,
+      PagingNum: 498,
       Ticker: 'VLO',
       Name: 'Valero Energy Corporation Common Stock',
       ShortName: 'Valero',
@@ -8053,7 +7973,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 504,
+      PagingNum: 499,
       Ticker: 'VMC',
       Name: 'Vulcan Materials Company (Holding Company) Common Stock',
       ShortName: 'Vulcan Materials',
@@ -8069,7 +7989,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 505,
+      PagingNum: 500,
       Ticker: 'VMW',
       Name: 'Vmware Inc. Common stock Class A',
       ShortName: 'Vmware',
@@ -8085,7 +8005,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 506,
+      PagingNum: 501,
       Ticker: 'VNT',
       Name: 'Vontier Corporation Common Stock ',
       ShortName: 'Vontier',
@@ -8101,7 +8021,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 507,
+      PagingNum: 502,
       Ticker: 'VRSK',
       Name: 'Verisk Analytics Inc. Common Stock',
       ShortName: 'Verisk',
@@ -8117,7 +8037,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 508,
+      PagingNum: 503,
       Ticker: 'VRSN',
       Name: 'VeriSign Inc. Common Stock',
       ShortName: 'Verisign',
@@ -8133,7 +8053,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 509,
+      PagingNum: 504,
       Ticker: 'VRTX',
       Name: 'Vertex Pharmaceuticals Incorporated Common Stock',
       ShortName: 'Vertex',
@@ -8149,7 +8069,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 510,
+      PagingNum: 505,
       Ticker: 'VZ',
       Name: 'Verizon Communications Inc',
       ShortName: 'Verizon',
@@ -8165,7 +8085,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 511,
+      PagingNum: 506,
       Ticker: 'WAB',
       Name: 'Westinghouse Air Brake Technologies Corporation Common Stock',
       ShortName: 'Wabtec',
@@ -8181,7 +8101,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 512,
+      PagingNum: 507,
       Ticker: 'WAT',
       Name: 'Waters Corporation Common Stock',
       ShortName: 'Waters',
@@ -8197,7 +8117,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 513,
+      PagingNum: 508,
       Ticker: 'WDAY',
       Name: 'Workday Inc. Class A Common Stock',
       ShortName: 'Workday',
@@ -8213,7 +8133,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 514,
+      PagingNum: 509,
       Ticker: 'WDC',
       Name: 'Western Digital Corporation Common Stock',
       ShortName: 'Western Digital',
@@ -8229,7 +8149,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 515,
+      PagingNum: 510,
       Ticker: 'WFC',
       Name: 'Wells Fargo & Company Common Stock',
       ShortName: 'Wells Fargo',
@@ -8245,7 +8165,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 516,
+      PagingNum: 511,
       Ticker: 'WHR',
       Name: 'Whirlpool Corporation Common Stock',
       ShortName: 'Whirlpool',
@@ -8261,7 +8181,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 517,
+      PagingNum: 512,
       Ticker: 'WM',
       Name: 'Waste Management Inc. Common Stock',
       ShortName: 'Waste Management',
@@ -8277,7 +8197,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 518,
+      PagingNum: 513,
       Ticker: 'WMB',
       Name: 'Williams Companies Inc. (The) Common Stock',
       ShortName: 'Williams',
@@ -8293,7 +8213,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 519,
+      PagingNum: 514,
       Ticker: 'WMT',
       Name: 'Walmart Inc. Common Stock',
       ShortName: 'Walmart',
@@ -8309,7 +8229,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 520,
+      PagingNum: 515,
       Ticker: 'WRB',
       Name: 'W.R. Berkley Corporation Common Stock',
       ShortName: 'Berkley',
@@ -8325,7 +8245,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 521,
+      PagingNum: 516,
       Ticker: 'WRK',
       Name: 'Westrock Company Common Stock',
       ShortName: 'WestRock',
@@ -8341,7 +8261,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 522,
+      PagingNum: 517,
       Ticker: 'WST',
       Name: 'West Pharmaceutical Services Inc. Common Stock',
       ShortName: 'West Pharmaceutical Services',
@@ -8357,7 +8277,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 523,
+      PagingNum: 518,
       Ticker: 'WU',
       Name: 'Western Union Company (The) Common Stock',
       ShortName: 'Western Union',
@@ -8373,7 +8293,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 524,
+      PagingNum: 519,
       Ticker: 'WYNN',
       Name: 'Wynn Resorts Limited Common stock',
       ShortName: 'Wynn Resorts',
@@ -8389,7 +8309,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 525,
+      PagingNum: 520,
       Ticker: 'X',
       Name: 'United States Steel Corporation Common Stock',
       ShortName: 'United States Steel',
@@ -8405,7 +8325,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 526,
+      PagingNum: 521,
       Ticker: 'XEL',
       Name: 'Xcel Energy Inc. Common Stock',
       ShortName: 'Xcel Energy',
@@ -8421,7 +8341,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 527,
+      PagingNum: 522,
       Ticker: 'XRAY',
       Name: 'DENTSPLY SIRONA Inc. Common Stock',
       ShortName: 'Dentsply Sirona',
@@ -8437,7 +8357,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 528,
+      PagingNum: 523,
       Ticker: 'XRX',
       Name: 'Xerox Holdings Corporation Common Stock',
       ShortName: 'Xerox',
@@ -8453,7 +8373,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 529,
+      PagingNum: 524,
       Ticker: 'XYL',
       Name: 'Xylem Inc. Common Stock New',
       ShortName: 'Xylem',
@@ -8469,7 +8389,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 530,
+      PagingNum: 525,
       Ticker: 'YELP',
       Name: 'Yelp Inc. Common Stock',
       ShortName: 'Yelp',
@@ -8485,7 +8405,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 531,
+      PagingNum: 526,
       Ticker: 'ZBH',
       Name: 'Zimmer Biomet Holdings Inc. Common Stock',
       ShortName: 'Zimmer Biomet',
@@ -8501,7 +8421,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 532,
+      PagingNum: 527,
       Ticker: 'ZBRA',
       Name: 'Zebra Technologies Corporation Class A Common Stock',
       ShortName: 'Zebra',
@@ -8517,23 +8437,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 533,
-      Ticker: 'ZEN',
-      Name: 'Zendesk Inc. Common Stock',
-      ShortName: 'Zendesk',
-      Country: null,
-      'IPO Year': 2014.0,
-      Sector: 'Technology',
-      Industry: 'EDP Services',
-      Market: 'NYSE',
-      'Market Cap': 15735611913.0,
-      CIK: 1463172,
-      ADR: null,
-      Unlist: null,
-      SP500: null,
-    },
-    {
-      PagingNum: 534,
+      PagingNum: 528,
       Ticker: 'ZG',
       Name: 'Zillow Group Inc. Class A Common Stock',
       ShortName: 'Zillow',
@@ -8549,7 +8453,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 535,
+      PagingNum: 529,
       Ticker: 'ZION',
       Name: 'Zions Bancorporation N.A. Common Stock',
       ShortName: 'Zions Bancorp',
@@ -8565,7 +8469,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 536,
+      PagingNum: 530,
       Ticker: 'ZM',
       Name: 'Zoom Video Communications Inc. Class A Common Stock',
       ShortName: 'Zoom',
@@ -8581,7 +8485,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 537,
+      PagingNum: 531,
       Ticker: 'ZTS',
       Name: 'Zoetis Inc. Class A Common Stock',
       ShortName: 'Zoetis',
@@ -8597,7 +8501,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 538,
+      PagingNum: 532,
       Ticker: 'ZUO',
       Name: 'Zuora Inc. Class A Common Stock',
       ShortName: 'Zuora',
@@ -8613,7 +8517,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 539,
+      PagingNum: 533,
       Ticker: 'AAP',
       Name: 'Advance Auto Parts Inc.',
       ShortName: 'Advance Auto Parts',
@@ -8629,7 +8533,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 540,
+      PagingNum: 534,
       Ticker: 'AEP',
       Name: 'American Electric Power Company Inc. Common Stock',
       ShortName: 'American Electric Power',
@@ -8645,7 +8549,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 541,
+      PagingNum: 535,
       Ticker: 'AES',
       Name: 'The AES Corporation Common Stock',
       ShortName: 'AES',
@@ -8661,7 +8565,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 542,
+      PagingNum: 536,
       Ticker: 'AZO',
       Name: 'AutoZone Inc. Common Stock',
       ShortName: 'AutoZone',
@@ -8677,7 +8581,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 543,
+      PagingNum: 537,
       Ticker: 'BBBY',
       Name: 'Bed Bath & Beyond Inc. Common Stock',
       ShortName: 'Bed Bath & Beyond',
@@ -8693,7 +8597,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 544,
+      PagingNum: 538,
       Ticker: 'BILL',
       Name: 'Bill.com Holdings Inc. Common Stock',
       ShortName: 'Bill.com',
@@ -8709,7 +8613,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 545,
+      PagingNum: 539,
       Ticker: 'BRK-B',
       Name: 'Berkshire Hathaway Inc.',
       ShortName: 'Berkshire Hathaway',
@@ -8725,7 +8629,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 546,
+      PagingNum: 540,
       Ticker: 'CCL',
       Name: 'Carnival Corporation Common Stock',
       ShortName: 'Carnival',
@@ -8741,7 +8645,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 547,
+      PagingNum: 541,
       Ticker: 'COO',
       Name: 'The Cooper Companies Inc. Common Stock',
       ShortName: 'CooperCompanies',
@@ -8757,7 +8661,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 548,
+      PagingNum: 542,
       Ticker: 'COP',
       Name: 'ConocoPhillips Common Stock',
       ShortName: 'ConocoPhillips',
@@ -8773,7 +8677,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 549,
+      PagingNum: 543,
       Ticker: 'CROX',
       Name: 'Crocs Inc. Common Stock',
       ShortName: 'Crocs',
@@ -8789,7 +8693,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 550,
+      PagingNum: 544,
       Ticker: 'CRWD',
       Name: 'CrowdStrike Holdings Inc. Class A Common Stock',
       ShortName: 'CrowdStrike',
@@ -8805,7 +8709,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 551,
+      PagingNum: 545,
       Ticker: 'DD',
       Name: 'DuPont de Nemours Inc. Common Stock',
       ShortName: 'DuPont',
@@ -8821,7 +8725,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 552,
+      PagingNum: 546,
       Ticker: 'DDOG',
       Name: 'Datadog Inc. Class A Common Stock',
       ShortName: 'Datadog',
@@ -8837,7 +8741,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 553,
+      PagingNum: 547,
       Ticker: 'EQT',
       Name: 'EQT Corporation Common Stock',
       ShortName: 'EQT',
@@ -8853,7 +8757,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 554,
+      PagingNum: 548,
       Ticker: 'FANG',
       Name: 'Diamondback Energy Inc. Commmon Stock',
       ShortName: 'Diamondback',
@@ -8869,7 +8773,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 555,
+      PagingNum: 549,
       Ticker: 'FDX',
       Name: 'FedEx Corporation Common Stock',
       ShortName: 'FedEx',
@@ -8885,7 +8789,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 556,
+      PagingNum: 550,
       Ticker: 'GE',
       Name: 'General Electric Company Common Stock',
       ShortName: 'GE',
@@ -8901,7 +8805,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 557,
+      PagingNum: 551,
       Ticker: 'GRMN',
       Name: 'Garmin Ltd. Common Stock (Switzerland)',
       ShortName: 'Garmin',
@@ -8917,7 +8821,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 558,
+      PagingNum: 552,
       Ticker: 'GRPN',
       Name: 'Groupon Inc. Common Stock',
       ShortName: 'Groupon',
@@ -8933,7 +8837,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 559,
+      PagingNum: 553,
       Ticker: 'HAL',
       Name: 'Halliburton Company Common Stock',
       ShortName: 'Halliburton',
@@ -8949,7 +8853,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 560,
+      PagingNum: 554,
       Ticker: 'HCA',
       Name: 'HCA Healthcare Inc. Common Stock',
       ShortName: 'HCA Healthcare',
@@ -8965,7 +8869,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 561,
+      PagingNum: 555,
       Ticker: 'HON',
       Name: 'Honeywell International Inc. Common Stock',
       ShortName: 'Honeywell',
@@ -8981,7 +8885,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 562,
+      PagingNum: 556,
       Ticker: 'ICE',
       Name: 'Intercontinental Exchange Inc. Common Stock',
       ShortName: 'Intercontinental Exchange',
@@ -8997,7 +8901,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 563,
+      PagingNum: 557,
       Ticker: 'JBL',
       Name: 'Jabil Inc. Common Stock',
       ShortName: 'Jabil',
@@ -9013,7 +8917,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 564,
+      PagingNum: 558,
       Ticker: 'KHC',
       Name: 'The Kraft Heinz Company Common Stock',
       ShortName: 'Kraft Heinz',
@@ -9029,7 +8933,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 565,
+      PagingNum: 559,
       Ticker: 'KO',
       Name: 'Coca-Cola Company (The) Common Stock',
       ShortName: 'Coca-Cola',
@@ -9045,7 +8949,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 566,
+      PagingNum: 560,
       Ticker: 'KR',
       Name: 'Kroger Company (The) Common Stock',
       ShortName: 'Kroger',
@@ -9061,7 +8965,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 567,
+      PagingNum: 561,
       Ticker: 'LHX',
       Name: 'L3Harris Technologies Inc. Common Stock',
       ShortName: 'L3Harris',
@@ -9077,7 +8981,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 568,
+      PagingNum: 562,
       Ticker: 'LIN',
       Name: 'Linde plc Ordinary Share',
       ShortName: 'Linde',
@@ -9093,7 +8997,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 569,
+      PagingNum: 563,
       Ticker: 'LYFT',
       Name: 'Lyft Inc. Class A Common Stock',
       ShortName: 'Lyft',
@@ -9109,7 +9013,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 570,
+      PagingNum: 564,
       Ticker: 'MKC',
       Name: 'McCormick & Company Incorporated Common Stock',
       ShortName: 'McCormick',
@@ -9125,7 +9029,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 571,
+      PagingNum: 565,
       Ticker: 'MOS',
       Name: 'Mosaic Company (The) Common Stock',
       ShortName: 'Mosaic',
@@ -9141,7 +9045,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 572,
+      PagingNum: 566,
       Ticker: 'MPC',
       Name: 'Marathon Petroleum Corporation Common Stock',
       ShortName: 'Marathon Petroleum',
@@ -9157,7 +9061,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 573,
+      PagingNum: 567,
       Ticker: 'MRC',
       Name: 'MRC Global Inc. Common Stock',
       ShortName: 'MRC Global',
@@ -9173,7 +9077,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 574,
+      PagingNum: 568,
       Ticker: 'MU',
       Name: 'Micron Technology Inc. Common Stock',
       ShortName: 'Micron',
@@ -9189,7 +9093,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 575,
+      PagingNum: 569,
       Ticker: 'NEM',
       Name: 'Newmont Corporation',
       ShortName: 'Newmont',
@@ -9205,7 +9109,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 576,
+      PagingNum: 570,
       Ticker: 'NLOK',
       Name: 'NortonLifeLock Inc. Common Stock',
       ShortName: 'NortonLifeLock',
@@ -9221,7 +9125,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 577,
+      PagingNum: 571,
       Ticker: 'NXPI',
       Name: 'NXP Semiconductors N.V. Common Stock',
       ShortName: 'NXP',
@@ -9237,7 +9141,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 578,
+      PagingNum: 572,
       Ticker: 'OKTA',
       Name: 'Okta Inc. Class A Common Stock',
       ShortName: 'Okta',
@@ -9253,7 +9157,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 579,
+      PagingNum: 573,
       Ticker: 'PAYX',
       Name: 'Paychex Inc. Common Stock',
       ShortName: 'Paychex',
@@ -9269,7 +9173,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 580,
+      PagingNum: 574,
       Ticker: 'PCAR',
       Name: 'PACCAR Inc. Common Stock',
       ShortName: 'Paccar',
@@ -9285,7 +9189,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 581,
+      PagingNum: 575,
       Ticker: 'PEG',
       Name: 'Public Service Enterprise Group Incorporated Common Stock',
       ShortName: 'PSEG',
@@ -9301,7 +9205,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 582,
+      PagingNum: 576,
       Ticker: 'PHM',
       Name: 'PulteGroup Inc. Common Stock',
       ShortName: 'PulteGroup',
@@ -9317,7 +9221,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 583,
+      PagingNum: 577,
       Ticker: 'PINS',
       Name: 'Pinterest Inc. Class A Common Stock',
       ShortName: 'Pinterest',
@@ -9333,7 +9237,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 584,
+      PagingNum: 578,
       Ticker: 'PPL',
       Name: 'PPL Corporation Common Stock',
       ShortName: 'PPL',
@@ -9349,7 +9253,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 585,
+      PagingNum: 579,
       Ticker: 'PXD',
       Name: 'Pioneer Natural Resources Company Common Stock',
       ShortName: 'Pioneer Natural Resources',
@@ -9365,7 +9269,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 586,
+      PagingNum: 580,
       Ticker: 'QRVO',
       Name: 'Qorvo Inc. Common Stock',
       ShortName: 'Qorvo',
@@ -9381,7 +9285,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 587,
+      PagingNum: 581,
       Ticker: 'SMAR',
       Name: 'Smartsheet Inc. Class A Common Stock',
       ShortName: 'Smartsheet',
@@ -9397,7 +9301,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 588,
+      PagingNum: 582,
       Ticker: 'STZ',
       Name: 'Constellation Brands Inc. Common Stock',
       ShortName: 'Constellation Brands',
@@ -9413,7 +9317,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 589,
+      PagingNum: 583,
       Ticker: 'SWKS',
       Name: 'Skyworks Solutions Inc. Common Stock',
       ShortName: 'Skyworks',
@@ -9429,7 +9333,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 590,
+      PagingNum: 584,
       Ticker: 'T',
       Name: 'AT&T Inc.',
       ShortName: 'AT&T',
@@ -9445,7 +9349,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 591,
+      PagingNum: 585,
       Ticker: 'TER',
       Name: 'Teradyne Inc. Common Stock',
       ShortName: 'Teradyne',
@@ -9461,7 +9365,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 592,
+      PagingNum: 586,
       Ticker: 'TW',
       Name: 'Tradeweb Markets Inc. Class A Common Stock',
       ShortName: 'Tradeweb Markets',
@@ -9477,7 +9381,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 593,
+      PagingNum: 587,
       Ticker: 'UAA',
       Name: 'Under Armour Inc. Class A Common Stock',
       ShortName: 'Under Armour',
@@ -9493,7 +9397,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 594,
+      PagingNum: 588,
       Ticker: 'V',
       Name: 'Visa Inc.',
       ShortName: 'Visa',
@@ -9509,7 +9413,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 595,
+      PagingNum: 589,
       Ticker: 'WBA',
       Name: 'Walgreens Boots Alliance Inc. Common Stock',
       ShortName: 'Walgreens Boots Alliance',
@@ -9525,7 +9429,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 596,
+      PagingNum: 590,
       Ticker: 'WSM',
       Name: 'Williams-Sonoma Inc. Common Stock (DE)',
       ShortName: 'Williams-Sonoma',
@@ -9541,7 +9445,7 @@ module.exports = {
       SP500: null,
     },
     {
-      PagingNum: 597,
+      PagingNum: 591,
       Ticker: 'XOM',
       Name: 'Exxon Mobil Corporation Common Stock',
       ShortName: 'ExxonMobil',
@@ -9557,7 +9461,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 598,
+      PagingNum: 592,
       Ticker: 'YUM',
       Name: 'Yum! Brands Inc.',
       ShortName: 'Yum! Brands',
@@ -9573,7 +9477,7 @@ module.exports = {
       SP500: 'SP500',
     },
     {
-      PagingNum: 599,
+      PagingNum: 593,
       Ticker: 'ZI',
       Name: 'ZoomInfo Technologies Inc Class A Common Stock',
       ShortName: 'ZoomInfo ',
