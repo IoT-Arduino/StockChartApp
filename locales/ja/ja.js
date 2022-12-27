@@ -80,7 +80,7 @@ export default {
   signInSignUpLink: '会員登録はこちら(無料)',
   signInForgotPwdLink: 'パスワードを忘れた方はこちら',
   signInErrorMsg: 'IDかパスワードに誤りがあります',
-  signUpTitle: '会員登録（無料）',
+  signUpTitle: '会員登録（招待制・無料）',
   signUpPwdConfirm: 'パスワード(確認用)',
   signUpPwdNotMatch: 'パスワードが一致しません。',
   signUpAlertMsg: 'SignUp しました、メールボックスを確認してください',

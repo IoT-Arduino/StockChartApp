@@ -63,7 +63,11 @@ const signup = () => {
   return (
     <div className='center my-4 flex items-center justify-center'>
       <div className='w-full bg-white  p-5 shadow sm:max-w-xl sm:rounded-lg'>
-      {t == ja ? <SignUp1ja registerAllowance={registerAllowance} /> : <SignUp1en registerAllowance={registerAllowance} />}
+        {t == ja ? (
+          <SignUp1ja registerAllowance={registerAllowance} />
+        ) : (
+          <SignUp1en registerAllowance={registerAllowance} />
+        )}
 
         <h2 className='text-xl'>{t.signUpTitle}</h2>
 
@@ -129,7 +133,7 @@ const signup = () => {
               />
             )}
             rules={{
-              required:  `${t.signInRequired}`,
+              required: `${t.signInRequired}`,
               pattern: {
                 value: /^[a-z\d]{8,100}$/i,
                 message: `${t.signInPwdAlert}`,
@@ -138,12 +142,13 @@ const signup = () => {
             }}
           />
           <div className='h-4' />
-          <Button block>送信</Button>
+          <Button block disabled>
+            {t.signInSubmit}
+          </Button>
           <div className='h-4' />
         </form>
 
         {t == ja ? <SignUp2ja /> : <SignUp2en />}
-
       </div>
     </div>
   )
