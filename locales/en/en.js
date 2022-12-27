@@ -82,7 +82,7 @@ export default {
   signInSignUpLink: 'SignUp for Free',
   signInForgotPwdLink: 'Forgot Password ? ',
   signInErrorMsg: 'ID or Password error.',
-  signUpTitle: 'Membership Registration (Free)',
+  signUpTitle: 'Membership Registration (Invitation Only : Free)',
   signUpPwdConfirm: 'Password (for confirmation)',
   signUpPwdNotMatch: 'Password does not match.',
   signUpAlertMsg: 'You have SignUp, please check your mailbox.',
