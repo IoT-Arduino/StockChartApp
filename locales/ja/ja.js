@@ -101,6 +101,9 @@ export default {
   inputPlaceHolder: 'メモを入力してください',
   inputCommentTitle: '株式メモ情報',
   inputMarkerTitle: 'Marker情報',
+  inputSave:'保存',
+  inputCancel:'キャンセル',
+
 
   // For SEO
   pageTitleStockList: '米国主要株500社一覧ページ',

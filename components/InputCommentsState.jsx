@@ -14,8 +14,14 @@ import { checkAllowanceComment } from '../functions/checkAllowanceComment'
 import * as AiIcons from 'react-icons/ai'
 import { ActionIcon } from '@mantine/core'
 // import { DatePicker } from '@mantine/dates'
+import { TextArea, TextInput, Button } from '@mantine/core'
+import { DateInput } from 'mantine-dates-6'
+import dayjs from 'dayjs'
+import 'dayjs/locale/ja'
 
-import InputCommentSingle from './InputCommentSingle';
+import { useRouter } from 'next/router'
+
+import InputCommentSingle from './InputCommentSingle'
 
 export default function InputComments({ ticker, t }) {
   const { user: contextUser, session: contextSession, rank } = useContext(UserContext)
@@ -23,6 +29,9 @@ export default function InputComments({ ticker, t }) {
   const update = useStore((state) => state.updateEditedComment)
   const { createCommentMutation, updateCommentMutation, deleteCommentMutation } = useMutateComment()
   const { data: commentData, status } = useQueryComments()
+
+  const router = useRouter()
+  const { locale } = router
 
   const commentList = commentData?.filter((data) => {
     return data.ticker === ticker
@@ -34,6 +43,19 @@ export default function InputComments({ ticker, t }) {
 
   if (status === 'error') {
     return <div>Error</div>
+  }
+
+  // <!-- 日付関連処理 -->
+  let formattedDate = ''
+  if (editedComment.date !== '') {
+    formattedDate = dayjs(editedComment.date).toDate()
+  }
+
+  const dateUpdate = (e) => {
+    if (e) {
+      const ymd = `${e.getFullYear()}-${e.getMonth() + 1}-${e.getDate()} `
+      update({ ...editedComment, date: ymd })
+    }
   }
 
   //  <!-- commentの追加 -->
@@ -51,7 +73,7 @@ export default function InputComments({ ticker, t }) {
           date: editedComment.date,
         })
         setEditItem('')
-        setEditStatus(false)
+        // setEditStatus(false)
       } catch (error) {
         console.log('error', error)
       }
@@ -95,19 +117,53 @@ export default function InputComments({ ticker, t }) {
     <div className='w-full'>
       <h4 className='font-xl mt-10 mb-2 font-bold'>{t.inputCommentTitle}</h4>
       <div data-testid='inputCommentStatus'>
-        {canCommentInput ? <div>{t.inputCan}</div> : <div>{t.inputCannot}</div>}
+        {canCommentInput ? '' : <div>{t.inputCannot}</div>}
       </div>
 
-      <div className='my-2 flex flex-wrap gap-2'>
-        <input
-          className='rounded border border-black p-2 text-base'
-          type='date'
-          value={editedComment.date}
-          onChange={(e) => update({ ...editedComment, date: e.target.value })}
-          required
-          data-testid='commentDateInput'
-        />
-        <input
+      <div className='my-2 flex flex-wrap justify-start gap-2'>
+        {locale === 'ja-JP' ? (
+          <DateInput
+            locale='ja'
+            placeholder='クリックして日付を入力してください'
+            // inputFormat='YYYY-MM-DD'
+            value={formattedDate}
+            onChange={(e) => dateUpdate(e)}
+            defaultValue={formattedDate}
+            required
+            data-testid='commentDateInput'
+          />
+        ) : (
+          <DateInput
+            placeholder='Pick date'
+            // inputFormat='MM-DD-YYYY'
+            value={formattedDate}
+            onChange={(e) => dateUpdate(e)}
+            defaultValue={formattedDate}
+            required
+            data-testid='commentDateInput'
+          />
+        )}
+
+        {/* <input
+            className='rounded border border-black p-2 text-base'
+            type='date'
+            value={editedComment.date}
+            onChange={(e) => update({ ...editedComment, date: e.target.value })}
+            required
+            data-testid='commentDateInput'
+          /> */}
+
+        <div className='grow'>
+          <TextInput
+            placeholder={t.inputPlaceHolder}
+            value={editedComment.memo}
+            onChange={(e) => update({ ...editedComment, memo: e.target.value })}
+            required
+            data-testid='commentMemoInput'
+          />
+        </div>
+
+        {/* <input
           className='w-full rounded border border-black p-2 text-base'
           type='text'
           placeholder={t.inputPlaceHolder}
@@ -115,37 +171,52 @@ export default function InputComments({ ticker, t }) {
           onChange={(e) => update({ ...editedComment, memo: e.target.value })}
           required
           data-testid='commentMemoInput'
-        />
+        /> */}
 
         {editItem != '' ? (
           <div>
-            <button className='btn-black' onClick={() => submitComment()}>
-              Edit
-            </button>
-            <button className='btn-black' onClick={() => editCancel()}>
-              EditCancel
-            </button>
+            <Button variant='outline' color='teal' onClick={() => submitComment()}>
+              {t.inputSave}
+            </Button>{' '}
+            <Button variant='outline' color='teal' onClick={() => editCancel()}>
+              {t.inputCancel}
+            </Button>
           </div>
         ) : (
-          <button
-            className='btn-black rounded border border-black p-2'
-            onClick={() => submitComment()}
-            disabled={!canCommentInput}
-            data-testid='addComment'
-          >
-            Add
-          </button>
+          <div>
+            <Button
+              // className='btn-black rounded border border-black p-2'
+              variant='outline'
+              color='teal'
+              onClick={() => submitComment()}
+              disabled={!canCommentInput}
+              data-testid='addComment'
+            >
+              {t.inputSave}
+            </Button>{' '}
+            <Button
+              // className='btn-black rounded border border-black p-2'
+              variant='outline'
+              color='teal'
+              onClick={() => resetEditedComment()}
+              disabled={!canCommentInput}
+              data-testid='addComment'
+            >
+              {t.inputCancel}
+            </Button>
+          </div>
         )}
       </div>
 
-      <div className='overflow-hidden rounded-md bg-white shadow'>
-        <ul>
+      <div className='mb-8 overflow-hidden rounded-md bg-white shadow'>
+        <ul className='px-2'>
           {commentList?.map((comment) => (
             <li className='block w-full border-2 border-gray-300' key={comment.id}>
-              <div className='flex items-center px-4 py-2 sm:px-6'>
-                <div className='flex min-w-0 flex-1 items-center'>
+              <div className='flex flex-wrap items-center py-2'>
+                <div className='flex min-w-0 flex-1 items-center '>
                   <div className='truncate text-sm font-medium leading-5'>
-                    {comment.date}/{comment.memo}
+                    <span className='mr-2'>{comment.date}</span>
+                    <span>{comment.memo}</span>
                   </div>
                 </div>
 
@@ -155,7 +226,7 @@ export default function InputComments({ ticker, t }) {
                     e.stopPropagation()
                     updateComment(comment)
                   }}
-                  className='ml-2 p-1'
+                  className='ml-1 p-1'
                 >
                   <AiIcons.AiFillEdit />
                 </ActionIcon>
@@ -166,7 +237,7 @@ export default function InputComments({ ticker, t }) {
                     deleteComment(comment)
                   }}
                   data-testid='commentDelete'
-                  className='ml-2 p-1'
+                  className='ml-1 p-1'
                 >
                   <AiIcons.AiFillDelete />
                 </ActionIcon>
@@ -181,9 +252,6 @@ export default function InputComments({ ticker, t }) {
       {/* {commentList?.map(comment=>{
         return <InputCommentSingle t={t} key={comment.id} comment={comment} ticker={ticker}/>
       })} */}
-      
-
-
     </div>
   )
 }
