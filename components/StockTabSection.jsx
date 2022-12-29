@@ -49,7 +49,13 @@ const StockTabSection = ({
 
   return (
     <Tabs color='teal' tabPadding='md'>
-      <Tabs.Tab label={t.tab1Label}>
+      <Tabs.List>
+        <Tabs.Tab value={t.tab1Label}>{t.tab1Label}</Tabs.Tab>
+        <Tabs.Tab value={t.tab2Label}>{t.tab2Label}</Tabs.Tab>
+        <Tabs.Tab value={t.tab3Label}>{t.tab3Label}</Tabs.Tab>
+        <Tabs.Tab value={t.tab4Label} disabled={!editDataForMember}>{t.tab4Label}</Tabs.Tab>
+      </Tabs.List>
+      <Tabs.Panel value={t.tab1Label}>
         <div className='relative my-4 overflow-x-auto shadow-md sm:rounded-lg'>
           <h3 className='my-2 p-2'>{t.tab1Title1}</h3>
           <table className='w-full text-right text-sm text-gray-500 dark:text-gray-400'>
@@ -280,8 +286,8 @@ const StockTabSection = ({
             </ul>
           </div>
         )}
-      </Tabs.Tab>
-      <Tabs.Tab label={t.tab2Label}>
+      </Tabs.Panel>
+      <Tabs.Panel value={t.tab2Label}>
         <div className='relative my-4 overflow-x-auto shadow-md sm:rounded-lg'>
           <h3 className='my-2 p-2'>{t.tab2Title1}</h3>
           <table className='w-full text-right text-sm text-gray-500 dark:text-gray-400'>
@@ -392,8 +398,8 @@ const StockTabSection = ({
             </tbody>
           </table>
         </div>
-      </Tabs.Tab>
-      <Tabs.Tab label={t.tab3Label}>
+      </Tabs.Panel>
+      <Tabs.Panel value={t.tab3Label}>
         <div className='relative my-4 overflow-x-auto shadow-md sm:rounded-lg'>
           <h3 className='my-2 p-2'>{t.tab3Title1}</h3>
 
@@ -450,13 +456,13 @@ const StockTabSection = ({
             </tbody>
           </table>
         </div>
-      </Tabs.Tab>
-      <Tabs.Tab label={t.tab4Label} disabled={!editDataForMember}>
+      </Tabs.Panel>
+      <Tabs.Panel value={t.tab4Label} >
         <div className='my-3'>
           <InputMarkerState ticker={ticker} t={t} />
           <InputCommentsState ticker={ticker} t={t} />
         </div>
-      </Tabs.Tab>
+      </Tabs.Panel>
     </Tabs>
   )
 }
