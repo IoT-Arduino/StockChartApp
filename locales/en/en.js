@@ -103,6 +103,8 @@ export default {
   inputPlaceHolder: 'Please enter a note',
   inputCommentTitle: 'Stock Memo Information',
   inputMarkerTitle: 'Marker Information',
+  inputSave:'Save',
+  inputCancel:'Cancel',
 
   pageTitleStockList: 'List of 500 Major U.S. Stocks',
   pageDescStockList:
