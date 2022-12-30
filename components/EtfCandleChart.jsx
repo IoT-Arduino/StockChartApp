@@ -11,7 +11,7 @@ const EtfCandleChart = ({ etfData }) => {
 
     const adjclose = etfData.indicators.adjclose[0].adjclose
 
-  // 開始点からの変化率で比較する処理。
+  // 開始点からの変化率で比較する処理です。
   const changeRatio = adjclose.map((close,i) => {
     let num = null
     if (i == 0) {
