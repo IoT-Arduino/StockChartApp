@@ -1,27 +1,23 @@
-// <!-- 必要なものをimport -->
 import { useState } from 'react'
+import { useRouter } from 'next/router'
 import { supabase } from '../utils/supabase'
-
+import { useContext } from 'react'
+import { UserContext } from '../utils/UserContext'
 import useStore from '../store/store'
 import { useMutateComment } from '../hooks/useMutateComment'
 import { useQueryComments } from '../hooks/useQueryComments'
-
-import { useContext } from 'react'
-import { UserContext } from '../utils/UserContext'
-
 import { checkAllowanceComment } from '../functions/checkAllowanceComment'
+// import InputCommentSingle from './InputCommentSingle'
 
-import * as AiIcons from 'react-icons/ai'
+// Mantine
 import { ActionIcon } from '@mantine/core'
 // import { DatePicker } from '@mantine/dates'
-import { TextArea, TextInput, Button } from '@mantine/core'
+import { TextInput, Button } from '@mantine/core'
 import { DateInput } from 'mantine-dates-6'
 import dayjs from 'dayjs'
 import 'dayjs/locale/ja'
 
-import { useRouter } from 'next/router'
-
-import InputCommentSingle from './InputCommentSingle'
+import * as AiIcons from 'react-icons/ai'
 
 export default function InputComments({ ticker, t }) {
   const { user: contextUser, session: contextSession, rank } = useContext(UserContext)
@@ -213,7 +209,7 @@ export default function InputComments({ ticker, t }) {
           {commentList?.map((comment) => (
             <li className='block w-full border-2 border-gray-300' key={comment.id}>
               <div className='flex flex-wrap items-center py-2'>
-                <div className='flex min-w-0 flex-1 items-center '>
+                <div className='flex min-w-0 flex-1 items-center'>
                   <div className='truncate text-sm font-medium leading-5'>
                     <span className='mr-2'>{comment.date}</span>
                     <span>{comment.memo}</span>
