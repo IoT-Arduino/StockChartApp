@@ -1,18 +1,23 @@
-
 import { useState } from 'react'
+import { useRouter } from 'next/router'
 import { supabase } from '../utils/supabase'
-
+import { useContext } from 'react'
+import { UserContext } from '../utils/UserContext'
 import useStore from '../store/store'
 import { useMutateMarker } from '../hooks/useMutateMarker'
 import { useQueryMarker } from '../hooks/useQueryMarker'
-
-import { useContext } from 'react'
-import { UserContext } from '../utils/UserContext'
-
 import { checkAllowanceMarker } from '../functions/checkAllowanceMarker'
 
-import * as AiIcons from 'react-icons/ai'
+
+// Mantine
 import { ActionIcon } from '@mantine/core';
+// import { DatePicker } from '@mantine/dates'
+import { TextInput, Button } from '@mantine/core'
+import { DateInput } from 'mantine-dates-6'
+import dayjs from 'dayjs'
+import 'dayjs/locale/ja'
+
+import * as AiIcons from 'react-icons/ai'
 
 export default function InputMarker({ ticker,t }) {
   const { user: contextUser, session: contextSession, rank } = useContext(UserContext)
@@ -20,6 +25,9 @@ export default function InputMarker({ ticker,t }) {
   const update = useStore((state) => state.updateEditedMarker)
   const { createMarkerMutation, updateMarkerMutation, deleteMarkerMutation } = useMutateMarker()
   const { data: markerData, status } = useQueryMarker()
+
+  const router = useRouter()
+  const { locale } = router
 
   const markerList = markerData?.filter((data) => {
     return data.ticker === ticker
@@ -32,6 +40,20 @@ export default function InputMarker({ ticker,t }) {
   if (status === 'error') {
     return <div>Error</div>
   }
+
+  // <!-- 日付関連処理 -->
+  let formattedDate = ''
+  if (editedMarker.date !== '') {
+    formattedDate = dayjs(editedMarker.date).toDate()
+  }
+
+  const dateUpdate = (e) => {
+    if (e) {
+      const ymd = `${e.getFullYear()}-${e.getMonth() + 1}-${e.getDate()} `
+      update({ ...editedMarker, date: ymd })
+    }
+  }
+
 
   //  <!-- markerの追加 -->
   const submitMarker = async () => {
@@ -83,84 +105,137 @@ export default function InputMarker({ ticker,t }) {
   }
 
   const editCancel = () => {
-    console.log('cancel')
     setEditItem('')
     resetEditedMarker()
   }
 
   return (
     <div className='w-full'>
-      <h4 className='mt-10 mb-2 font-bold font-xl'>{t.inputMarkerTitle}</h4>
-      <div data-testid="inputMarkerStatus">{canMarkerInput ? <div>{t.inputCan}</div> : <div>{t.inputCannot}</div>}</div>
+      <h4 className='font-xl mt-10 mb-2 font-bold'>{t.inputMarkerTitle}</h4>
+      <div data-testid='inputMarkerStatus'>{canMarkerInput ? '' : <div>{t.inputCannot}</div>}</div>
 
-      <div className='flex gap-2 my-2 flex-wrap'>
-        <input
+      <div className='my-2 flex flex-wrap justify-start gap-2'>
+        {locale === 'ja-JP' ? (
+          <DateInput
+            locale='ja'
+            placeholder='クリックして日付を入力してください'
+            // inputFormat='YYYY-MM-DD'
+            value={formattedDate}
+            onChange={(e) => dateUpdate(e)}
+            defaultValue={formattedDate}
+            required
+            data-testid='markerDateInput'
+          />
+        ) : (
+          <DateInput
+            placeholder='Pick date'
+            // inputFormat='MM-DD-YYYY'
+            value={formattedDate}
+            onChange={(e) => dateUpdate(e)}
+            defaultValue={formattedDate}
+            required
+            data-testid='markerDateInput'
+          />
+        )}
+
+        {/* <input
           className='rounded p-2 border border-black text-base'
           type='date'
           value={editedMarker.date}
           onChange={(e) => update({ ...editedMarker, date: e.target.value })}
           required
           data-testid="markerDateInput"
-        />
-        <input
-          className='rounded w-full p-2 border border-black text-base'
+        /> */}
+
+        <div className='grow'>
+          <TextInput
+            placeholder={t.inputPlaceHolder}
+            value={editedMarker.memo}
+            onChange={(e) => update({ ...editedMarker, memo: e.target.value })}
+            required
+            data-testid='markerMemoInput'
+          />
+        </div>
+
+        {/* <input
+          className='w-full rounded border border-black p-2 text-base'
           type='text'
           placeholder={t.inputPlaceHolder}
           value={editedMarker.memo}
           onChange={(e) => update({ ...editedMarker, memo: e.target.value })}
           required
-          data-testid="markerMemoInput"
-        />
+          data-testid='markerMemoInput'
+        /> */}
 
         {editItem != '' ? (
           <div>
-            <button className='btn-black' onClick={() => submitMarker()}>
-              Edit
-            </button>
-            <button className='btn-black' onClick={() => editCancel()}>
-              EditCancel
-            </button>
+            <Button variant='outline' color='teal' onClick={() => submitMarker()}>
+              {t.inputSave}
+            </Button>{' '}
+            <Button variant='outline' color='teal' onClick={() => editCancel()}>
+              {t.inputCancel}
+            </Button>
           </div>
         ) : (
-          <button
-            className='btn-black p-2 border border-black rounded'
-            onClick={() => submitMarker()}
-            disabled={!canMarkerInput}
-            data-testid="addMarker"
-          >
-            Add
-          </button>
+          <div>
+            <Button
+              variant='outline'
+              color='teal'
+              // className='btn-black rounded border border-black p-2'
+              onClick={() => submitMarker()}
+              disabled={!canMarkerInput}
+              data-testid='addMarker'
+            >
+              {t.inputSave}
+            </Button>{' '}
+            <Button
+              // className='btn-black rounded border border-black p-2'
+              variant='outline'
+              color='teal'
+              onClick={() => resetEditedMarker()}
+              disabled={!canMarkerInput}
+              data-testid='addMarker'
+            >
+              {t.inputCancel}
+            </Button>
+          </div>
         )}
       </div>
 
-      <div className='bg-white shadow overflow-hidden rounded-md'>
-        <ul>
+      <div className='overflow-hidden rounded-md bg-white shadow'>
+        <ul className='px-2'>
           {markerList?.map((marker) => (
-            <li className='w-full block' key={marker.id}>
-              <div className='flex items-center px-4 py-2 sm:px-6'>
-                <div className='min-w-0 flex-1 flex items-center'>
-                  <div className='text-sm leading-5 font-medium truncate'>
-                    {marker.date}/{marker.memo}
+            <li className='block w-full border-2 border-gray-300' key={marker.id}>
+              <div className='flex flex-wrap items-center py-2'>
+                <div className='flex min-w-0 flex-1 items-center'>
+                  <div className='truncate text-sm font-medium leading-5'>
+                    <span className='mr-2'>{marker.date}</span>
+                    <span>{marker.memo}</span>
                   </div>
                 </div>
 
-                <ActionIcon variant="hover"
+                <ActionIcon
+                  // variant='hover'
                   onClick={(e) => {
                     e.preventDefault()
                     e.stopPropagation()
                     updateMarker(marker)
                   }}
-                  ><AiIcons.AiFillEdit />
+                  className='ml-1 p-1'
+                >
+                  <AiIcons.AiFillEdit />
                 </ActionIcon>
- 
-                <ActionIcon variant="hover"
+
+                <ActionIcon
+                  // variant='hover'
                   onClick={(e) => {
-                      e.preventDefault()
-                      e.stopPropagation()
-                      deleteMarker(marker)
-                    }}
-                    data-testid="markerDelete"
-                    >
+                    e.preventDefault()
+                    e.stopPropagation()
+                    deleteMarker(marker)
+                  }}
+                  data-testid='markerDelete'
+                  className='ml-1 p-1'
+                >
                   <AiIcons.AiFillDelete />
                 </ActionIcon>
               </div>
