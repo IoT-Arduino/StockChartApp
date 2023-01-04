@@ -5,18 +5,17 @@ describe('Locale Test by Routing', () => {
     Cypress.session.clearAllSavedSessions()
   })
 
-    it('by url routing -  en', () => {
-      cy.visit('/stocks')
-      cy.get('h2').should('have.text', 'US Stock500 List')
-      Cypress.session.clearAllSavedSessions()
-    })
+  it('by url routing -  en', () => {
+    cy.visit('/stocks')
+    cy.get('h2').should('have.text', 'US Stock500 List')
+    Cypress.session.clearAllSavedSessions()
+  })
 })
-
 
 // locale 変更ができない。JPがエラーになる。
 describe.skip('Locale Test browser setting', () => {
   it('English Locale Test', () => {
-      Cypress.session.clearAllSavedSessions()
+    Cypress.session.clearAllSavedSessions()
     cy.visit('/', {
       onBeforeLoad(window) {
         Object.defineProperty(window.navigator, 'language', { value: 'en-US' })
@@ -30,7 +29,6 @@ describe.skip('Locale Test browser setting', () => {
 
     cy.visit('/stocks')
     cy.get('h2').should('have.text', 'US Stock500 List')
-
   })
 
   it('Japanese Locale Test', () => {
