@@ -142,7 +142,7 @@ const signup = () => {
             }}
           />
           <div className='h-4' />
-          <Button block disabled>
+          <Button block>
             {t.signInSubmit}
           </Button>
           <div className='h-4' />
