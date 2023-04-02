@@ -7,7 +7,20 @@ import { useQueryBookMark } from '../hooks/useQueryBookMark'
 import * as AiIcons from 'react-icons/ai'
 import { checkAllowanceBookMark } from '../functions/checkAllowanceBookMark'
 
-export default function BookMark({ ticker,t }) {
+interface BookMarkProps {
+  ticker: string
+  t: {
+    inputLimitAlert: string
+  }
+}
+
+interface CreateBookMarkData {
+  bookmark: boolean
+  ticker: string
+  user_id: string
+}
+
+export default function BookMark({ ticker, t }: BookMarkProps) {
   const { user, session, rank } = useContext(UserContext)
   const { createBookMarkMutation, deleteBookMarkMutation } = useMutateBookMark()
 
@@ -17,32 +30,45 @@ export default function BookMark({ ticker,t }) {
     return data.ticker === ticker
   })
 
-
   const { canBookMarkInput } = checkAllowanceBookMark(rank, bookMarkList)
 
   //  <!-- BookMark -->
-  const [star, setStar] = useState()
-  const [errorText, setError] = useState('')
- 
+  const [star, setStar] = useState<boolean | undefined>()
+  const [errorText, setError] = useState<string>('')
+
   useEffect(() => {
-      setStar(bookMarkData?.length > 0)
+    if (bookMarkData && bookMarkData.length > 0) {
+      setStar(true)
+    } else {
+      setStar(false)
+    }
   }, [bookMarkData])
 
-  const toggleStar = async (e) => {
+  const toggleStar = async (e: React.MouseEvent<HTMLDivElement>) => {
     if (!star && canBookMarkInput) {
-      createBookMarkMutation.mutate({
-        bookmark: true,
-        ticker: ticker,
-        user_id: supabase.auth.user()?.id, // 重要！！
-      })
-      setStar(true)
+      createBookMarkMutation.mutate(
+        {
+          bookmark: true,
+          ticker: ticker,
+          user_id: supabase.auth.user()?.id, // 重要！！
+        } as CreateBookMarkData,
+        {
+          onSuccess: () => {
+            setStar(true)
+          },
+        }
+      )
     } else if (!star && canBookMarkInput === false) {
       alert(`${t.inputLimitAlert}`)
       return
     } else {
-      console.log(bookMarkData[0].id)
-      deleteBookMarkMutation.mutate(bookMarkData[0].id)
-      setStar(false)
+      if (bookMarkData && bookMarkData.length > 0) {
+        deleteBookMarkMutation.mutate(bookMarkData[0].id, {
+          onSuccess: () => {
+            setStar(false)
+          },
+        })
+      }
     }
   }
 
@@ -55,8 +81,8 @@ export default function BookMark({ ticker,t }) {
           toggleStar(e)
         }}
         className='ml-2 cursor-pointer rounded border-2 p-2 text-green-600 hover:border-black'
-        data-testid="bookmarkCheck"
-        >
+        data-testid='bookmarkCheck'
+      >
         {star ? (
           <AiIcons.AiTwotoneStar size={16} className='align-middle text-green-600' />
         ) : (
