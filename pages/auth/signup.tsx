@@ -17,17 +17,20 @@ import SignUp2en from './../../locales/en/SignUpComponent2'
 import SignUp1ja from './../../locales/ja/SignUpComponent1'
 import SignUp2ja from './../../locales/ja/SignUpComponent2'
 
+type FormData = {
+  email: string
+  password: string
+  confirmPassword: string
+}
+
 const signup = () => {
-  // type formData = {
-  //   email: string,
-  //   password: string,
-  // };
+
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const { replace,locale } = useRouter()
 
     // i18n 対応用
-    let t
+    let t: typeof ja
     if (locale === 'ja-JP') {
       t = ja
     } else {
@@ -41,17 +44,17 @@ const signup = () => {
     reset,
     watch,
     // eslint-disable-next-line react-hooks/rules-of-hooks
-  } = useForm()
+  } = useForm<FormData>()
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const password = useRef({})
+  const password = useRef<string>('')
   password.current = watch('password', '')
   // const runSignup = async ({ email, password }: formData) => {
-  const runSignup = async ({ email, password }) => {
-    const { error} = await supabase.auth.signUp({
+  const runSignup = async ({ email, password }: FormData) => {
+    const { error } = await supabase.auth.signUp({
       email,
       password,
     })
-    if(error){
+    if (error) {
       alert(error.message)
     } else {
       alert(`${t.signUpAlertMsg}`)
