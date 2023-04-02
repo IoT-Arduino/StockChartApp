@@ -59,7 +59,21 @@ export async function getStaticPaths() {
 
 export const getStaticProps: GetServerSideProps = async ({ params }) => {
   // const id = await query.id
-  const id = await params?.id
+  const parameterId = await params?.id as String
+  const id = parameterId.toUpperCase()
+
+  // stockList data from json file
+  const filePathStockList = path.join(process.cwd(), `./data/stockCode/US-StockList.json`)
+  const jsonDataStockList = await fsPromises.readFile(filePathStockList)
+  const objectDataStockList: stockListType[] = JSON.parse(jsonDataStockList as any)
+
+  // stock list にデータがあるか判定する。
+  const isValueIncluded = Object.values(objectDataStockList).some((value) => value.Ticker === id)
+  if (!isValueIncluded) {
+    return {
+      notFound: true
+    };
+  }
 
   // Edgar データを追加したら、ここにも追加すること。
   const QTR = [
@@ -111,11 +125,6 @@ export const getStaticProps: GetServerSideProps = async ({ params }) => {
   }
 
   try {
-    // stockList data from json file
-    const filePathStockList = path.join(process.cwd(), `./data/stockCode/US-StockList.json`)
-    const jsonDataStockList = await fsPromises.readFile(filePathStockList)
-    const objectDataStockList: stockListType[] = JSON.parse(jsonDataStockList as any)
-
     const companyInfo = objectDataStockList.filter((item: stockListType) => {
       return item.Ticker === id
     })
@@ -185,6 +194,7 @@ export const getStaticProps: GetServerSideProps = async ({ params }) => {
     const filteredSheetDataTemp = await getStockInfo(id)
     const filteredSheetData = filteredSheetDataTemp ? filteredSheetDataTemp : null
 
+
     return {
       props: {
         id,
@@ -208,7 +218,7 @@ type SheetDataType = {
 }
 
 const StockChart: NextPage<{
-  priceData: StockPrice
+  priceData: StockPrice[]
   markerData: any
   edgarData: any
   id: any
@@ -244,7 +254,7 @@ const StockChart: NextPage<{
   let markerList: any
   if (locale === 'ja-JP') {
     t = ja
-      sheetData = filteredSheetData.newsDataFiltered ? filteredSheetData.newsDataFiltered : null
+    sheetData = filteredSheetData.newsDataFiltered ? filteredSheetData.newsDataFiltered : null
     markerList = markerListJa
   } else {
     t = en
