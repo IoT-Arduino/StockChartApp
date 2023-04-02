@@ -48,12 +48,14 @@ const StockTabSection = ({
   })
 
   return (
-    <Tabs color='teal' tabPadding='md'>
+    <Tabs color='teal' tabpadding='md' defaultValue={t.tab1Label}>
       <Tabs.List>
         <Tabs.Tab value={t.tab1Label}>{t.tab1Label}</Tabs.Tab>
         <Tabs.Tab value={t.tab2Label}>{t.tab2Label}</Tabs.Tab>
         <Tabs.Tab value={t.tab3Label}>{t.tab3Label}</Tabs.Tab>
-        <Tabs.Tab value={t.tab4Label} disabled={!editDataForMember}>{t.tab4Label}</Tabs.Tab>
+        <Tabs.Tab value={t.tab4Label} disabled={!editDataForMember}>
+          {t.tab4Label}
+        </Tabs.Tab>
       </Tabs.List>
       <Tabs.Panel value={t.tab1Label}>
         <div className='relative my-4 overflow-x-auto shadow-md sm:rounded-lg'>
@@ -204,7 +206,9 @@ const StockTabSection = ({
                       <td className='px-4 py-2'>{item.close} </td>
                       <td className='px-4 py-2'>{item.bps != 'NaN' ? item.bps : '--'} </td>
                       <td className='px-4 py-2'>{item.pbr != 'NaN' ? item.pbr : '--'}</td>
-                      <td className='px-4 py-2'>{item.epsAccum !== 'NaN' ? item.epsAccum : '--'}</td>
+                      <td className='px-4 py-2'>
+                        {item.epsAccum !== 'NaN' ? item.epsAccum : '--'}
+                      </td>
                       <td className='px-4 py-2'>
                         {item.perAccum !== NaN
                           ? item.perAccum > 0
@@ -457,7 +461,7 @@ const StockTabSection = ({
           </table>
         </div>
       </Tabs.Panel>
-      <Tabs.Panel value={t.tab4Label} >
+      <Tabs.Panel value={t.tab4Label}>
         <div className='my-3'>
           <InputMarkerState ticker={ticker} t={t} />
           <InputCommentsState ticker={ticker} t={t} />
