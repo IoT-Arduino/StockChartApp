@@ -10,6 +10,9 @@ import HeroSlider from '../components/HeroSlider'
 // Data
 import { codeList } from '../data/stockCode/US-StockList'
 
+// Types
+import { Company } from '../types/Company'
+
 // images
 // import DummyImage from '../public/images/TopAppleChart.png'
 // import UNHChart from '../public/images/UNHChart.png'
@@ -18,7 +21,7 @@ import { codeList } from '../data/stockCode/US-StockList'
 // import AAPLCashFlow from '../public/images/AAPLCashFlow.png'
 
 // 他に使用されている箇所、全体Index,StockIndex,Navbar
-const codeListNotUnlist = codeList.filter((item) => {
+const codeListNotUnlist:Company[] = codeList.filter((item) => {
   return item.Unlist != 'unlist'
 })
 
