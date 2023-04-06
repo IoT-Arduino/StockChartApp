@@ -102,7 +102,7 @@ const EtfIndex = ({ fundsData }:FundsData) => {
 
       <div className='mx-2 mt-8'>
         <p className='text-bold text-2xl'>VWO</p>
-        <EtfCandleChart etfData={fundsData.vwoData} />
+      <EtfCandleChart etfData={fundsData.vwoData} />
         <div className='mx-auto md:w-4/5'>
           <p>
             VWO:Aims to achieve investment results that track the FTSE Emerging Markets Index. The
