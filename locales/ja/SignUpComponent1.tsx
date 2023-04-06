@@ -1,6 +1,8 @@
 import React from 'react'
 
-const SignUpComponent1 = ({registerAllowance}) => {
+import { RegisterAllowance } from '../../types/RegisterAllowance'
+
+const SignUpComponent1 = ({registerAllowance}:{registerAllowance : RegisterAllowance}) => {
   return (
     <div className='mb-8'>
       <p>会員登録を行うことで、以下の機能をご利用いただけます</p>

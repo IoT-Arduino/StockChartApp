@@ -103,9 +103,10 @@ export default {
   inputPlaceHolder: 'Please enter a note',
   inputCommentTitle: 'Stock Memo Information',
   inputMarkerTitle: 'Marker Information',
-  inputSave:'Save',
-  inputCancel:'Cancel',
+  inputSave: 'Save',
+  inputCancel: 'Cancel',
 
+  // For SEO
   pageTitleStockList: 'List of 500 Major U.S. Stocks',
   pageDescStockList:
     'List of 500 Major U.S. Stocks page, click on the link to see a composite chart of stock prices and quarterly earnings results.',
@@ -114,22 +115,16 @@ export default {
   pageDescStockId:
     'Displays a composite chart of stock price candlesticks and quarterly earnings (BPS + PER 15x). Operating cash flow margin, dividends, and stock splits are also included.',
 
-  // For SEO
-  pageTitleStockList: '米国主要株500社一覧ページ',
-  pageDescStockList:
-    '米国主要株500社一覧ページ、リンクをクリックすると、株価と四半期決算業績の合成チャートが確認できます。',
-
-  pageTitleStockId: '株価・四半期業績チャート',
-  pageDescStockId:
-    'の株価ローソク足と四半期業績（BPS＋PER15倍）を合成したチャートを表示。営業キャッシュフローマージン、配当、株式分割情報も掲載',
 
   pageTitleEtfIndex: 'U.S. Equity Index ETF Comparison',
   pageDescEtfIndex:
     'Comparative analysis of the growth rates of VOO, VTI, and VT starting at the end of 2014. We will also list the top constituent stocks.',
-  pageTitleEtfHighDividend: 'Growth rate of high dividend stock fund VYG,VYM starting from the end of 2014',
+  pageTitleEtfHighDividend:
+    'Growth rate of high dividend stock fund VYG,VYM starting from the end of 2014',
   pageDescEtfHighDividend:
     'Comparative analysis of the growth rates of VYG and VYM starting from the end of 2014. We will also list the top component stocks.',
-  pageTitleEtfHealithCare: 'Growth rate of the Healthcare Sector Fund VHT starting from the end of 2014',
+  pageTitleEtfHealithCare:
+    'Growth rate of the Healthcare Sector Fund VHT starting from the end of 2014',
   pageDescEtfHealithCare:
     'We will compare the Health Care Sector Fund to a market index. It will also list the top constituent stocks.',
 }
