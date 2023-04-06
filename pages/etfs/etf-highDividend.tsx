@@ -1,10 +1,5 @@
 import type { NextPage } from 'next'
 import { NextSeo } from 'next-seo'
-// import { useEffect } from 'react'
-// import Head from 'next/head'
-// import Image from 'next/image'
-// import Link from 'next/link'
-// import EtfCandleChart from './../../components/EtfCandleChart'
 
 // i18n
 import EtfHighDividendEn from './../../locales/en/EtfHighDividend'
@@ -12,6 +7,9 @@ import EtfHighDividendJa from './../../locales/ja/EtfHighDividend'
 import { useRouter } from 'next/router'
 import en from './../../locales/en/en'
 import ja from './../../locales/ja/ja'
+
+// Types
+import { FundsData } from './../../types/FundsData'
 
 export async function getServerSideProps() {
   try {
@@ -43,7 +41,7 @@ export async function getServerSideProps() {
   }
 }
 
-const Home: NextPage = ({ fundsData }: any) => {
+const Home: NextPage<FundsData> = ({ fundsData }) => {
   // i18n 対応用
   const router = useRouter()
   const { locale } = router

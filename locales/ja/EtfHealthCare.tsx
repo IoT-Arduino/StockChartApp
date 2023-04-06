@@ -1,7 +1,10 @@
 import Link from 'next/link'
 // import EtfCandleChart from './../../components/EtfCandleChart'
 import EtfCompareToSP500 from './../../components/EtfCompareToSP500';
-import { Card, Image,  Button, Grid } from '@mantine/core'
+import { Card, Image, Button, Grid } from '@mantine/core'
+
+// Types
+import { FundsData } from './../../types/FundsData'
 
 const stockList = [
   {
@@ -42,11 +45,11 @@ const stockList = [
   },
 ]
 
-const EtfHealthCare = ({ fundsData }) => {
+const EtfHealthCare = ({ fundsData }:FundsData) => {
   return (
     <div className='mx-auto md:w-4/5'>
       <div className='mx-2 mt-8'>
-        <p className='text-bold text-2xl'>{fundsData.vhtData.meta.symbol}の資産価値推移と構成銘柄チャート一覧</p>
+        <p className='text-bold text-2xl'>VHTの資産価値推移と構成銘柄チャート一覧</p>
         <EtfCompareToSP500 fundsData={fundsData} />
         <p className="text-center">VOO,VHT比較チャート(Red line : VOO , Green Line : VHT)</p>
         <div className="mt-16">

@@ -8,6 +8,9 @@ import EtfHealthCareJa from './../../locales/ja/EtfHealthCare'
 import en from './../../locales/en/en'
 import ja from './../../locales/ja/ja'
 
+// Types
+import { FundsData } from './../../types/FundsData'
+
 export async function getServerSideProps() {
   try {
     const p1 = 1420038000 // 2015/01/01
@@ -38,11 +41,11 @@ export async function getServerSideProps() {
   }
 }
 
-const Home: NextPage = ({ fundsData }: any) => {
+const Home: NextPage<FundsData> = ({ fundsData }) => {
   // i18n 対応用
   const router = useRouter()
   const { locale } = router
-  let t
+  let t : typeof ja | typeof en
   if (locale === 'ja-JP') {
     t = ja
   } else {

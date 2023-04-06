@@ -1,4 +1,5 @@
 // i18n
+import React from 'react'
 import en from './../../locales/en/en'
 import ja from './../../locales/ja/ja'
 import DiscraimerEn from './../../locales/en/Discraimer'
@@ -9,7 +10,7 @@ const Discraimer = () => {
   // i18n 対応用
   const router = useRouter()
   const { locale } = router
-  let t
+  let t : typeof ja | typeof en
   if (locale === 'ja-JP') {
     t = ja
   } else {

@@ -1,11 +1,13 @@
 import Link from 'next/link'
 // import EtfCandleChart from './../../components/EtfCandleChart'
-import EtfCompareToSP500 from './../../components/EtfCompareToSP500';
+import EtfCompareToSP500 from './../../components/EtfCompareToSP500'
 
-import { Card, Image,  Button, Grid } from '@mantine/core'
+import { Card, Image, Button, Grid } from '@mantine/core'
 
-const EtfHealthCare = ({ fundsData }) => {
+// Types
+import { FundsData } from './../../types/FundsData'
 
+const EtfHealthCare = ({ fundsData }: FundsData ) => {
   const stockList = [
     {
       Ticker: 'UNH',
@@ -48,10 +50,12 @@ const EtfHealthCare = ({ fundsData }) => {
   return (
     <div className='mx-auto md:w-4/5'>
       <div className='mx-2 mt-8'>
-        <p className='text-bold text-2xl'>{fundsData.vhtData.meta.symbol} Asset Value Trends and Top Component Stocks Charts</p>
+        <p className='text-bold text-2xl'>
+          VHT Asset Value Trends and Top Component Stocks Charts
+        </p>
         <EtfCompareToSP500 fundsData={fundsData} />
-        <p className="text-center">VOO,VHT Comparison Chart(Red line : VOO , Green Line : VHT)</p>
-        <div className="mt-16">
+        <p className='text-center'>VOO,VHT Comparison Chart(Red line : VOO , Green Line : VHT)</p>
+        <div className='mt-16'>
           <p>
             VHT is an ETF offered by Vanguard, an American asset management company, which invests
             in "approximately 450 companies in the healthcare sector, including pharmaceuticals and
