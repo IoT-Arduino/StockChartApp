@@ -17,8 +17,8 @@ import { MantineProvider } from '@mantine/core'
 import { LayoutWrapper } from '../components/LayoutWrapper'
 
 // i18n
-import SeoJa from '../locales/ja/next-seo.js'
-import SeoEn from '../locales/en/next-seo.js'
+import SeoJa from '../locales/ja/next-seo'
+import SeoEn from '../locales/en/next-seo'
 
 // aos
 import AOS from 'aos'
