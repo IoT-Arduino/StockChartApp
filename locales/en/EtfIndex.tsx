@@ -3,7 +3,10 @@ import Link from 'next/link'
 import EtfCandleChart from './../../components/EtfCandleChart'
 import EtfCompareLineChart from './../../components/EtfCompareLineChart'
 
-const EtfIndex = ({ fundsData }) => {
+// Types
+import { FundsData } from './../../types/FundsData'
+
+const EtfIndex = ({ fundsData }:FundsData) => {
   return (
     <div>
       <h2>Major U.S. ETF Comparison</h2>
@@ -98,7 +101,7 @@ const EtfIndex = ({ fundsData }) => {
       </div>
 
       <div className='mx-2 mt-8'>
-        <p className='text-bold text-2xl'>{fundsData.vwoData.meta.symbol}</p>
+        <p className='text-bold text-2xl'>VWO</p>
         <EtfCandleChart etfData={fundsData.vwoData} />
         <div className='mx-auto md:w-4/5'>
           <p>
