@@ -1,6 +1,11 @@
 import { registerAllowance } from '../const/settings'
 
-const RegisterLimit = ({ rank, t }) => {
+type Props = {
+  rank: string
+  t: any
+}
+
+const RegisterLimit = ({ rank, t }:Props) => {
   if (rank === 'free') {
     return (
       <div className='mt-8'>
