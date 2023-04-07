@@ -16,6 +16,7 @@
     "incremental": true,
     "baseUrl": "src"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  // "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/ChartComponent.js", "pages/stocks/[id].jsx", "pages/auth/signup.jsx", "pages/auth/signin.jsx", "pages/404.js", "components/BookMarkState.jsx", "pages/api/getData.js", "global-setup.js", "const/settings.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/auth/signup.jsx", "pages/auth/signin.jsx",  "components/BookMarkState.jsx", "pages/api/getData.js", "global-setup.js", "const/settings.js"],
   "exclude": ["node_modules"]
 }
