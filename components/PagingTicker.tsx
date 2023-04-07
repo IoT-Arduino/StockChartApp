@@ -2,14 +2,21 @@ import React from 'react'
 import { useRouter } from 'next/router'
 import { Button } from '@mantine/core';
 
-const PagingTicker = ({prevTicker,nextTicker,signIn,t}) => {
+type Props = {
+  prevTicker: string
+  nextTicker: string
+  signIn: boolean
+  t: any
+}
+
+const PagingTicker = ({prevTicker,nextTicker,signIn,t}:Props) => {
     const router = useRouter()
-    const handlePrev = (e) => {
+    const handlePrev = () => {
         const prevLink = `/stocks/${prevTicker}`
         router.push(prevLink)
       }
 
-      const handleNext = (e) => {
+      const handleNext = () => {
         const nextLink = `/stocks/${nextTicker}`
         router.push(nextLink)
       }
