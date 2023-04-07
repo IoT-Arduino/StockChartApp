@@ -1,5 +1,17 @@
 // Chart Option ==============================================================
-export const chartOption = (newDateData,filteredDateForBarChart,newPriceData,markerChartData,slicedResultTheoryStockPriceAsset,slicedResultTheoryStockPriceOperation,operatingCashFlowData,netIncomeArr,operatingCashFlowIndicator) => {
+import { EChartsOption } from 'echarts-for-react'
+
+export const chartOption = (
+  newDateData: Array<string>,
+  filteredDateForBarChart: Array<string>,
+  newPriceData: Array<Array<number>>,
+  markerChartData: Array<Object>,
+  slicedResultTheoryStockPriceAsset: Array<number>,
+  slicedResultTheoryStockPriceOperation: Array<number>,
+  operatingCashFlowData: Array<number>,
+  netIncomeArr: Array<number>,
+  operatingCashFlowIndicator: Array<number>
+): EChartsOption => {
   return {
     xAxis: [
       {
@@ -45,9 +57,10 @@ export const chartOption = (newDateData,filteredDateForBarChart,newPriceData,mar
         scale: true,
         splitNumber: 1,
         gridIndex: 1,
-        axisLabel: { show: true },
+        // axisLabel: { show: true },
         axisLabel: {
           formatter: '{value} ',
+          show: true,
         },
         axisLine: { show: true },
         axisTick: { show: true },
@@ -59,9 +72,10 @@ export const chartOption = (newDateData,filteredDateForBarChart,newPriceData,mar
         scale: true,
         splitNumber: 1,
         gridIndex: 1,
-        axisLabel: { show: true },
+        // axisLabel: { show: true },
         axisLabel: {
           formatter: '{value} %',
+          show: true,
         },
         axisLine: { show: true },
         axisTick: { show: true },

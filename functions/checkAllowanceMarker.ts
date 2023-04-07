@@ -1,6 +1,6 @@
 
 import { registerAllowance } from '../const/settings'
-export const checkAllowanceMarker =  (rank, markers) => {
+export const checkAllowanceMarker =  (rank:string, markers:[]) => {
     let canMarkerInput
   
     switch (rank) {

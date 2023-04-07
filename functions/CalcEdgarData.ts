@@ -1,13 +1,13 @@
 //　この関数で各社毎のtagの違いを吸収する。
 
-export const calcEdgarData = (edgarData) => {
+export const calcEdgarData = (edgarData:any) => {
   // データを古い順にソート
-  let resultRes = edgarData.sort(function (a, b) {
+  let resultRes = edgarData.sort(function (a:any, b:any) {
     return a.period < b.period ? -1 : 1
   })
 
   // 各勘定科目データの加工
-  const edgarRes = resultRes.map((res, i) => {
+  const edgarRes = resultRes.map((res:any, i:number) => {
     // -------------　PL関連　-------------
     // 単四半期のPL売上データ
     const revenueDataDeducted = () => {

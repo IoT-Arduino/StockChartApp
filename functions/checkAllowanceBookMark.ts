@@ -1,7 +1,7 @@
 
 import { registerAllowance } from '../const/settings'
-export const checkAllowanceBookMark =  (rank, bookmarks) => {
-    let canBookMarkInput
+export const checkAllowanceBookMark =  (rank:string, bookmarks:[]) => {
+  let canBookMarkInput
   
     switch (rank) {
       case 'free':
