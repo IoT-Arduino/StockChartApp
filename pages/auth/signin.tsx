@@ -1,5 +1,5 @@
 import { Button, IconKey, IconMail } from '@supabase/ui'
-import { useForm, Controller } from 'react-hook-form'
+import { useForm, Controller, SubmitHandler, FieldValues } from 'react-hook-form'
 import { Input } from '@supabase/ui'
 import { supabase } from '../../utils/supabase'
 import Link from 'next/link'
@@ -11,16 +11,11 @@ import en from './../../locales/en/en'
 import ja from './../../locales/ja/ja'
 
 const signin = () => {
-  // type formData = {
-  //   email: string,
-  //   password: string,
-  //   };
-
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const { replace, locale } = useRouter()
 
   // i18n 対応用
-  let t
+  let t :typeof en | typeof ja
   if (locale === 'ja-JP') {
     t = ja
   } else {
@@ -35,8 +30,7 @@ const signin = () => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
   } = useForm()
 
-  // const runSignin = async ({ email, password }: formData) => {
-  const runSignin = async ({ email, password }) => {
+  const runSignin: SubmitHandler<FieldValues> = async ({ email, password }) => {
     try {
       const { error } = await supabase.auth.signIn({
         email,
@@ -45,8 +39,8 @@ const signin = () => {
       replace('/member')
       reset()
       if (error) throw error
-    } catch (error) {
-      alert(error.message, `${t.signInErrorMsg}`)
+    } catch (error: any) {
+      alert(`${t.signInErrorMsg}`)
       reset()
       console.log(error)
     }
@@ -66,7 +60,7 @@ const signin = () => {
                 type='email'
                 label='Email'
                 icon={<IconMail />}
-                error={errors.email ? errors.email.message : ''}
+                error={errors.email ? errors.email.message as string : ''}
                 placeholder='email'
               />
             )}
@@ -88,7 +82,7 @@ const signin = () => {
                 type='password'
                 icon={<IconKey />}
                 label='Password'
-                error={errors.password ? errors.password.message : ''}
+                error={errors.password ? errors.password.message as string : ''}
                 placeholder={t.signInPwdPlaceHolder}
               />
             )}
