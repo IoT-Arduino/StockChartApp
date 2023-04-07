@@ -7,10 +7,7 @@ import Link from 'next/link'
 // Style & Images
 import styles from './Navbar.module.css'
 import { IconContext } from 'react-icons'
-// import * as FaIcons from 'react-icons/fa'
 import { FaBars, FaRegStickyNote } from 'react-icons/fa'
-
-// import * as AiIcons from 'react-icons/ai'
 
 import {
   AiOutlineHome,
@@ -76,7 +73,7 @@ const Navbar = () => {
   const router = useRouter()
   const { locale } = router
 
-  let t
+  let t: typeof en | typeof ja
   if (locale === 'ja-JP') {
     t = ja
   } else {
@@ -234,8 +231,8 @@ const Navbar = () => {
 
             <li className='list-none'>
               <div className={styles.navText}>
-                <Link href='https://twitter.com/Sa10shitoushi' rel='noopener noreferrer'>
-                  <a>
+                <Link href='https://twitter.com/Sa10shitoushi'>
+                  <a rel='noopener noreferrer'>
                     <AiOutlineTwitter />
                     <span className='ml-2'>Twitter</span>
                   </a>
@@ -245,8 +242,8 @@ const Navbar = () => {
 
             <li className='list-none'>
               <div className={styles.navText}>
-                <Link href='https://note.com/satoshi_toushi' rel='noopener noreferrer'>
-                  <a>
+                <Link href='https://note.com/satoshi_toushi'>
+                  <a rel='noopener noreferrer'>
                     <FaRegStickyNote />
                     <span className='ml-2'>note</span>
                   </a>
@@ -256,8 +253,8 @@ const Navbar = () => {
 
             <li className='list-none'>
               <div className={styles.navText}>
-                <Link href='https://medium.com/@tenq' rel='noopener noreferrer'>
-                  <a>
+                <Link href='https://medium.com/@tenq'>
+                  <a rel='noopener noreferrer'>
                     <AiFillMediumSquare />
                     <span className='ml-2'>medium</span>
                   </a>

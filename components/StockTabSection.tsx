@@ -7,10 +7,16 @@ import InputMarkerState from './InputMarkerState'
 
 import dayjs from 'dayjs'
 
-// i18n
-// import en from '../locales/en/en'
-// import ja from '../locales/ja/ja'
-// import { useRouter } from 'next/router';
+type Props = {
+  companyInfo: any
+  fyCompanyDataForTable: any
+  isDividend: boolean
+  isSplit: boolean
+  QtrCompanyDataForTable: any
+  priceData: any
+  ticker: string
+  t: any
+}
 
 const StockTabSection = ({
   companyInfo,
@@ -21,9 +27,9 @@ const StockTabSection = ({
   priceData,
   ticker,
   t,
-}) => {
+}:Props) => {
   const { user } = useContext(UserContext)
-  const [editDataForMember, setEditDataForMember] = useState()
+  const [editDataForMember, setEditDataForMember] = useState<boolean>()
 
   useEffect(() => {
     if (user) {
@@ -34,10 +40,10 @@ const StockTabSection = ({
   }, [user])
 
   // 株式分割の月を1か月加算してもとに戻す処理
-  const splitFilteredData = priceData.filter((item) => {
+  const splitFilteredData = priceData.filter((item:any) => {
     return item.splitCategory === 'rSplit' || item.splitCategory === 'split'
   })
-  const splitFixedMonthData = splitFilteredData.map((item) => {
+  const splitFixedMonthData = splitFilteredData.map((item:any) => {
     return {
       Ticker: item.Ticker,
       date: dayjs(item.date).add(1, 'M').format('YYYY/MM'),
@@ -48,7 +54,7 @@ const StockTabSection = ({
   })
 
   return (
-    <Tabs color='teal' tabpadding='md' defaultValue={t.tab1Label}>
+    <Tabs color='teal' defaultValue={t.tab1Label}>
       <Tabs.List>
         <Tabs.Tab value={t.tab1Label}>{t.tab1Label}</Tabs.Tab>
         <Tabs.Tab value={t.tab2Label}>{t.tab2Label}</Tabs.Tab>
@@ -87,7 +93,7 @@ const StockTabSection = ({
             </thead>
             <tbody>
               {fyCompanyDataForTable &&
-                fyCompanyDataForTable.map((item, i) => {
+                fyCompanyDataForTable.map((item: any, i: number) => {
                   if (companyInfo.Sector === 'Finance') {
                     return (
                       <tr
@@ -196,7 +202,7 @@ const StockTabSection = ({
             </thead>
             <tbody>
               {fyCompanyDataForTable &&
-                fyCompanyDataForTable.map((item, i) => {
+                fyCompanyDataForTable.map((item: any, i: number) => {
                   return (
                     <tr
                       key={i}
@@ -210,7 +216,7 @@ const StockTabSection = ({
                         {item.epsAccum !== 'NaN' ? item.epsAccum : '--'}
                       </td>
                       <td className='px-4 py-2'>
-                        {item.perAccum !== NaN
+                        {!Number.isNaN(item.perAccum)
                           ? item.perAccum > 0
                             ? item.perAccum.toFixed(2)
                             : 'minus'
@@ -245,7 +251,7 @@ const StockTabSection = ({
               </thead>
               <tbody>
                 {fyCompanyDataForTable &&
-                  fyCompanyDataForTable.map((item, i) => {
+                  fyCompanyDataForTable.map((item: any, i: number) => {
                     return (
                       <tr
                         key={i}
@@ -277,7 +283,7 @@ const StockTabSection = ({
             <h3 className='my-2 p-2 text-lg font-bold'>{t.tab1TitleSplit}</h3>
             <ul className='my-3'>
               {splitFixedMonthData &&
-                splitFixedMonthData.map((item, i) => {
+                splitFixedMonthData.map((item: any, i: number) => {
                   if (item.splitCategory) {
                     return (
                       <li key={i}>
@@ -324,7 +330,7 @@ const StockTabSection = ({
             </thead>
             <tbody>
               {QtrCompanyDataForTable &&
-                QtrCompanyDataForTable.map((item, i) => {
+                QtrCompanyDataForTable.map((item: any, i: number) => {
                   if (companyInfo.Sector === 'Finance') {
                     return (
                       <tr
@@ -435,7 +441,7 @@ const StockTabSection = ({
             </thead>
             <tbody>
               {QtrCompanyDataForTable &&
-                QtrCompanyDataForTable.map((item, i) => {
+                QtrCompanyDataForTable.map((item: any, i: number) => {
                   return (
                     <tr
                       key={i}
@@ -447,12 +453,12 @@ const StockTabSection = ({
                       <td className='px-4 py-2'>{item.pbr != 'NaN' ? item.pbr : '--'} </td>
                       <td className='px-4 py-2'>{item.eps != 'NaN' ? item.eps : '--'}</td>
                       <td className='px-4 py-2'>
-                        {item.per !== NaN ? (item.per >= 0 ? item.per.toFixed(2) : 'minus') : '--'}
+                        {!Number.isNaN(item.per) ? (item.per >= 0 ? item.per.toFixed(2) : 'minus') : '--'}
                       </td>
                       <td className='px-4 py-2'>
                         {Number.isNaN(item.numberOfSharesOutstanding)
                           ? '--'
-                          : parseInt(item.numberOfSharesOutstanding / 1000000).toLocaleString()}
+                          : (item.numberOfSharesOutstanding / 1000000).toLocaleString()}
                       </td>
                     </tr>
                   )
