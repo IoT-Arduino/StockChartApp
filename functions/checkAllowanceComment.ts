@@ -1,6 +1,6 @@
 
 import { registerAllowance } from '../const/settings'
-export const checkAllowanceComment =  (rank, comments) => {
+export const checkAllowanceComment =  (rank:string, comments:[]) => {
     let canCommentInput
   
     switch (rank) {

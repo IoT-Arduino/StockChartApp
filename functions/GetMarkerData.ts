@@ -1,4 +1,17 @@
-export const getMarkerData = (marker) => {
+interface Marker {
+  date: string
+  ticker: string
+  memo: string
+}
+
+interface MarkerData {
+  name: string
+  date: string
+  coord: string[]
+  value: string
+}
+
+export const getMarkerData = (marker: Marker[]): MarkerData[] => {
   // データを古い順にソート
   let resultRes = marker.sort(function (a, b) {
     return a.date < b.date ? -1 : 1
