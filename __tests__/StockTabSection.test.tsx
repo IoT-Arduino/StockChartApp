@@ -1,6 +1,5 @@
 import { render, screen, waitFor } from '@testing-library/react'
 // import 'matchmedia-polyfill'
-import toBeInTheDocument from '@testing-library/jest-dom/matchers'
 
 import { Footer } from './../components/footer'
 import Navbar from './../components/Navbar'
