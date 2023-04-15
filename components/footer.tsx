@@ -33,7 +33,7 @@ export const Footer = () => {
 
   // i18n 対応用
   const router = useRouter()
-  const { locale } = router
+  const { locale } = router ?? { locale: 'en-US' }
 
   const changeLanguage = (e: any) => {
     const locale = e
