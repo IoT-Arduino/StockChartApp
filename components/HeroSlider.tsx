@@ -19,7 +19,7 @@ import { Company } from '../types/Company'
 export default function HeroSlider({ codeList }: { codeList: Company[] }) {
   // i18n 対応用
   const router = useRouter()
-  const { locale } = router
+  const { locale } = router ?? { locale: 'en-US' }
 
   let t
   if (locale === 'ja-JP') {
