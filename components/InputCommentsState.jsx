@@ -171,10 +171,20 @@ export default function InputComments({ ticker, t }) {
 
         {editItem != '' ? (
           <div>
-            <Button variant='outline' color='teal' onClick={() => submitComment()}>
+            <Button
+              variant='outline'
+              color='teal'
+              onClick={() => submitComment()}
+              data-testid='updateComment'
+            >
               {t.inputSave}
-            </Button>{' '}
-            <Button variant='outline' color='teal' onClick={() => editCancel()}>
+            </Button>
+            <Button
+              variant='outline'
+              color='teal'
+              onClick={() => editCancel()}
+              data-testid='cancelComment'
+            >
               {t.inputCancel}
             </Button>
           </div>
@@ -189,14 +199,14 @@ export default function InputComments({ ticker, t }) {
               data-testid='addComment'
             >
               {t.inputSave}
-            </Button>{' '}
+            </Button>
             <Button
               // className='btn-black rounded border border-black p-2'
               variant='outline'
               color='teal'
               onClick={() => resetEditedComment()}
               disabled={!canCommentInput}
-              data-testid='addComment'
+              data-testid='resetComment'
             >
               {t.inputCancel}
             </Button>
