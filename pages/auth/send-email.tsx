@@ -37,7 +37,8 @@ const SendEmailToResetPassword: NextPage = () => {
 
   // i18n 対応用
   const router = useRouter()
-  const { locale } = router
+  const { locale } = router ?? { locale: 'en-US' }
+
   let t
   if (locale === 'ja-JP') {
     t = ja
