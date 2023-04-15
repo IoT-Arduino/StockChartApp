@@ -10,6 +10,7 @@
     "lint": "next lint",
     "lint:fix": "eslint --ext .js,jsx,.ts,.tsx --fix",
     "format": "prettier --write ./*/*.{js,jsx,ts,tsx,json,css}",
+    "test:e2e": "playwright test",
     "jest": "jest --watch",
     "coverage": "jest --coverage"
   },
@@ -49,6 +50,7 @@
     "zustand": "^4.0.0-rc.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.32.3",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^12.1.5",
     "@types/aos": "^3.0.4",
