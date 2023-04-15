@@ -55,7 +55,8 @@ const Home: NextPage = () => {
   }, [user])
 
   // i18n 対応用
-  const { locale } = router
+  const { locale } = router ?? { locale: 'en-US' }
+
   let t: any
   if (locale === 'ja-JP') {
     t = ja
