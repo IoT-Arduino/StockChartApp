@@ -63,7 +63,6 @@ export const useMutateBookMark = () => {
     },
     {
       onSuccess: (_, variables) => {
-        console.log(variables)
         const previousBookMark = queryClient.getQueryData<BookMark[]>('bookmark')
         if (previousBookMark) {
           queryClient.setQueryData<BookMark[]>(
