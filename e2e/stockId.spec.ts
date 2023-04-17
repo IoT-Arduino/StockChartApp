@@ -1,8 +1,8 @@
 import { test, expect } from '@playwright/test'
 
-const { stockList } = require('../data/stockCode/US-StockListForTest');
+const { stockList } = require('../data/stockCode/US-StockListForTest')
 
-stockList.forEach((data:any) => {
+stockList.forEach((data: any) => {
   test.skip(`Check data is missing ${data.Ticker}`, async ({ page }) => {
     await page.goto(`/stocks/${data.Ticker}`)
     await expect(page.locator('data-testid=tabSection')).not.toContainText('--')
