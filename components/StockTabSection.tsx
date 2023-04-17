@@ -27,7 +27,7 @@ const StockTabSection = ({
   priceData,
   ticker,
   t,
-}:Props) => {
+}: Props) => {
   const { user } = useContext(UserContext)
   const [editDataForMember, setEditDataForMember] = useState<boolean>()
 
@@ -40,10 +40,10 @@ const StockTabSection = ({
   }, [user])
 
   // 株式分割の月を1か月加算してもとに戻す処理
-  const splitFilteredData = priceData.filter((item:any) => {
+  const splitFilteredData = priceData.filter((item: any) => {
     return item.splitCategory === 'rSplit' || item.splitCategory === 'split'
   })
-  const splitFixedMonthData = splitFilteredData.map((item:any) => {
+  const splitFixedMonthData = splitFilteredData.map((item: any) => {
     return {
       Ticker: item.Ticker,
       date: dayjs(item.date).add(1, 'M').format('YYYY/MM'),
@@ -453,7 +453,11 @@ const StockTabSection = ({
                       <td className='px-4 py-2'>{item.pbr != 'NaN' ? item.pbr : '--'} </td>
                       <td className='px-4 py-2'>{item.eps != 'NaN' ? item.eps : '--'}</td>
                       <td className='px-4 py-2'>
-                        {!Number.isNaN(item.per) ? (item.per >= 0 ? item.per.toFixed(2) : 'minus') : '--'}
+                        {!Number.isNaN(item.per)
+                          ? item.per >= 0
+                            ? item.per.toFixed(2)
+                            : 'minus'
+                          : '--'}
                       </td>
                       <td className='px-4 py-2'>
                         {Number.isNaN(item.numberOfSharesOutstanding)
