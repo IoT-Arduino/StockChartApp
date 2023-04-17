@@ -214,8 +214,11 @@ export const getStaticProps: GetServerSideProps = async ({ params }) => {
 
 type SheetDataType = {
   date: string
-  news: string
+  news?: string,
+  info?: string
 }
+
+type Locale = typeof ja | typeof en
 
 const StockChart: NextPage<{
   priceData: StockPrice[]
@@ -225,8 +228,8 @@ const StockChart: NextPage<{
   companyInfo: Company
   filteredSheetData: any
   status: any
-  prevTicker: String
-  nextTicker: String
+  prevTicker: string
+  nextTicker: string
 }> = ({
   priceData,
   edgarData,
@@ -249,7 +252,7 @@ const StockChart: NextPage<{
   // i18n 対応用
   const router = useRouter()
   const { locale } = router
-  let t
+  let t : Locale
   let sheetData: SheetDataType[]
   let markerList: any
   if (locale === 'ja-JP') {
@@ -346,10 +349,10 @@ const StockChart: NextPage<{
                 return (
                   <li key={i}>
                     {item?.date}
-                    {'  '}
+                    {" "}
                     <span
                       dangerouslySetInnerHTML={{
-                        __html: item.news,
+                        __html: t == ja ? item.news! :item.info! ,
                       }}
                     />
                   </li>
