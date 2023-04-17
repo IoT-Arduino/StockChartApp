@@ -2,11 +2,13 @@ import React from 'react'
 import { useRouter } from 'next/router'
 import { Button } from '@mantine/core';
 
+import { TranslationLocales } from '../types/TranslationLocales'
+
 type Props = {
   prevTicker: string
   nextTicker: string
   signIn: boolean
-  t: any
+  t: TranslationLocales
 }
 
 const PagingTicker = ({prevTicker,nextTicker,signIn,t}:Props) => {

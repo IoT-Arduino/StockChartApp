@@ -16,6 +16,10 @@ import { MantineProvider } from '@mantine/core'
 // components
 import { LayoutWrapper } from '../components/LayoutWrapper'
 
+// Types
+import { Ranks } from '../types/Ranks'
+import { Profile } from '../types/Profile'
+
 // i18n
 import SeoJa from '../locales/ja/next-seo'
 import SeoEn from '../locales/en/next-seo'
@@ -44,7 +48,7 @@ const queryClient = new QueryClient({
 function MyApp({ Component, pageProps }: AppProps) {
   const [user, setUser] = useState(supabase.auth.user())
   const [session, setSession] = useState(supabase.auth.session())
-  const [rank, setRank] = useState('')
+  const [rank, setRank] = useState<Ranks>('free')
 
   useEffect(() => {
     AOS.init({
@@ -75,11 +79,11 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, [])
 
   const getProfile = async () => {
-    const { data, error } = await supabase.from('profiles').select('*')
+    const { data, error } = await supabase.from<Profile>('profiles').select('*')
     if (error) {
       throw new Error(error.message)
     }
-    setRank(data[0]?.rank)
+    setRank(data[0].rank)
     return data
   }
 

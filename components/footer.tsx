@@ -18,6 +18,9 @@ import { Select } from '@mantine/core'
 // i18n
 import en from '../locales/en/en'
 import ja from '../locales/ja/ja'
+import { TranslationLocales } from '../types/TranslationLocales'
+
+type Locale = 'ja-JP' | 'en-US'
 
 export const Footer = () => {
   const [signIn, setSignIn] = useState(false)
@@ -35,12 +38,12 @@ export const Footer = () => {
   const router = useRouter()
   const { locale } = router ?? { locale: 'en-US' }
 
-  const changeLanguage = (e: any) => {
+  const changeLanguage = (e: Locale) => {
     const locale = e
     router.push(`${router.asPath}`, `${router.asPath}`, { locale })
   }
 
-  let t
+  let t: TranslationLocales
   if (locale === 'ja-JP') {
     t = ja
   } else {
@@ -89,8 +92,6 @@ export const Footer = () => {
           <a className='text-xs no-underline'>{t.disclaimer}</a>
         </Link>
 
-
-
         <Select
           onChange={changeLanguage}
           data={[
@@ -100,7 +101,7 @@ export const Footer = () => {
           className='h-8 w-24'
           value={locale}
           classNames={{
-            input:"bg-gray-100"
+            input: 'bg-gray-100',
           }}
         />
       </div>

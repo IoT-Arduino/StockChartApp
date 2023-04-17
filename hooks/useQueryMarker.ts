@@ -1,11 +1,13 @@
 import { useQuery } from 'react-query'
 import { supabase } from './../utils/supabase';
 
+import { Marker } from './../types/Marker'
+
 
 export const useQueryMarker = () => {
   const getMarker = async () => {
     const { data, error } = await supabase
-      .from('marker')
+      .from<Marker>('marker')
       .select('*')
       .order('ticker', { ascending: false })
       .order('date', { ascending: false })
