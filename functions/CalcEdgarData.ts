@@ -1,13 +1,13 @@
 //　この関数で各社毎のtagの違いを吸収する。
 
-export const calcEdgarData = (edgarData:any) => {
+export const calcEdgarData = (edgarData: any) => {
   // データを古い順にソート
-  let resultRes = edgarData.sort(function (a:any, b:any) {
+  let resultRes = edgarData.sort(function (a: any, b: any) {
     return a.period < b.period ? -1 : 1
   })
 
   // 各勘定科目データの加工
-  const edgarRes = resultRes.map((res:any, i:number) => {
+  const edgarRes = resultRes.map((res: any, i: number) => {
     // -------------　PL関連　-------------
     // 単四半期のPL売上データ
     const revenueDataDeducted = () => {
@@ -366,14 +366,34 @@ export const calcEdgarData = (edgarData:any) => {
         return res.StockholdersEquity_0_FY_USD
 
         // StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest - MinorityInterest
-      } else if (res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_Q1_USD) {
-        return res.MinorityInterest_0_Q1_USD ? res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_Q1_USD - res.MinorityInterest_0_Q1_USD : res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_Q1_USD
-      } else if (res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_Q2_USD) {
-        return res.MinorityInterest_0_Q2_USD ? res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_Q2_USD - res.MinorityInterest_0_Q2_USD : res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_Q2_USD
-      } else if (res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_Q3_USD) {
-        return res.MinorityInterest_0_Q3_USD ? res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_Q3_USD - res.MinorityInterest_0_Q3_USD : res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_Q3_USD
-      } else if (res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_FY_USD) {
-        return res.MinorityInterest_0_FY_USD ? res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_FY_USD - res.MinorityInterest_0_FY_USD : res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_FY_USD
+      } else if (
+        res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_Q1_USD
+      ) {
+        return res.MinorityInterest_0_Q1_USD
+          ? res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_Q1_USD -
+              res.MinorityInterest_0_Q1_USD
+          : res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_Q1_USD
+      } else if (
+        res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_Q2_USD
+      ) {
+        return res.MinorityInterest_0_Q2_USD
+          ? res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_Q2_USD -
+              res.MinorityInterest_0_Q2_USD
+          : res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_Q2_USD
+      } else if (
+        res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_Q3_USD
+      ) {
+        return res.MinorityInterest_0_Q3_USD
+          ? res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_Q3_USD -
+              res.MinorityInterest_0_Q3_USD
+          : res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_Q3_USD
+      } else if (
+        res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_FY_USD
+      ) {
+        return res.MinorityInterest_0_FY_USD
+          ? res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_FY_USD -
+              res.MinorityInterest_0_FY_USD
+          : res.StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest_0_FY_USD
       } else {
         return
       }
@@ -409,13 +429,21 @@ export const calcEdgarData = (edgarData:any) => {
         return res.WeightedAverageNumberOfShareOutstandingBasicAndDiluted_4_FY_shares
         // 名称が違う場合　:　CommonStockSharesIssued - TreasuryStockSharesConverted
       } else if (res.CommonStockSharesIssued_0_Q1_shares) {
-        return res.TreasuryStockSharesConverted_0_Q1_shares ? res.CommonStockSharesIssued_0_Q1_shares - res.TreasuryStockSharesConverted_0_Q1_shares : res.CommonStockSharesIssued_0_Q1_shares
+        return res.TreasuryStockSharesConverted_0_Q1_shares
+          ? res.CommonStockSharesIssued_0_Q1_shares - res.TreasuryStockSharesConverted_0_Q1_shares
+          : res.CommonStockSharesIssued_0_Q1_shares
       } else if (res.CommonStockSharesIssued_0_Q2_shares) {
-        return res.TreasuryStockSharesConverted_0_Q2_shares ? res.CommonStockSharesIssued_0_Q2_shares - res.TreasuryStockSharesConverted_0_Q2_shares : res.CommonStockSharesIssued_0_Q2_shares
+        return res.TreasuryStockSharesConverted_0_Q2_shares
+          ? res.CommonStockSharesIssued_0_Q2_shares - res.TreasuryStockSharesConverted_0_Q2_shares
+          : res.CommonStockSharesIssued_0_Q2_shares
       } else if (res.CommonStockSharesIssued_0_Q3_shares) {
-        return res.TreasuryStockSharesConverted_0_Q3_shares ? res.CommonStockSharesIssued_0_Q3_shares - res.TreasuryStockSharesConverted_0_Q3_shares : res.CommonStockSharesIssued_0_Q3_shares
+        return res.TreasuryStockSharesConverted_0_Q3_shares
+          ? res.CommonStockSharesIssued_0_Q3_shares - res.TreasuryStockSharesConverted_0_Q3_shares
+          : res.CommonStockSharesIssued_0_Q3_shares
       } else if (res.CommonStockSharesIssued_0_FY_shares) {
-        return res.TreasuryStockSharesConverted_0_FY_shares ? res.CommonStockSharesIssued_0_FY_shares - res.TreasuryStockSharesConverted_0_FY_shares : res.CommonStockSharesIssued_0_FY_shares
+        return res.TreasuryStockSharesConverted_0_FY_shares
+          ? res.CommonStockSharesIssued_0_FY_shares - res.TreasuryStockSharesConverted_0_FY_shares
+          : res.CommonStockSharesIssued_0_FY_shares
       } else {
         return
       }
@@ -556,8 +584,8 @@ export const calcEdgarData = (edgarData:any) => {
       } else {
         return
       }
-    } 
-    
+    }
+
     //// ----配当 pershare ではない、後工程で流通株式で割り、一株当たりを出す。年間のみ単四半期は使用していない-----------
     const commonStockDividendsCashPaidYear = () => {
       if (res.DividendsCash_4_FY_USD) {
@@ -569,8 +597,8 @@ export const calcEdgarData = (edgarData:any) => {
       } else {
         return
       }
-    } 
-    
+    }
+
     // ------------- Return Statement --------------------
 
     const FinancialData = {
@@ -585,15 +613,18 @@ export const calcEdgarData = (edgarData:any) => {
       assets: Number(assets()),
       stockHoldersEquity: Number(stockholdersEquity()),
       commonStockSharesOutstanding: Number(commonStockSharesOutstanding()),
-      weightedAverageNumberOfDilutedSharesOutstanding:
-      Number(weightedAverageNumberOfDilutedSharesOutstanding()),
+      weightedAverageNumberOfDilutedSharesOutstanding: Number(
+        weightedAverageNumberOfDilutedSharesOutstanding()
+      ),
       eps: Number(earningsPerShareBasic()),
       epsAccum: Number(earningsPerShareBasicAccum()),
       epsDiluted: Number(earningsPerShareDiluted()),
       epsAccumDiluted: Number(earningsPerShareAccumDiluted()),
-      commonStockDividendsPerShareDeclaredDeducted: Number(commonStockDividendsPerShareDeclaredDeducted()),
+      commonStockDividendsPerShareDeclaredDeducted: Number(
+        commonStockDividendsPerShareDeclaredDeducted()
+      ),
       commonStockDividendsPerShareDeclaredYear: Number(commonStockDividendsPerShareDeclaredYear()),
-      commonStockDividendsCashPaidYear:Number(commonStockDividendsCashPaidYear())
+      commonStockDividendsCashPaidYear: Number(commonStockDividendsCashPaidYear()),
     }
     return FinancialData
   })

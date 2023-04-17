@@ -31,14 +31,14 @@ const StockCandleChart = ({
   nextTicker,
   signIn,
   t,
-}:Props) => {
+}: Props) => {
   // console.log(edgarData)
 
   // 画面表示State 管理==============================================================
   const [isDividend, setIsDividend] = useState(false)
   const [isSplit, setIsSplit] = useState(false)
 
-  const someDividendResult = edgarData.some((item:any) => {
+  const someDividendResult = edgarData.some((item: any) => {
     const isSomeDividend = Object.keys(item).some((v) => {
       return (
         v == 'CommonStockDividendsPerShareDeclared_1_Q1_USD' ||
@@ -64,14 +64,14 @@ const StockCandleChart = ({
   useEffect(() => {
     setIsDividend(someDividendResult)
     setIsSplit(someSplitResult)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // ----------------------------------------------
 
   const edgarFsData = calcEdgarData(edgarData)
 
-  const markerChartData = marker.map((item: any, i:number) => {
+  const markerChartData = marker.map((item: any, i: number) => {
     const highPrice = priceData.find((value: any) => value.date === item.date)?.High * 1.1
     return {
       value: item.value,
@@ -263,7 +263,7 @@ const StockCandleChart = ({
   // そのIndexをつかって以下の配列をSlice
   const slicedCompanyData = companyData.slice(firstEdgarIndex)
 
-  const newDateData = slicedCompanyData.map((item: any, i:number) => {
+  const newDateData = slicedCompanyData.map((item: any, i: number) => {
     return item.date
   })
 
@@ -272,7 +272,7 @@ const StockCandleChart = ({
   })
 
   // 　理論株価　資産価値計算用　/ map用の配列はcompanyDataを使うこと(slicedを使わない)
-  const theoryStockPriceAsset = companyData.map((item: any, i:number) => {
+  const theoryStockPriceAsset = companyData.map((item: any, i: number) => {
     const assetValueWithRatio = item.bps
     return assetValueWithRatio
   })
@@ -294,7 +294,7 @@ const StockCandleChart = ({
   const slicedResultTheoryStockPriceAsset = resultTheoryStockPriceAsset.slice(firstEdgarIndex)
 
   // 　理論株価　事業価値計算用 / map用の配列はcompanyDataを使うこと(slicedを使わない)
-  const theoryStockPriceOperation = companyData.map((item: any, i:number) => {
+  const theoryStockPriceOperation = companyData.map((item: any, i: number) => {
     // 事業価値　暫定PERの15倍 単四半期EPSベースなので4倍している。
     const operationValue = parseFloat(item.eps) * 15 * 4
     // 理論株価
@@ -322,7 +322,7 @@ const StockCandleChart = ({
   //　キャッシュフロー棒グラフエリア用 ---------------------------------------
   //  一旦四半期データのみにフィルタする処理
 
-  const filteredDataForBarChart = slicedCompanyData.filter((item: any, i:number) => {
+  const filteredDataForBarChart = slicedCompanyData.filter((item: any, i: number) => {
     return item.operatingCashFlow != null
   })
 
@@ -352,7 +352,7 @@ const StockCandleChart = ({
 
   // テーブル表示用　データ処理　------------------------------
 
-  const companyDataForTable = slicedCompanyData.slice().sort(function (a:any, b:any) {
+  const companyDataForTable = slicedCompanyData.slice().sort(function (a: any, b: any) {
     return a.date < b.date ? -1 : 1
   })
 
@@ -384,18 +384,17 @@ const StockCandleChart = ({
       <ReactEcharts option={option} style={{ height: '600px', width: '100%' }} />
       <PagingTicker prevTicker={prevTicker} nextTicker={nextTicker} signIn={signIn} t={t} />
       <p style={{ textAlign: 'right' }}>(Million)</p>
-      <div data-testid="tabSection">
-      <StockTabSection
-        companyInfo={companyInfo}
-        fyCompanyDataForTable={fyCompanyDataForTable}
-        isDividend={isDividend}
-        isSplit={isSplit}
-        QtrCompanyDataForTable={QtrCompanyDataForTable}
-        priceData={priceData}
-        ticker={id}
-        t={t}
-        
-      />
+      <div data-testid='tabSection'>
+        <StockTabSection
+          companyInfo={companyInfo}
+          fyCompanyDataForTable={fyCompanyDataForTable}
+          isDividend={isDividend}
+          isSplit={isSplit}
+          QtrCompanyDataForTable={QtrCompanyDataForTable}
+          priceData={priceData}
+          ticker={id}
+          t={t}
+        />
       </div>
     </div>
   )
