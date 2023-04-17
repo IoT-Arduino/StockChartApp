@@ -1,11 +1,13 @@
 import { useQuery } from 'react-query'
 import { supabase } from './../utils/supabase';
 
+import { Comments } from './../types/Comments'
+
 
 export const useQueryComments = () => {
   const getComments = async () => {
     const { data, error } = await supabase
-      .from('comments')
+      .from<Comments>('comments')
       .select('*')
       .order('ticker', { ascending: false })
       .order('date', { ascending: false })
