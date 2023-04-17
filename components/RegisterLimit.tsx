@@ -1,8 +1,10 @@
 import { registerAllowance } from '../const/settings'
 
+import { TranslationLocales } from '../types/TranslationLocales'
+
 type Props = {
   rank: string
-  t: any
+  t: TranslationLocales 
 }
 
 const RegisterLimit = ({ rank, t }:Props) => {
