@@ -109,8 +109,6 @@ export async function getStockInfo(id: string): Promise<any> {
       infoDataFiltered,
     }
 
-    console.log(data)
-
     return data
   } catch (err) {
     console.log(err)
