@@ -68,17 +68,17 @@ export async function getStockInfo(id: string): Promise<any> {
 
     if (filteredSheetData && filteredSheetData[0][1]) {
       const news = filteredSheetData[0][1].split(',')
-
-      const newsData = news.map((item: any) => {
+      
+      const newsData : NewsData[] = news.map((item:string) => {
         const splited = item.split('-')
-        const date = dateFromSn(splited[0])
+        const date = dateFromSn(Number(splited[0]))
         return {
           date: dayjs(date).format('YYYY/MM/DD'),
           news: splited[1],
         }
       })
 
-      newsDataFiltered = newsData.filter((item: any) => {
+      newsDataFiltered = newsData.filter((item: NewsData) => {
         return item.news !== undefined
       })
     } else {
@@ -88,17 +88,17 @@ export async function getStockInfo(id: string): Promise<any> {
     if (filteredSheetData && filteredSheetData[0][2]) {
       const info = filteredSheetData[0][2].split(',')
 
-      const infoData = info.map((item: any) => {
+      const infoData = info.map((item: string) => {
         const splited = item.split('-')
-        const date = dateFromSn(splited[0])
+        const date = dateFromSn(Number(splited[0]))
         return {
           date: dayjs(date).format('YYYY/MM/DD'),
-          news: splited[1],
+          info: splited[1],
         }
       })
 
-      infoDataFiltered = infoData.filter((item: any) => {
-        return item.news !== undefined
+      infoDataFiltered = infoData.filter((item: InfoData) => {
+        return item.info !== undefined
       })
     } else {
       infoDataFiltered = null
@@ -108,6 +108,8 @@ export async function getStockInfo(id: string): Promise<any> {
       newsDataFiltered,
       infoDataFiltered,
     }
+
+    console.log(data)
 
     return data
   } catch (err) {
