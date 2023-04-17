@@ -1,21 +1,16 @@
 import Link from 'next/link'
 import { useEffect, useState, useContext } from 'react'
 import { useRouter } from 'next/router'
-
+import { NextPage } from 'next'
 import axios from 'axios'
 
 import { supabase } from '../../utils/supabase'
-import { UserContext } from '../../utils/UserContext'
 
+import { UserContext } from '../../utils/UserContext'
 import { useQueryComments } from '../../hooks/useQueryComments'
 import { useQueryBookMark } from '../../hooks/useQueryBookMark'
 import { useQueryMarker } from '../../hooks/useQueryMarker'
-// import { useQueryProfile } from '../../hooks/useQueryProfile'
 
-// types
-// import { Bookmark } from '../../types/Bookmark'
-// import { Comments } from '../../types/Comments'
-import { NextPage } from 'next'
 
 // 登録数制限
 import { checkAllowanceComment } from '../../functions/checkAllowanceComment'
@@ -27,6 +22,8 @@ import RegisterLimit from '../../components/RegisterLimit'
 // i18n
 import en from '../../locales/en/en'
 import ja from '../../locales/ja/ja'
+
+import { TranslationLocales } from '../../types/TranslationLocales'
 
 const Home: NextPage = () => {
   const router = useRouter()
@@ -57,7 +54,7 @@ const Home: NextPage = () => {
   // i18n 対応用
   const { locale } = router ?? { locale: 'en-US' }
 
-  let t: any
+  let t: TranslationLocales
   if (locale === 'ja-JP') {
     t = ja
   } else {
@@ -86,7 +83,7 @@ const Home: NextPage = () => {
       {user ? (
         <div className='mx-auto max-w-2xl px-2 py-4 sm:px-4'>
           {isDisplay ? (
-            <p className='font-xl mt-3 mb-8 text-center font-bold' data-testid="memberEmail">
+            <p className='font-xl mb-8 mt-3 text-center font-bold' data-testid='memberEmail'>
               {user.email}
               {t.memberUserTop}
             </p>
@@ -98,7 +95,7 @@ const Home: NextPage = () => {
             </p>
           ) : null}
 
-          {isDisplay && <p className='font-xl mt-8 mb-2 font-bold'>{t.memberShipSecTitle1}</p>}
+          {isDisplay ?  <p className='font-xl mb-2 mt-8 font-bold'>{t.memberShipSecTitle1}</p> : null}
           {canBookMarkInput ? (
             <span data-testid='canBookMarkInput'>{t.memberShipCanInput}</span>
           ) : (
@@ -106,7 +103,7 @@ const Home: NextPage = () => {
           )}
 
           {bookmark && (
-            <table className='my-4 mx-auto w-full shadow-md sm:w-2/3 sm:rounded-lg'>
+            <table className='mx-auto my-4 w-full shadow-md sm:w-2/3 sm:rounded-lg'>
               <thead className='bg-gray-50 text-xs text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
                 <tr>
                   <th scope='col' className='px-4 py-2'>
@@ -133,14 +130,14 @@ const Home: NextPage = () => {
             </table>
           )}
 
-          {isDisplay && <p className='font-xl mt-8 mb-2 font-bold'>{t.memberShipSecTitle2}</p>}
+          {isDisplay && <p className='font-xl mb-2 mt-8 font-bold'>{t.memberShipSecTitle2}</p>}
           {canMarkerInput ? (
             <span data-testid='canMarkerInput'>{t.memberShipCanInput}</span>
           ) : (
             <span data-testid='canMarkerInput'>{t.memberShipCanNotInput}</span>
           )}
           {markers && (
-            <div className='my-4 mx-auto w-full shadow-md sm:w-2/3 sm:rounded-lg'>
+            <div className='mx-auto my-4 w-full shadow-md sm:w-2/3 sm:rounded-lg'>
               <table className='w-full text-sm text-gray-500 dark:text-gray-400'>
                 <thead className='bg-gray-50 text-xs text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
                   <tr>
@@ -177,7 +174,7 @@ const Home: NextPage = () => {
             </div>
           )}
 
-          {isDisplay && <p className='font-xl mt-8 mb-2 font-bold'>{t.memberShipSecTitle3}</p>}
+          {isDisplay ?  <p className='font-xl mb-2 mt-8 font-bold'>{t.memberShipSecTitle3}</p> : null}
           {canCommentInput ? (
             <span data-testid='canCommentInput'>{t.memberShipCanInput}</span>
           ) : (
@@ -185,7 +182,7 @@ const Home: NextPage = () => {
           )}
 
           {comments && (
-            <div className='my-4 mx-auto w-full shadow-md sm:w-2/3 sm:rounded-lg'>
+            <div className='mx-auto my-4 w-full shadow-md sm:w-2/3 sm:rounded-lg'>
               <table className='w-full text-sm text-gray-500 dark:text-gray-400'>
                 <thead className='bg-gray-50 text-xs text-gray-700 dark:bg-gray-700 dark:text-gray-400'>
                   <tr>
@@ -231,7 +228,9 @@ const Home: NextPage = () => {
             </button>
           </div>
         </div>
-      ) : <div>Member's only page</div>}
+      ) : (
+        <div>Member's only page</div>
+      )}
     </div>
   )
 }
