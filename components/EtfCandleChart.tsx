@@ -4,20 +4,20 @@ import ReactEcharts, { EChartsOption } from 'echarts-for-react'
 const EtfCandleChart = ({ etfData }: { etfData: any }) => {
   const timestamp = etfData?.timestamp
 
-  const dateArr = timestamp?.map((time:number) => {
+  const dateArr = timestamp?.map((time: number) => {
     var date = new Date(time * 1000)
     return date.getFullYear() + '/' + (date.getMonth() + 1)
   })
 
-  const adjclose = etfData?.indicators?.adjclose[0].adjclose
+  const adjCloseData = etfData?.indicators?.adjclose![0].adjclose 
 
   // 開始点からの変化率で比較する処理。
-  const changeRatio = adjclose?.map((close:number, i:number) => {
+  const changeRatio = adjCloseData?.map((close: number, i: number) => {
     let num = null
     if (i == 0) {
       num = 100
     } else {
-      num = (close * 100) / adjclose[0]
+      num = (close * 100) / adjCloseData[0]
     }
     return num
   }) // Chart Option
