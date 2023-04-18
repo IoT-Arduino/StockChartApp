@@ -55,7 +55,6 @@ export class StockIdPage {
     await this.inputCommentDate.fill('2022-05-27')
     await this.addComment.click()
     await expect(this.commentList).toContainText('2022-05-27')
-    // await expect(this.tabSection).toContainText('2022-05-27')
   }
 
   async inputMarker() {
