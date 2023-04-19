@@ -7,15 +7,20 @@ import InputMarkerState from './InputMarkerState'
 
 import dayjs from 'dayjs'
 
+// Types
+import { Company } from '../types/Company'
+import { StockPrice } from '../types/StockPrice'
+import { TranslationLocales } from '../types/TranslationLocales'
+
 type Props = {
-  companyInfo: any
+  companyInfo: Company
   fyCompanyDataForTable: any
   isDividend: boolean
   isSplit: boolean
   QtrCompanyDataForTable: any
-  priceData: any
+  priceData: StockPrice[]
   ticker: string
-  t: any
+  t: TranslationLocales
 }
 
 const StockTabSection = ({
