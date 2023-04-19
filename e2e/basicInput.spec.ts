@@ -34,7 +34,7 @@ test.describe('Ck Membership', async () => {
 
       await stockIdPage.inputComment()
       await stockIdPage.clickBookMark()
-      await stockIdPage.inputMarker()
+      // await stockIdPage.inputMarker()
 
       // await page.screenshot({ path: `e2e/images/${data.Ticker}.png` })
     }
