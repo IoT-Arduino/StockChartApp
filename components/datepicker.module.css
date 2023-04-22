@@ -1,0 +1,12 @@
+/* datepicker.module.css */
+/* .datepicker {
+  @apply bg-datepicker;
+} */
+
+.datepicker-selected {
+  @apply bg-datepicker-selected text-datepicker-selected;
+}
+
+.datepicker-hover {
+  @apply bg-datepicker-hover;
+}
