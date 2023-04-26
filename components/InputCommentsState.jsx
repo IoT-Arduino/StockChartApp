@@ -7,20 +7,17 @@ import useStore from '../store/store'
 import { useMutateComment } from '../hooks/useMutateComment'
 import { useQueryComments } from '../hooks/useQueryComments'
 import { checkAllowanceComment } from '../functions/checkAllowanceComment'
-// import InputCommentSingle from './InputCommentSingle'
 
 // Mantine
 import { ActionIcon } from '@mantine/core'
-import { TextInput, Button, createStyles } from '@mantine/core'
+import { TextInput, Button } from '@mantine/core'
 
 // DatePicker related
-// import dayjs from 'dayjs'
-// import 'dayjs/locale/ja'
 import DatePicker, { registerLocale } from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
-// import styles from './input-datepicker.module.css'
 import ja from 'date-fns/locale/ja'
 import enUS from 'date-fns/locale/en-US'
+import { CustomCalendarHeader } from '../functions/CustomCalendarHeader'
 
 // Icons
 import * as AiIcons from 'react-icons/ai'
@@ -58,7 +55,7 @@ export default function InputComments({ ticker, t }) {
     return <div>Error</div>
   }
 
-  //  <!-- Common functions-->
+  //  Common functions
   const switchDateFormatInList = (dateString) => {
     const date = new Date(dateString)
     const options = {
@@ -74,20 +71,7 @@ export default function InputComments({ ticker, t }) {
     }
   }
 
-  // <!-- 日付関連処理 -->
-  // let formattedDate = ''
-  // if (editedComment.date !== '') {
-  //   formattedDate = dayjs(editedComment.date).toDate()
-  // }
-
-  // const dateUpdate = (e) => {
-  //   if (e) {
-  //     const ymd = `${e.getFullYear()}-${e.getMonth() + 1}-${e.getDate()} `
-  //     update({ ...editedComment, date: ymd })
-  //   }
-  // }
-
-  //  <!-- Add  comment related only functions-->
+  // Add  comment related only functions
   const submitInputComment = () => {
     if (inputComment.memo === '' || inputComment.date === '') {
       alert(`${t.inputRequiredAlert}`)
@@ -180,6 +164,25 @@ export default function InputComments({ ticker, t }) {
               disabled={editStatus}
               locale='ja'
               dateFormat='yyyy/MM/dd'
+              renderCustomHeader={({
+                date,
+                changeYear,
+                changeMonth,
+                decreaseMonth,
+                increaseMonth,
+                prevMonthButtonDisabled,
+                nextMonthButtonDisabled,
+              }) => (
+                <CustomCalendarHeader
+                  date={date}
+                  changeYear={changeYear}
+                  changeMonth={changeMonth}
+                  decreaseMonth={decreaseMonth}
+                  increaseMonth={increaseMonth}
+                  prevMonthButtonDisabled={prevMonthButtonDisabled}
+                  nextMonthButtonDisabled={nextMonthButtonDisabled}
+                />
+              )}
             />
           ) : (
             <DatePicker
@@ -257,6 +260,25 @@ export default function InputComments({ ticker, t }) {
                           dropdownMode='select'
                           locale='ja'
                           dateFormat='yyyy/MM/dd'
+                          renderCustomHeader={({
+                            date,
+                            changeYear,
+                            changeMonth,
+                            decreaseMonth,
+                            increaseMonth,
+                            prevMonthButtonDisabled,
+                            nextMonthButtonDisabled,
+                          }) => (
+                            <CustomCalendarHeader
+                              date={date}
+                              changeYear={changeYear}
+                              changeMonth={changeMonth}
+                              decreaseMonth={decreaseMonth}
+                              increaseMonth={increaseMonth}
+                              prevMonthButtonDisabled={prevMonthButtonDisabled}
+                              nextMonthButtonDisabled={nextMonthButtonDisabled}
+                            />
+                          )}
                         />
                       ) : (
                         <DatePicker
