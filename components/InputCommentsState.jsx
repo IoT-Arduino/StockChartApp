@@ -162,12 +162,12 @@ export default function InputComments({ ticker, t }) {
 
       {/* Add Comment Input Fields  */}
       <div className='my-2 flex flex-wrap justify-start gap-2'>
-        {locale === 'ja-JP' ? (
-          <div className='box-content'>
+        <div>
+          {locale === 'ja-JP' ? (
             <DatePicker
-              // showIcon
-              placeholderText={'日付を選択'}
+              className={`rounded border-gray-100 p-1.5 text-base outline-0`}
               wrapperClassName='react-datepicker__input-container'
+              placeholderText={'日付を選択'}
               type='date'
               selected={inputComment.date}
               onChange={(date) => setInputComment({ ...inputComment, date: date })}
@@ -180,14 +180,10 @@ export default function InputComments({ ticker, t }) {
               disabled={editStatus}
               locale='ja'
               dateFormat='yyyy/MM/dd'
-              className={`rounded border-gray-100 p-1.5 text-base outline-0`}
             />
-          </div>
-        ) : (
-          <div className={styles.datepicker}>
+          ) : (
             <DatePicker
               className={`rounded border-gray-100 p-1.5 text-base outline-0`}
-              showIcon
               placeholderText={'Please select date'}
               type='date'
               selected={inputComment.date}
@@ -202,8 +198,8 @@ export default function InputComments({ ticker, t }) {
               locale='en'
               dateFormat='MM/dd/yyyy'
             />
-          </div>
-        )}
+          )}
+        </div>
 
         <TextInput
           className='grow text-base'
@@ -246,43 +242,39 @@ export default function InputComments({ ticker, t }) {
               <div className=''>
                 {editItem === comment.id ? (
                   <div className='flex flex-wrap items-center py-2'>
-                    {locale === 'ja-JP' ? (
-                      <div>
+                    <div>
+                      {locale === 'ja-JP' ? (
                         <DatePicker
-                          className='rounded border border-black p-2 text-base outline-0'
+                          className='rounded border-gray-100 p-1.5 text-base outline-0'
                           selected={new Date(editedComment.date)}
                           type='date'
                           onChange={(date) => update({ ...editedComment, date: date })}
                           required
                           data-testid='commentDateInput'
-                          showIcon
                           peekNextMonth
                           showMonthDropdown
                           showYearDropdown
                           dropdownMode='select'
-                          locale={ja}
+                          locale='ja'
                           dateFormat='yyyy/MM/dd'
                         />
-                      </div>
-                    ) : (
-                      <div>
+                      ) : (
                         <DatePicker
-                          className='rounded border border-black p-2 text-base'
+                          className='rounded border-gray-100 p-1.5 text-base outline-0'
                           selected={new Date(editedComment.date)}
                           type='date'
                           onChange={(date) => update({ ...editedComment, date: date })}
                           required
                           data-testid='commentDateInput'
-                          showIcon
                           peekNextMonth
                           showMonthDropdown
                           showYearDropdown
                           dropdownMode='select'
-                          locale={enUS}
+                          locale='en'
                           dateFormat='MM/dd/yyyy'
                         />
-                      </div>
-                    )}
+                      )}
+                    </div>
                     <TextInput
                       className='flex-grow rounded border border-black p-2 text-base outline-0'
                       type='text'
@@ -309,9 +301,9 @@ export default function InputComments({ ticker, t }) {
                     </ActionIcon>
                   </div>
                 ) : (
-                  <div className='flex items-center justify-between'>
+                  <div className='mb-3 flex items-center justify-between px-2'>
                     <div className='truncate text-sm font-medium leading-5'>
-                      <span className='mr-2'>{switchDateFormatInList(comment.date)}</span>
+                      <span className='mr-6'>{switchDateFormatInList(comment.date)}</span>
                       <span className='flex-grow'>{comment.memo}</span>
                     </div>
                     <div className='flex'>
