@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { Footer } from './footer'
+import { Footer } from './Footer'
 import Navbar from './Navbar'
 import styles from './LayoutWrapper.module.css'
 
