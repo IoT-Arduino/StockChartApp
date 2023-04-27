@@ -1,10 +1,20 @@
-import React from 'react'
+import React, { ChangeEvent } from 'react'
 import { MdKeyboardDoubleArrowLeft, MdKeyboardDoubleArrowRight } from 'react-icons/md'
 import 'react-datepicker/dist/react-datepicker.css'
 
+interface CustomCalendarHeaderProps {
+  date: Date
+  changeYear: (year: number) => void
+  changeMonth: (month: number) => void
+  decreaseMonth: () => void
+  increaseMonth: () => void
+  prevMonthButtonDisabled: boolean
+  nextMonthButtonDisabled: boolean
+}
+
 const YEARS_FOR_DROPDOWN = 15
 
-export const CustomCalendarHeader = ({
+export const CustomCalendarHeader: React.FC<CustomCalendarHeaderProps> = ({
   date,
   changeYear,
   changeMonth,
@@ -45,7 +55,9 @@ export const CustomCalendarHeader = ({
         />
         <select
           value={date.getFullYear()}
-          onChange={({ target: { value } }) => changeYear(value)}
+          onChange={({ target: { value } }: ChangeEvent<HTMLSelectElement>) =>
+            changeYear(Number(value))
+          }
           className='react-datepicker__year-select mr-2 mt-2'
         >
           {years.map((year) => (
@@ -56,7 +68,9 @@ export const CustomCalendarHeader = ({
         </select>
         <select
           value={date.getMonth()}
-          onChange={({ target: { value } }) => changeMonth(value)}
+          onChange={({ target: { value } }: ChangeEvent<HTMLSelectElement>) =>
+            changeMonth(Number(value))
+          }
           className='react-datepicker__month-select'
         >
           {Array.from({ length: 12 }, (_, index) =>
