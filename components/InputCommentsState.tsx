@@ -18,6 +18,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import ja from 'date-fns/locale/ja'
 import enUS from 'date-fns/locale/en-US'
 import { CustomCalendarHeader } from '../functions/CustomCalendarHeader'
+import { subYears } from 'date-fns'
 
 // Icons
 import * as AiIcons from 'react-icons/ai'
@@ -43,7 +44,7 @@ export default function InputComments({ ticker, t }:{ticker:string, t:Translatio
   const [editStatus, setEditStatus] = useState<boolean>(false)
   const { canCommentInput } = checkAllowanceComment(rank, commentData)
 
-  // Edit only related state
+  // Add only related state
   const [inputComment, setInputComment] = useState({
     ticker: ticker,
     date: null as string | null,
@@ -63,10 +64,6 @@ export default function InputComments({ ticker, t }:{ticker:string, t:Translatio
   });
 
 
-  if (status === 'error') {
-    return <div>Error</div>
-  }
-
   //  Common functions
   const switchDateFormatInList = (dateString:string) => {
     const date = new Date(dateString)
@@ -83,7 +80,7 @@ export default function InputComments({ ticker, t }:{ticker:string, t:Translatio
     }
   }
 
-  // Add  comment related only functions
+  // Add  comment related only function
   const submitInputComment = () => {
     if (inputComment.memo === '' || inputComment.date === '') {
       alert(`${t.inputRequiredAlert}`)
@@ -150,6 +147,10 @@ export default function InputComments({ ticker, t }:{ticker:string, t:Translatio
     setEditStatus(false)
   }
 
+  if (status === 'error') {
+    return <div>Error</div>
+  }
+
   return (
     <div className='w-full'>
       <h4 className='font-xl mb-2 mt-10 font-bold'>{t.inputCommentTitle}</h4>
@@ -174,9 +175,6 @@ export default function InputComments({ ticker, t }:{ticker:string, t:Translatio
               }
               required
               data-testid='commentDateInput'
-              // peekNextMonth
-              // showMonthDropdown
-              // showYearDropdown
               dropdownMode='select'
               disabled={editStatus}
               locale='ja'
@@ -198,6 +196,7 @@ export default function InputComments({ ticker, t }:{ticker:string, t:Translatio
                   increaseMonth={increaseMonth}
                   prevMonthButtonDisabled={prevMonthButtonDisabled}
                   nextMonthButtonDisabled={nextMonthButtonDisabled}
+                  locale='ja-JP'
                 />
               )}
             />
@@ -214,13 +213,14 @@ export default function InputComments({ ticker, t }:{ticker:string, t:Translatio
               }
               required
               data-testid='commentDateInput'
-              // peekNextMonth
-              // showMonthDropdown
-              // showYearDropdown
+              peekNextMonth
+              showMonthDropdown
+              showYearDropdown
               dropdownMode='select'
               disabled={editStatus}
               locale='en'
               dateFormat='MM/dd/yyyy'
+              minDate={subYears(new Date(), 10)}
             />
           )}
         </div>
@@ -279,9 +279,6 @@ export default function InputComments({ ticker, t }:{ticker:string, t:Translatio
                           }
                           required
                           data-testid='commentDateInput'
-                          // peekNextMonth
-                          // showMonthDropdown
-                          // showYearDropdown
                           dropdownMode='select'
                           locale='ja'
                           dateFormat='yyyy/MM/dd'
@@ -302,6 +299,7 @@ export default function InputComments({ ticker, t }:{ticker:string, t:Translatio
                               increaseMonth={increaseMonth}
                               prevMonthButtonDisabled={prevMonthButtonDisabled}
                               nextMonthButtonDisabled={nextMonthButtonDisabled}
+                              locale='ja-JP'
                             />
                           )}
                         />
@@ -317,12 +315,30 @@ export default function InputComments({ ticker, t }:{ticker:string, t:Translatio
                           }
                           required
                           data-testid='commentDateInput'
-                          // peekNextMonth
-                          // showMonthDropdown
-                          // showYearDropdown
                           dropdownMode='select'
                           locale='en'
                           dateFormat='MM/dd/yyyy'
+                          minDate={subYears(new Date(), 10)}
+                          // renderCustomHeader={({
+                          //   date,
+                          //   changeYear,
+                          //   changeMonth,
+                          //   decreaseMonth,
+                          //   increaseMonth,
+                          //   prevMonthButtonDisabled,
+                          //   nextMonthButtonDisabled,
+                          // }) => (
+                          //   <CustomCalendarHeader
+                          //     date={date}
+                          //     changeYear={changeYear}
+                          //     changeMonth={changeMonth}
+                          //     decreaseMonth={decreaseMonth}
+                          //     increaseMonth={increaseMonth}
+                          //     prevMonthButtonDisabled={prevMonthButtonDisabled}
+                          //     nextMonthButtonDisabled={nextMonthButtonDisabled}
+                          //     locale='en-US'
+                          //   />
+                          // )}
                         />
                       )}
                     </div>
