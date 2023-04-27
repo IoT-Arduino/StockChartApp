@@ -11,7 +11,7 @@ export const useMutateMarker = () => {
   const reset = useStore((state) => state.resetEditedMarker)
 
   const createMarkerMutation = useMutation(
-    async (marker: Omit<Marker, 'user_id' | 'created_at'>) => {
+    async (marker: Partial<Marker[]> | Partial<Marker>) => {
       const { data, error } = await supabase.from('marker').insert(marker)
       if (error) throw new Error(error.message)
       return data
