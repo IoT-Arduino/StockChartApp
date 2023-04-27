@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from '@testing-library/react'
 // import 'matchmedia-polyfill'
 
-import { Footer } from './../components/footer'
+import { Footer } from './../components/Footer'
 import Navbar from './../components/Navbar'
 import { TopComponentJ } from './../locales/ja/TopComponent'
 
