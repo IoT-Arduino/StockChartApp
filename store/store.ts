@@ -1,4 +1,4 @@
-import {create} from 'zustand'
+import { create } from 'zustand'
 
 // Types
 import { EditedMarker, EditedComments } from '../types/StoreTypes'
