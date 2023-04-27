@@ -23,7 +23,11 @@ import { CustomCalendarHeader } from '../functions/CustomCalendarHeader'
 import * as AiIcons from 'react-icons/ai'
 import { GiCancel } from 'react-icons/gi'
 
-export default function InputComments({ ticker, t }) {
+// Types 
+import { TranslationLocales } from 'types/TranslationLocales'
+import { Comments } from '../types/Comments'
+
+export default function InputComments({ ticker, t }:{ticker:string, t:TranslationLocales}) {
   const { user: contextUser, session: contextSession, rank } = useContext(UserContext)
   const { editedComment, resetEditedComment } = useStore()
   const update = useStore((state) => state.updateEditedComment)
@@ -35,33 +39,41 @@ export default function InputComments({ ticker, t }) {
   registerLocale('ja', ja)
   registerLocale('en', enUS)
 
-  const commentList = commentData?.filter((data) => {
-    return data.ticker === ticker
-  })
-
-  const [editItem, setEditItem] = useState(null)
-  const [editStatus, setEditStatus] = useState(false)
+  const [editItem, setEditItem] = useState<number|null>(null)
+  const [editStatus, setEditStatus] = useState<boolean>(false)
   const { canCommentInput } = checkAllowanceComment(rank, commentData)
 
   // Edit only related state
   const [inputComment, setInputComment] = useState({
     ticker: ticker,
-    date: null,
+    date: null as string | null,
     memo: '',
     id: supabase.auth.user()?.id,
   })
+
+  // Filter and  Sort Comments - Decending
+  const commentList = commentData?.filter((data) => {
+    return data.ticker === ticker
+  })
+
+  const sortedCommentsList = commentList?.sort((a, b) => {
+    const dateA = new Date(a.date);
+    const dateB = new Date(b.date);
+    return dateB.getTime() - dateA.getTime();
+  });
+
 
   if (status === 'error') {
     return <div>Error</div>
   }
 
   //  Common functions
-  const switchDateFormatInList = (dateString) => {
+  const switchDateFormatInList = (dateString:string) => {
     const date = new Date(dateString)
     const options = {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
+      year: 'numeric' as const,
+      month: '2-digit' as const,
+      day: '2-digit' as const,
     }
 
     if (locale === 'ja-JP') {
@@ -78,9 +90,9 @@ export default function InputComments({ ticker, t }) {
       return
     }
     createCommentMutation.mutate({
-      memo: inputComment.memo,
-      date: inputComment.date,
-      ticker: inputComment.ticker,
+      memo: inputComment.memo!,
+      date: inputComment.date!,
+      ticker: inputComment.ticker!,
       user_id: inputComment.id, // 重要！！
     })
     setInputComment({
@@ -90,7 +102,7 @@ export default function InputComments({ ticker, t }) {
     })
   }
 
-  //  <!-- edit comment related only functions-->
+  //  Edit comment related only functions 
   const submitEditComment = async () => {
     if (editedComment.memo === '' || editedComment.date === '') {
       alert(`${t.inputRequiredAlert}`)
@@ -99,39 +111,40 @@ export default function InputComments({ ticker, t }) {
 
     try {
       updateCommentMutation.mutate({
-        id: editedComment.id,
-        memo: editedComment.memo,
-        date: editedComment.date,
+        id: editedComment.id!,
+        memo: editedComment.memo!,
+        date: editedComment.date!,
+        ticker,
       })
-      setEditItem('')
+      setEditItem(null)
       setEditStatus(false)
     } catch (error) {
       console.log('error', error)
     }
   }
 
-  const editComment = async (comment) => {
+  const editComment = async (comment: Partial<Comments>) => {
     setEditStatus(true)
-    setEditItem(comment.id)
+    setEditItem(comment.id!)
     update({
-      id: comment.id,
+      id: comment.id!,
       ticker: ticker,
-      date: comment.date,
-      memo: comment.memo,
+      date: comment.date!,
+      memo: comment.memo!,
     })
   }
 
-  const deleteComment = (comment) => {
+  const deleteComment = (comment:Partial<Comments>) => {
     let confirmDelete = confirm(`${comment.date} : ${comment.memo} : ${t.inputDeleteAlert}`)
     if (confirmDelete) {
-      deleteCommentMutation.mutate(comment.id)
+      deleteCommentMutation.mutate(comment.id!)
     } else {
       return
     }
   }
 
   const editCancel = () => {
-    setEditItem('')
+    setEditItem(null)
     resetEditedComment()
     setInputComment({ ticker, id: supabase.auth.user()?.id, date: '', memo: '' })
     setEditStatus(false)
@@ -152,14 +165,18 @@ export default function InputComments({ ticker, t }) {
               className={`rounded border-gray-100 p-1.5 text-base outline-0`}
               wrapperClassName='react-datepicker__input-container'
               placeholderText={'日付を選択'}
-              type='date'
-              selected={inputComment.date}
-              onChange={(date) => setInputComment({ ...inputComment, date: date })}
+              selected={inputComment.date ? new Date(inputComment.date) : null}
+              onChange={(date) =>
+                setInputComment({
+                  ...inputComment,
+                  date: date ? date.toISOString().substring(0, 10) : null,
+                })
+              }
               required
               data-testid='commentDateInput'
-              peekNextMonth
-              showMonthDropdown
-              showYearDropdown
+              // peekNextMonth
+              // showMonthDropdown
+              // showYearDropdown
               dropdownMode='select'
               disabled={editStatus}
               locale='ja'
@@ -188,14 +205,18 @@ export default function InputComments({ ticker, t }) {
             <DatePicker
               className={`rounded border-gray-100 p-1.5 text-base outline-0`}
               placeholderText={'Please select date'}
-              type='date'
-              selected={inputComment.date}
-              onChange={(date) => setInputComment({ ...inputComment, date: date })}
+              selected={inputComment.date ? new Date(inputComment.date) : null}
+              onChange={(date) =>
+                setInputComment({
+                  ...inputComment,
+                  date: date ? date.toISOString().substring(0, 10) : null,
+                })
+              }
               required
               data-testid='commentDateInput'
-              peekNextMonth
-              showMonthDropdown
-              showYearDropdown
+              // peekNextMonth
+              // showMonthDropdown
+              // showYearDropdown
               dropdownMode='select'
               disabled={editStatus}
               locale='en'
@@ -240,7 +261,7 @@ export default function InputComments({ ticker, t }) {
       {/* Edit Comment Input Fields  */}
       <div className='mb-8 overflow-hidden rounded-md bg-white shadow'>
         <ul className='px-2'>
-          {commentList?.map((comment) => (
+          {sortedCommentsList?.map((comment) => (
             <li className='block w-full border-2 border-gray-300' key={comment.id}>
               <div className=''>
                 {editItem === comment.id ? (
@@ -250,13 +271,17 @@ export default function InputComments({ ticker, t }) {
                         <DatePicker
                           className='rounded border-gray-100 p-1.5 text-base outline-0'
                           selected={new Date(editedComment.date)}
-                          type='date'
-                          onChange={(date) => update({ ...editedComment, date: date })}
+                          onChange={(date) =>
+                            update({
+                              ...editedComment,
+                              date: date ? date.toISOString().substring(0, 10) : '',
+                            })
+                          }
                           required
                           data-testid='commentDateInput'
-                          peekNextMonth
-                          showMonthDropdown
-                          showYearDropdown
+                          // peekNextMonth
+                          // showMonthDropdown
+                          // showYearDropdown
                           dropdownMode='select'
                           locale='ja'
                           dateFormat='yyyy/MM/dd'
@@ -284,13 +309,17 @@ export default function InputComments({ ticker, t }) {
                         <DatePicker
                           className='rounded border-gray-100 p-1.5 text-base outline-0'
                           selected={new Date(editedComment.date)}
-                          type='date'
-                          onChange={(date) => update({ ...editedComment, date: date })}
+                          onChange={(date) =>
+                            update({
+                              ...editedComment,
+                              date: date ? date.toISOString().substring(0, 10) : '',
+                            })
+                          }
                           required
                           data-testid='commentDateInput'
-                          peekNextMonth
-                          showMonthDropdown
-                          showYearDropdown
+                          // peekNextMonth
+                          // showMonthDropdown
+                          // showYearDropdown
                           dropdownMode='select'
                           locale='en'
                           dateFormat='MM/dd/yyyy'

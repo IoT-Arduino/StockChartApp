@@ -6,7 +6,9 @@ import { supabase } from './../utils/supabase'
 type Comment = {
   id: number
   memo: string
-  date: Date
+  date: string
+  ticker: string
+  user_id: string
 }
 
 export const useMutateComment = () => {
@@ -35,12 +37,12 @@ export const useMutateComment = () => {
       },
     }
   )
-  const updateCommentMutation = useMutation<Comment, Error, Comment>(
-    async (comment) => {
+  const updateCommentMutation = useMutation(
+    async (comment:Partial<Comment>) => {
       const { data, error } = await supabase
         .from<Comment>('comments')
         .update({ memo: comment.memo, date: comment.date })
-        .eq('id', comment.id)
+        .eq('id', String(comment.id))
       if (error) throw new Error(error.message)
       return data![0]
     },
@@ -55,7 +57,7 @@ export const useMutateComment = () => {
         }
         reset()
       },
-      onError: (err) => {
+      onError: (err:any) => {
         alert(err.message)
         reset()
       },
