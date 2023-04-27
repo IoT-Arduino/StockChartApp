@@ -19,18 +19,15 @@
     "jsx": "preserve",
     "incremental": true,
     "baseUrl": ".",
-    // "types": ["jest","@types/jest", "@types/node", "@types/react", "@types/react-dom"]
     "types": [
       "@types/jest",
       "jest"
     ]
   },
-  // "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/auth/signup.jsx", "pages/auth/signin.jsx",  "components/BookMarkState.jsx", "pages/api/getData.js", "global-setup.js", "const/settings.js"],
-  "include": [
+ "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "components/BookMarkState.jsx",
     "pages/api/getData.js",
     "global-setup.js",
     "const/settings.js"

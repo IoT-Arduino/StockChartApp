@@ -1,10 +1,9 @@
 import { render, screen, waitFor } from '@testing-library/react'
 // import 'matchmedia-polyfill'
 
-import { Footer } from './../components/Footer'
+import Footer from './../components/Footer'
 import Navbar from './../components/Navbar'
 import { TopComponentJ } from './../locales/ja/TopComponent'
-
 
 /* eslint-disable react/display-name */
 import { ReactNode } from 'react'
