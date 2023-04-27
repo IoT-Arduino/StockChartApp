@@ -8,10 +8,12 @@ import InputCommentsState from './../components/InputCommentsState'
 import { QueryClient, QueryClientProvider } from 'react-query'
 const queryClient = new QueryClient()
 
+import en from './../locales/en/en'
+import ja from './../locales/ja/ja'
+
 import fetchMock from 'jest-fetch-mock'
 import { rest } from 'msw'
 import { server } from '../__mocks__/mocks'
-
 
 // const server = setupServer(
 //   rest.post('/api/add-comment', (req: any, res: any, ctx: any) => {
@@ -94,18 +96,22 @@ describe('Input Test', () => {
   // })
 
   it('InputTest', async () => {
-    render(
+    const { container } = render(
       <QueryClientProvider client={queryClient}>
-        <InputCommentsState ticker='AAPL' t='ja' />
+        <InputCommentsState ticker='AAPL' t={ja} />
       </QueryClientProvider>
     )
 
-    const commentDateInput = screen.getByTestId('commentDateInput')
+    const commentDateInput = container.querySelector('.react-datepicker__input-container input')
     const commentMemoInput = screen.getByTestId('commentMemoInput')
     const addCommentButton = screen.getByTestId('addComment')
 
+    if (!commentDateInput) {
+      throw new Error('日付入力フィールドが見つかりません')
+    }
+
     // 日付入力フィールドに値を入力します
-    const dateValue = '2023-04-09'
+    const dateValue = '04/09/2023'
     fireEvent.change(commentDateInput, { target: { value: dateValue } })
 
     // メモ入力フィールドに値を入力します
