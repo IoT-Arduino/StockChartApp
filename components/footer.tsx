@@ -22,7 +22,7 @@ import { TranslationLocales } from '../types/TranslationLocales'
 
 type Locale = 'ja-JP' | 'en-US'
 
-export const Footer = () => {
+const Footer = () => {
   const [signIn, setSignIn] = useState(false)
   const { user } = useContext(UserContext)
 
@@ -148,3 +148,5 @@ export const Footer = () => {
     </footer>
   )
 }
+
+export default Footer

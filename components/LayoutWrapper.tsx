@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
-import { Footer } from './Footer'
 import Navbar from './Navbar'
+import Footer from './Footer'
 import styles from './LayoutWrapper.module.css'
 
 type Props = {
@@ -12,7 +12,7 @@ export const LayoutWrapper = (props: Props) => {
     <>
       <div className='flex min-h-screen flex-col'>
         <Navbar />
-        <div className='flex-1 px-2 sm:px-4 py-16 text-gray-600'>
+        <div className='flex-1 px-2 py-16 text-gray-600 sm:px-4'>
           <div>{props.children}</div>
         </div>
         <div className={styles.footer}>
