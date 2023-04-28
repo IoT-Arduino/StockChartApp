@@ -4,5 +4,5 @@ export type Profile = {
   user_id: string
   name?: string
   updated_at: string
-  rank:Ranks
+  rank: Ranks
 }

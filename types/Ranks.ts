@@ -1,1 +1,1 @@
-export type Ranks = "free" | "pro" | "business" | "admin"
+export type Ranks = 'free' | 'pro' | 'business' | 'admin'

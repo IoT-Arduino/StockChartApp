@@ -319,26 +319,6 @@ export default function InputComments({ ticker, t }:{ticker:string, t:Translatio
                           locale='en'
                           dateFormat='MM/dd/yyyy'
                           minDate={subYears(new Date(), 10)}
-                          // renderCustomHeader={({
-                          //   date,
-                          //   changeYear,
-                          //   changeMonth,
-                          //   decreaseMonth,
-                          //   increaseMonth,
-                          //   prevMonthButtonDisabled,
-                          //   nextMonthButtonDisabled,
-                          // }) => (
-                          //   <CustomCalendarHeader
-                          //     date={date}
-                          //     changeYear={changeYear}
-                          //     changeMonth={changeMonth}
-                          //     decreaseMonth={decreaseMonth}
-                          //     increaseMonth={increaseMonth}
-                          //     prevMonthButtonDisabled={prevMonthButtonDisabled}
-                          //     nextMonthButtonDisabled={nextMonthButtonDisabled}
-                          //     locale='en-US'
-                          //   />
-                          // )}
                         />
                       )}
                     </div>
