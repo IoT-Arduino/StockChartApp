@@ -2,8 +2,6 @@ import { render, screen, waitFor, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import '@testing-library/jest-dom'
 
-// import 'matchmedia-polyfill'
-
 import InputCommentsState from './../components/InputCommentsState'
 import { QueryClient, QueryClientProvider } from 'react-query'
 const queryClient = new QueryClient()
