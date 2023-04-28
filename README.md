@@ -30,11 +30,6 @@
 [PlaywrightでNext.js＋supabaseアプリの会員機能をテストする。(会員ランクに応じた登録数制限テスト)](https://zenn.dev/satoshi_tech/articles/20220717-playwright-test-next-supabase)
 
 
-
-※画像はサンプルです。
-![CanvasMemo](https://user-images.githubusercontent.com/45728258/103496022-0a44e600-4e80-11eb-8994-e77638d1ffcf.jpg)
-
-
 ## 🧐 プログラム・フォルダ構成(概要)
 
 components/  
@@ -54,6 +49,9 @@ store/              **zustandのコード**
 types/              **型定義ファイル**
 utils/              **API関連ユーティリティ関数**
 
+
+
+
 ## テーブル構成(Supabase)
 - bookmark (id,ticker,bookmark,user_id)--RLS Enabled  
 - comments (id,ticker,user_id,date,memo)--RLS Enabled  
@@ -62,6 +60,8 @@ utils/              **API関連ユーティリティ関数**
 
 
 ## 会員専用機能概要
+
+![TenQ-Stock](https://user-images.githubusercontent.com/45728258/235041253-1eb19d7d-cabd-4b89-bc14-12f0ca5bd625.png)
 
 ### サインアップ、サインイン機能
 SupabaseのAuth機能を利用しています。サインアップ時に、Supabase Functionsの機能を使用して、会員登録時に、profilesテーブルに会員情報を登録しています。
@@ -87,15 +87,14 @@ SupabaseのAuth機能を利用しています。サインアップ時に、Supab
 ### Tickerページング機能
 ページング機能（前後）をクリックすることで、株価チャートページを切り替えることができます。
 紙の四季報をパラパラとページをめくって銘柄探しをするのと同じような感覚で銘柄探しする為の機能です。
+<a href="https://www.youtube.com/watch?v=l4Hcax6pXPE" target="_blank">
+  <img src="https://img.youtube.com/vi/l4Hcax6pXPE/maxresdefault.jpg" alt="US-StockChart with Price and EPS" width="500">
+</a>
+
+https://www.youtube.com/watch?v=FBQryfepuzQ
 
 
 ## 株価・業績データチャート概要
-
-### 株価・企業財務データの取得・加工について
-
-
-
-### 株価・四半期業績チャートエリア
 
 ### 企業財務データの取得と加工
 
@@ -119,16 +118,17 @@ GNU General Public License v3.0
 
 ## 株価及び企業財務データ確認リソース
 
-https://stocks.finance.yahoo.co.jp/us/annual/AAPL
-https://us.kabutan.jp/stocks/MSFT/finance
+https://stocks.finance.yahoo.co.jp/us/annual/AAPL  
+https://us.kabutan.jp/stocks/MSFT/finance  
 
-業績チャート 米国
-https://us-chart.srbrnote.work/cik/320193/
+業績チャート 米国  
+https://us-chart.srbrnote.work/cik/320193/  
 
-- SEC
-https://www.sec.gov/Archives/edgar/data/320193/000032019321000056/aapl-20210327.htm
-https://www.sec.gov/edgar/browse/?CIK=320193&owner=exclude
-https://www.sec.gov/Archives/edgar/data/320193/000032019320000096/aapl-20200926.htm
+- SEC  
+https://www.sec.gov/Archives/edgar/data/320193/000032019321000056/aapl-20210327.htm  
+https://www.sec.gov/edgar/browse/?CIK=320193&owner=exclude  
+https://www.sec.gov/Archives/edgar/data/320193/000032019320000096/aapl-20200926.htm  
 
-EDGAR Search Results
-https://www.sec.gov/cgi-bin/browse-edgar?CIK=0000320193
+EDGAR Search Results  
+https://www.sec.gov/cgi-bin/browse-edgar?CIK=0000320193  
+
