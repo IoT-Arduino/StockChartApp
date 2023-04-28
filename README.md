@@ -34,23 +34,29 @@
 
 components/  
 const/  
-data/               **Pythonで事前加工した、株価や企業財務諸表データ(json形式）：　データは非公開**
+data/               
 　├ edgar/  
 　├ marker/  
 　├ stock/  
 　├ stockCode/  
-functions/          **ユーティリティ関数**
-hooks/              **バックエンド（Supabase）と連携する為のTanStackQueryのコード**
-locales/            **i18nの為の言語ファイル**
+functions/          
+hooks/              
+locales/            
 　├ en/  
 　├ jp/ 
 pages/  
-store/              **zustandのコード**
-types/              **型定義ファイル**
-utils/              **API関連ユーティリティ関数**
+store/              
+types/              
+utils/              
 
 
-
+1. data/ **Pythonで事前加工した、株価や企業財務諸表データ(json形式）：　データは非公開**  
+2. functions/ **ユーティリティ関数**  
+3. hooks/ **バックエンド（Supabase）と連携する為のTanStackQueryのコード**
+4. locales/ **i18nの為の言語ファイル**  
+5. store/ **zustandのコード**  
+6. types/ **型定義ファイル**  
+7. utils/ **API関連ユーティリティ関数**  
 
 ## テーブル構成(Supabase)
 - bookmark (id,ticker,bookmark,user_id)--RLS Enabled  
@@ -61,7 +67,7 @@ utils/              **API関連ユーティリティ関数**
 
 ## 会員専用機能概要
 
-![TenQ-Stock](https://user-images.githubusercontent.com/45728258/235041253-1eb19d7d-cabd-4b89-bc14-12f0ca5bd625.png)
+<img src="https://user-images.githubusercontent.com/45728258/235041253-1eb19d7d-cabd-4b89-bc14-12f0ca5bd625.png" alt="enQ-Stock" width="400">
 
 ### サインアップ、サインイン機能
 SupabaseのAuth機能を利用しています。サインアップ時に、Supabase Functionsの機能を使用して、会員登録時に、profilesテーブルに会員情報を登録しています。
@@ -90,8 +96,6 @@ SupabaseのAuth機能を利用しています。サインアップ時に、Supab
 <a href="https://www.youtube.com/watch?v=l4Hcax6pXPE" target="_blank">
   <img src="https://img.youtube.com/vi/l4Hcax6pXPE/maxresdefault.jpg" alt="US-StockChart with Price and EPS" width="500">
 </a>
-
-https://www.youtube.com/watch?v=FBQryfepuzQ
 
 
 ## 株価・業績データチャート概要
@@ -124,7 +128,7 @@ https://us.kabutan.jp/stocks/MSFT/finance
 業績チャート 米国  
 https://us-chart.srbrnote.work/cik/320193/  
 
-- SEC  
+SEC  
 https://www.sec.gov/Archives/edgar/data/320193/000032019321000056/aapl-20210327.htm  
 https://www.sec.gov/edgar/browse/?CIK=320193&owner=exclude  
 https://www.sec.gov/Archives/edgar/data/320193/000032019320000096/aapl-20200926.htm  
