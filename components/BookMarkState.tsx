@@ -7,14 +7,14 @@ import { useQueryBookMark } from '../hooks/useQueryBookMark'
 import * as AiIcons from 'react-icons/ai'
 import { checkAllowanceBookMark } from '../functions/checkAllowanceBookMark'
 
-interface BookMarkProps {
+type BookMarkProps = {
   ticker: string
   t: {
     inputLimitAlert: string
   }
 }
 
-interface CreateBookMarkData {
+type CreateBookMarkData = {
   bookmark: boolean
   ticker: string
   user_id: string

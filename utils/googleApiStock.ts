@@ -1,17 +1,17 @@
 import { google } from 'googleapis'
 import dayjs from 'dayjs'
 
-interface NewsData {
+type NewsData = {
   date: string
   news: string
 }
 
-interface InfoData {
+type InfoData = {
   date: string
   info: string
 }
 
-interface Data {
+type Data = {
   newsDataFiltered: NewsData[] | null
   infoDataFiltered: InfoData[] | null
 }
