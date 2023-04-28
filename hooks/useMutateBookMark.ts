@@ -2,7 +2,7 @@ import { useQueryClient, useMutation, MutationFunction } from 'react-query'
 
 import { supabase } from './../utils/supabase'
 
-interface BookMark {
+type BookMark = {
   id: string
   user_id: string
   ticker: string
@@ -10,13 +10,13 @@ interface BookMark {
   created_at: string
 }
 
-interface CreateBookMarkData {
+type CreateBookMarkData = {
   bookmark: boolean
   ticker: string
   user_id: string | null
 }
 
-interface DeleteBookMarkData {
+type DeleteBookMarkData = {
   id: string
 }
 
