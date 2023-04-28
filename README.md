@@ -3,12 +3,12 @@
   米国株四半期株価・業績チャートアプリ「TenQ.cc」
 </h1>
 
-## 💫 DemoSiteのアドレス
+## 🪙 Siteのアドレス
 
 アプリurl : [https://www.tenq.cc/ja-JP](https://www.tenq.cc/ja-JP)
 
 
-## 💫 技術スタック
+## 🎓 技術スタック
 - TypeScript
 - Next.js
 - Supabase
@@ -30,7 +30,7 @@
 [PlaywrightでNext.js＋supabaseアプリの会員機能をテストする。(会員ランクに応じた登録数制限テスト)](https://zenn.dev/satoshi_tech/articles/20220717-playwright-test-next-supabase)
 
 
-## 🧐 プログラム・フォルダ構成(概要)
+## 😺 プログラム・フォルダ構成(概要)
 
 components/  
 const/  
@@ -58,14 +58,14 @@ utils/
 6. types/ ・・・・・   *型定義ファイル*  
 7. utils/  ・・・・・   *API関連ユーティリティ関数*  
 
-## テーブル構成(Supabase)
+## 💠 テーブル構成(Supabase)
 - bookmark (id,ticker,bookmark,user_id)--RLS Enabled  
 - comments (id,ticker,user_id,date,memo)--RLS Enabled  
 - marker  (id,ticker,user_id,date,memo)--RLS Enabled  
 - profiles (id,user_id,rank)--RLS Enabled  
 
 
-## 会員専用機能概要
+## 👨‍👨‍👧 会員専用機能概要
 
 <img src="https://user-images.githubusercontent.com/45728258/235041253-1eb19d7d-cabd-4b89-bc14-12f0ca5bd625.png" alt="enQ-Stock" width="400">
 
@@ -98,7 +98,7 @@ SupabaseのAuth機能を利用しています。サインアップ時に、Supab
 </a>
 
 
-## 株価・業績データチャート概要
+## 📈 株価・業績データチャート概要
 
 ### 企業財務データの取得と加工
 
@@ -110,17 +110,17 @@ SupabaseのAuth機能を利用しています。サインアップ時に、Supab
 株価データも、Pythonで事前加工しています。
 
 
-## 国際化対応(i18n)
+## 🌐 国際化対応(i18n)
 
 ブラウザの言語設定により、日本語、英語表示を自動的に切り替えます。
 フッターにある、プルダウンメニューにより、ユーザー側での切り替えも可能です。
-
-## ライセンス
+ 
+## 📄 ライセンス
 このソフトウェアは、 Apache 2.0ライセンスで配布されている製作物が含まれています。
 GNU General Public License v3.0
 
 
-## 株価及び企業財務データ確認リソース
+## 💫 株価及び企業財務データ確認リソース
 
 https://stocks.finance.yahoo.co.jp/us/annual/AAPL  
 https://us.kabutan.jp/stocks/MSFT/finance  
