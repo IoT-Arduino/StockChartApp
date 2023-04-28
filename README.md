@@ -50,13 +50,13 @@ types/
 utils/              
 
 
-1. data/ **Pythonで事前加工した、株価や企業財務諸表データ(json形式）：　データは非公開**  
-2. functions/ **ユーティリティ関数**  
-3. hooks/ **バックエンド（Supabase）と連携する為のTanStackQueryのコード**
-4. locales/ **i18nの為の言語ファイル**  
-5. store/ **zustandのコード**  
-6. types/ **型定義ファイル**  
-7. utils/ **API関連ユーティリティ関数**  
+1. data/  ・・・・・  *Pythonで事前加工した、株価や企業財務諸表データ(json形式）：　データは非公開*  
+2. functions/  ・・・・  *ユーティリティ関数*  
+3. hooks/  ・・・・・   *バックエンド（Supabase）と連携する為のTanStackQueryのコード*
+4. locales/ ・・・・・   *i18nの為の言語ファイル*  
+5. store/ ・・・・・   *zustandのコード*  
+6. types/ ・・・・・   *型定義ファイル*  
+7. utils/  ・・・・・   *API関連ユーティリティ関数*  
 
 ## テーブル構成(Supabase)
 - bookmark (id,ticker,bookmark,user_id)--RLS Enabled  
