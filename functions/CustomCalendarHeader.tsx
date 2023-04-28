@@ -13,6 +13,11 @@ interface CustomCalendarHeaderProps {
   locale?: 'ja-JP' | 'en-US'
 }
 
+interface Props {
+  style?: React.CSSProperties |  string
+}
+
+
 const YEARS_FOR_DROPDOWN = 10
 
 export const CustomCalendarHeader: React.FC<CustomCalendarHeaderProps> = ({
@@ -27,9 +32,8 @@ export const CustomCalendarHeader: React.FC<CustomCalendarHeaderProps> = ({
 }) => {
   const years = [...Array(YEARS_FOR_DROPDOWN)].map((_, i) => new Date().getFullYear() - i)
 
-    const MonthSelect = ({style}) => {
-      console.log(style)
-    return (
+    const MonthSelect = ({ style }: Props) => {
+      return (
         <select
           value={date.getMonth()}
           onChange={({ target: { value } }: ChangeEvent<HTMLSelectElement>) =>
@@ -45,24 +49,24 @@ export const CustomCalendarHeader: React.FC<CustomCalendarHeaderProps> = ({
             </option>
           ))}
         </select>
-    )
-  }
+      )
+    }
 
-  const YearSelect = ({style}) => {
+  const YearSelect = ({ style }: Props) => {
     return (
-        <select
-          value={date.getFullYear()}
-          onChange={({ target: { value } }: ChangeEvent<HTMLSelectElement>) =>
-            changeYear(Number(value))
-          }
-          className={`react-datepicker__year-select ${style}`}
-        >
-          {years.map((year) => (
-            <option key={year} value={year}>
-              {year}
-            </option>
-          ))}
-        </select>
+      <select
+        value={date.getFullYear()}
+        onChange={({ target: { value } }: ChangeEvent<HTMLSelectElement>) =>
+          changeYear(Number(value))
+        }
+        className={`react-datepicker__year-select ${style}`}
+      >
+        {years.map((year) => (
+          <option key={year} value={year}>
+            {year}
+          </option>
+        ))}
+      </select>
     )
   }
 

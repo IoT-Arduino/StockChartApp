@@ -24,7 +24,7 @@ export async function getStockInfo(id: string): Promise<any> {
       undefined,
       // we need to replace the escaped newline characters
       // https://stackoverflow.com/questions/50299329/node-js-firebase-service-account-private-key-wont-parse
-      process.env.GOOGLE_SHEETS_PRIVATE_KEY!.replace(/\\n/g, '\n') ,
+      process.env.GOOGLE_SHEETS_PRIVATE_KEY!.replace(/\\n/g, '\n'),
       scopes
     )
 
@@ -49,7 +49,8 @@ export async function getStockInfo(id: string): Promise<any> {
     //   return (serialNumber - DATES_OFFSET) * COEFFICIENT - MILLIS_DIFFERENCE
     // }
 
-    const convertSn2Ut = (serialNumber: number): number => {  // シリアル値→UNIX時間(ミリ秒)
+    const convertSn2Ut = (serialNumber: number): number => {
+      // シリアル値→UNIX時間(ミリ秒)
       return (serialNumber - DATES_OFFSET) * COEFFICIENT - MILLIS_DIFFERENCE
     }
 
@@ -58,18 +59,18 @@ export async function getStockInfo(id: string): Promise<any> {
     //   return new Date(convertSn2Ut(serialNumber))
     // }
 
-    const dateFromSn = (serialNumber: number): Date => {  // シリアル値→Date  
+    const dateFromSn = (serialNumber: number): Date => {
+      // シリアル値→Date
       return new Date(convertSn2Ut(serialNumber))
     }
-
 
     let newsDataFiltered: NewsData[] | null
     let infoDataFiltered: InfoData[] | null
 
     if (filteredSheetData && filteredSheetData[0][1]) {
       const news = filteredSheetData[0][1].split(',')
-      
-      const newsData : NewsData[] = news.map((item:string) => {
+
+      const newsData: NewsData[] = news.map((item: string) => {
         const splited = item.split('-')
         const date = dateFromSn(Number(splited[0]))
         return {
