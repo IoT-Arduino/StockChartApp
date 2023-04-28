@@ -2,11 +2,8 @@ import ReactEcharts from 'echarts-for-react'
 import { calcEdgarData } from '../functions/CalcEdgarData'
 import { useState, useEffect } from 'react'
 
-// import { Tabs } from '@mantine/core'
 import StockTabSection from './StockTabSection'
-
 import PagingTicker from './PagingTicker'
-
 import { chartOption } from '../functions/chartOption'
 
 type Props = {

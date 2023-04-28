@@ -20,7 +20,7 @@ export const getMarkerData = (marker: Marker[]): MarkerData[] => {
   const markerRes = resultRes.map((res, i) => {
     const ymDate = new Date(res.date)
     const dateStr = ymDate.getFullYear() + '/' + ('0' + (ymDate.getMonth() + 1)).slice(-2)
-    // console.log(dateStr)
+
     return {
       name: res.ticker,
       date: dateStr,
