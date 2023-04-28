@@ -50,13 +50,12 @@ types/
 utils/              
 
 
-1. data/  ・・・・・  *Pythonで事前加工した、株価や企業財務諸表データ(json形式）：　データは非公開*  
-2. functions/  ・・・・  *ユーティリティ関数*  
-3. hooks/  ・・・・・   *バックエンド（Supabase）と連携する為のTanStackQueryのコード*
-4. locales/ ・・・・・   *i18nの為の言語ファイル*  
-5. store/ ・・・・・   *zustandのコード*  
-6. types/ ・・・・・   *型定義ファイル*  
-7. utils/  ・・・・・   *API関連ユーティリティ関数*  
+1. functions/  ・・・・  *ユーティリティ関数*  
+2. hooks/  ・・・・・   *バックエンド（Supabase）と連携する為のTanStackQueryのコード*
+3. locales/ ・・・・・   *i18nの為の言語ファイル*  
+4. store/ ・・・・・   *zustandのコード*  
+5. types/ ・・・・・   *型定義ファイル*  
+6. utils/  ・・・・・   *API関連ユーティリティ関数*  
 
 ## 💠 テーブル構成(Supabase)
 - bookmark (id,ticker,bookmark,user_id)--RLS Enabled  
@@ -92,7 +91,7 @@ SupabaseのAuth機能を利用しています。サインアップ時に、Supab
 
 ### Tickerページング機能
 ページング機能（前後）をクリックすることで、株価チャートページを切り替えることができます。
-紙の四季報をパラパラとページをめくって銘柄探しをするのと同じような感覚で銘柄探しする為の機能です。
+紙の四季報をパラパラとページをめくって銘柄探しをするのと同じような感覚で銘柄探しする為の機能です。  
 <a href="https://www.youtube.com/watch?v=l4Hcax6pXPE" target="_blank">
   <img src="https://img.youtube.com/vi/l4Hcax6pXPE/maxresdefault.jpg" alt="US-StockChart with Price and EPS" width="500">
 </a>
