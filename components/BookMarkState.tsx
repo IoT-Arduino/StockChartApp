@@ -63,7 +63,7 @@ export default function BookMark({ ticker, t }: BookMarkProps) {
       return
     } else {
       if (bookMarkData && bookMarkData.length > 0) {
-        deleteBookMarkMutation.mutate(bookMarkData[0].id, {
+        deleteBookMarkMutation.mutate(bookMarkData[0].id.toString(), {
           onSuccess: () => {
             setStar(false)
           },
