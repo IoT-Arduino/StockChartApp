@@ -1,10 +1,10 @@
-interface Marker {
+type Marker = {
   date: string
   ticker: string
   memo: string
 }
 
-interface MarkerData {
+type MarkerData = {
   name: string
   date: string
   coord: string[]

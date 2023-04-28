@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { supabase } from '../../utils/supabase'
 import cookie from 'cookie'
 
-interface Session {
+type Session = {
   access_token: string
   token_type: string
   user: any 

@@ -2,7 +2,7 @@ import React, { ChangeEvent } from 'react'
 import { MdKeyboardDoubleArrowLeft, MdKeyboardDoubleArrowRight } from 'react-icons/md'
 import 'react-datepicker/dist/react-datepicker.css'
 
-interface CustomCalendarHeaderProps {
+type CustomCalendarHeaderProps = {
   date: Date
   changeYear: (year: number) => void
   changeMonth: (month: number) => void
@@ -13,7 +13,7 @@ interface CustomCalendarHeaderProps {
   locale?: 'ja-JP' | 'en-US'
 }
 
-interface Props {
+type Props = {
   style?: React.CSSProperties |  string
 }
 
