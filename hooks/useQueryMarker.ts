@@ -1,8 +1,6 @@
 import { useQuery } from 'react-query'
 import { supabase } from './../utils/supabase';
-
 import { Marker } from './../types/Marker'
-
 
 export const useQueryMarker = () => {
   const getMarker = async () => {
@@ -16,15 +14,10 @@ export const useQueryMarker = () => {
     }
     return data
   }
-  // useQuery<Task[], Error>
   return useQuery({
     queryKey: 'marker',
     queryFn: getMarker,
     staleTime: Infinity, //[ms]
     refetchOnWindowFocus: true,
-    // refetchOnMount:"always",
-    // notifyOnChangeProps:"tracked",
-    // refetchOnReconnect:"always",
-    // refetchInterval:10,
   })
 }

@@ -1,5 +1,4 @@
 import { registerAllowance } from '../const/settings'
-
 import { TranslationLocales } from '../types/TranslationLocales'
 
 type Props = {

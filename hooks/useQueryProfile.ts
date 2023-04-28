@@ -1,8 +1,6 @@
 import { useQuery } from 'react-query'
 import { supabase } from './../utils/supabase';
-
 import { Profile } from './../types/Profile'
-
 
 export const useQueryProfile = () => {
   const getProfile = async () => {
