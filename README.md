@@ -45,7 +45,7 @@ data/               **Pythonで事前加工した、株価や企業財務諸表�
 　├ stock/  
 　├ stockCode/  
 functions/          **ユーティリティ関数**
-hooks/              **バックエンドと連携する為のTanStackQueryのコード**
+hooks/              **バックエンド（Supabase）と連携する為のTanStackQueryのコード**
 locales/            **i18nの為の言語ファイル**
 　├ en/  
 　├ jp/ 
@@ -112,6 +112,9 @@ SupabaseのAuth機能を利用しています。サインアップ時に、Supab
 ブラウザの言語設定により、日本語、英語表示を自動的に切り替えます。
 フッターにある、プルダウンメニューにより、ユーザー側での切り替えも可能です。
 
+## ライセンス
+このソフトウェアは、 Apache 2.0ライセンスで配布されている製作物が含まれています。
+GNU General Public License v3.0
 
 
 ## 株価及び企業財務データ確認リソース
