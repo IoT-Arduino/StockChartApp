@@ -1,5 +1,6 @@
 import { useQueryClient, useMutation } from 'react-query'
-import useStore from '../store/store'
+import { useDispatch } from 'react-redux'
+import { resetEditedMarker } from '../store/editInfoSlice'
 
 import { supabase } from '../utils/supabase'
 
@@ -8,7 +9,8 @@ import { EditedMarker, Marker } from '../types/StoreTypes'
 
 export const useMutateMarker = () => {
   const queryClient = useQueryClient()
-  const reset = useStore((state) => state.resetEditedMarker)
+  const dispatch = useDispatch();
+  const reset = () => dispatch(resetEditedMarker());
 
   const createMarkerMutation = useMutation(
     async (marker: Partial<Marker[]> | Partial<Marker>) => {

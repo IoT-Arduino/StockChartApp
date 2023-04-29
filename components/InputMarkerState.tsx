@@ -3,11 +3,14 @@ import { useRouter } from 'next/router'
 import { supabase } from '../utils/supabase'
 import { useContext } from 'react'
 import { UserContext } from '../utils/UserContext'
-import useStore from '../store/store'
 import { useMutateMarker } from '../hooks/useMutateMarker'
 import { useQueryMarker } from '../hooks/useQueryMarker'
 import { checkAllowanceMarker } from '../functions/checkAllowanceMarker'
 
+// Redux Related
+import { useSelector, useDispatch } from 'react-redux'
+import { RootState } from '../store/rootReducer'
+import { updateEditedMarker, resetEditedMarker } from '../store/editInfoSlice'
 
 // Mantine
 import { ActionIcon } from '@mantine/core';
@@ -30,15 +33,17 @@ import { Marker } from '../types/Marker'
 
 export default function InputMarker({ ticker, t }: { ticker: string; t: TranslationLocales }) {
   const { user: contextUser, session: contextSession, rank } = useContext(UserContext)
-  const { editedMarker, resetEditedMarker } = useStore()
-  const update = useStore((state) => state.updateEditedMarker)
-  const { createMarkerMutation, updateMarkerMutation, deleteMarkerMutation } = useMutateMarker()
+   const { createMarkerMutation, updateMarkerMutation, deleteMarkerMutation } = useMutateMarker()
   const { data: markerData, status } = useQueryMarker()
 
   const router = useRouter()
   const { locale } = router
   registerLocale('ja', ja)
   registerLocale('en', enUS)
+
+  // Redux Related
+  const editedMarker = useSelector((state: RootState) => state.editInfo.editedMarker)
+  const dispatch = useDispatch()
 
   const [editItem, setEditItem] = useState<number | null>(null)
   const [editStatus, setEditStatus] = useState<boolean>(false)
@@ -69,7 +74,6 @@ export default function InputMarker({ ticker, t }: { ticker: string; t: Translat
     const options = {
       year: 'numeric' as const,
       month: '2-digit' as const,
-      // day: '2-digit' as const,
     }
 
     if (locale === 'ja-JP') {
@@ -98,20 +102,20 @@ export default function InputMarker({ ticker, t }: { ticker: string; t: Translat
     })
   }
 
-    const inputYearMonth = (date:Date) => {
+  const inputYearMonth = (date: Date) => {
     if (date) {
-      const selectedYear = date.getFullYear();
-      const selectedMonth = date.getMonth();
-      const newDate = new Date(selectedYear, selectedMonth, 15);
+      const selectedYear = date.getFullYear()
+      const selectedMonth = date.getMonth()
+      const newDate = new Date(selectedYear, selectedMonth, 15)
       setInputMarker({
         ...inputMarker,
         date: newDate.toISOString().substring(0, 10),
-      });
+      })
     } else {
       setInputMarker({
         ...inputMarker,
         date: null,
-      });
+      })
     }
   }
 
@@ -136,15 +140,17 @@ export default function InputMarker({ ticker, t }: { ticker: string; t: Translat
     }
   }
 
-  const editMarker = async (marker:Partial<Marker>) => {
+  const editMarker = async (marker: Partial<Marker>) => {
     setEditStatus(true)
     setEditItem(marker.id!)
-    update({
-      id: marker.id!,
-      ticker: ticker,
-      date: marker.date!,
-      memo: marker.memo!,
-    })
+    dispatch(
+      updateEditedMarker({
+        id: marker.id!,
+        ticker: ticker,
+        date: marker.date!,
+        memo: marker.memo!,
+      })
+    )
   }
 
   const deleteMarker = (marker: Partial<Marker>) => {
@@ -163,20 +169,16 @@ export default function InputMarker({ ticker, t }: { ticker: string; t: Translat
     setEditStatus(false)
   }
 
-  const updateYearMonth = (date:Date) => {
-    const selectedYear = date.getFullYear();
-    const selectedMonth = date.getMonth();
-    const newDate = new Date(selectedYear, selectedMonth, 15);
-    update({
-      ...editedMarker,
-      date: date ? newDate.toISOString().substring(0, 10) : '',
-    })
+  const updateYearMonth = (date: Date) => {
+    const selectedYear = date.getFullYear()
+    const selectedMonth = date.getMonth()
+    const newDate = new Date(selectedYear, selectedMonth, 15)
+    dispatch(updateEditedMarker({ ...editedMarker, date: date ? date.toISOString().substring(0, 10) : '' }));
   }
 
   if (status === 'error') {
     return <div>Error</div>
   }
-
 
   return (
     <div className='w-full'>
@@ -295,7 +297,7 @@ export default function InputMarker({ ticker, t }: { ticker: string; t: Translat
                       type='text'
                       placeholder={t.inputPlaceHolder}
                       value={editedMarker.memo}
-                      onChange={(e) => update({ ...editedMarker, memo: e.target.value })}
+                      onChange={(e) => dispatch(updateEditedMarker({ ...editedMarker, memo: e.target.value }))}
                       required
                       data-testid='markerMemoInput'
                     />
