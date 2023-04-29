@@ -25,12 +25,11 @@
     ]
   },
  "include": [
-    "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "pages/api/getData.js",
     "global-setup.js",
-    "const/settings.js"
+    "const/settings.js",
+    "**/__mocks__/**/*.js",
   ],
   "exclude": [
     "node_modules",
