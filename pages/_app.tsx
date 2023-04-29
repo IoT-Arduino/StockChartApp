@@ -3,6 +3,10 @@ import type { AppProps } from 'next/app'
 import { useEffect, useState } from 'react'
 import { DefaultSeo } from 'next-seo'
 
+// Store
+import { Provider } from 'react-redux'
+import store from '../store/store'
+
 // supabase
 import { supabase } from '../utils/supabase'
 import { UserContext } from '../utils/UserContext'
@@ -117,9 +121,11 @@ function MyApp({ Component, pageProps }: AppProps) {
             }}
           />
           <DefaultSeo {...SEO} />
+          <Provider store={store}>
           <LayoutWrapper>
             <Component {...pageProps} />
-          </LayoutWrapper>
+            </LayoutWrapper>
+            </Provider>
         </MantineProvider>
       </UserContext.Provider>
     </QueryClientProvider>

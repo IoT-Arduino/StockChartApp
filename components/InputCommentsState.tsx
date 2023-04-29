@@ -3,10 +3,14 @@ import { useRouter } from 'next/router'
 import { supabase } from '../utils/supabase'
 import { useContext } from 'react'
 import { UserContext } from '../utils/UserContext'
-import useStore from '../store/store'
 import { useMutateComment } from '../hooks/useMutateComment'
 import { useQueryComments } from '../hooks/useQueryComments'
 import { checkAllowanceComment } from '../functions/checkAllowanceComment'
+
+// Redux Related
+import { useSelector, useDispatch } from 'react-redux'
+import { RootState } from '../store/rootReducer'
+import { updateEditedComment, resetEditedComment } from '../store/editInfoSlice'
 
 // Mantine
 import { ActionIcon } from '@mantine/core'
@@ -24,14 +28,12 @@ import { subYears } from 'date-fns'
 import * as AiIcons from 'react-icons/ai'
 import { GiCancel } from 'react-icons/gi'
 
-// Types 
+// Types
 import { TranslationLocales } from 'types/TranslationLocales'
 import { Comments } from '../types/Comments'
 
-export default function InputComments({ ticker, t }:{ticker:string, t:TranslationLocales}) {
+export default function InputComments({ ticker, t }: { ticker: string; t: TranslationLocales }) {
   const { user: contextUser, session: contextSession, rank } = useContext(UserContext)
-  const { editedComment, resetEditedComment } = useStore()
-  const update = useStore((state) => state.updateEditedComment)
   const { createCommentMutation, updateCommentMutation, deleteCommentMutation } = useMutateComment()
   const { data: commentData, status } = useQueryComments()
 
@@ -40,7 +42,12 @@ export default function InputComments({ ticker, t }:{ticker:string, t:Translatio
   registerLocale('ja', ja)
   registerLocale('en', enUS)
 
-  const [editItem, setEditItem] = useState<number|null>(null)
+  // Redux Related
+  const editedComment = useSelector((state: RootState) => state.editInfo.editedComment)
+  const dispatch = useDispatch()
+
+  // Local State
+  const [editItem, setEditItem] = useState<number | null>(null)
   const [editStatus, setEditStatus] = useState<boolean>(false)
   const { canCommentInput } = checkAllowanceComment(rank, commentData)
 
@@ -58,14 +65,13 @@ export default function InputComments({ ticker, t }:{ticker:string, t:Translatio
   })
 
   const sortedCommentsList = commentList?.sort((a, b) => {
-    const dateA = new Date(a.date);
-    const dateB = new Date(b.date);
-    return dateB.getTime() - dateA.getTime();
-  });
-
+    const dateA = new Date(a.date)
+    const dateB = new Date(b.date)
+    return dateB.getTime() - dateA.getTime()
+  })
 
   //  Common functions
-  const switchDateFormatInList = (dateString:string) => {
+  const switchDateFormatInList = (dateString: string) => {
     const date = new Date(dateString)
     const options = {
       year: 'numeric' as const,
@@ -99,7 +105,7 @@ export default function InputComments({ ticker, t }:{ticker:string, t:Translatio
     })
   }
 
-  //  Edit comment related only functions 
+  //  Edit comment related only functions
   const submitEditComment = async () => {
     if (editedComment.memo === '' || editedComment.date === '') {
       alert(`${t.inputRequiredAlert}`)
@@ -123,15 +129,17 @@ export default function InputComments({ ticker, t }:{ticker:string, t:Translatio
   const editComment = async (comment: Partial<Comments>) => {
     setEditStatus(true)
     setEditItem(comment.id!)
-    update({
-      id: comment.id!,
-      ticker: ticker,
-      date: comment.date!,
-      memo: comment.memo!,
-    })
+    dispatch(
+      updateEditedComment({
+        id: comment.id!,
+        ticker: ticker,
+        date: comment.date!,
+        memo: comment.memo!,
+      })
+    )
   }
 
-  const deleteComment = (comment:Partial<Comments>) => {
+  const deleteComment = (comment: Partial<Comments>) => {
     let confirmDelete = confirm(`${comment.date} : ${comment.memo} : ${t.inputDeleteAlert}`)
     if (confirmDelete) {
       deleteCommentMutation.mutate(comment.id!)
@@ -272,10 +280,12 @@ export default function InputComments({ ticker, t }:{ticker:string, t:Translatio
                           className='rounded border-gray-100 p-1.5 text-base outline-0'
                           selected={new Date(editedComment.date)}
                           onChange={(date) =>
-                            update({
-                              ...editedComment,
-                              date: date ? date.toISOString().substring(0, 10) : '',
-                            })
+                            dispatch(
+                              updateEditedComment({
+                                ...editedComment,
+                                date: date ? date.toISOString().substring(0, 10) : '',
+                              })
+                            )
                           }
                           required
                           data-testid='commentDateInput'
@@ -308,10 +318,12 @@ export default function InputComments({ ticker, t }:{ticker:string, t:Translatio
                           className='rounded border-gray-100 p-1.5 text-base outline-0'
                           selected={new Date(editedComment.date)}
                           onChange={(date) =>
-                            update({
-                              ...editedComment,
-                              date: date ? date.toISOString().substring(0, 10) : '',
-                            })
+                            dispatch(
+                              updateEditedComment({
+                                ...editedComment,
+                                date: date ? date.toISOString().substring(0, 10) : '',
+                              })
+                            )
                           }
                           required
                           data-testid='commentDateInput'
@@ -327,7 +339,9 @@ export default function InputComments({ ticker, t }:{ticker:string, t:Translatio
                       type='text'
                       placeholder={t.inputPlaceHolder}
                       value={editedComment.memo}
-                      onChange={(e) => update({ ...editedComment, memo: e.target.value })}
+                      onChange={(e) =>
+                        dispatch(updateEditedComment({ ...editedComment, memo: e.target.value }))
+                      }
                       required
                       data-testid='commentMemoInput'
                     />
