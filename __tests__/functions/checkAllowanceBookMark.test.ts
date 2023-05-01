@@ -1,5 +1,5 @@
 import { Ranks } from '../../types/Ranks'
-import { mockBookmarks } from '../fixture/bookmarkData'
+import { mockBookmarks } from '../../__mocks__/fixture/bookmarkData'
 import { checkAllowanceBookMark } from '../../functions/checkAllowanceBookMark' 
 
 describe('checkAllowanceBookMark', () => {
