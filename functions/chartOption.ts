@@ -41,7 +41,6 @@ export const chartOption = (
       {
         name: 'Price(USD)',
         scale: true,
-        // interval: 100,
         axisLabel: {
           formatter: '{value} ',
         },
@@ -57,7 +56,6 @@ export const chartOption = (
         scale: true,
         splitNumber: 1,
         gridIndex: 1,
-        // axisLabel: { show: true },
         axisLabel: {
           formatter: '{value} ',
           show: true,
@@ -65,14 +63,12 @@ export const chartOption = (
         axisLine: { show: true },
         axisTick: { show: true },
         splitLine: { show: true },
-        // min: 0,
       },
       {
         name: 'OpeCFMgn',
         scale: true,
         splitNumber: 1,
         gridIndex: 1,
-        // axisLabel: { show: true },
         axisLabel: {
           formatter: '{value} %',
           show: true,
@@ -84,42 +80,6 @@ export const chartOption = (
         max: 50,
       },
     ],
-    // graphic: [
-    //   {
-    //     type: 'group',
-    //     rotation: Math.PI / 4,
-    //     bounding: 'raw',
-    //     left: 110,
-    //     top: 110,
-    //     z: 100,
-    //     children: [
-    //       {
-    //         type: 'rect',
-    //         left: 'center',
-    //         top: 'center',
-    //         z: 100,
-    //         shape: {
-    //           width: 400,
-    //           height: 50,
-    //         },
-    //         style: {
-    //           fill: 'rgba(0,0,0,0.3)',
-    //         },
-    //       },
-    //       {
-    //         type: 'text',
-    //         left: 'center',
-    //         top: 'center',
-    //         z: 100,
-    //         style: {
-    //           fill: '#fff',
-    //           text: 'ECHARTS LINE CHART',
-    //           font: 'bold 26px sans-serif',
-    //         },
-    //       },
-    //     ],
-    //   },
-    // ],
     series: [
       {
         type: 'candlestick',

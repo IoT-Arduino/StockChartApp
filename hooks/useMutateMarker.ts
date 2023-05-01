@@ -68,7 +68,6 @@ export const useMutateMarker = () => {
     },
     {
       onSuccess: (_, variables) => {
-        // for TypeScript :
         const previousMarkers =
           queryClient.getQueryData<Omit<Marker, 'user_id' | 'created_at'>[]>('marker')
         if (previousMarkers) {
