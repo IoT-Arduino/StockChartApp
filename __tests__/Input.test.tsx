@@ -5,6 +5,8 @@ import '@testing-library/jest-dom'
 import InputCommentsState from './../components/InputCommentsState'
 import { QueryClient, QueryClientProvider } from 'react-query'
 const queryClient = new QueryClient()
+import { Provider } from 'react-redux'; 
+import store from '../store/store'
 
 import en from './../locales/en/en'
 import ja from './../locales/ja/ja'
@@ -94,9 +96,12 @@ describe('Input Test', () => {
   // })
 
   it('InputTest', async () => {
+
     const { container } = render(
       <QueryClientProvider client={queryClient}>
-        <InputCommentsState ticker='AAPL' t={ja} />
+        <Provider store={store}>
+          <InputCommentsState ticker='AAPL' t={ja} />
+        </Provider>
       </QueryClientProvider>
     )
 
@@ -110,16 +115,15 @@ describe('Input Test', () => {
 
     // 日付入力フィールドに値を入力します
     const dateValue = '04/09/2023'
-    fireEvent.change(commentDateInput, { target: { value: dateValue } })
+    userEvent.type(commentDateInput,dateValue)
 
     // メモ入力フィールドに値を入力します
     const memoValue = 'Test memo33'
-    fireEvent.change(commentMemoInput, { target: { value: memoValue } })
+    userEvent.type(commentMemoInput, memoValue)
 
-    fireEvent.click(addCommentButton)
+    userEvent.click(addCommentButton)
 
     const commentList = await screen.findAllByRole('list')
-
     expect(commentList[0].textContent).toEqual(dateValue + memoValue)
   })
 })
