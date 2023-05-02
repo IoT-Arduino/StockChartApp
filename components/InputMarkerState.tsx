@@ -107,6 +107,7 @@ export default function InputMarker({ ticker, t }: { ticker: string; t: Translat
     if (date) {
       const selectedYear = date.getFullYear()
       const selectedMonth = date.getMonth()
+      // 日付はユーザーが入力しない。15日をシステム指定。
       const newDate = new Date(selectedYear, selectedMonth, 15)
       setInputMarker({
         ...inputMarker,
@@ -173,8 +174,9 @@ export default function InputMarker({ ticker, t }: { ticker: string; t: Translat
   const updateYearMonth = (date: Date) => {
     const selectedYear = date.getFullYear()
     const selectedMonth = date.getMonth()
+    // 日付はユーザーが入力しない。15日をシステム指定。
     const newDate = new Date(selectedYear, selectedMonth, 15)
-    dispatch(updateEditedMarker({ ...editedMarker, date: date ? date.toISOString().substring(0, 10) : '' }));
+    dispatch(updateEditedMarker({ ...editedMarker, date: date ? newDate.toISOString().substring(0, 10) : '' }));
   }
 
   if (status === 'error') {
