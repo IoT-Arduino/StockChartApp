@@ -28,7 +28,7 @@ import * as AiIcons from 'react-icons/ai'
 import { GiCancel } from 'react-icons/gi'
 
 // Types
-import { TranslationLocales } from 'types/TranslationLocales'
+import { TranslationLocales } from '../types/TranslationLocales'
 import { Marker } from '../types/StoreTypes'
 
 export default function InputMarker({ ticker, t }: { ticker: string; t: TranslationLocales }) {
@@ -84,7 +84,8 @@ export default function InputMarker({ ticker, t }: { ticker: string; t: Translat
   }
 
   // Add marker related function
-  const submitInputMarker = () => {
+  const submitInputMarker = (e:React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
     if (inputMarker.memo === '' || inputMarker.date === '') {
       alert(`${t.inputRequiredAlert}`)
       return
@@ -106,7 +107,6 @@ export default function InputMarker({ ticker, t }: { ticker: string; t: Translat
     if (date) {
       const selectedYear = date.getFullYear()
       const selectedMonth = date.getMonth()
-      // 日付は、ユーザーが入力しない。毎月１５日を指定。
       const newDate = new Date(selectedYear, selectedMonth, 15)
       setInputMarker({
         ...inputMarker,
@@ -187,7 +187,7 @@ export default function InputMarker({ ticker, t }: { ticker: string; t: Translat
       <div data-testid='inputMarkerStatus'>{canMarkerInput ? '' : <div>{t.inputCannot}</div>}</div>
 
       {/* Add Marker Input Fields  */}
-      <div className='my-2 flex flex-wrap justify-start gap-2'>
+      <form className='my-2 flex flex-wrap justify-start gap-2' onSubmit={submitInputMarker} data-testid="inputMarkerForm">
         <div>
           {locale === 'ja-JP' ? (
             <DatePicker
@@ -237,10 +237,10 @@ export default function InputMarker({ ticker, t }: { ticker: string; t: Translat
           <Button
             variant='outline'
             color='teal'
-            onClick={() => submitInputMarker()}
             disabled={!canMarkerInput || editStatus}
             data-testid='addMarker'
             className='mr-2'
+            type="submit"
           >
             {t.inputSave}
           </Button>
@@ -254,7 +254,7 @@ export default function InputMarker({ ticker, t }: { ticker: string; t: Translat
             {t.inputCancel}
           </Button>
         </div>
-      </div>
+      </form>
 
       {/* Edit Marker Input Fields  */}
       <div className='mb-8 overflow-hidden rounded-md bg-white shadow'>
@@ -298,7 +298,9 @@ export default function InputMarker({ ticker, t }: { ticker: string; t: Translat
                       type='text'
                       placeholder={t.inputPlaceHolder}
                       value={editedMarker.memo}
-                      onChange={(e) => dispatch(updateEditedMarker({ ...editedMarker, memo: e.target.value }))}
+                      onChange={(e) =>
+                        dispatch(updateEditedMarker({ ...editedMarker, memo: e.target.value }))
+                      }
                       required
                       data-testid='markerMemoInput'
                     />
