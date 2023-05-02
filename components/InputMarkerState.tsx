@@ -29,7 +29,7 @@ import { GiCancel } from 'react-icons/gi'
 
 // Types
 import { TranslationLocales } from 'types/TranslationLocales'
-import { Marker } from '../types/Marker'
+import { Marker } from '../types/StoreTypes'
 
 export default function InputMarker({ ticker, t }: { ticker: string; t: TranslationLocales }) {
   const { user: contextUser, session: contextSession, rank } = useContext(UserContext)
@@ -45,7 +45,7 @@ export default function InputMarker({ ticker, t }: { ticker: string; t: Translat
   const editedMarker = useSelector((state: RootState) => state.editInfo.editedMarker)
   const dispatch = useDispatch()
 
-  const [editItem, setEditItem] = useState<number | null>(null)
+  const [editItem, setEditItem] = useState<string | null>(null)
   const [editStatus, setEditStatus] = useState<boolean>(false)
   const { canMarkerInput } = checkAllowanceMarker(rank, markerData)
 
@@ -106,6 +106,7 @@ export default function InputMarker({ ticker, t }: { ticker: string; t: Translat
     if (date) {
       const selectedYear = date.getFullYear()
       const selectedMonth = date.getMonth()
+      // 日付は、ユーザーが入力しない。毎月１５日を指定。
       const newDate = new Date(selectedYear, selectedMonth, 15)
       setInputMarker({
         ...inputMarker,

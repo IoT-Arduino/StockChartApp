@@ -30,7 +30,7 @@ import { GiCancel } from 'react-icons/gi'
 
 // Types
 import { TranslationLocales } from 'types/TranslationLocales'
-import { Comments } from '../types/Comments'
+import { Comment } from '../types/StoreTypes'
 
 export default function InputComments({ ticker, t }: { ticker: string; t: TranslationLocales }) {
   const { user: contextUser, session: contextSession, rank } = useContext(UserContext)
@@ -47,7 +47,7 @@ export default function InputComments({ ticker, t }: { ticker: string; t: Transl
   const dispatch = useDispatch()
 
   // Local State
-  const [editItem, setEditItem] = useState<number | null>(null)
+  const [editItem, setEditItem] = useState<string | null>(null)
   const [editStatus, setEditStatus] = useState<boolean>(false)
   const { canCommentInput } = checkAllowanceComment(rank, commentData)
 
@@ -126,7 +126,7 @@ export default function InputComments({ ticker, t }: { ticker: string; t: Transl
     }
   }
 
-  const editComment = async (comment: Partial<Comments>) => {
+  const editComment = async (comment: Partial<Comment>) => {
     setEditStatus(true)
     setEditItem(comment.id!)
     dispatch(
@@ -139,7 +139,7 @@ export default function InputComments({ ticker, t }: { ticker: string; t: Transl
     )
   }
 
-  const deleteComment = (comment: Partial<Comments>) => {
+  const deleteComment = (comment: Partial<Comment>) => {
     let confirmDelete = confirm(`${comment.date} : ${comment.memo} : ${t.inputDeleteAlert}`)
     if (confirmDelete) {
       deleteCommentMutation.mutate(comment.id!)

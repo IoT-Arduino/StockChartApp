@@ -1,17 +1,14 @@
-type Marker = {
-  date: string
-  ticker: string
-  memo: string
-}
-
-type MarkerData = {
+type MarkerOptionData = {
   name: string
   date: string
   coord: string[]
   value: string
 }
 
-export const getMarkerData = (marker: Marker[]): MarkerData[] => {
+// types
+import { Marker } from '../types/StoreTypes'
+
+export const getMarkerData = (marker: Pick<Marker,"date"|"ticker"|"memo">[]): MarkerOptionData[] => {
   // データを古い順にソート
   let resultRes = marker.sort(function (a, b) {
     return a.date < b.date ? -1 : 1
