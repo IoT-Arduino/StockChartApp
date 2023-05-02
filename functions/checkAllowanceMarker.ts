@@ -1,6 +1,6 @@
 import { registerAllowance } from '../const/settings'
 import { Ranks } from '../types/Ranks'
-import { Marker } from './../types/Marker'
+import { Marker } from './../types/StoreTypes'
 
 type MarkersArray = Marker[] | undefined
 

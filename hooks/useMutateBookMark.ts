@@ -1,14 +1,6 @@
 import { useQueryClient, useMutation, MutationFunction } from 'react-query'
-
 import { supabase } from './../utils/supabase'
-
-type BookMark = {
-  id: string
-  user_id: string
-  ticker: string
-  bookmark: boolean
-  created_at: string
-}
+import { Bookmark } from './../types/Bookmark'
 
 type CreateBookMarkData = {
   bookmark: boolean
@@ -20,14 +12,14 @@ type DeleteBookMarkData = {
   id: string
 }
 
-type CreateBookMarkMutationFn = MutationFunction<BookMark, CreateBookMarkData>
-type DeleteBookMarkMutationFn = MutationFunction<BookMark, DeleteBookMarkData>
+type CreateBookMarkMutationFn = MutationFunction<Bookmark, CreateBookMarkData>
+type DeleteBookMarkMutationFn = MutationFunction<Bookmark, DeleteBookMarkData>
 
 export const useMutateBookMark = () => {
   const queryClient = useQueryClient()
 
   const createBookMarkMutation = useMutation<
-    BookMark,
+    Bookmark,
     Error,
     CreateBookMarkData,
     CreateBookMarkMutationFn
@@ -39,9 +31,9 @@ export const useMutateBookMark = () => {
     },
     {
       onSuccess: (res) => {
-        const previousBookMark = queryClient.getQueryData<BookMark[]>('bookmark')
+        const previousBookMark = queryClient.getQueryData<Bookmark[]>('bookmark')
         if (previousBookMark) {
-          queryClient.setQueryData<BookMark[]>('bookmark', [...previousBookMark, res])
+          queryClient.setQueryData<Bookmark[]>('bookmark', [...previousBookMark, res])
         }
       },
       onError: (err) => {
@@ -51,7 +43,7 @@ export const useMutateBookMark = () => {
   )
 
   const deleteBookMarkMutation = useMutation<
-    BookMark,
+    Bookmark,
     Error,
     string,
     DeleteBookMarkMutationFn
@@ -63,9 +55,9 @@ export const useMutateBookMark = () => {
     },
     {
       onSuccess: (_, variables) => {
-        const previousBookMark = queryClient.getQueryData<BookMark[]>('bookmark')
+        const previousBookMark = queryClient.getQueryData<Bookmark[]>('bookmark')
         if (previousBookMark) {
-          queryClient.setQueryData<BookMark[]>(
+          queryClient.setQueryData<Bookmark[]>(
             'bookmark',
             previousBookMark.filter((bookmark) => bookmark.id !== variables)
           )

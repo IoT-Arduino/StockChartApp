@@ -1,16 +1,8 @@
 import { useQueryClient, useMutation} from 'react-query'
 import { useDispatch } from 'react-redux'
 import { resetEditedMarker } from '../store/editInfoSlice'
-
 import { supabase } from './../utils/supabase'
-
-type Comment = {
-  id: number
-  memo: string
-  date: string
-  ticker: string
-  user_id: string
-}
+import { Comment } from './../types/StoreTypes'
 
 export const useMutateComment = () => {
   const queryClient = useQueryClient()
@@ -18,7 +10,7 @@ export const useMutateComment = () => {
   const reset = () => dispatch(resetEditedMarker())
   
   const createCommentMutation = useMutation(
-    async (comment: Partial<Comment>[] | Partial<Comment>) => {
+    async (comment: Partial<Comment>) => {
       const { data, error } = await supabase.from<Comment>('comments').insert(comment)
       if (error) throw new Error(error.message)
       return data![0]
@@ -63,8 +55,8 @@ export const useMutateComment = () => {
       },
     }
   )
-  const deleteCommentMutation = useMutation<unknown, Error, number>(
-    async (id) => {
+  const deleteCommentMutation = useMutation(
+    async (id:string) => {
       const { data, error } = await supabase.from('comments').delete().eq('id', id)
       if (error) throw new Error(error.message)
       return data
@@ -80,7 +72,7 @@ export const useMutateComment = () => {
         }
         reset()
       },
-      onError: (err) => {
+      onError: (err:any) => {
         alert(err.message)
         reset()
       },

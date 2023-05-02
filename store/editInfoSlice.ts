@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { EditedComments, EditedMarker } from '../types/StoreTypes'
+import { EditedComment, EditedMarker } from '../types/StoreTypes'
 
 interface EditInfoState {
-  editedComment: EditedComments
+  editedComment: EditedComment
   editedMarker: EditedMarker
 }
 
@@ -15,7 +15,7 @@ const editInfoSlice = createSlice({
   name: 'editInfo',
   initialState,
   reducers: {
-    updateEditedComment: (state, action: PayloadAction<EditedComments>) => {
+    updateEditedComment: (state, action: PayloadAction<EditedComment>) => {
       state.editedComment = action.payload
     },
     resetEditedComment: (state) => {

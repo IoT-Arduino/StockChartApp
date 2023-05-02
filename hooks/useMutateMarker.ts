@@ -61,7 +61,7 @@ export const useMutateMarker = () => {
     }
   )
   const deleteMarkerMutation = useMutation(
-    async (id: number) => {
+    async (id: string) => {
       const { data, error } = await supabase.from('marker').delete().eq('id', id)
       if (error) throw new Error(error.message)
       return data

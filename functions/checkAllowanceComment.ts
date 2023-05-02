@@ -1,8 +1,8 @@
 import { registerAllowance } from '../const/settings'
 import { Ranks } from '../types/Ranks'
-import { Comments } from './../types/Comments'
+import { Comment } from './../types/StoreTypes'
 
-type CommentsArray = Comments[] | undefined
+type CommentsArray = Comment[] | undefined
 
 export const checkAllowanceComment = (rank: Ranks, comments: CommentsArray) => {
   let canCommentInput

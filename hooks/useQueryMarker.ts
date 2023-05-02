@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query'
 import { supabase } from './../utils/supabase';
-import { Marker } from './../types/Marker'
+import { Marker } from './../types/StoreTypes'
 
 export const useQueryMarker = () => {
   const getMarker = async () => {
