@@ -29,7 +29,7 @@ import * as AiIcons from 'react-icons/ai'
 import { GiCancel } from 'react-icons/gi'
 
 // Types
-import { TranslationLocales } from 'types/TranslationLocales'
+import { TranslationLocales } from '../types/TranslationLocales'
 import { Comment } from '../types/StoreTypes'
 
 export default function InputComments({ ticker, t }: { ticker: string; t: TranslationLocales }) {
@@ -87,7 +87,8 @@ export default function InputComments({ ticker, t }: { ticker: string; t: Transl
   }
 
   // Add  comment related only function
-  const submitInputComment = () => {
+  const submitInputComment = (e:React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
     if (inputComment.memo === '' || inputComment.date === '') {
       alert(`${t.inputRequiredAlert}`)
       return
@@ -167,7 +168,7 @@ export default function InputComments({ ticker, t }: { ticker: string; t: Transl
       </div>
 
       {/* Add Comment Input Fields  */}
-      <div className='my-2 flex flex-wrap justify-start gap-2'>
+      <form className='my-2 flex flex-wrap justify-start gap-2' onSubmit={submitInputComment} data-testid="inputCommentForm">
         <div>
           {locale === 'ja-JP' ? (
             <DatePicker
@@ -247,10 +248,10 @@ export default function InputComments({ ticker, t }: { ticker: string; t: Transl
           <Button
             variant='outline'
             color='teal'
-            onClick={() => submitInputComment()}
             disabled={!canCommentInput || editStatus}
             data-testid='addComment'
             className='mr-2'
+            type="submit"
           >
             {t.inputSave}
           </Button>
@@ -264,7 +265,7 @@ export default function InputComments({ ticker, t }: { ticker: string; t: Transl
             {t.inputCancel}
           </Button>
         </div>
-      </div>
+      </form>
 
       {/* Edit Comment Input Fields  */}
       <div className='mb-8 overflow-hidden rounded-md bg-white shadow'>
