@@ -23,6 +23,8 @@
 - Playwright
 
 ## 💫 コード解説関連記事
+[Reactで使用する株価ローソク足表示ライブラリはAppache Echartsがおすすめです。株価分析Webアプリでのカスタマイズ事例紹介](https://zenn.dev/satoshi_tech/articles/20230507-apache-echarts-marker)
+
 [react-datepickerをカスタマイズ、i18n対応。ChatGPT4がカスタマイズコード作成。](https://zenn.dev/satoshi_tech/articles/20230446-react-datepicker-i18n-customize)
 
 [supabaseでAuthのUserを削除、公式だけではわからなかったのでいろいろ調べた件](https://zenn.dev/satoshi_tech/articles/20220714-supabase-deleteuser)
