@@ -27,7 +27,6 @@ jest.mock('../../hooks/useMutateComment', () => {
 
   createCommentMutation.mutate.mockImplementation((comment) => {
     mockData.push(comment)
-
     // onSuccess関数を呼び出す
     createCommentMutation.onSuccess(mockData)
   })
