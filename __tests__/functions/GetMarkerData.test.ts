@@ -1,5 +1,5 @@
 import { getMarkerData } from '../../functions/GetMarkerData'
-import { Marker } from '../../types/Marker'
+import { Marker } from '../../types/StoreTypes'
 
 describe('getMarkerData', () => {
   it('should return an empty array when the input is empty', () => {

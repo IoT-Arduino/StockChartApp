@@ -1,5 +1,6 @@
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 // import { act, renderHook } from '@testing-library/react-hooks'
+import '@testing-library/jest-dom'
 import userEvent from '@testing-library/user-event'
 import { Provider } from 'react-redux'
 import store from '../../store/store'
