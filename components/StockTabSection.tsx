@@ -59,12 +59,12 @@ const StockTabSection = ({
   })
 
   return (
-    <Tabs color='teal' defaultValue={t.tab1Label}>
+    <Tabs color='teal' defaultValue={editDataForMember ? t.tab4Label :  t.tab1Label } >
       <Tabs.List>
         <Tabs.Tab value={t.tab1Label}>{t.tab1Label}</Tabs.Tab>
         <Tabs.Tab value={t.tab2Label}>{t.tab2Label}</Tabs.Tab>
         <Tabs.Tab value={t.tab3Label}>{t.tab3Label}</Tabs.Tab>
-        <Tabs.Tab value={t.tab4Label} disabled={!editDataForMember}>
+        <Tabs.Tab value={t.tab4Label} disabled={!editDataForMember}  data-testid='memberOnlyTab'>
           {t.tab4Label}
         </Tabs.Tab>
       </Tabs.List>
