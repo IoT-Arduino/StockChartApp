@@ -71,7 +71,7 @@ export default function InputComments({ ticker, t }: { ticker: string; t: Transl
   })
 
   //  Common functions
-  const handleDateChange = (date:Date|null,editStatus:"add"|"edit") =>{
+  const handleDateChange = (date:Date|null,editStatus:"add"|"edit"):void =>{
       if(editStatus === "add"){
       if (date) {
         const dateInLocalTimezone = new Date(date.getTime() - (date.getTimezoneOffset() * 60000));
@@ -99,7 +99,7 @@ export default function InputComments({ ticker, t }: { ticker: string; t: Transl
   }
 
 
-  const switchDateFormatInList = (dateString: string) => {
+  const switchDateFormatInList = (dateString: string):string => {
     const localDate = new Date(dateString)
     const offset = localDate.getTimezoneOffset() // ブラウザのローカルタイムとUTCとの差を分単位で取得
     const utcTimestamp = Date.parse(dateString) // UTCのタイムスタンプを取得
