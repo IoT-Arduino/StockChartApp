@@ -71,18 +71,51 @@ export default function InputComments({ ticker, t }: { ticker: string; t: Transl
   })
 
   //  Common functions
-  const switchDateFormatInList = (dateString: string) => {
-    const date = new Date(dateString)
-    const options = {
-      year: 'numeric' as const,
-      month: '2-digit' as const,
-      day: '2-digit' as const,
+  const handleDateChange = (date:Date|null,editStatus:"add"|"edit") =>{
+      if(editStatus === "add"){
+      if (date) {
+        const dateInLocalTimezone = new Date(date.getTime() - (date.getTimezoneOffset() * 60000));
+        setInputComment({
+          ...inputComment,
+          date: dateInLocalTimezone.toISOString().substring(0, 10),
+        });
+      } else {
+        setInputComment({
+          ...inputComment,
+          date: null,
+        });
+      }
+    // Edit comment date
+    } else {
+      if (date) {
+        const dateInLocalTimezone = new Date(date.getTime() - (date.getTimezoneOffset() * 60000));
+        dispatch(updateEditedComment({
+            ...editedComment,
+            date: date ? dateInLocalTimezone.toISOString().substring(0, 10) : '',
+          })
+        )
+      } 
     }
+  }
+
+
+  const switchDateFormatInList = (dateString: string) => {
+    const localDate = new Date(dateString)
+    const offset = localDate.getTimezoneOffset() // ブラウザのローカルタイムとUTCとの差を分単位で取得
+    const utcTimestamp = Date.parse(dateString) // UTCのタイムスタンプを取得
+
+    // ブラウザのローカルタイムを計算して、フォーマットを整える
+    const localTimestamp = utcTimestamp - (offset * 60 * 1000)
+    const localDateObj = new Date(localTimestamp)
+
+    const year = localDateObj.getFullYear()
+    const month = ('00' + (localDateObj.getMonth() + 1)).slice(-2)
+    const day = ('00' + localDateObj.getDate()).slice(-2)
 
     if (locale === 'ja-JP') {
-      return date.toLocaleDateString('ja-JP', options)
+      return `${year}/${month}/${day}`
     } else {
-      return date.toLocaleDateString('en-US', options)
+      return `${month}/${day}/${year}`
     }
   }
 
@@ -168,7 +201,11 @@ export default function InputComments({ ticker, t }: { ticker: string; t: Transl
       </div>
 
       {/* Add Comment Input Fields  */}
-      <form className='my-2 flex flex-wrap justify-start gap-2' onSubmit={submitInputComment} data-testid="inputCommentForm">
+      <form
+        className='my-2 flex flex-wrap justify-start gap-2'
+        onSubmit={submitInputComment}
+        data-testid='inputCommentForm'
+      >
         <div>
           {locale === 'ja-JP' ? (
             <DatePicker
@@ -176,12 +213,7 @@ export default function InputComments({ ticker, t }: { ticker: string; t: Transl
               wrapperClassName='react-datepicker__input-container'
               placeholderText={'日付を選択'}
               selected={inputComment.date ? new Date(inputComment.date) : null}
-              onChange={(date) =>
-                setInputComment({
-                  ...inputComment,
-                  date: date ? date.toISOString().substring(0, 10) : null,
-                })
-              }
+              onChange={(date) => handleDateChange(date,"add")}
               required
               data-testid='commentDateInput'
               dropdownMode='select'
@@ -214,12 +246,7 @@ export default function InputComments({ ticker, t }: { ticker: string; t: Transl
               className={`rounded border-gray-100 p-1.5 text-base outline-0`}
               placeholderText={'Please select date'}
               selected={inputComment.date ? new Date(inputComment.date) : null}
-              onChange={(date) =>
-                setInputComment({
-                  ...inputComment,
-                  date: date ? date.toISOString().substring(0, 10) : null,
-                })
-              }
+              onChange={(date) => handleDateChange(date,"add")}
               required
               data-testid='commentDateInput'
               peekNextMonth
@@ -251,7 +278,7 @@ export default function InputComments({ ticker, t }: { ticker: string; t: Transl
             disabled={!canCommentInput || editStatus}
             data-testid='addComment'
             className='mr-2'
-            type="submit"
+            type='submit'
           >
             {t.inputSave}
           </Button>
@@ -280,14 +307,7 @@ export default function InputComments({ ticker, t }: { ticker: string; t: Transl
                         <DatePicker
                           className='rounded border-gray-100 p-1.5 text-base outline-0'
                           selected={new Date(editedComment.date)}
-                          onChange={(date) =>
-                            dispatch(
-                              updateEditedComment({
-                                ...editedComment,
-                                date: date ? date.toISOString().substring(0, 10) : '',
-                              })
-                            )
-                          }
+                          onChange={(date) => handleDateChange(date,"edit")}
                           required
                           data-testid='commentDateInput'
                           dropdownMode='select'
@@ -318,14 +338,7 @@ export default function InputComments({ ticker, t }: { ticker: string; t: Transl
                         <DatePicker
                           className='rounded border-gray-100 p-1.5 text-base outline-0'
                           selected={new Date(editedComment.date)}
-                          onChange={(date) =>
-                            dispatch(
-                              updateEditedComment({
-                                ...editedComment,
-                                date: date ? date.toISOString().substring(0, 10) : '',
-                              })
-                            )
-                          }
+                          onChange={(date) => handleDateChange(date,"edit")}
                           required
                           data-testid='commentDateInput'
                           dropdownMode='select'
@@ -364,7 +377,7 @@ export default function InputComments({ ticker, t }: { ticker: string; t: Transl
                   </div>
                 ) : (
                   <div className='mb-3 flex items-center justify-between px-2'>
-                    <div className='truncate text-sm font-medium leading-5'>
+                    <div className='truncate text-sm font-medium leading-5' data-testid="commentList">
                       <span className='mr-6'>{switchDateFormatInList(comment.date)}</span>
                       <span className='flex-grow'>{comment.memo}</span>
                     </div>
