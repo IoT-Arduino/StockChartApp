@@ -46,21 +46,13 @@ test.describe('Ck Membership', async () => {
   let loginPage: LoginPage
   let memberPage: MemberPage
   let stockIdPage: StockIdPage
-  const { BASE_URL } = process.env
-
-  // test.beforeEach(async () => {
-  //   const browser = await chromium.launch() // { headless: false, slowMo: 5 }
-  //   const context = await browser.newContext({
-  //     locale: 'en-US',
-  //   })
-  // });
 
   //  データ入力
-  test('Input Data', async ({ page }) => {
+  test('Input Data', async ({ page, baseURL }) => {
     loginPage = new LoginPage(page)
     memberPage = new MemberPage(page)
     stockIdPage = new StockIdPage(page)
-    await page.goto(`${BASE_URL}`)
+    await page.goto(`${baseURL}`)
     await page.goto('auth/signin')
     await loginPage.login()
 
@@ -74,18 +66,17 @@ test.describe('Ck Membership', async () => {
       await stockIdPage.inputComment()
       await stockIdPage.clickBookMark()
       await stockIdPage.inputMarker()
-
       // await page.screenshot({ path: `e2e/images/${data.Ticker}.png` })
     }
   })
 
   // 入力不可ステイタス確認、1個削除後、入力可ステイタス確認
-  test('Check 入力不可ステイタス', async ({ page }) => {
+  test('Check 入力不可ステイタス', async ({ page, baseURL }) => {
     console.log('Check 入力不可ステイタス Start')
     loginPage = new LoginPage(page)
     memberPage = new MemberPage(page)
     stockIdPage = new StockIdPage(page)
-    await page.goto(`${BASE_URL}`)
+    await page.goto(`${baseURL}`)
     await page.goto('auth/signin')
     await loginPage.login()
 
@@ -110,11 +101,11 @@ test.describe('Ck Membership', async () => {
   })
 
   // 後処理　データ削除　残り8個
-  test(`Clean up Data`, async ({ page }) => {
+  test(`Clean up Data`, async ({ page, baseURL }) => {
     loginPage = new LoginPage(page)
     memberPage = new MemberPage(page)
     stockIdPage = new StockIdPage(page)
-    await page.goto(`${BASE_URL}`)
+    await page.goto(`${baseURL}`)
     await page.goto('auth/signin')
     await loginPage.login()
 
@@ -140,11 +131,11 @@ test.describe('Ck Membership', async () => {
   })
 
   // 会員ページで、データ登録が0であることを確認する。
-  test('Logout', async ({ page }) => {
+  test('Logout', async ({ page, baseURL }) => {
     loginPage = new LoginPage(page)
     memberPage = new MemberPage(page)
     stockIdPage = new StockIdPage(page)
-    await page.goto(`${BASE_URL}`)
+    await page.goto(`${baseURL}`)
     await page.goto('auth/signin')
     await loginPage.login()
     await memberPage.assertLoginEmail()

@@ -48,9 +48,8 @@ test.describe.skip(`Recording Short Video`, () => {
   let loginPage: LoginPage
   let memberPage: MemberPage
   let stockIdPage: StockIdPage
-  const { BASE_URL } = process.env
 
-  test(`Recording Short Video Loop`, async () => {
+  test(`Recording Short Video Loop`, async ({ baseURL }) => {
     const browser = await firefox.launch({ headless: true }) // { headless: false, slowMo: 1 } -> 必ず　{ headless: true }に戻す。
     const context = await browser.newContext({
       locale: 'en-US',
@@ -68,7 +67,7 @@ test.describe.skip(`Recording Short Video`, () => {
     memberPage = new MemberPage(page)
     stockIdPage = new StockIdPage(page)
 
-    await page.goto(`${BASE_URL}`)
+    await page.goto(`${baseURL}`)
     await page.goto('auth/signin')
     await loginPage.login()
 
