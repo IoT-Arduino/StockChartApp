@@ -33,7 +33,7 @@ import { Marker } from '../types/StoreTypes'
 
 export default function InputMarker({ ticker, t }: { ticker: string; t: TranslationLocales }) {
   const { user: contextUser, session: contextSession, rank } = useContext(UserContext)
-   const { createMarkerMutation, updateMarkerMutation, deleteMarkerMutation } = useMutateMarker()
+  const { createMarkerMutation, updateMarkerMutation, deleteMarkerMutation } = useMutateMarker()
   const { data: markerData, status } = useQueryMarker()
 
   const router = useRouter()
