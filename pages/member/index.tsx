@@ -164,7 +164,7 @@ const Home: NextPage = () => {
                             <a>{marker.ticker}</a>
                           </Link>
                         </td>
-                        <td className='px-4 py-2'>{marker.date}</td>
+                        <td className='px-4 py-2'>{marker.date.substring(0, 7)}</td>
                         <td className='px-4 py-2'>{marker.memo}</td>
                       </tr>
                     )
