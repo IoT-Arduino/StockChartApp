@@ -9,14 +9,14 @@ const baseURL = isProduction ? process.env.NEXT_PUBLIC_BASE_URL : process.env.DE
 
 const config: PlaywrightTestConfig = {
   testMatch: /e2e\/.*\.spec\.ts$/,
-  // globalSetup: require.resolve('./global-setup'),
+  // globalSetup: require.resolve('./e2e/config/globalSetup'),
   use: {
     baseURL: baseURL,
     headless: false,
     ignoreHTTPSErrors: true,
     actionTimeout: 10_000,
   },
-  reporter: [['html', { open: 'always' }]],
+  reporter: [['html', { outputDir: 'e2e/report', open: 'always' }]],
   projects: [
     {
       name: 'chromium',
