@@ -1,8 +1,4 @@
-// import { useEffect } from 'react'
 import type { NextPage } from 'next'
-// import Head from 'next/head'
-// import Image from 'next/image'
-// import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 // Component
@@ -12,13 +8,6 @@ import { codeList } from '../data/stockCode/US-StockList'
 
 // Types
 import { Company } from '../types/Company'
-
-// images
-// import DummyImage from '../public/images/TopAppleChart.png'
-// import UNHChart from '../public/images/UNHChart.png'
-// import TSLAChart from '../public/images/TSLAChart.png'
-// import AAPLCandleChart from '../public/images/AAPLCandleChart.png'
-// import AAPLCashFlow from '../public/images/AAPLCashFlow.png'
 
 // 他に使用されている箇所、全体Index,StockIndex,Navbar
 const codeListNotUnlist:Company[] = codeList.filter((item) => {
