@@ -6,10 +6,23 @@ import axios from 'axios'
 
 import { supabase } from '../../utils/supabase'
 
+
+// Mantine
+import { ActionIcon } from '@mantine/core'
+// Icons
+import * as AiIcons from 'react-icons/ai'
+
 import { UserContext } from '../../utils/UserContext'
 import { useQueryComments } from '../../hooks/useQueryComments'
 import { useQueryBookMark } from '../../hooks/useQueryBookMark'
 import { useQueryMarker } from '../../hooks/useQueryMarker'
+import { useMutateComment } from '../../hooks/useMutateComment'
+import { useMutateMarker } from '../../hooks/useMutateMarker'
+
+// Redux Related
+import { useDispatch } from 'react-redux'
+// import { RootState } from '../../store/rootReducer'
+// import { updateEditedComment, resetEditedComment } from '../../store/editInfoSlice'
 
 
 // 登録数制限
@@ -23,7 +36,10 @@ import RegisterLimit from '../../components/RegisterLimit'
 import en from '../../locales/en/en'
 import ja from '../../locales/ja/ja'
 
+// Types
 import { TranslationLocales } from '../../types/TranslationLocales'
+import { Comment } from '../../types/StoreTypes'
+import { Marker } from '../../types/StoreTypes'
 
 const Home: NextPage = () => {
   const router = useRouter()
@@ -31,6 +47,9 @@ const Home: NextPage = () => {
   const { user, session, rank } = useContext(UserContext)
   const { replace } = useRouter()
   const { push, pathname } = useRouter()
+
+  const { deleteCommentMutation } = useMutateComment()
+  const { deleteMarkerMutation } = useMutateMarker()
 
   const [isDisplay, setIsDisplay] = useState<boolean>(false)
 
@@ -78,6 +97,26 @@ const Home: NextPage = () => {
     }
   }
 
+    const deleteComment = (comment: Partial<Comment>) => {
+    let confirmDelete = confirm(
+      `${comment.ticker} : ${comment.date} : ${comment.memo} : ${t.inputDeleteAlert}`
+    )
+    if (confirmDelete) {
+      deleteCommentMutation.mutate(comment.id!)
+    } else {
+      return
+    }
+  }
+
+  const deleteMarker = (marker: Partial<Marker>) => {
+    let confirmDelete = confirm(`${marker.ticker} : ${marker.date} : ${marker.memo}: ${t.inputDeleteAlert}`)
+    if (confirmDelete) {
+      deleteMarkerMutation.mutate(marker.id!)
+    } else {
+      return
+    }
+  }
+
   return (
     <div>
       {user ? (
@@ -95,7 +134,9 @@ const Home: NextPage = () => {
             </p>
           ) : null}
 
-          {isDisplay ?  <p className='font-xl mb-2 mt-8 font-bold'>{t.memberShipSecTitle1}</p> : null}
+          {isDisplay ? (
+            <p className='font-xl mb-2 mt-8 font-bold'>{t.memberShipSecTitle1}</p>
+          ) : null}
           {canBookMarkInput ? (
             <span data-testid='canBookMarkInput'>{t.memberShipCanInput}</span>
           ) : (
@@ -150,6 +191,9 @@ const Home: NextPage = () => {
                     <th scope='col' className='px-4 py-2'>
                       {t.memberShipTableMemo}
                     </th>
+                    <th scope='col' className='px-4 py-2'>
+                      {''}
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -166,6 +210,19 @@ const Home: NextPage = () => {
                         </td>
                         <td className='px-4 py-2'>{marker.date.substring(0, 7)}</td>
                         <td className='px-4 py-2'>{marker.memo}</td>
+                        <td>
+                          <ActionIcon
+                            onClick={(e) => {
+                              e.preventDefault()
+                              e.stopPropagation()
+                              deleteMarker(marker)
+                            }}
+                            data-testid='markerDelete'
+                            className='ml-1 p-1'
+                          >
+                            <AiIcons.AiFillDelete />
+                          </ActionIcon>
+                        </td>
                       </tr>
                     )
                   })}
@@ -174,7 +231,9 @@ const Home: NextPage = () => {
             </div>
           )}
 
-          {isDisplay ?  <p className='font-xl mb-2 mt-8 font-bold'>{t.memberShipSecTitle3}</p> : null}
+          {isDisplay ? (
+            <p className='font-xl mb-2 mt-8 font-bold'>{t.memberShipSecTitle3}</p>
+          ) : null}
           {canCommentInput ? (
             <span data-testid='canCommentInput'>{t.memberShipCanInput}</span>
           ) : (
@@ -195,6 +254,9 @@ const Home: NextPage = () => {
                     <th scope='col' className='px-4 py-2'>
                       {t.memberShipTableMemo}
                     </th>
+                    <th scope='col' className='px-4 py-2'>
+                      {''}
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -211,6 +273,19 @@ const Home: NextPage = () => {
                         </td>
                         <td className='px-4 py-2'>{comment.date}</td>
                         <td className='px-4 py-2'>{comment.memo}</td>
+                        <td>
+                          <ActionIcon
+                            onClick={(e) => {
+                              e.preventDefault()
+                              e.stopPropagation()
+                              deleteComment(comment)
+                            }}
+                            data-testid='commentDelete'
+                            className='ml-1 p-1'
+                          >
+                            <AiIcons.AiFillDelete />
+                          </ActionIcon>
+                        </td>
                       </tr>
                     )
                   })}
