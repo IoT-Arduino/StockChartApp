@@ -8,6 +8,11 @@
 # testing
 /coverage
 
+# e2e
+/e2e/report
+/e2e/videos
+/playwright-report
+
 # next.js
 /.next/
 /out/
