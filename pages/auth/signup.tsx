@@ -8,6 +8,7 @@ import { useRouter } from 'next/router'
 import style from './auth.module.css'
 
 import { registerAllowance } from '../../const/settings'
+import { DisableSignUpStatus } from '../../const/settings'
 
 // i18n
 import en from './../../locales/en/en'
@@ -87,6 +88,7 @@ const signup = () => {
                 icon={<IconMail />}
                 error={errors.email ? errors.email.message : ''}
                 placeholder='email'
+                disabled={DisableSignUpStatus}
               />
             )}
             rules={{
@@ -110,6 +112,7 @@ const signup = () => {
                 label='Password'
                 error={errors.password ? errors.password.message : ''}
                 placeholder={t.signInPwdPlaceHolder}
+                disabled={DisableSignUpStatus}
               />
             )}
             rules={{
@@ -133,6 +136,7 @@ const signup = () => {
                 label='ConfirmPassword'
                 error={errors.confirmPassword ? errors.confirmPassword.message : ''}
                 placeholder={t.signUpPwdConfirm}
+                disabled={DisableSignUpStatus}
               />
             )}
             rules={{
@@ -145,7 +149,7 @@ const signup = () => {
             }}
           />
           <div className='h-4' />
-          <Button block>
+          <Button block disabled={DisableSignUpStatus}>
             {t.signInSubmit}
           </Button>
           <div className='h-4' />

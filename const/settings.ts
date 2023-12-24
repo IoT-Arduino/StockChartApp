@@ -9,3 +9,6 @@ export const registerAllowance = {
     MarkerLimitBusiness : 15000 ,
     CommentLimitBusiness : 15000 ,
 }
+
+// sign up 機能をdisable（暫定）
+export const DisableSignUpStatus = true
