@@ -6,7 +6,7 @@
 ## 🪙 Siteのアドレス
 
 アプリurl : [https://www.tenq.cc/ja-JP](https://www.tenq.cc/ja-JP)
-
+(株価及び財務諸表データの更新は、2022年分までを反映)
 
 ## 🎓 技術スタック
 - TypeScript
